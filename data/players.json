@@ -1,0 +1,20 @@
+{
+  "players": [
+    {
+      "id": "bb1",
+      "name": "Bindul Bhowmik"
+    },
+    {
+      "id": "je1",
+      "name": "Josh Ellis"
+    },
+    {
+      "id": "lw1",
+      "name": "Luke Wiegand"
+    },
+    {
+      "id": "ne1",
+      "name": "Nick Earhart"
+    }
+  ]
+}

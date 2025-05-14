@@ -1,0 +1,75 @@
+{
+  "seasons-leagues": [
+    {
+      "season": "2024 - 25",
+      "leagues": [
+        {
+          "id": "2425-summer-beer",
+          "name": "Summer Thursday Beer League",
+          "data-loc": "league-2425-summer-beer.json",
+          "teams": [
+            {
+              "id": "2425-summer-beer-38",
+              "name": "Pins Go Boom!"
+            }
+          ]
+        },
+        {
+          "id": "2425-winter-beer",
+          "name": "Winter Thursday Beer League",
+          "teams": [
+            {
+              "id": "2425-winter-beer-34",
+              "name": "Pins Go Boom!"
+            }
+          ]
+        },
+        {
+          "id": "2425-fall-beer",
+          "name": "Fall Thursday Beer League",
+          "teams": [
+            {
+              "id": "2425-fall-beer-16",
+              "name": "Pins Go Boom!"
+            }
+          ]
+        },
+        {
+          "id": "2425-fall-postal",
+          "name": "Aurora Postal Mixed League",
+          "teams": [
+            {
+              "id": "2425-fall-postal-17",
+              "name": "Pins Go Boom"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "season": "2023 - 24",
+      "leagues": [
+        {
+          "id": "2324-summer-beer",
+          "name": "Summer Thursday Beer League",
+          "teams": [
+            {
+              "id": "2324-summer-beer-26",
+              "name": "Pins Go Boom!"
+            }
+          ]
+        },
+        {
+          "id": "2324-winter-thu-social",
+          "name": "Winter Thursday Social",
+          "teams": [
+            {
+              "id": "324-winter-thu-social-14",
+              "name": "H & B Replacements"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
