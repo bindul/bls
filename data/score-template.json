@@ -1,0 +1,120 @@
+{
+  "week": 1,
+  "scheduled-date": "2025-mm-dd",
+  "bowl-date": "2025-mm-dd",
+  "matchup-type": "REGULAR-DIVISION",
+  "entering-rank": 0,
+  "lanes": [1, 2],
+  "oil-pattern": "House-Regular",
+  "notes": [ "" ],
+  "scores": {
+    "player-scores": [
+      {
+        "player": "ne1",
+        "entering-average": 0,
+        "hdcp": 0,
+        "hdcp-setting-day": false,
+        "games": [
+          {
+            "blind": false,
+            "arsenal": ["ne1-humo"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          },
+          {
+            "blind": false,
+            "arsenal": ["ne1-siom"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          },
+          {
+            "blind": false,
+            "arsenal": ["ne1-bw20"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          }
+        ]
+      },
+      {
+        "player": "bb1",
+        "entering-average": 136,
+        "hdcp": 79,
+        "hdcp-setting-day": true,
+        "games": [
+          {
+            "blind": false,
+            "arsenal": ["bb1-bw30"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          },
+          {
+            "blind": false,
+            "arsenal": ["bb1-bw30"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          },
+          {
+            "blind": false,
+            "arsenal": ["bb1-bw30"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          }
+        ]
+      },
+      {
+        "player": "je1",
+        "entering-average": 0,
+        "hdcp": 0,
+        "hdcp-setting-day": false,
+        "games": [
+          {
+            "blind": false,
+            "arsenal": ["je1-mfve"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          },
+          {
+            "blind": false,
+            "arsenal": ["je1-mfve"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          },
+          {
+            "blind": false,
+            "arsenal": ["je1-mfve"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          }
+        ]
+      },
+      {
+        "player": "lw1",
+        "entering-average": 0,
+        "hdcp": 0,
+        "hdcp-setting-day": false,
+        "games": [
+          {
+            "blind": false,
+            "arsenal": ["lw1-hupp"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          },
+          {
+            "blind": false,
+            "arsenal": ["lw1-hupp"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          },
+          {
+            "blind": false,
+            "arsenal": ["lw1-hupp"],
+            "frames": [["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", ""], ["", "", ""]]
+          }
+        ]
+      }
+    ]
+  },
+  "opponent": {
+    "team-id": "2425-summer-beer-37",
+    "entering-rank": 0,
+    "hdcp": 0,
+    "vacant": false,
+    "absent": false,
+    "scores": {
+      "games": [
+        { "score": 0 },
+        { "score": 0 },
+        { "score": 0 }
+      ]
+    }
+  }
+}
