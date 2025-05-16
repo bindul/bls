@@ -18,6 +18,8 @@
 import 'bootswatch/dist/lumen/bootstrap.min.css';
 import './sass/bls.scss';
 
+import {ContextCacheProvider} from "./data/utils/context-cache";
+
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import {Route, Routes} from "react-router-dom";
@@ -28,7 +30,6 @@ import Home from "./pages/home";
 import League from "./pages/league";
 import LeagueTeam from "./pages/league-team";
 import NoPage from "./pages/nopage";
-import {LeagueContextContextProvider} from "./pages/components/league/league-list-context"
 
 export default function App() {
     return (
@@ -48,9 +49,9 @@ export default function App() {
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <HashRouter>
-            <LeagueContextContextProvider>
+            <ContextCacheProvider>
                 <App/>
-            </LeagueContextContextProvider>
+            </ContextCacheProvider>
         </HashRouter>
     </StrictMode>
 )

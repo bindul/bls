@@ -15,18 +15,3 @@
  */
 
 export const APP_URL_BASE = "/data/";
-
-export interface Transform<T> {
-    (json: any): T;
-}
-
-export async function fetchResource <T>(resource: string, transform: Transform<T>): Promise<T> {
-    const url = APP_URL_BASE + resource;
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch resource: ${resource} :: ${response.status}`);
-    }
-    const json = await response.json();
-    console.debug("Fetched from ", url, ": ", json);
-    return transform(json);
-}
