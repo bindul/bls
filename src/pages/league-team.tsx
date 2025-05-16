@@ -17,6 +17,7 @@
 import type {FC} from "react";
 import {useParams} from "react-router-dom";
 
+// TODO Convert this to a component
 const LeagueTeam :FC = () => {
     const { leagueId, teamId } = useParams();
     return (

@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-import {fetchResource} from "../utils/query-client";
 import {Players} from "./player-info";
+import {APP_URL_BASE} from "../utils/constants";
 
+export const PLAYER_LIST_CACHE_KEY = "player-list";
 const PLAYER_INDEX_RESOURCE = "players.json";
 
-export async function getPlayerInfos() {
-    // TODO Add context and caching support. See league-api.ts for sample
-    return fetchResource(PLAYER_INDEX_RESOURCE, json => new Players(json));
-}
+export const playerListFetcher = async() =>
+    fetch(APP_URL_BASE + PLAYER_INDEX_RESOURCE)
+        .then(res => res.json())
+        .then(json => new Players(json));

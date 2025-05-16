@@ -14,26 +14,13 @@
  * limitations under the License.
  */
 
-import {AvailableLeagues} from "./league-info.ts";
-import {fetchResource} from "../utils/query-client.ts";
-import type {LeagueListContextInfo} from "../../pages/components/league/league-list-context.tsx";
+import {AvailableLeagues} from "./league-info";
+import {APP_URL_BASE} from "../utils/constants";
 
+export const LEAGUE_LIST_CACHE_KEY = "league-list";
 const LEAGUE_INDEX_RESOURCE = "leagues.json";
-const LEAGUE_INDEX_CACHE_TTL = 5 * 60 * 1000; // 5 mins
 
-export async function getAvailableLeagues(context?:LeagueListContextInfo) {
-    if (context && context.leagues && context.lastUpdated && Date.now() - context.lastUpdated.getTime() < LEAGUE_INDEX_CACHE_TTL) {
-        console.debug("Returning cached leagues");
-        return context.leagues;
-    }
-    const avblLeaguesPromise = fetchResource(LEAGUE_INDEX_RESOURCE, json => new AvailableLeagues(json));
-    if (context) {
-        // Wrap the promise so we can cache the value
-        return avblLeaguesPromise.then(v => {
-            context.leagues = v;
-            context.lastUpdated = new Date();
-            return v;
-        });
-    }
-    return avblLeaguesPromise;
-}
+export const leagueInfoListFetcher = async() =>
+    fetch(APP_URL_BASE + LEAGUE_INDEX_RESOURCE)
+    .then(res => res.json())
+    .then(json => new AvailableLeagues(json));

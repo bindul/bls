@@ -16,8 +16,11 @@
 import {AvailableLeagues, LeagueInfo} from "../../../data/league/league-info";
 import Loader from "../loader";
 import ErrorDisplay from "../error-display";
-import {getAvailableLeagues} from "../../../data/league/league-api";
-import {useLeagueListContext} from "./league-list-context";
+import {
+    LEAGUE_LIST_CACHE_KEY,
+    leagueInfoListFetcher
+} from "../../../data/league/league-api";
+import {useCachedFetcher} from "../../../data/utils/data-loader";
 
 import Card from "react-bootstrap/Card"
 import ListGroup from "react-bootstrap/ListGroup"
@@ -26,7 +29,7 @@ import {Badge, CardBody, CardFooter, CardHeader, CardTitle} from 'react-bootstra
 import {ArrowRightShort, PlayCircleFill} from "react-bootstrap-icons";
 import {Link, type To} from "react-router-dom";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useCallback} from "react";
 
 interface LeagueLinkProps {
     condition :boolean;
@@ -73,29 +76,19 @@ function League({league} :LeagueProps) {
 }
 
 function LeagueList() {
-    const [availableLeagues, setAvailableLeagues] = useState<AvailableLeagues>();
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<Error | null>(null);
-    const leagueListContext = useLeagueListContext();
+    const fetcher = useCallback(leagueInfoListFetcher, []);
+    const { data, isLoading, error } = useCachedFetcher<AvailableLeagues>(LEAGUE_LIST_CACHE_KEY, fetcher);
 
-    useEffect(() => {
-        getAvailableLeagues(leagueListContext)
-            .then(leagues => {
-                console.debug("Got Leagues: " , leagues);
-                setAvailableLeagues(leagues);
-            })
-            .catch(error => {console.error(error); setError(error);})
-            .finally(() => setLoading(false));
-    }, []);
+    console.log(isLoading, error, data);
 
     return (
         <Card className="mb-3">
             <CardHeader as="h3">Leagues & Teams</CardHeader>
             {/*Still Loading*/}
-            {loading && <div className="card-body"><Loader /></div>}
+            {isLoading && <div className="card-body"><Loader /></div>}
             {/*Set error handling here, or the rest of the component does not get displayed*/}
             {error && <ErrorDisplay message="Error loading leagues. Nothing else on the site will probably work." error={error}/>}
-            {availableLeagues && availableLeagues.seasons?.map(season => (
+            {data && data.seasons?.map(season => (
                 <CardBody className="border-primary" key={season.season}>
                     <CardTitle>{season.season} Season</CardTitle>
                     <ListGroup id={season.season}>
