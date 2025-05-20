@@ -14,12 +14,53 @@
  * limitations under the License.
  */
 
-export class AvailableLeagues {
-    seasons: LeagueSeason[];
+import {JsonObject, JsonProperty} from "json2typescript";
 
-    constructor(data: any) {
-        this.seasons = data['seasons-leagues']?.map((sl :any) => new LeagueSeason(sl)) ?? [];
+@JsonObject("LeagueInfoTeam")
+export class LeagueInfoTeam {
+    @JsonProperty("id", String)
+    id: string | undefined = undefined;
+
+    @JsonProperty("name", String)
+    name: string | undefined = undefined;
+}
+
+@JsonObject("LeagueInfo")
+export class LeagueInfo {
+    @JsonProperty("id", String)
+    id: string | undefined = undefined;
+
+    @JsonProperty("name", String)
+    name: string | undefined = undefined;
+
+    @JsonProperty("data-loc", String)
+    dataLoc?: string = undefined;
+
+    @JsonProperty("ongoing", Boolean)
+    ongoing: boolean = false;
+
+    @JsonProperty("teams", [LeagueInfoTeam])
+    teams: LeagueInfoTeam[] = [];
+
+    hasData () :boolean {
+        return (this.dataLoc != undefined && this.dataLoc.length > 0);
     }
+}
+
+@JsonObject("LeagueSeason")
+export class LeagueSeason {
+    @JsonProperty("season", String)
+    season: string | undefined = undefined;
+
+    @JsonProperty("leagues", [LeagueInfo])
+    leagues: LeagueInfo[] = [];
+}
+
+@JsonObject("AvailableLeagues")
+export class AvailableLeagues {
+
+    @JsonProperty("seasons-leagues", [LeagueSeason])
+    seasons: LeagueSeason[] = [];
 
     findLeague(leagueId: string) {
         for (let i = 0; i < this.seasons.length; i++) {
@@ -31,41 +72,4 @@ export class AvailableLeagues {
             }
         }
     }
-}
-
-export class LeagueSeason {
-    season: string;
-    leagues: LeagueInfo[];
-
-    constructor(data: any) {
-        this.season = data.season;
-        this.leagues = data.leagues?.map((s :any) => new LeagueInfo(s)) ?? [];
-    }
-}
-
-export class LeagueInfo {
-    id: string;
-    name: string;
-    dataLoc?: string;
-    hasData: boolean = false;
-    ongoing: boolean = false;
-    teams: LeagueInfoTeam[];
-
-    constructor(data: any) {
-        this.id = data.id;
-        this.name = data.name;
-        if (data["data-loc"] != undefined) {
-            this.dataLoc = data["data-loc"];
-            this.hasData = true;
-        }
-        if (data["ongoing"]) {
-            this.ongoing = data["ongoing"];
-        }
-        this.teams = data.teams?.map((t: any) => t as LeagueInfoTeam) ?? [];
-    }
-}
-
-export interface LeagueInfoTeam {
-    id: string;
-    name: string;
 }

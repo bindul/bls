@@ -41,6 +41,7 @@ const LeagueSummary: React.FC<LeagueSummaryParams> = ({leagueInfo, children}) =>
     }
 
     const {data, isLoading, error } = useCachedFetcher<LeagueDetails>(fetcher.bind(null, leagueInfo.dataLoc), LEAGUE_DETAILS_CACHE_CATEGORY, leagueInfo.id);
+    // console.debug(data);
 
     return (
         <>

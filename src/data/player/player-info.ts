@@ -14,21 +14,29 @@
  * limitations under the License.
  */
 
-export class PlayerInfo {
-    id: string;
-    name: string;
+import {JsonObject, JsonProperty} from "json2typescript";
+import {DateConverter} from "../utils/json-utils";
 
-    constructor(data :any) {
-        this.id = data['id'];
-        this.name = data['name'];
-    }
+@JsonObject("PlayerInfo")
+export class PlayerInfo {
+
+    @JsonProperty("id", String)
+    id: string | undefined = undefined;
+
+    @JsonProperty("name", String)
+    name: string | undefined = undefined;
+
+    @JsonProperty("last-bowled", DateConverter)
+    lastBowled?: Date | undefined = undefined;
+
+    @JsonProperty("data-loc", String)
+    dataLoc?: string = undefined;
 }
 
+@JsonObject("Players")
 export class Players {
-    players: PlayerInfo[];
 
-    constructor(data: any) {
-        this.players = data['players']?.map((p :any) => new PlayerInfo(p)) ?? [];
-        this.players.sort((a:any, b:any) => a.id.localeCompare(b.id));
-    }
+    @JsonProperty("players", [PlayerInfo])
+    players: PlayerInfo[] = [];
+
 }
