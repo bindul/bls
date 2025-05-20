@@ -14,23 +14,42 @@
  * limitations under the License.
  */
 
-import type {FC} from "react";
-import {useParams, Outlet} from "react-router-dom";
+import  {type FC} from "react";
+import {useParams} from "react-router-dom";
+import LeagueSummary from "./components/league/league-summary.tsx";
+
+import Loader from "./components/loader";
+import ErrorDisplay from "./components/error-display";
+import {LEAGUE_LIST_CACHE_CATEGORY, leagueInfoListFetcher} from "../data/league/league-api.ts";
+import {AvailableLeagues} from "../data/league/league-info.ts";
+import {useCachedFetcher} from "../data/utils/data-loader.tsx";
 import LeagueList from "./components/league/league-list.tsx";
 
 const League :FC = () => {
-    const { leagueId } = useParams();
+    const { leagueId } = useParams(); //TODO Add teamId later
 
     if (!leagueId) {
         return <LeagueList/>;
     }
 
+    // Check if league is valid
+    const { data: leagueListData, isLoading: leagueListLoading, error: leagueListLoadError } = useCachedFetcher<AvailableLeagues>(leagueInfoListFetcher, LEAGUE_LIST_CACHE_CATEGORY);
+    if (leagueListLoading) {
+        return <Loader />
+    }
+    if (leagueListLoadError) {
+        return <ErrorDisplay message="Error loading leagues. Nothing else on the site will probably work." error={leagueListLoadError}/>
+    }
+    if ((leagueListData && !leagueListData.findLeague(leagueId)) || leagueListLoadError) {
+        return (<>
+            <LeagueList />
+            <ErrorDisplay message="Incorrect League ID. Please select a correct league."/>
+        </>);
+    }
+
     return (
         <>
-            <h1>League</h1>
-            <h2>{leagueId}</h2>
-
-            <Outlet />
+            {leagueListData && <LeagueSummary leagueInfo={leagueListData.findLeague(leagueId)}/>}
         </>
     )
 };

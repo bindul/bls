@@ -20,12 +20,12 @@ import {CardBody, CardFooter, CardHeader, CardText, CardTitle} from "react-boots
 
 import Loader from "../loader";
 import type {Players} from "../../../data/player/player-info";
-import {PLAYER_LIST_CACHE_KEY, playerListFetcher} from "../../../data/player/player-api";
+import {PLAYER_LIST_CACHE_CATEGORY, playerListFetcher} from "../../../data/player/player-api";
 import {useCachedFetcher} from "../../../data/utils/data-loader";
 import ErrorDisplay from "../error-display";
 
 function PlayerList() {
-    const { data, isLoading, error } = useCachedFetcher<Players>(PLAYER_LIST_CACHE_KEY, playerListFetcher);
+    const { data, isLoading, error } = useCachedFetcher<Players>(playerListFetcher, PLAYER_LIST_CACHE_CATEGORY);
 
     return (
         <Card className="mb-3">

@@ -23,7 +23,7 @@ export interface CachedFetcherReturn<T> {
     error: Error | null;
 }
 
-export function useCachedFetcher<T>(key :string, fetcher :() => Promise<T>): CachedFetcherReturn<T> {
+export function useCachedFetcher<T>(fetcher :() => Promise<T>, category: string, key?:string): CachedFetcherReturn<T> {
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
@@ -33,7 +33,7 @@ export function useCachedFetcher<T>(key :string, fetcher :() => Promise<T>): Cac
 
         // Check cache
         if (contextCache != null) {
-            let value = contextCache.get<T>(key);
+            let value = contextCache.get<T>(category, key);
             if (value != null) {
                 // console.debug("Returning cached value: ", JSON.stringify(value));
                 setData(value);
@@ -45,7 +45,7 @@ export function useCachedFetcher<T>(key :string, fetcher :() => Promise<T>): Cac
         fetcher().then((data) => {
             // console.debug("Retrieved value: ", JSON.stringify(data));
             if (contextCache != null) {
-                contextCache.put<T>(key, data);
+                contextCache.put<T>(category, key, data);
             }
             setData(data);
         })

@@ -17,7 +17,7 @@
 import {Players} from "./player-info";
 import {APP_URL_BASE} from "../utils/constants";
 
-export const PLAYER_LIST_CACHE_KEY = "player-list";
+export const PLAYER_LIST_CACHE_CATEGORY = "player-list";
 const PLAYER_INDEX_RESOURCE = "players.json";
 
 export const playerListFetcher = async() =>

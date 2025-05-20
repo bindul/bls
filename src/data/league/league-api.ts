@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
+import {LeagueDetails} from "./league-details.ts";
 import {AvailableLeagues} from "./league-info";
 import {APP_URL_BASE} from "../utils/constants";
 
-export const LEAGUE_LIST_CACHE_KEY = "league-list";
+export const LEAGUE_LIST_CACHE_CATEGORY = "league-list";
+export const LEAGUE_DETAILS_CACHE_CATEGORY = "league-details";
 const LEAGUE_INDEX_RESOURCE = "leagues.json";
 
 export const leagueInfoListFetcher = async() =>
     fetch(APP_URL_BASE + LEAGUE_INDEX_RESOURCE)
     .then(res => res.json())
     .then(json => new AvailableLeagues(json));
+
+export const leagueTeamDetailsFetcher = async(dataLoc: string) =>
+    fetch(APP_URL_BASE + dataLoc)
+    .then(res => res.json())
+    .then(json => new LeagueDetails(json));
