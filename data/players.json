@@ -1,6 +1,11 @@
 {
   "players": [
     {
+      "id": "al1",
+      "name": "Aaron Lopez",
+      "last-bowled": "2025-04-15"
+    },
+    {
       "id": "bb1",
       "name": "Bindul Bhowmik"
     },

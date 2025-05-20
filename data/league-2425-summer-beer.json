@@ -20,21 +20,48 @@
     "start-time": "19:00",
     "start-date": "2025-05-08",
     "duration": 15,
-    "duration-unit": "W",
+    "duration-unit": "WK",
     "position-rounds": ["WK14", "WK15"]
   },
-  "config": {
+  "scoring-rules": {
+    "legal-lineup": 2,
+    "substitutes-allowed": true,
     "hdcp": {
-      "rule": "DEFAULT",
-      "target": 210,
-      "pct-to-target": 90.0
+      "type": "PCT_AVG_TO_TGT",
+      "pct-avg-to-tgt-config": {
+        "target": 210,
+        "pct-to-target": 90
+      }
     },
-    "point-assignment-rules": "1-per-game-1-total-split-tie-vacant-threshold-absent-vacant",
-    "vacant-point-win-threshold": -40,
     "blind-penalty": {
       "default": 0,
-      "missed-games-threshold": 3,
-      "missed-games-penalty": 10
+      "missed-matchups-penalty": 10,
+      "missed-matchups-threshold": 3
+    },
+    "point-scoring": {
+      "matchup-point-scoring-rule": "PPG_PPS",
+      "ppg-pps-matchup-point-scoring-config": {
+        "points-per-game": 1,
+        "points-per-series": 1,
+        "points-per-game-on-tie": 0.5,
+        "points-per-series-on-tie": 0.5,
+        "vacant-opponent-allowed": true,
+        "absent-opponent-allowed": true
+      },
+      "vacant-opponent-scoring": {
+        "allowed": true,
+        "type": "POINTS_WITHIN_AVG",
+        "points-within-avg-config": {
+          "points-within-team-avg": 40
+        }
+      },
+      "absent-opponent-scoring": {
+        "allowed": true,
+        "type": "POINTS_WITHIN_AVG",
+        "points-within-avg-config": {
+          "points-within-team-avg": 40
+        }
+      }
     }
   },
   "teams": [
