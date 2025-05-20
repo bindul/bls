@@ -3,27 +3,11 @@
   "season": "2024-25",
   "center": "Arapahoe Bowling Center",
   "name": "Summer Thursday Beer League",
-  "online-scoring": [
-    {
-      "platform": "LeagueSecretary",
-      "league-secretary": {
-        "center-id": 12099,
-        "league-id": 133016,
-        "dashboard-url": "https://leaguesecretary.com/bowling-centers/arapahoe-bowling-center/bowling-leagues/beer-summer-2025/dashboard/133016"
-      }
-    }],
+  "league-secreary-id": 133016,
   "usbc-sanctioned": false,
   "completed": false,
-  "bowling-days": {
-    "games-per-week": 3,
-    "bowls-on": "Thursday",
-    "start-time": "19:00",
-    "start-date": "2025-05-08",
-    "duration": 15,
-    "duration-unit": "W",
-    "position-rounds": ["WK14", "WK15"]
-  },
   "config": {
+    "games-per-week": 3,
     "hdcp": {
       "rule": "DEFAULT",
       "target": 210,
