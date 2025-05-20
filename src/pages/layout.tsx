@@ -65,8 +65,9 @@ const Layout :FC = () => {
                 <hr className="mt-2 mb-2"/>
                 <div className="text-muted text-center lh-sm">
                     <p>Contains fun data, empowers bragging rights, enables the nerds, and justifies adult money (well)
-                        spent at the Pro Shop.
-                        <br/>Copyright &copy; 2025 Members of the Pins Go Boom! Bowling Team.</p>
+                        spent at the Pro Shop.<br/>
+                        Copyright &copy; 2025 <span className="text-primary-emphasis">Pins Go Boom!</span> Bowling Team.
+                    </p>
                 </div>
             </div>
         </>

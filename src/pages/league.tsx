@@ -54,23 +54,4 @@ const League :FC = () => {
     )
 };
 
-/*
-Test Code
-import { League } from "./types/leagues.ts";
-import './App.css'
-
-async function test() {
-  const res = await fetch('/data/league-2425-summer-beer.json');
-  let l1: League = new League(await res.json());
-  l1.computeLeagueStats();
-  alert(JSON.stringify(l1));
-}
-
-function App() {
-  return (
-    <button onClick={test}>Test</button>
-  )
-}
- */
-
 export default League;

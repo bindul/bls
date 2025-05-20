@@ -64,10 +64,10 @@ function League({league} :LeagueProps) {
     // @ts-ignore
     return (<>
         {league.teams?.map(team => (
-            <LeagueLink condition={league.hasData} teamId={team.id} to={`/league/${league.id}/${team.id}`} key={team.id}>
+            <LeagueLink condition={league.hasData()} teamId={team.id} to={`/league/${league.id}/${team.id}`} key={team.id}>
                 <div>
                     <span className="fw-light text-muted">{league.name} <ArrowRightShort /> </span>
-                    <span {...league.hasData ? {className: "card-link"} : {}}>{team.name}</span>
+                    <span {...league.hasData() ? {className: "card-link"} : {}}>{team.name}</span>
                 </div>
                 {league.ongoing && <Badge bg="success" className="align-middle"><PlayCircleFill/> Playing</Badge>}
             </LeagueLink>
@@ -78,8 +78,6 @@ function League({league} :LeagueProps) {
 function LeagueList() {
     const fetcher = useCallback(leagueInfoListFetcher, []);
     const { data, isLoading, error } = useCachedFetcher<AvailableLeagues>(fetcher, LEAGUE_LIST_CACHE_CATEGORY);
-
-    console.log(isLoading, error, data);
 
     return (
         <Card className="mb-3">

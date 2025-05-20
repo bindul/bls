@@ -7,6 +7,10 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    /* Used for json2typescript */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

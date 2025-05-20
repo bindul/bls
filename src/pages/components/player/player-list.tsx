@@ -44,7 +44,7 @@ function PlayerList() {
                 </CardBody>
             }
             <CardFooter className="text-muted text-center">
-                List sorted player initials ascending.
+                List sorted by when someone last bowled descending and player initials ascending.
             </CardFooter>
         </Card>
     );

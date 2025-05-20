@@ -14,34 +14,57 @@
  * limitations under the License.
  */
 
-export class LeagueDetails {
-    id: string;
-    name: string;
-    season: string;
-    center: string;
-    usbcSanctioned: boolean;
-    completed: boolean;
+import {JsonObject, JsonProperty} from "json2typescript";
+import {LeagueBowlingDays, LeagueScoringRules, OnlineScoring} from "./league-setup-config";
 
-    // config: LeagueConfig;
-    //
+@JsonObject("LeagueDetails")
+export class LeagueDetails {
+
+    @JsonProperty("id", String)
+    id: string | undefined = undefined;
+
+    @JsonProperty("name", String)
+    name: string | undefined = undefined;
+
+    @JsonProperty("season", String)
+    season: string | undefined = undefined;
+
+    @JsonProperty("center", String)
+    center: string | undefined = undefined;
+
+    @JsonProperty("usbc-sanctioned", Boolean)
+    usbcSanctioned: boolean = false;
+
+    @JsonProperty("completed", Boolean)
+    completed: boolean = false;
+
+    @JsonProperty("online-scoring", [OnlineScoring])
+    onlineScoring: OnlineScoring[] = [];
+
+    @JsonProperty("bowling-days", LeagueBowlingDays)
+    bowlingDays: LeagueBowlingDays | undefined = undefined;
+
+    @JsonProperty("scoring-rules", LeagueScoringRules)
+    scoringRules: LeagueScoringRules | undefined = undefined;
+
     // teams: TrackedTeam[];
     // otherTeams: OtherTeam[];
     //
     // honorRoll: Map<HonorType, HonorRoll> = new Map();
 
-    constructor(data: any) {
-        this.id = data.id;
-        this.name = data.name;
-        this.season = data.season;
-        this.center = data.center;
-        // this.leagueSecretaryId = data['league-secreary-id'];
-        this.usbcSanctioned = data['usbc-sanctioned'];
-        this.completed = data.completed;
-
-        // this.config = new LeagueConfig(data.config);
-        // this.teams = data["teams"].map((t :any) => new TrackedTeam(t));
-        // this.otherTeams = data['other-teams']?.map((t: any) => new OtherTeam(t)) ?? [];
-    }
+    // constructor(data: any) {
+    //     this.id = data.id;
+    //     this.name = data.name;
+    //     this.season = data.season;
+    //     this.center = data.center;
+    //     // this.leagueSecretaryId = data['league-secreary-id'];
+    //     this.usbcSanctioned = data['usbc-sanctioned'];
+    //     this.completed = data.completed;
+    //
+    //     // this.config = new LeagueConfig(data.config);
+    //     // this.teams = data["teams"].map((t :any) => new TrackedTeam(t));
+    //     // this.otherTeams = data['other-teams']?.map((t: any) => new OtherTeam(t)) ?? [];
+    // }
 
     // computeLeagueStats () :void {
     //     // Set Handicaps where required & Calcualate Points
