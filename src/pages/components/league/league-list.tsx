@@ -17,7 +17,7 @@ import {AvailableLeagues, LeagueInfo} from "../../../data/league/league-info";
 import Loader from "../loader";
 import ErrorDisplay from "../error-display";
 import {
-    LEAGUE_LIST_CACHE_KEY,
+    LEAGUE_LIST_CACHE_CATEGORY,
     leagueInfoListFetcher
 } from "../../../data/league/league-api";
 import {useCachedFetcher} from "../../../data/utils/data-loader";
@@ -77,7 +77,7 @@ function League({league} :LeagueProps) {
 
 function LeagueList() {
     const fetcher = useCallback(leagueInfoListFetcher, []);
-    const { data, isLoading, error } = useCachedFetcher<AvailableLeagues>(LEAGUE_LIST_CACHE_KEY, fetcher);
+    const { data, isLoading, error } = useCachedFetcher<AvailableLeagues>(fetcher, LEAGUE_LIST_CACHE_CATEGORY);
 
     console.log(isLoading, error, data);
 

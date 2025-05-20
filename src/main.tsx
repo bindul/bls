@@ -28,7 +28,6 @@ import {HashRouter} from "react-router";
 import Layout from "./pages/layout";
 import Home from "./pages/home";
 import League from "./pages/league";
-import LeagueTeam from "./pages/league-team";
 import NoPage from "./pages/nopage";
 
 export default function App() {
@@ -36,9 +35,7 @@ export default function App() {
         <Routes>
             <Route path="/" element={<Layout/>}>
                 <Route index element={<Home/>}/>
-                <Route path="/league/:leagueId?" element={<League/>}>
-                    <Route path=":teamId?" element={<LeagueTeam/>}/>
-                </Route>
+                <Route path="/league/:leagueId?/:teamId?" element={<League/>}/>
                 <Route path="*" element={<NoPage/>}/>
             </Route>
         </Routes>

@@ -18,6 +18,8 @@ import {createContext, useContext} from "react";
 import * as React from "react";
 
 const DEFAULT_TTL = 1000 * 60 * 15; // 15 minutes
+const DEFAULT_MAX_CACHE_PER_CATEGORY = 2;
+export const SINGLE_ENTRY_CATEGORY_KEY = "SINGLE_DEFAULT";
 
 export type CacheEntry = {
     key: string;
@@ -27,33 +29,73 @@ export type CacheEntry = {
 }
 
 export class Cache {
-    cache: Map<string, CacheEntry> = new Map<string, CacheEntry>();
+    cache: Map<string, Map<string, CacheEntry>> = new Map();
 
-    // TODO Future: tiered cache and max entries
-    get <T>(key: string) : T | null {
-        const val = this.cache.get(key);
-        if (val != null) {
-            const now = Date.now();
-            if (now < (val.lastFetched + val.ttl)) {
-                return val.data;
-            } else {
-                // expired cache / remove
-                this.cache.delete(key);
-            }
+    get <T>(category: string, key: string = SINGLE_ENTRY_CATEGORY_KEY ) : T | null {
+        const categoryCache = this.getCategoryCache(category, false);
+        if (categoryCache) {
+            return this.getEntryWithExpiryCheck(key, categoryCache)?.data ?? null;
         }
         return null;
     }
 
-    put <T>(key: string, data: T, overrideTtl?: number) :T {
+    put <T>(category: string, key: string = SINGLE_ENTRY_CATEGORY_KEY, data: T, overrideTtl?: number)  {
         const entry: CacheEntry = {
             key: key,
             data: data,
             lastFetched: Date.now(),
             ttl: overrideTtl || DEFAULT_TTL
         }
-        const oldVal = this.cache.get(key);
-        this.cache.set(key, entry);
-        return oldVal?.data ?? entry.data;
+
+        const categoryCache = this.getCategoryCache(category, true);
+        if (categoryCache != null) {
+            const oldVal = this.getEntryWithExpiryCheck(key, categoryCache);
+            if (oldVal == null && categoryCache.size >= DEFAULT_MAX_CACHE_PER_CATEGORY) {
+                // We will be adding to the cache (not replacing)
+                this.removeOldestEntry(categoryCache);
+            }
+            categoryCache.set(key, entry);
+        }
+    }
+
+    private getCategoryCache(category: string, createIfMissing: boolean) {
+        let categoryCache = this.cache.get(category);
+        if (!categoryCache && createIfMissing) {
+            categoryCache = new Map<string, CacheEntry>();
+            this.cache.set(category, categoryCache);
+        }
+        return categoryCache;
+    }
+
+    private getEntryWithExpiryCheck (key: string, categoryCache: Map<string, CacheEntry>) {
+        const val = categoryCache.get(key);
+        if (val != null) {
+            const now = Date.now();
+            if (now < (val.lastFetched + val.ttl)) {
+                return val;
+            } else {
+                // expired cache / remove
+                categoryCache.delete(key);
+            }
+        }
+        return null;
+    }
+
+    private removeOldestEntry (categoryCache: Map<string, CacheEntry>) {
+        let oldestKey = null;
+        let oldestEntryTime: number = Number.MAX_SAFE_INTEGER;
+        for (let [key, value] of categoryCache) {
+            if (oldestKey == null) {
+                oldestKey = key;
+                oldestEntryTime = value.lastFetched;
+            } else if (value.lastFetched < oldestEntryTime) {
+                oldestEntryTime = value.lastFetched;
+                oldestKey = key;
+            }
+        }
+        if (oldestKey != null) {
+            categoryCache.delete(oldestKey);
+        }
     }
 }
 
