@@ -8,8 +8,9 @@
       "platform": "LeagueSecretary",
       "league-secretary": {
         "center-id": 12099,
+        "center-dashboard-url": "https://leaguesecretary.com/bowling-centers/arapahoe-bowling-center/dashboard/12099",
         "league-id": 133016,
-        "dashboard-url": "https://leaguesecretary.com/bowling-centers/arapahoe-bowling-center/bowling-leagues/beer-summer-2025/dashboard/133016"
+        "league-dashboard-url": "https://leaguesecretary.com/bowling-centers/arapahoe-bowling-center/bowling-leagues/beer-summer-2025/dashboard/133016"
       }
     }],
   "usbc-sanctioned": false,
@@ -24,17 +25,20 @@
     "position-rounds": ["WK14", "WK15"]
   },
   "scoring-rules": {
-    "legal-lineup": 2,
+    "legal-min-lineup": 2,
+    "lineup": 4,
+    "roster": 7,
     "substitutes-allowed": true,
     "hdcp": {
       "type": "PCT_AVG_TO_TGT",
       "pct-avg-to-tgt-config": {
         "target": 210,
-        "pct-to-target": 90
+        "pct-to-target": 90.0
       }
     },
     "blind-penalty": {
-      "default": 0,
+      "blinds-allowed": true,
+      "default-penalty": 0,
       "missed-matchups-penalty": 10,
       "missed-matchups-threshold": 3
     },
@@ -70,43 +74,27 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "position": 0,
+      "current-rank": 8,
       "roster": [
         {
           "id": "ne1",
           "name": "Nick Earhart",
-          "status": "REGULAR",
-          "carry-over-league-stats": {
-            "pins": 0,
-            "games": 0
-          }
+          "status": "REGULAR"
         },
         {
           "id": "bb1",
           "name": "Bindul Bhowmik",
-          "status": "REGULAR",
-          "carry-over-league-stats": {
-            "pins": 0,
-            "games": 0
-          }
+          "status": "REGULAR"
         },
         {
           "id": "je1",
           "name": "Josh Ellis",
-          "status": "REGULAR",
-          "carry-over-league-stats": {
-            "pins": 0,
-            "games": 0
-          }
+          "status": "REGULAR"
         },
         {
           "id": "lw1",
           "name": "Luke Wie",
-          "status": "REGULAR",
-          "carry-over-league-stats": {
-            "pins": 0,
-            "games": 0
-          }
+          "status": "REGULAR"
         }
       ],
       "matchups": [
