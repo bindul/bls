@@ -14,30 +14,21 @@
  * limitations under the License.
  */
 
-import {JsonConvert, JsonConverter, type JsonCustomConvert, PropertyConvertingMode} from "json2typescript";
+import {
+    JsonConvert,
+    JsonConverter,
+    type JsonCustomConvert,
+    OperationMode,
+    PropertyConvertingMode
+} from "json2typescript";
 import type {Moment} from "moment";
 import moment from "moment";
 
 export function createJsonConverter() {
     let jsonConvert = new JsonConvert();
-    // jsonConvert.operationMode = OperationMode.LOGGING;
+    jsonConvert.operationMode = OperationMode.ENABLE; // OperationMode.LOGGING
     jsonConvert.propertyConvertingMode = PropertyConvertingMode.IGNORE_NULLABLE;
     return jsonConvert;
-}
-
-@JsonConverter
-export class DateConverter implements JsonCustomConvert<Date | null> {
-    deserialize(data: any): Date | null {
-        if (data === null || data === "") return null;
-        return new Date(data);
-    }
-
-    serialize(data: Date | null): any {
-        if (data instanceof Date) {
-            return data.toISOString();
-        }
-        return null;
-    }
 }
 
 @JsonConverter
@@ -65,5 +56,19 @@ export class HHMMTimeConverter implements JsonCustomConvert<Moment | null> {
     deserialize(data: any): Moment | null {
         if (data === null || data === "") return null;
         return moment(data, "HH:mm");
+    }
+}
+
+@JsonConverter
+export class DateConverter implements JsonCustomConvert<Moment | null> {
+    serialize(data: Moment | null) {
+        if (data != null) {
+            return data.format("YYYY-MM-DD");
+        }
+        return null;
+    }
+    deserialize(data: any): Moment | null {
+        if (data === null || data === "") return null;
+        return moment(data, "YYYY-MM-DD");
     }
 }

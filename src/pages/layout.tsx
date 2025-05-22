@@ -57,9 +57,9 @@ const Layout :FC = () => {
                 <ScrollToTop />
 
                 {/* Actual Content Here */}
-                <div className="container">
+                <Container fluid="true">
                     <Outlet/>
-                </div>
+                </Container>
 
                 {/* Footer */}
                 <hr className="mt-2 mb-2"/>

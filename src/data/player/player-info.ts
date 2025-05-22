@@ -16,18 +16,19 @@
 
 import {JsonObject, JsonProperty} from "json2typescript";
 import {DateConverter} from "../utils/json-utils";
+import type {Moment} from "moment";
 
 @JsonObject("PlayerInfo")
 export class PlayerInfo {
 
     @JsonProperty("id", String)
-    id: string | undefined = undefined;
+    id: string = "";
 
     @JsonProperty("name", String)
     name: string | undefined = undefined;
 
     @JsonProperty("last-bowled", DateConverter)
-    lastBowled?: Date | undefined = undefined;
+    lastBowled?: Moment | undefined = undefined;
 
     @JsonProperty("data-loc", String)
     dataLoc?: string = undefined;

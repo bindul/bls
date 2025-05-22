@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-import {Players} from "./player-info";
+import {PlayerInfo, Players} from "./player-info";
 import {APP_URL_BASE} from "../utils/constants";
 import {createJsonConverter} from "../utils/json-utils";
+import moment from "moment";
+import {compareMoments} from "../utils/utils.ts";
 
 export const PLAYER_LIST_CACHE_CATEGORY = "player-list";
 const PLAYER_INDEX_RESOURCE = "players.json";
@@ -26,13 +28,14 @@ function postProcessLoadedPlayers(players : Players) : Players {
         // Set default last bowled dates for every player
         players.players?.forEach(player => {
             if (player.lastBowled == null) {
-                const d = new Date();
-                d.setUTCHours(0, 0, 0, 0);
-                player.lastBowled = d;
+                player.lastBowled = moment();
             }
         })
         // Sort by last bowled and then by initials
-        players.players?.sort((a:any, b:any) => (a.lastBowled !== b.lastBowled) ? b.lastBowled.getTime() - a.lastBowled.getTime() : a.id.localeCompare(b.id));
+        players.players?.sort((a:PlayerInfo, b:PlayerInfo) => {
+            let lbd = compareMoments(a.lastBowled, b.lastBowled);
+            return lbd != 0 ? lbd : a.id.localeCompare(b.id);
+        });
     }
     return players;
 }
