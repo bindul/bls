@@ -14,6 +14,15 @@
  * limitations under the License.
  */
 
+import type {Moment} from "moment";
+
 export function isNumeric(value: string): boolean {
     return !isNaN(parseFloat(value)) && isFinite(Number(value));
+}
+
+export function compareMoments (a?: Moment, b?: Moment): number {
+    if (!a && !b) return 0;
+    if (!a) return -1;
+    if (!b) return 1;
+    return b.diff(a);
 }

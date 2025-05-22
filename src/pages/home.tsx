@@ -27,7 +27,7 @@ const Home :FC = () => {
                 <div className="card border-success mb-3">
                     <div className="card-header">Recent Highlights</div>
                     <div className="card-body">
-                        <h4 className="card-title">We don't know if this will stay</h4>
+                        <h4 className="card-title">News from recent games</h4>
                         <p className="card-text"><BookmarkStarFill /> Just playing around with the idea!</p>
                     </div>
                 </div>

@@ -18,6 +18,7 @@ import {LeagueDetails} from "./league-details";
 import {AvailableLeagues} from "./league-info";
 import {APP_URL_BASE} from "../utils/constants";
 import {createJsonConverter} from "../utils/json-utils";
+import {decorateLeagueDetails} from "./league-calculators";
 
 export const LEAGUE_LIST_CACHE_CATEGORY = "league-list";
 export const LEAGUE_DETAILS_CACHE_CATEGORY = "league-details";
@@ -25,10 +26,11 @@ const LEAGUE_INDEX_RESOURCE = "leagues.json";
 
 export const leagueInfoListFetcher = async() =>
     fetch(APP_URL_BASE + LEAGUE_INDEX_RESOURCE)
-    .then(res => res.json())
-    .then(json => createJsonConverter().deserializeObject<AvailableLeagues>(json, AvailableLeagues)); // The method is deprecated, but deserialize returns an array which we don't want
+        .then(res => res.json())
+        .then(json => createJsonConverter().deserializeObject<AvailableLeagues>(json, AvailableLeagues)); // The method is deprecated, but deserialize returns an array which we don't want
 
 export const leagueTeamDetailsFetcher = async(dataLoc: string) =>
     fetch(APP_URL_BASE + dataLoc)
-    .then(res => res.json())
-    .then(json => createJsonConverter().deserializeObject<LeagueDetails>(json, LeagueDetails));
+        .then(res => res.json())
+        .then(json => createJsonConverter().deserializeObject<LeagueDetails>(json, LeagueDetails))
+        .then(leagueDetails => decorateLeagueDetails(leagueDetails));

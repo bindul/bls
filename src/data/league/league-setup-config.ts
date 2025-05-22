@@ -25,11 +25,14 @@ export class LeagueSecretaryInfo {
     @JsonProperty("center-id", Number)
     centerId: number = 0;
 
+    @JsonProperty("center-dashboard-url", String)
+    centerDashboardUrl: string | undefined = undefined;
+
     @JsonProperty("league-id", Number)
     leagueId: number = 0;
 
-    @JsonProperty("dashboard-url", String)
-    dashboardUrl: string | undefined = undefined;
+    @JsonProperty("league-dashboard-url", String)
+    leagueDashboardUrl: string | undefined = undefined;
 }
 
 @JsonObject("OnlineScoring")
@@ -56,7 +59,7 @@ export class LeagueBowlingDays {
     startTime: Moment | undefined = undefined;
 
     @JsonProperty("start-date", DateConverter)
-    startDate: Date | undefined = undefined;
+    startDate: Moment | undefined = undefined;
 
     @JsonProperty("duration", Number)
     duration: number = 0;
@@ -73,11 +76,11 @@ export type HandicapType = "NONE" | "PCT_AVG_TO_TGT";
 @JsonObject("PercentOfAverageToTargetHandicapConfig")
 export class PercentOfAverageToTargetHandicapConfig {
 
-    @JsonProperty("target", Number)
-    target: number = 0;
-
     @JsonProperty("pct-to-target", Number)
     pctToTarget: number = 0;
+
+    @JsonProperty("target", Number)
+    target: number = 0;
 }
 
 @JsonObject("LeagueHandicap")
@@ -86,8 +89,12 @@ export class LeagueHandicap {
     @JsonProperty("type", String)
     type: HandicapType = "NONE"
 
-    @JsonProperty("pct-avg-to-tgt-config")
+    @JsonProperty("pct-avg-to-tgt-config", PercentOfAverageToTargetHandicapConfig)
     pctAvgToTargetConfig?: PercentOfAverageToTargetHandicapConfig = undefined;
+
+    // TODO Future - add info about USBC carry over handicap
+    // TODO Future - add absent score / handicap
+    // TODO Update League Summary page
 }
 
 export type VacantOrAbsentOpponentScoringType = "POINTS_WITHIN_AVG" | "FORFEIT";
@@ -142,7 +149,7 @@ export class LeaguePointScoring {
     @JsonProperty("matchup-point-scoring-rule", String)
     matchupPointScoringRule: MatchupPointScoringRule = "PPG_PPS";
 
-    @JsonProperty("ppg-pps-matchup-point-scoring-config")
+    @JsonProperty("ppg-pps-matchup-point-scoring-config", PpgPpsMatchupPointScoringConfig)
     ppgPpsMatchupPointScoringConfig?: PpgPpsMatchupPointScoringConfig | undefined = undefined;
 
     @JsonProperty("vacant-opponent-scoring", VacantOrAbsentOpponentScoring)
@@ -155,7 +162,10 @@ export class LeaguePointScoring {
 @JsonObject("LeagueBlindPenalty")
 export class LeagueBlindPenalty {
 
-    @JsonProperty("default", Number)
+    @JsonProperty("blinds-allowed", Boolean)
+    allowed: boolean = false;
+
+    @JsonProperty("default-penalty", Number)
     defaultPenalty: number = 0;
 
     @JsonProperty("missed-matchups-penalty", Number)
@@ -168,8 +178,14 @@ export class LeagueBlindPenalty {
 @JsonObject("LeagueScoringRules")
 export class LeagueScoringRules {
 
-    @JsonProperty("legal-lineup", Number)
-    legalLineup: number = 0;
+    @JsonProperty("legal-min-lineup", Number)
+    legalMinLineup: number = 0;
+
+    @JsonProperty("lineup", Number)
+    lineup: number = 0;
+
+    @JsonProperty("roster", Number)
+    roster: number = 0;
 
     @JsonProperty("substitutes-allowed", Boolean)
     subsAllowed: boolean = false;
