@@ -20,6 +20,7 @@ import * as React from "react";
 interface ErrorDisplayProps {
     message?: string;
     error?: Error;
+    onClose?: (show: boolean, event: any) => void;
 }
 
 function ErrorDetails({error} :ErrorDisplayProps) {
@@ -36,9 +37,10 @@ function ErrorDetails({error} :ErrorDisplayProps) {
 }
 
 const Error:React.FC<ErrorDisplayProps> = (props :ErrorDisplayProps) => {
+    // TODO May need to capture the close event and allow callbacks
     return (
         <div className="alert-top">
-            <Alert variant="warning" dismissible>
+            <Alert variant="warning" dismissible onClose={props.onClose}>
                 <Alert.Heading><ExclamationOctagonFill/> Your last action failed!</Alert.Heading>
                 {props.message && <p>{props.message}</p>}
                 <ErrorDetails error={props.error} />

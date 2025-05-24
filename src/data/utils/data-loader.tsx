@@ -33,7 +33,7 @@ export function useCachedFetcher<T>(fetcher :() => Promise<T>, category: string,
 
         // Check cache
         if (contextCache != null) {
-            let value = contextCache.get<T>(category, key);
+            const value = contextCache.get<T>(category, key);
             if (value != null) {
                 // console.debug("Returning cached value: ", JSON.stringify(value));
                 setData(value);

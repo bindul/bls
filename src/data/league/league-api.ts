@@ -29,8 +29,8 @@ export const leagueInfoListFetcher = async() =>
         .then(res => res.json())
         .then(json => createJsonConverter().deserializeObject<AvailableLeagues>(json, AvailableLeagues)); // The method is deprecated, but deserialize returns an array which we don't want
 
-export const leagueTeamDetailsFetcher = async(dataLoc: string) =>
-    fetch(APP_URL_BASE + dataLoc)
+export const leagueTeamDetailsFetcher = async(dataLoc: string | undefined) =>
+    fetch(APP_URL_BASE + dataLoc, {headers: {'Accept-Encoding': 'gzip'}})
         .then(res => res.json())
         .then(json => createJsonConverter().deserializeObject<LeagueDetails>(json, LeagueDetails))
         .then(leagueDetails => decorateLeagueDetails(leagueDetails));

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type {FC} from "react";
-import {BookmarkStarFill} from "react-bootstrap-icons";
+import  {type FC} from "react";
+import {ConeStriped} from "react-bootstrap-icons";
 import LeagueList from './components/league/league-list.tsx';
 import PlayerList from "./components/player/player-list.tsx";
 
@@ -28,7 +28,7 @@ const Home :FC = () => {
                     <div className="card-header">Recent Highlights</div>
                     <div className="card-body">
                         <h4 className="card-title">News from recent games</h4>
-                        <p className="card-text"><BookmarkStarFill /> Just playing around with the idea!</p>
+                        <p className="card-text"><ConeStriped/> Not yet implemented! <ConeStriped/></p>
                     </div>
                 </div>
             </div>
