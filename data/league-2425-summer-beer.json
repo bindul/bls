@@ -105,7 +105,7 @@
           "matchup-type": "REGULAR-DIVISION",
           "entering-rank": 0,
           "lanes": [37, 38],
-          "oil-pattern": "House-Regular",
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "notes": ["Start of League"],
           "scores": {
             "player-scores": [
@@ -205,16 +205,17 @@
             "hdcp": 323,
             "vacant": false,
             "absent": false,
+            "pre-post-bowl": false,
             "scores": {
               "games": [
                 {
-                  "score": 581
+                  "scratch-score": 581
                 },
                 {
-                  "score": 436
+                  "scratch-score": 436
                 },
                 {
-                  "score": 421
+                  "scratch-score": 421
                 }
               ]
             }
@@ -227,7 +228,7 @@
           "matchup-type": "REGULAR-DIVISION",
           "entering-rank": 8,
           "lanes": [5, 6],
-          "oil-pattern": "House-Regular",
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "scores": {
             "player-scores": [
               {
@@ -311,13 +312,107 @@
             "scores": {
               "games": [
                 {
-                  "score": 504
+                  "scratch-score": 504
                 },
                 {
-                  "score": 632
+                  "scratch-score": 632
                 },
                 {
-                  "score": 609
+                  "scratch-score": 609
+                }
+              ]
+            }
+          }
+        },
+        {
+          "week": 3,
+          "scheduled-date": "2025-05-22",
+          "bowl-date": "2025-05-22",
+          "matchup-type": "REGULAR-DIVISION",
+          "entering-rank": 8,
+          "lanes": [29, 30],
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "scores": {
+            "player-scores": [
+              {
+                "player": "ne1",
+                "entering-average": 199,
+                "games": [
+                  {
+                    "frames": [["9", "-"], ["7S", "1"], ["X"], ["X"], ["X"], ["9", "/"], ["9", "/"], ["X"], ["8", "/"], ["7", "/", "5"]]
+                  },
+                  {
+                    "frames": [["X"], ["X"], ["9", "/"], ["9", "/"], ["9", "/"], ["X"], ["X"], ["X"], ["X"], ["X", "9", "/"]]
+                  },
+                  {
+                    "frames": [["8S", "1"], ["X"], ["9", "-"], ["9", "/"], ["8", "/"], ["7", "/"], ["X"], ["X"], ["X"], ["6S", "3"]]
+                  }
+                ]
+              },
+              {
+                "player": "bb1",
+                "entering-average": 143,
+                "games": [
+                  {
+                    "blind": true
+                  },
+                  {
+                    "blind": true
+                  },
+                  {
+                    "blind": true
+                  }
+                ]
+              },
+              {
+                "player": "je1",
+                "entering-average": 163,
+                "games": [
+                  {
+                    "frames": [["7", "/"], ["6", "2"], ["X"], ["X"], ["9", "-"], ["9", "/"], ["9", "/"], ["3", "4"], ["8", "1"], ["8S", "1"]]
+                  },
+                  {
+                    "frames": [["7", "2"], ["X"], ["6", "/"], ["9", "-"], ["-", "9"], ["X"], ["8", "-"], ["6", "3"], ["6", "2"], ["X", "X", "X"]]
+                  },
+                  {
+                    "frames": [["X"], ["X"], ["6", "-"], ["9", "-"], ["X"], ["9", "/"], ["6", "3"], ["X"], ["9", "-"], ["8", "/", "X"]]
+                  }
+                ]
+              },
+              {
+                "player": "lw1",
+                "entering-average": 169,
+                "games": [
+                  {
+                    "frames": [["8", "/"], ["8", "/"], ["X"], ["7S", "-"], ["X"], ["6", "3"], ["8", "/"], ["8S", "-"], ["8S", "1"], ["X", "X", "X"]]
+                  },
+                  {
+                    "frames": [["9", "/"], ["X"], ["9", "/"], ["X"], ["X"], ["7S", "-"], ["X"], ["X"], ["8S", "-"], ["X", "X", "8"]]
+                  },
+                  {
+                    "frames": [["X"], ["9", "/"], ["8", "/"], ["8S", "/"], ["5", "1"], ["7", "2"], ["8", "-"], ["X"], ["X"], ["X", "X", "8"]]
+                  }
+                ]
+              }
+            ]
+          },
+          "opponent": {
+            "team-id": "2425-summer-beer-40",
+            "entering-rank": 18,
+            "hdcp": 211,
+            "vacant": false,
+            "absent": false,
+            "pre-post-bowl": false,
+            "scores": {
+              "games": [
+                {
+                  "scratch-score": 667
+                },
+                {
+                  "scratch-score": 615
+                },
+                {
+                  "scratch-score": 639
                 }
               ]
             }
@@ -340,6 +435,13 @@
       "division": "2",
       "name": "Master Exploders",
       "players": ["Matt Furst", "Joe Carfagnini", "Matt Finnegan", "Brian Strubbe", "Matt Rogoff", "Mike Manone", "Dylaon Forward"]
+    },
+    {
+      "id": "2425-summer-beer-40",
+      "number": 40,
+      "division": "2",
+      "name": "Hardcore Hoggers",
+      "players": ["ShirleeJay Illsley", "Larissia Hall", "Art Vigil", "Armando Delgado"]
     }
   ]
 }
