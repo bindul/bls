@@ -47,6 +47,7 @@ export class MatchupGameScore extends GameScore {
     pointsWon : number = 0;
 }
 
+// TODO Refactor part or most of this or create interface
 export type ScoreLabel = "X" | "/" | "S" | "F" | "-";
 export type FrameAttributes = "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Gutter-Spare" | "Split-Picked-Up";
 export class Frame {
@@ -56,6 +57,7 @@ export class Frame {
     attributes: FrameAttributes[] = [];
 }
 
+// TODO Refactor part or most of this or create interface
 @JsonObject("TeamPlayerGameScore")
 export class TeamPlayerGameScore extends GameScore {
 
@@ -175,5 +177,5 @@ export class LeagueMatchup {
     @JsonProperty("opponent", OpponentTeam)
     opponent: OpponentTeam | undefined = undefined;
 
-    pointsWonLost: number[] = new Array(2);
+    pointsWonLost: [number, number] = [0, 0];
 }

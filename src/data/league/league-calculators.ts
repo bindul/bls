@@ -25,6 +25,9 @@ import {
 } from "./league-matchup";
 import {LeagueScoringRules} from "./league-setup-config";
 import {isNumeric} from "../utils/utils.ts";
+import {LeaguePlayerStats, type TrackedLeagueTeam} from "./league-team-details.ts";
+import {calculatePlayerStats} from "../player/player-stats-calculator.ts";
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Interfaces and Implementations
@@ -36,6 +39,7 @@ interface HandicapCalculator {
 }
 
 class ZeroHandicapCalculator implements HandicapCalculator {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     calculateHandicap(_average: number): number {
         return 0;
     }
@@ -167,7 +171,7 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore) {
         const inFrame = playerGame.inFrames[f];
 
         for (let b = 0; b < inFrame.length; b++) {
-            let lbl = inFrame[b];
+            const lbl = inFrame[b];
             if ((b == 0 || f == 9) && (lbl == "X" || (isNumeric(lbl) && Number(lbl) == 10))) {
                 frame.ballScores[b] = [10, "X"];
             } else if (lbl == "F" || lbl == "-") {
@@ -187,7 +191,7 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore) {
     let scoreAccum = 0;
     let strikesInARow = 0;
     for (let i = 0; i < playerGame.frames.length; i++) {
-        let currFrame = playerGame.frames[i];
+        const currFrame = playerGame.frames[i];
         currFrame.ballScores.forEach((score) => {
             scoreAccum += score[0];
             if (i < 9) {
@@ -337,9 +341,70 @@ export function assignScoresAndPoints (matchup: LeagueMatchup, scoringRules: Lea
         pointsWon += matchup.scores.series.pointsWon;
         matchup.opponent.scores?.games.forEach((game) => {pointsLost += game.pointsWon;});
         pointsLost += matchup.opponent.scores?.series.pointsWon ?? 0;
-        matchup.pointsWonLost[0] = pointsWon;
-        matchup.pointsWonLost[1] = pointsLost;
+        matchup.pointsWonLost = [pointsWon, pointsLost];
     }
+}
+
+function rollupTeamScoresAndPoints(team: TrackedLeagueTeam) {
+    let pointsWon = 0;
+    let pointsLost = 0;
+    team.matchups.forEach((matchup) => {
+        pointsWon += matchup.pointsWonLost[0];
+        pointsLost += matchup.pointsWonLost[1];
+    })
+    team.pointsWonLost = [pointsWon, pointsLost];
+}
+
+function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator : HandicapCalculator) {
+  team.roster?.forEach((player) => {
+      const playerGames: TeamPlayerGameScore[][] = [];
+      team.matchups.forEach((matchup) => {
+          const games = matchup.scores?.playerScores.find(ps => ps.player == player.id);
+          if (games) {
+              playerGames.push(games.games);
+          }
+      })
+
+      const playerStats = new LeaguePlayerStats();
+      // Compute common game stats
+      calculatePlayerStats(playerGames, playerStats);
+
+      // Compute League Player Stats
+      if (playerStats.gameStats.average > 0) {
+          playerStats.handicap = hdcpCalculator.calculateHandicap(playerStats.gameStats.average);
+          // TODO get the game per series count from config and remove hard coding
+          playerStats.averageBoosterSeries = Math.ceil(((playerStats.gameStats.average + 1) * (playerStats.gameStats.count + 3)) - playerStats.pinfall);
+      }
+
+      const indGameOverAverage : LeagueAccolade = {type: "IND-GAME-OVER-AVERAGE", who: player.id ?? "UNKNOWN", when: undefined, howMuch: 0, description: ""};
+      const indSeriesOverAverage : LeagueAccolade = {type: "IND-SERIES-OVER-AVERAGE", who: player.id ?? "UNKNOWN", when: undefined, howMuch: 0, description: ""};
+      team.matchups.forEach((matchup) => {
+          const playerScore = matchup.scores?.playerScores.find(ps => ps.player == player.id);
+          if (playerScore && playerScore.enteringAverage) {
+              const enteringAvg = playerScore.enteringAverage;
+              playerScore.games.forEach((game) => {
+                  if (game.scratchScore - enteringAvg > indGameOverAverage.howMuch) {
+                      indGameOverAverage.howMuch = game.scratchScore - enteringAvg;
+                      indGameOverAverage.when = matchup.bowlDate;
+                      indGameOverAverage.description = game.scratchScore + " - " + enteringAvg + " = " + indGameOverAverage.howMuch;
+                  }
+              })
+              if (playerScore.series.scratchScore - (3 * enteringAvg) > indSeriesOverAverage.howMuch) {
+                  indSeriesOverAverage.howMuch = playerScore.series.scratchScore - (3 * enteringAvg);
+                  indSeriesOverAverage.when = matchup.bowlDate;
+                  indSeriesOverAverage.description = playerScore.series.scratchScore + " - " + (enteringAvg * playerScore.series.games) + " = " + indSeriesOverAverage.howMuch;
+              }
+          }
+      })
+      if (indGameOverAverage.howMuch > 0) {
+          playerStats.bestGameOverAverage = indGameOverAverage;
+      }
+      if (indSeriesOverAverage.howMuch > 0) {
+          playerStats.bestSeriesOverAverage = indSeriesOverAverage;
+      }
+
+      player.playerStats = playerStats;
+  })
 }
 
 function gatherLeagueStatsAndLeaders(league: LeagueDetails) {
@@ -402,9 +467,14 @@ function gatherLeagueStatsAndLeaders(league: LeagueDetails) {
                     })
                 }
             }
+        });
+        team.roster.forEach((p) => {
+            if (p.playerStats && p.playerStats.gameStats.average > indHighAverage.howMuch) {
+                indHighAverage.who = p.id ?? "UNKNOWN";
+                indHighAverage.howMuch = p.playerStats.gameStats.average;
+            }
         })
     })
-    // TODO Implement IND-HIGH_AVERAGE after ind stats is set
     league.leagueAccolades.push(indScratchGame, indScratchSeries, teamScratchGame, teamScratchSeries, indGameOverAverage, indSeriesOverAverage, indHighAverage);
 }
 
@@ -417,9 +487,11 @@ export function decorateLeagueDetails (league : LeagueDetails) :LeagueDetails {
         team.matchups?.forEach((matchup) => {
             assignScoresAndPoints(matchup, scoringRules, hdcpCalculator, pointsCalculator);
         })
+        rollupTeamScoresAndPoints(team);
+        // Player Stats
+        calculateLeaguePlayerStats(team, hdcpCalculator);
     })
 
-    // TODO Player stats
     // TODO Frame Atrributes
 
     // League stats and leaders

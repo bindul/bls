@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-import {useCallback, useEffect, useState} from "react";
 import * as React from "react";
-import {Badge, CardBody, CardFooter, CardHeader, CardTitle, Col, Collapse, Container, Row} from "react-bootstrap";
+import {Badge, CardBody, CardFooter, CardHeader, CardTitle, Col, Container, Row} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import {
-    LEAGUE_DETAILS_CACHE_CATEGORY,
-    leagueTeamDetailsFetcher
-} from "../../../data/league/league-api.ts";
 import type {LeagueAccoladeType, LeagueDetails} from "../../../data/league/league-details";
-import {type LeagueInfo} from "../../../data/league/league-info";
-import {useCachedFetcher} from "../../../data/utils/data-loader";
-import ErrorDisplay from "../error-display";
-import Loader from "../loader.tsx";
-import {ChevronDown, ChevronLeft, PlayCircleFill} from "react-bootstrap-icons";
-import {type Breakpoint, BREAKPOINTS, BS_BP_XS, BS_BP_XXL, getBreakpoint} from "../ui-utils.tsx";
-import {Link} from "react-router-dom";
-import {VacantOrAbsentOpponentScoring} from "../../../data/league/league-setup-config.ts";
+import Loader from "../loader";
+import {PlayCircleFill} from "react-bootstrap-icons";
+import {type Breakpoint, BS_BP_XS} from "../ui-utils";
+import {VacantOrAbsentOpponentScoring} from "../../../data/league/league-setup-config";
+import {CollapsibleContainer} from "../collapsible-container";
 
 interface CodeMaps {
     code: string;
@@ -44,48 +36,6 @@ const durationWeekLabels: CodeMaps[] = [
     {code: "TW", label: "Fortnights"}
 ]
 
-interface CollapsibleContainerProps {
-    children: React.ReactNode;
-    headerTitle: string;
-    divId: string;
-    currentBreakpoint?: Breakpoint;
-    hideBelowBreakpoint?: Breakpoint;
-}
-function CollapsibleContainer({ children, headerTitle, divId, currentBreakpoint, hideBelowBreakpoint }: CollapsibleContainerProps): React.ReactNode {
-    const [open, setOpen] = React.useState(true);
-
-    useEffect(() => {
-        if (currentBreakpoint && hideBelowBreakpoint && currentBreakpoint.order <= hideBelowBreakpoint.order) {
-            setOpen(false);
-        }
-    }, [currentBreakpoint]);
-
-    // Create toggle bar visibility classes: https://getbootstrap.com/docs/5.3/utilities/display/#hiding-elements
-    let tbvc = "";
-    if (hideBelowBreakpoint) {
-        tbvc += "d-block";
-        for (let i = 0; i < BREAKPOINTS.length; i++) {
-            if (hideBelowBreakpoint.order == BREAKPOINTS[i].order && (i + 1) < BREAKPOINTS.length) {
-                tbvc = tbvc + " d-" + BREAKPOINTS[i + 1].name + "-none";
-            }
-        }
-    }
-
-    return (
-        <>
-            <CardBody className={`my-0 pt-1 pb-0 ${tbvc}`}>
-                <span className={`fs-6 lh-sm ${open ? 'text-light' : ''}`}>{headerTitle}</span>
-                <Link onClick={() => setOpen(!open)} to={`#${divId}`} aria-expanded={open} aria-controls={divId} data-toggle="collapse" className="float-end">
-                    {open ? <ChevronDown width={12} height={12}/> : <ChevronLeft width={12} height={12}/>}
-                </Link>
-            </CardBody>
-            <Collapse in={open}>
-                <div id={divId}>{children}</div>
-            </Collapse>
-        </>
-    );
-}
-
 interface PropValueLineProps {
     prop: string;
     value: React.ReactNode;
@@ -95,7 +45,7 @@ function PropValueLine({ prop, value }: PropValueLineProps) {
     return <Row><Col className="text-primary-emphasis">{prop}</Col><Col>: {value}</Col></Row>
 }
 
-function LeagueSummaryInfo({leagueDetails}: LeagueSummaryDataProps) {
+function LeagueSummaryInfo({leagueDetails}: LeagueSummaryDataFunctionProps) {
     const mapDurationUnits = (code: string | undefined) => {
         return durationWeekLabels.find(dl => dl.code === code)?.label ?? "";
     }
@@ -141,7 +91,7 @@ function LeagueSummaryInfo({leagueDetails}: LeagueSummaryDataProps) {
         </>);
 }
 
-function LeagueRules({leagueDetails}: LeagueSummaryDataProps) {
+function LeagueRules({leagueDetails}: LeagueSummaryDataFunctionProps) {
     const scoringRules = leagueDetails.scoringRules;
     if (scoringRules == undefined) {
         return <></>;
@@ -206,7 +156,7 @@ function LeagueRules({leagueDetails}: LeagueSummaryDataProps) {
     </>);
 }
 
-function LeagueHonorRoll({leagueDetails} : LeagueSummaryDataProps) {
+function LeagueHonorRoll({leagueDetails} : LeagueSummaryDataFunctionProps) {
     const findPlayer = (playerId: string) => {
         let playerName: string = "UNKNOWN";
         leagueDetails.teams.forEach((team) => {
@@ -228,6 +178,7 @@ function LeagueHonorRoll({leagueDetails} : LeagueSummaryDataProps) {
         ["TEAM-SCRATCH-SERIES", "Team Scratch Series"]
     ])
 
+    const numberFormat = Intl.NumberFormat("en-US", {style: "decimal", maximumFractionDigits: 2})
     return (<>
         <Card border="info" className="mt-1 mb-1 p-0">
             <CardHeader className="py-1 px-2 text-white bg-info"><span className="fs-6">Honor Roll</span></CardHeader>
@@ -238,9 +189,9 @@ function LeagueHonorRoll({leagueDetails} : LeagueSummaryDataProps) {
                             <Col className="bg-info-subtle text-info-emphasis">{accoladeLabels.get(accolade.type)}</Col>
                         </Row>
                         <Row>
-                            <Col>{accolade.when?.format("DD MMM YYYY")}</Col>
+                            <Col>{accolade.when?.format("DD MMM")}</Col>
                             <Col className="col-auto text-start">{accolade.type.startsWith("IND") ? findPlayer(accolade.who) : findTeam(accolade.who)}</Col>
-                            <Col className="text-end">{(accolade.description && accolade.description.length > 0) ? accolade.description : accolade.howMuch}</Col>
+                            <Col className="text-end">{(accolade.description && accolade.description.length > 0) ? accolade.description : numberFormat.format(accolade.howMuch)}</Col>
                         </Row>
                     </Container>
                 </CardBody>))}
@@ -249,22 +200,14 @@ function LeagueHonorRoll({leagueDetails} : LeagueSummaryDataProps) {
     </>);
 }
 
-interface LeagueSummaryDataProps {
+interface LeagueSummaryDataFunctionProps {
     leagueDetails: LeagueDetails;
 }
-
-function LeagueSummaryData({leagueDetails}: LeagueSummaryDataProps) {
-    const [currentBreakpoint, setBreakpoint] = useState<Breakpoint>(BS_BP_XXL);
-    useEffect(() => {
-        const handleResize = () => {
-            setBreakpoint(getBreakpoint());
-        };
-        window.addEventListener("resize", handleResize);
-        handleResize();
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+interface LeagueSummaryDataProps {
+    leagueDetails: LeagueDetails;
+    currentBreakpoint: Breakpoint;
+}
+function LeagueSummaryData({leagueDetails, currentBreakpoint}: LeagueSummaryDataProps) {
 
     return (
     <>
@@ -304,36 +247,28 @@ function LeagueSummaryData({leagueDetails}: LeagueSummaryDataProps) {
 }
 
 export interface LeagueSummaryParams {
-    leagueInfo?: LeagueInfo;
+    leagueDetails: LeagueDetails | null;
+    leagueDetailsLoading: boolean;
+    currentBreakpoint: Breakpoint;
     children?: React.ReactNode;
 }
 
-const LeagueSummary: React.FC<LeagueSummaryParams> = ({leagueInfo, children}) => {
-    const fetcher = useCallback((dataLoc: string) => leagueTeamDetailsFetcher(dataLoc), []);
-
-    if (leagueInfo == null || leagueInfo.dataLoc == null) {
-        return <ErrorDisplay message="Incorrect League ID. Please select a correct league."/>
-    }
-
-    const {data, isLoading, error } = useCachedFetcher<LeagueDetails>(fetcher.bind(null, leagueInfo.dataLoc), LEAGUE_DETAILS_CACHE_CATEGORY, leagueInfo.id);
-    // console.debug(data);
+const LeagueSummary: React.FC<LeagueSummaryParams> = ({leagueDetails, leagueDetailsLoading, currentBreakpoint, children}) => {
     return (
         <>
-            <Card border="primary" className="mb-3 mx-0 px-0">
+            <Card border="primary" className="mb-2 mx-0 px-0">
                 <CardHeader className="px-2">
                     League Summary
-                    {data && !data.completed && <Badge bg="success" className="align-middle float-end"><PlayCircleFill/> Ongoing</Badge>}
+                    {leagueDetails && !leagueDetails.completed && <Badge bg="success" className="align-middle float-end"><PlayCircleFill/> Ongoing</Badge>}
                 </CardHeader>
                 {/*Still Loading*/}
-                {isLoading && <div className="card-body"><Loader/></div>}
-                {/*Set error handling here, or the rest of the component does not get displayed*/}
-                {error && <ErrorDisplay message="Error loading league information, please try later or talk to someone."  error={error}/>}
-                {data &&
+                {leagueDetailsLoading && <div className="card-body"><Loader/></div>}
+                {leagueDetails &&
                     <CardBody className="px-2">
                         <CardTitle as="h4" className="pb-2 d-flex justify-content-center">
-                            <div className="text-center">{data.season} {data.name}&nbsp;<small className="text-body-secondary">@ {data?.center}</small></div>
+                            <div className="text-center">{leagueDetails.season} {leagueDetails.name}&nbsp;<small className="text-body-secondary">@ {leagueDetails?.center}</small></div>
                         </CardTitle>
-                        <LeagueSummaryData leagueDetails={data}/>
+                        <LeagueSummaryData leagueDetails={leagueDetails} currentBreakpoint={currentBreakpoint}/>
                     </CardBody>
                     }
             </Card>

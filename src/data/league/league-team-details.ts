@@ -15,6 +15,15 @@
  */
 import {JsonObject, JsonProperty} from "json2typescript";
 import {LeagueMatchup} from "./league-matchup";
+import {PlayerStats} from "../player/player-stats.ts";
+import type {LeagueAccolade} from "./league-details.ts";
+
+export class LeaguePlayerStats extends PlayerStats {
+    handicap: number = 0;
+    averageBoosterSeries: number = 0;
+    bestGameOverAverage?: LeagueAccolade;
+    bestSeriesOverAverage?: LeagueAccolade;
+}
 
 @JsonObject("LeagueTeam")
 export abstract class LeagueTeam {
@@ -67,6 +76,8 @@ export class LeaguePlayer {
 
     @JsonProperty("carry-over-league-stats", LeaguePlayerCarryOverStats)
     carryOverStats?: LeaguePlayerCarryOverStats = undefined;
+
+    playerStats?: LeaguePlayerStats = undefined;
 }
 
 @JsonObject("TrackedLeagueTeam")
@@ -80,5 +91,7 @@ export class TrackedLeagueTeam extends LeagueTeam {
 
     @JsonProperty("matchups", [LeagueMatchup])
     matchups: LeagueMatchup[] = [];
+
+    pointsWonLost: [number, number] = [0, 0];
 }
 

@@ -14,44 +14,44 @@
  * limitations under the License.
  */
 
-import  {type FC} from "react";
+import {type FC} from "react";
 import {useParams} from "react-router-dom";
-import LeagueSummary from "./components/league/league-summary.tsx";
 
 import Loader from "./components/loader";
 import ErrorDisplay from "./components/error-display";
-import {LEAGUE_LIST_CACHE_CATEGORY, leagueInfoListFetcher} from "../data/league/league-api.ts";
-import {AvailableLeagues} from "../data/league/league-info.ts";
-import {useCachedFetcher} from "../data/utils/data-loader.tsx";
-import LeagueList from "./components/league/league-list.tsx";
+import {
+    LEAGUE_LIST_CACHE_CATEGORY,
+    leagueInfoListFetcher
+} from "../data/league/league-api.ts";
+import {AvailableLeagues} from "../data/league/league-info";
+import {useCachedFetcher} from "../data/utils/data-loader";
+import LeagueList from "./components/league/league-list";
+import LeagueDisplay from "./components/league/league-display";
 
 const League :FC = () => {
-    const { leagueId } = useParams(); //TODO Add teamId later
-
-    if (!leagueId) {
-        return <LeagueList/>;
-    }
-
-    // Check if league is valid
+    const { leagueId, teamId } = useParams();
     const { data: leagueListData, isLoading: leagueListLoading, error: leagueListLoadError } = useCachedFetcher<AvailableLeagues>(leagueInfoListFetcher, LEAGUE_LIST_CACHE_CATEGORY);
-    if (leagueListLoading) {
-        return <Loader />
-    }
-    if (leagueListLoadError) {
-        return <ErrorDisplay message="Error loading leagues. Nothing else on the site will probably work." error={leagueListLoadError}/>
-    }
-    if ((leagueListData && !leagueListData.findLeague(leagueId)) || leagueListLoadError) {
-        return (<>
-            <LeagueList />
-            <ErrorDisplay message="Incorrect League ID. Please select a correct league."/>
-        </>);
+
+    if (leagueId) {
+        if (leagueListLoading) {
+            return <Loader />
+        }
+        if (leagueListLoadError) {
+            return <ErrorDisplay message="Error loading leagues. Nothing else on the site will probably work." error={leagueListLoadError}/>
+        }
+        if (leagueListData) {
+            const leagueInfo = leagueListData.findLeague(leagueId);
+            if (!leagueInfo || leagueInfo.dataLoc == null || leagueListLoadError) {
+                return (<>
+                    <LeagueList />
+                    <ErrorDisplay message="Incorrect League ID. Please select a correct league."/>
+                </>);
+            }
+            return <LeagueDisplay leagueInfo={leagueInfo} teamId={teamId}/>
+        }
     }
 
-    return (
-        <>
-            {leagueListData && <LeagueSummary leagueInfo={leagueListData.findLeague(leagueId)}/>}
-        </>
-    )
+    return <LeagueList/>;
 };
 
 export default League;
