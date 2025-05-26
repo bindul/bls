@@ -252,7 +252,7 @@
                 "games": [
                   {
                     "arsenal": ["bb1-bw30"],
-                    "frames": [["8", "-"], ["6", "-"], ["X"], ["5", "4"], ["X"], ["9", "/"], ["8", "1"], ["5", "4"], ["8", "1"], ["7S", "1"]]
+                    "frames": [["8", "-"], ["6", "/"], ["X"], ["5", "4"], ["X"], ["9", "/"], ["8", "1"], ["5", "4"], ["8", "1"], ["7S", "1"]]
                   },
                   {
                     "arsenal": ["bb1-bw30"],
@@ -417,6 +417,23 @@
               ]
             }
           }
+        },
+        {
+          "week": 4,
+          "scheduled-date": "2025-05-29",
+          "bowl-date": "2025-05-29",
+          "matchup-type": "REGULAR-DIVISION",
+          "entering-rank": 0,
+          "lanes": [15, 16],
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "opponent": {
+            "team-id": "2425-summer-beer-24",
+            "entering-rank": 0,
+            "hdcp": 0,
+            "vacant": false,
+            "absent": false,
+            "pre-post-bowl": false
+          }
         }
       ]
     }
@@ -442,6 +459,13 @@
       "division": "2",
       "name": "Hardcore Hoggers",
       "players": ["ShirleeJay Illsley", "Larissia Hall", "Art Vigil", "Armando Delgado"]
+    },
+    {
+      "id": "2425-summer-beer-24",
+      "number": 24,
+      "division": "2",
+      "name": "Muddawgs",
+      "players": ["Jason Graham", "Daniel Morris", "Nick Mcqueen", "Jeremiah Mcqueen"]
     }
   ]
 }
