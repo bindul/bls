@@ -119,8 +119,8 @@ export class OpponentTeam {
     @JsonProperty("team-id", String)
     teamId: string | undefined = undefined;
 
-    @JsonProperty("entering-rank", Number)
-    enteringRank: number = 0;
+    @JsonProperty("entering-rank", String)
+    enteringRank: string = "";
 
     @JsonProperty("players", [String])
     playersBowled: string[] = [];
@@ -159,8 +159,8 @@ export class LeagueMatchup {
     @JsonProperty("matchup-type", String)
     matchup :MatchupType = "OTHERS";
 
-    @JsonProperty("entering-rank", Number)
-    enteringRank :number = 0;
+    @JsonProperty("entering-rank", String)
+    enteringRank :string = "";
 
     @JsonProperty("lanes", [Number])
     lanes :number[] = [];

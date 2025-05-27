@@ -25,7 +25,7 @@ import {
 } from "./league-matchup";
 import {LeagueScoringRules} from "./league-setup-config";
 import {isNumeric} from "../utils/utils.ts";
-import {LeaguePlayerStats, type TrackedLeagueTeam} from "./league-team-details.ts";
+import {LeaguePlayerStats, TeamStats, type TrackedLeagueTeam} from "./league-team-details.ts";
 import {calculatePlayerStats} from "../player/player-stats-calculator.ts";
 
 
@@ -66,7 +66,7 @@ class PercentAverageToTargetHandicapCapculator extends ZeroHandicapCalculator im
     }
 
     calculateHandicap(average: number): number {
-        return (average >= this.targetPins) ? 0 : Math.floor((this.targetPins - average) * (this.pctToTarget / 100));
+        return (average >= this.targetPins) ? 0 : Math.floor((this.targetPins - Math.floor(average)) * (this.pctToTarget / 100));
     }
 }
 
@@ -348,11 +348,31 @@ export function assignScoresAndPoints (matchup: LeagueMatchup, scoringRules: Lea
 function rollupTeamScoresAndPoints(team: TrackedLeagueTeam) {
     let pointsWon = 0;
     let pointsLost = 0;
+    let teamScratch: number = 0;
+    let highGame: number = 0;
+    let highSeries: number = 0;
     team.matchups.forEach((matchup) => {
         pointsWon += matchup.pointsWonLost[0];
         pointsLost += matchup.pointsWonLost[1];
+        if (matchup.scores) {
+            const scores = matchup.scores;
+            console.log(scores)
+            teamScratch += scores.series.effectiveScratchScore ?? 0;
+            if (scores.series.effectiveScratchScore > highSeries) {
+                highSeries = scores.series.effectiveScratchScore;
+            }
+            scores.games.forEach((game) => {
+                if (game.effectiveScratchScore > highGame) {
+                    highGame = game.effectiveScratchScore;
+                }
+            })
+        }
     })
     team.pointsWonLost = [pointsWon, pointsLost];
+    team.teamStats = new TeamStats();
+    team.teamStats.scratchPins = teamScratch;
+    team.teamStats.highGame = highGame;
+    team.teamStats.highSeries = highSeries;
 }
 
 function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator : HandicapCalculator) {
@@ -490,6 +510,19 @@ export function decorateLeagueDetails (league : LeagueDetails) :LeagueDetails {
         rollupTeamScoresAndPoints(team);
         // Player Stats
         calculateLeaguePlayerStats(team, hdcpCalculator);
+        // Update Team stats from player stats
+        const teamStats = team.teamStats;
+        if (teamStats) {
+            let pc = 0;
+            team.roster.forEach((p) => {
+                if (pc < 4 && p.status == "REGULAR" && p.playerStats) {
+                    const playerStats = p.playerStats;
+                    teamStats.average += Math.floor(playerStats.gameStats.average);
+                    teamStats.handicap += Math.floor(playerStats.handicap);
+                    pc++;
+                }
+            });
+        }
     })
 
     // TODO Frame Atrributes

@@ -25,6 +25,14 @@ export class LeaguePlayerStats extends PlayerStats {
     bestSeriesOverAverage?: LeagueAccolade;
 }
 
+export class TeamStats {
+    scratchPins: number = 0;
+    average: number = 0;
+    handicap: number = 0;
+    highGame: number = 0;
+    highSeries: number =0;
+}
+
 @JsonObject("LeagueTeam")
 export abstract class LeagueTeam {
     @JsonProperty("id", String)
@@ -83,8 +91,8 @@ export class LeaguePlayer {
 @JsonObject("TrackedLeagueTeam")
 export class TrackedLeagueTeam extends LeagueTeam {
 
-    @JsonProperty("current-rank", Number)
-    currentRank: number = 0;
+    @JsonProperty("current-rank", String)
+    currentRank: string = "";
 
     @JsonProperty("roster", [LeaguePlayer])
     roster: LeaguePlayer[] = [];
@@ -93,5 +101,6 @@ export class TrackedLeagueTeam extends LeagueTeam {
     matchups: LeagueMatchup[] = [];
 
     pointsWonLost: [number, number] = [0, 0];
+    teamStats?: TeamStats = undefined;
 }
 

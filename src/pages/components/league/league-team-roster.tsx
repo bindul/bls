@@ -16,7 +16,6 @@
 
 import {LeaguePlayer, LeaguePlayerStats, TrackedLeagueTeam} from "../../../data/league/league-team-details";
 import {type FC, lazy, Suspense, useEffect, useState} from "react";
-import {CollapsibleContainer} from "../collapsible-container";
 import {type Breakpoint, BS_BP_SM, BS_BP_XS} from "../ui-utils";
 import {CardBody, CardFooter, CardHeader, Col, Container, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
@@ -222,7 +221,7 @@ function PlayerGamesTable ({playerGameData, currentBreakPoint}: PlayerGamesTable
                                     <td>{p.game2}</td>
                                     <td>{p.game3}</td>
                                     <td>{p.series}</td>
-                                    <td className={p.average < p.enteringAvg ? "bg-danger-subtle" : ""}>{numberFormat.format(p.average)}</td>
+                                    <td className={p.average < p.enteringAvg ? "text-danger" : ""}>{numberFormat.format(p.average)}</td>
                                 </tr>)}
                             </tbody>
                         </Table>
@@ -258,7 +257,7 @@ function PlayerGamesTable ({playerGameData, currentBreakPoint}: PlayerGamesTable
                                 </tr>
                                 <tr>
                                     <th scope="row">Average</th>
-                                    {playerGameData.map(p => <td className={p.average < p.enteringAvg ? "bg-danger-subtle" : ""}>{numberFormat.format(p.average)}</td>)}
+                                    {playerGameData.map(p => <td className={p.average < p.enteringAvg ? "text-danger" : ""}>{numberFormat.format(p.average)}</td>)}
                                 </tr>
                             </tbody>
                         </Table>
@@ -323,46 +322,44 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
     }
 
     return (<>
-        <CollapsibleContainer divId="league-honor-roll" headerTitle="Team Roster" currentBreakpoint={currentBreakpoint} hideBelowBreakpoint={BS_BP_XS}>
-            {leagueDetailsLoading && <div className="card-body"><Loader/></div>}
-            {teamDetails &&
-                <CardBody className="px-0 py-1 border border-secondary-subtle">
-                    <Card className="mx-2">
-                        <CardHeader className="text-white bg-dark text-center fw-bolder">Roster</CardHeader>
-                        <CardBody className="mx-0 px-0 py-2">
-                                <Table responsive={true} size="sm" >
-                                    <thead>
+        {leagueDetailsLoading && <div className="card-body"><Loader/></div>}
+        {teamDetails &&
+            <CardBody className="px-0 py-1 border border-secondary-subtle">
+                <Card className="mx-2">
+                    <CardHeader className="text-white bg-dark text-center fw-bolder">Roster</CardHeader>
+                    <CardBody className="mx-0 px-0 py-2">
+                            <Table responsive={true} size="sm" >
+                                <thead>
+                                <tr>
+                                    {/*Some columns are hidden on smaller screens*/}
+                                    <th>Player</th>
+                                    <th>Games</th>
+                                    <th className="d-none d-md-block">Scratch Pins</th>
+                                    <th>Average</th>
+                                    <th>Handicap</th>
+                                    <th className="d-none d-md-block">Series Avg</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {teamDetails.roster.map(p => (
                                     <tr>
-                                        {/*Some columns are hidden on smaller screens*/}
-                                        <th>Player</th>
-                                        <th>Games</th>
-                                        <th className="d-none d-md-block">Pinfall</th>
-                                        <th>Average</th>
-                                        <th>Handicap</th>
-                                        <th className="d-none d-md-block">Series Avg</th>
+                                        {/*TODO Distinguish between regular and subs*/}
+                                        <td>{p.status === "REGULAR" ? <PersonFillLock/> : <PersonFillAdd/>} <Link to="#" onClick={() => setPlayerDetailsDisplay(p.id)}>{p.name}</Link></td>
+                                        <td>{p.playerStats?.gameStats.count}</td>
+                                        <td className="d-none d-md-block">{p.playerStats?.pinfall}</td>
+                                        <td>{p.playerStats?.gameStats.average.toFixed(2)}</td>
+                                        <td>{p.playerStats?.handicap}</td>
+                                        <td className="d-none d-md-block">{p.playerStats?.seriesStats.average.toFixed(2)}</td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    {teamDetails.roster.map(p => (
-                                        <tr>
-                                            {/*TODO Distinguish between regular and subs*/}
-                                            <td>{p.status === "REGULAR" ? <PersonFillLock/> : <PersonFillAdd/>} <Link to="#" onClick={() => setPlayerDetailsDisplay(p.id)}>{p.name}</Link></td>
-                                            <td>{p.playerStats?.gameStats.count}</td>
-                                            <td className="d-none d-md-block">{p.playerStats?.pinfall}</td>
-                                            <td>{p.playerStats?.gameStats.average.toFixed(2)}</td>
-                                            <td>{p.playerStats?.handicap}</td>
-                                            <td className="d-none d-md-block">{p.playerStats?.seriesStats.average.toFixed(2)}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </Table>
-                        </CardBody>
-                        <CardFooter><small>Click on player names to see advanced stats</small></CardFooter>
-                    </Card>
-                    {playerDetailsDisplay && <ShowPlayerDetails playerDetailsDisplay={playerDetailsDisplay} teamDetails={teamDetails} closePlayerDetails={closePlayerDetails} currentBreakpoint={currentBreakpoint}/>}
-                </CardBody>
-            }
-        </CollapsibleContainer>
+                                ))}
+                                </tbody>
+                            </Table>
+                    </CardBody>
+                    <CardFooter><small>Click on player names to see advanced stats</small></CardFooter>
+                </Card>
+                {playerDetailsDisplay && <ShowPlayerDetails playerDetailsDisplay={playerDetailsDisplay} teamDetails={teamDetails} closePlayerDetails={closePlayerDetails} currentBreakpoint={currentBreakpoint}/>}
+            </CardBody>
+        }
     </>);
 }
 

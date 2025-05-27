@@ -22,9 +22,10 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import {TrackedLeagueTeam} from "../../../data/league/league-team-details.ts";
 import type {LeagueMatchup} from "../../../data/league/league-matchup.ts";
-import {ArrowDownCircleFill, Arrows, ArrowUpCircleFill} from "react-bootstrap-icons";
+import {ArrowDownCircle, Arrows, ArrowUpCircle} from "react-bootstrap-icons";
 import {type Breakpoint} from "../ui-utils.tsx";
 import LeagueTeamRoster from "./league-team-roster.tsx";
+import {isNumeric} from "../../../data/utils/utils.ts";
 
 interface DataRowProps {
     defn: React.ReactNode;
@@ -60,12 +61,16 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
     }
 
     const rankComparison = () => {
-        let retVal = <Arrows/>
-        if (lastMatchup) {
-            if (lastMatchup.enteringRank > teamDetails.currentRank) {
-                retVal = <ArrowUpCircleFill/>
-            } else if (lastMatchup.enteringRank < teamDetails.currentRank) {
-                retVal = <ArrowDownCircleFill/>
+        let retVal = <></>
+        if (lastMatchup && isNumeric(teamDetails.currentRank) && isNumeric(lastMatchup.enteringRank)) {
+            const lastMatchupRank = parseInt(lastMatchup.enteringRank);
+            const currentRank = parseInt(teamDetails.currentRank);
+            if (lastMatchupRank > currentRank) {
+                retVal = <ArrowUpCircle/>
+            } else if (lastMatchupRank < currentRank) {
+                retVal = <ArrowDownCircle/>
+            } else {
+                retVal = <Arrows/>; // No Change
             }
         }
         return retVal;
@@ -80,7 +85,11 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
         if (nextMatchup && nextMatchup.opponent && nextMatchup.opponent.teamId) {
             const otherTeam = leagueDetails?.otherTeams.find(ot => ot.id === nextMatchup.opponent?.teamId);
             if (otherTeam) {
-                return "#" + otherTeam.number + " " + otherTeam.name;
+                let retVal = "#" + otherTeam.number + " " + otherTeam.name;
+                if (nextMatchup.opponent.enteringRank != null && nextMatchup.opponent.enteringRank.length > 0) {
+                    retVal = retVal + " [" + nextMatchup.opponent.enteringRank + "]";
+                }
+                return retVal;
             }
         }
     }
@@ -92,7 +101,7 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
         <Container fluid="true">
             <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                 <CardBody className="py-1 py-sm-2">
-                    <Row className="gx-5 gy-1">
+                    <Row className="gx-5 gy-1 mb-1">
                         <Col xs={xsColWeight} md={mdColWeight}>
                             <WriteDataRow defn="Current Rank" value={<>{teamDetails.currentRank} <span className="float-end">{rankComparison()}</span></>}/>
                         </Col>
@@ -100,10 +109,33 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
                             <WriteDataRow defn="Points" value={`${teamDetails.pointsWonLost[0]} - ${teamDetails.pointsWonLost[1]}`}/>
                         </Col>
                         <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()}/>
+                            <WriteDataRow defn="Starting Average" value={teamDetails.teamStats?.average}/>
                         </Col>
                         <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="Next Opponent" value={formatNextMatchupOpponent()}/>
+                            <WriteDataRow defn="Starting Handicap" value={teamDetails.teamStats?.handicap}/>
+                        </Col>
+                        <Col xs={xsColWeight} md={mdColWeight}>
+                            <WriteDataRow defn="Scratch Pins" value={teamDetails.teamStats?.scratchPins}/>
+                        </Col>
+                        <Col xs={xsColWeight} md={mdColWeight}>
+                            <WriteDataRow defn="High Game" value={teamDetails.teamStats?.highGame}/>
+                        </Col>
+                        <Col xs={xsColWeight} md={mdColWeight}>
+                            <WriteDataRow defn="High Series" value={teamDetails.teamStats?.highSeries}/>
+                        </Col>
+                    </Row>
+                    <Row className="gx-5 gy-1">
+                        <Col xs={xsColWeight} md={mdColWeight}>
+                            <Row className="border rounded-1 border-success-subtle">
+                                <Col className="text-body-emphasis bg-success-subtle px-1">Next Matchup Lanes<span className="float-end">:</span></Col>
+                                <Col className="px-1">{formatNextMatchupLanes()}</Col>
+                            </Row>
+                        </Col>
+                        <Col xs={xsColWeight} md={mdColWeight}>
+                            <Row className="border rounded-1 border-success-subtle">
+                                <Col className="text-body-emphasis bg-success-subtle px-1">Next Opponent<span className="float-end">:</span></Col>
+                                <Col className="px-1">{formatNextMatchupOpponent()}</Col>
+                            </Row>
                         </Col>
                     </Row>
                 </CardBody>
