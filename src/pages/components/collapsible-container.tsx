@@ -15,7 +15,7 @@
  */
 
 import * as React from "react";
-import {type Breakpoint, BREAKPOINTS} from "./ui-utils.tsx";
+import {type Breakpoint, BREAKPOINTS, isBreakpointSmallerThan} from "./ui-utils.tsx";
 import {useEffect} from "react";
 import {CardBody, Collapse} from "react-bootstrap";
 import {Link} from "react-router-dom";
@@ -32,7 +32,7 @@ export function CollapsibleContainer({ children, headerTitle, divId, currentBrea
     const [open, setOpen] = React.useState(true);
 
     useEffect(() => {
-        if (currentBreakpoint && hideBelowBreakpoint && currentBreakpoint.order <= hideBelowBreakpoint.order) {
+        if (isBreakpointSmallerThan(currentBreakpoint, hideBelowBreakpoint)) {
             setOpen(false);
         }
     }, [currentBreakpoint, hideBelowBreakpoint]);

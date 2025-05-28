@@ -326,7 +326,7 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
         {teamDetails &&
             <CardBody className="px-0 py-1 border border-secondary-subtle">
                 <Card className="mx-2">
-                    <CardHeader className="text-white bg-dark text-center fw-bolder">Roster</CardHeader>
+                    <CardHeader className="text-white bg-dark text-center fw-bolder py-1">Roster</CardHeader>
                     <CardBody className="mx-0 px-0 py-2">
                             <Table responsive={true} size="sm" >
                                 <thead>
