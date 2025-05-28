@@ -32,6 +32,18 @@
   margin-right: auto;
 }
 
+.fs-sm {
+  font-size: 0.875rem;
+}
+
+.fs-xs {
+  font-size: 0.75rem;
+}
+
+.fs-xxs {
+  font-size: 0.625rem;
+}
+
 @import "bootswatch/dist/lumen/variables";
 @import "bootstrap/scss/bootstrap";
 @import "bootswatch/dist/lumen/bootswatch";

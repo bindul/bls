@@ -22,10 +22,13 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import {TrackedLeagueTeam} from "../../../data/league/league-team-details.ts";
 import type {LeagueMatchup} from "../../../data/league/league-matchup.ts";
-import {ArrowDownCircle, Arrows, ArrowUpCircle} from "react-bootstrap-icons";
+import {
+    CaretDownFill, CaretLeft, CaretRight, CaretUpFill
+} from "react-bootstrap-icons";
 import {type Breakpoint} from "../ui-utils.tsx";
 import LeagueTeamRoster from "./league-team-roster.tsx";
 import {isNumeric} from "../../../data/utils/utils.ts";
+import LeagueTeamMatchup from "./league-team-matchup.tsx";
 
 interface DataRowProps {
     defn: React.ReactNode;
@@ -66,11 +69,11 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
             const lastMatchupRank = parseInt(lastMatchup.enteringRank);
             const currentRank = parseInt(teamDetails.currentRank);
             if (lastMatchupRank > currentRank) {
-                retVal = <ArrowUpCircle/>
+                retVal = <span className="text-success"><CaretUpFill/></span>
             } else if (lastMatchupRank < currentRank) {
-                retVal = <ArrowDownCircle/>
+                retVal = <span className="text-danger"><CaretDownFill/></span>
             } else {
-                retVal = <Arrows/>; // No Change
+                retVal = <span><CaretLeft/><CaretRight/></span>; // No Change
             }
         }
         return retVal;
@@ -103,7 +106,7 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
                 <CardBody className="py-1 py-sm-2">
                     <Row className="gx-5 gy-1 mb-1">
                         <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="Current Rank" value={<>{teamDetails.currentRank} <span className="float-end">{rankComparison()}</span></>}/>
+                            <WriteDataRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
                         </Col>
                         <Col xs={xsColWeight} md={mdColWeight}>
                             <WriteDataRow defn="Points" value={`${teamDetails.pointsWonLost[0]} - ${teamDetails.pointsWonLost[1]}`}/>
@@ -179,7 +182,7 @@ const LeagueTeamDetails : React.FC<LeagueTeamDetailsProps> = ({leagueDetails, le
                         <LeagueTeamDetailsSummary teamDetails={teamDetails} leagueDetails={leagueDetails}/>
                     </CardBody>
                     <LeagueTeamRoster teamDetails={teamDetails} leagueDetailsLoading={leagueDetailsLoading} currentBreakpoint={currentBreakpoint}/>
-                    {/*TODO League Details*/}
+                    <LeagueTeamMatchup leagueDetails={leagueDetails} teamDetails={teamDetails} leagueDetailsLoading={leagueDetailsLoading} currentBreakpoint={currentBreakpoint}/>
                 </>
             }
         </Card>

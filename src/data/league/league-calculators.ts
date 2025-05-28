@@ -190,6 +190,7 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore) {
     // Calculate cumulative scores
     let scoreAccum = 0;
     let strikesInARow = 0;
+    let potentialCleanGame = true;
     for (let i = 0; i < playerGame.frames.length; i++) {
         const currFrame = playerGame.frames[i];
         currFrame.ballScores.forEach((score) => {
@@ -216,11 +217,79 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore) {
         } else if (strikesInARow == 12) {
             currFrame.attributes.push("Perfect-Game");
         }
+        const lastBallLabel = currFrame.ballScores[currFrame.ballScores.length - 1][1];
+        if (lastBallLabel == undefined || (lastBallLabel !== "X" && lastBallLabel !== "/")) {
+            potentialCleanGame = false;
+        }
+        if (currFrame.ballScores.length > 1) {
+            if (currFrame.ballScores[1][1] === "/") {
+                if (currFrame.ballScores[0][1] === "-") {
+                    currFrame.attributes.push("Gutter-Spare");
+                } else if (currFrame.ballScores[0][1] === "S") {
+                    currFrame.attributes.push("Split-Picked-Up");
+                }
+            }
+            if (currFrame.number == 10 && currFrame.ballScores.length > 2) {
+                if (currFrame.ballScores[2][1] === "/") {
+                    if (currFrame.ballScores[1][1] === "-") {
+                        currFrame.attributes.push("Gutter-Spare");
+                    } else if (currFrame.ballScores[1][1] === "S") {
+                        currFrame.attributes.push("Split-Picked-Up");
+                    }
+                }
+            }
+        }
+        if (currFrame.number == 10 && potentialCleanGame) {
+            currFrame.attributes.push("Clean-Game");
+        }
     }
 
     // Set the scratch for the game
     if (playerGame.scratchScore == undefined || playerGame.scratchScore == 0) {
         playerGame.scratchScore = scoreAccum;
+    }
+}
+
+function setCrossPlayerFrameAttributes(matchup: LeagueMatchup) {
+    const gameCount = matchup.scores?.games?.length ?? 0;
+    for (let i = 0; i < gameCount; i++) {
+        const allPlayerFrames : Frame[][] = [];
+        let missingFrames = false;
+        matchup.scores?.playerScores.filter(ps => ps.games.length >= (i + 1)).forEach((playerScore) => {
+            const gameScore = playerScore.games[i];
+            if (!gameScore.blind) {
+                if (gameScore.frames && gameScore.frames.length > 0) {
+                    allPlayerFrames.push(gameScore.frames);
+                } else {
+                    missingFrames = true;
+                }
+            }
+        });
+        if (!missingFrames) {
+            const playerCount = allPlayerFrames.length;
+            console.log(allPlayerFrames);
+            for (let f = 0; f < 10; f++) {
+                let xc = 0;
+                for (let p = 0; p < playerCount; p++) {
+                    if (allPlayerFrames[p][f].ballScores[0][1] === "X") {
+                        xc ++;
+                    }
+                }
+                if (xc == playerCount) {
+                    // Beer frame
+                    for (let p = 0; p < playerCount; p++) {
+                        allPlayerFrames[p][f].attributes.push("Star");
+                    }
+                } else if (xc == playerCount - 1) {
+                    // Someong got hung
+                    for (let p = 0; p < playerCount; p++) {
+                        if (allPlayerFrames[p][f].ballScores[0][1] !== "X") {
+                            allPlayerFrames[p][f].attributes.push("Hung");
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -506,6 +575,8 @@ export function decorateLeagueDetails (league : LeagueDetails) :LeagueDetails {
     league.teams?.forEach(team => {
         team.matchups?.forEach((matchup) => {
             assignScoresAndPoints(matchup, scoringRules, hdcpCalculator, pointsCalculator);
+            // Cross Player Frame Atrributes
+            setCrossPlayerFrameAttributes(matchup);
         })
         rollupTeamScoresAndPoints(team);
         // Player Stats
@@ -524,8 +595,6 @@ export function decorateLeagueDetails (league : LeagueDetails) :LeagueDetails {
             });
         }
     })
-
-    // TODO Frame Atrributes
 
     // League stats and leaders
     gatherLeagueStatsAndLeaders(league);

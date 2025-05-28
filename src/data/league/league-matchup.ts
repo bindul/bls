@@ -49,7 +49,7 @@ export class MatchupGameScore extends GameScore {
 
 // TODO Refactor part or most of this or create interface
 export type ScoreLabel = "X" | "/" | "S" | "F" | "-";
-export type FrameAttributes = "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Gutter-Spare" | "Split-Picked-Up";
+export type FrameAttributes = "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Clean-Game" | "Gutter-Spare" | "Split-Picked-Up";
 export class Frame {
     number: number = 0;
     ballScores: [number, ScoreLabel?][] = [];

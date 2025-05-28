@@ -35,3 +35,7 @@ export const getBreakpoint = () => {
     const bp = BREAKPOINTS.find(bp => (width > bp.minWidth && width < bp.maxWidth));
     return bp? bp : BS_BP_XXL;
 };
+
+export function isBreakpointSmallerThan (check?: Breakpoint, comparison?: Breakpoint) {
+    return check && comparison && check.order <= comparison.order;
+}
