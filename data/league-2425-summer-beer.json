@@ -74,26 +74,26 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": 8,
+      "current-rank": "10",
       "roster": [
         {
           "id": "ne1",
-          "name": "Nick Earhart",
+          "name": "Nick",
           "status": "REGULAR"
         },
         {
           "id": "bb1",
-          "name": "Bindul Bhowmik",
+          "name": "Bindul",
           "status": "REGULAR"
         },
         {
           "id": "je1",
-          "name": "Josh Ellis",
+          "name": "Josh",
           "status": "REGULAR"
         },
         {
           "id": "lw1",
-          "name": "Luke Wie",
+          "name": "Luke",
           "status": "REGULAR"
         }
       ],
@@ -103,7 +103,6 @@
           "scheduled-date": "2025-05-08",
           "bowl-date": "2025-05-08",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": 0,
           "lanes": [37, 38],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "notes": ["Start of League"],
@@ -201,7 +200,6 @@
           },
           "opponent": {
             "team-id": "2425-summer-beer-37",
-            "entering-rank": 0,
             "hdcp": 323,
             "vacant": false,
             "absent": false,
@@ -226,7 +224,7 @@
           "scheduled-date": "2025-05-15",
           "bowl-date": "2025-05-15",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": 8,
+          "entering-rank": "8",
           "lanes": [5, 6],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "scores": {
@@ -304,9 +302,9 @@
           },
           "opponent": {
             "team-id": "2425-summer-beer-29",
-            "entering-rank": 13,
+            "entering-rank": "13",
             "hdcp": 213,
-            "players": ["Matt Furst", "Joe Carfagnini", "Matt Rogoff", "Dylaon Forward"],
+            "players": ["Matt F", "Joe C", "Matt R", "Dylaon F"],
             "vacant": false,
             "absent": false,
             "scores": {
@@ -329,7 +327,7 @@
           "scheduled-date": "2025-05-22",
           "bowl-date": "2025-05-22",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": 8,
+          "entering-rank": "8",
           "lanes": [29, 30],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "scores": {
@@ -398,7 +396,7 @@
           },
           "opponent": {
             "team-id": "2425-summer-beer-40",
-            "entering-rank": 18,
+            "entering-rank": "18",
             "hdcp": 211,
             "vacant": false,
             "absent": false,
@@ -423,12 +421,12 @@
           "scheduled-date": "2025-05-29",
           "bowl-date": "2025-05-29",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": 0,
+          "entering-rank": "10",
           "lanes": [15, 16],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-24",
-            "entering-rank": 0,
+            "entering-rank": "3",
             "hdcp": 0,
             "vacant": false,
             "absent": false,
@@ -444,28 +442,28 @@
       "number": 37,
       "division": "2",
       "name": "Team 37",
-      "players": ["Ethan Mosier", "Eric Mosier", "Hillary Hanson", "Tim Hanson"]
+      "players": ["Ethan M", "Eric M", "Hillary H", "Tim H"]
     },
     {
       "id": "2425-summer-beer-29",
       "number": 29,
       "division": "2",
       "name": "Master Exploders",
-      "players": ["Matt Furst", "Joe Carfagnini", "Matt Finnegan", "Brian Strubbe", "Matt Rogoff", "Mike Manone", "Dylaon Forward"]
+      "players": ["Matt F", "Joe C", "Matt F", "Brian S", "Matt R", "Mike M", "Dylaon F"]
     },
     {
       "id": "2425-summer-beer-40",
       "number": 40,
       "division": "2",
       "name": "Hardcore Hoggers",
-      "players": ["ShirleeJay Illsley", "Larissia Hall", "Art Vigil", "Armando Delgado"]
+      "players": ["ShirleeJay I", "Larissia H", "Art V", "Armando D"]
     },
     {
       "id": "2425-summer-beer-24",
       "number": 24,
       "division": "2",
       "name": "Muddawgs",
-      "players": ["Jason Graham", "Daniel Morris", "Nick Mcqueen", "Jeremiah Mcqueen"]
+      "players": ["Jason G", "Daniel M", "Nick M", "Jeremiah M"]
     }
   ]
 }
