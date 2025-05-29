@@ -19,7 +19,7 @@ import {Frame, type FrameAttributes, type LeagueMatchup, type ScoreLabel} from "
 import {TrackedLeagueTeam} from "../../../data/league/league-team-details.ts";
 import {type Breakpoint, BS_BP_XS, BS_BP_XXL, isBreakpointSmallerThan} from "../ui-utils.tsx";
 import {type FC, type ReactElement, type ReactNode, useEffect, useMemo, useState} from "react";
-import {Row, Col, Badge, Table, CardBody, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Row, Col, Badge, Table, CardBody, OverlayTrigger, Tooltip, CardFooter} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
@@ -66,12 +66,20 @@ interface FrameAttributeIconProps {
     attribute: FrameAttributes;
 }
 const FrameAttributeIcon = ({attribute}: FrameAttributeIconProps) => {
-
-
     // "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Clean-Game" | "Gutter-Spare" | "Split-Picked-Up"
     const iconInfo = FrameAttributeIcons.get(attribute);
     return (<>
         {iconInfo && <OverlayWithTooltip tooltip={iconInfo.description}><Icon iconName={iconInfo.iconName} color={iconInfo.iconColor}/></OverlayWithTooltip>}
+    </>);
+}
+const FrameAttributeIconLegend = () => {
+    const iconNum = FrameAttributeIcons.size;
+    return (<>
+        {Array.from(FrameAttributeIcons.values()).map((icn: FrameAttributeIconInfo, idx: number) =>
+            <>
+                <Icon iconName={icn.iconName} color={icn.iconColor}/>: {icn.description}
+                {(idx + 1) < iconNum && <span>&nbsp;|&nbsp;</span>}
+            </>)}
     </>);
 }
 
@@ -222,7 +230,7 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
                     <Col>
                         <Card className="p-0 m-0">
                             <CollapsibleContainer headerTitle={"Frame Data"} divId={matchup.week + "-framedata"} currentBreakpoint={currentBreakpoint} hideBelowBreakpoint={BS_BP_XXL}>
-                                <CardBody className="p-0 m-0">
+                                <CardBody className="px-0 py-2 m-0">
                                     <Row className="row-cols-1 gy-2 gx-2 m-0 p-0">
                                         {matchup.scores?.games.map((_game, g) =>
                                             <Col>
@@ -235,6 +243,9 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
                                         )}
                                     </Row>
                                 </CardBody>
+                                <CardFooter className="fs-xs text-center">
+                                    <FrameAttributeIconLegend/>
+                                </CardFooter>
                             </CollapsibleContainer>
                         </Card>
                     </Col>
