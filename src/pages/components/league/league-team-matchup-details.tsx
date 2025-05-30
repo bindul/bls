@@ -115,7 +115,7 @@ const TeamIndSeriesGameFrames = ({matchup, teamDetails, currentBreakpoint, gameI
         return (<><td className="p-1 m-0 justify-content-evenly">
             {writeScoreOrLabel(f.ballScores[0])}
             {f.ballScores.length > 1 && writeScoreOrLabel(f.ballScores[1])}
-            {f.number == 10 && (f.ballScores.length > 2 && writeScoreOrLabel(f.ballScores[0]))}
+            {f.number == 10 && (f.ballScores.length > 2 && writeScoreOrLabel(f.ballScores[2]))}
         </td>
         </>);
     }
