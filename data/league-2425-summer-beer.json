@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "10",
+      "current-rank": "PENDING",
       "roster": [
         {
           "id": "ne1",
@@ -424,6 +424,7 @@
           "entering-rank": "10",
           "lanes": [15, 16],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "notes": ["Rough day on the oil, no-one could find a consistent line.", "Bindul left a 5 pin in the last frame of the last game."],
           "scores": {
             "player-scores": [
               {
