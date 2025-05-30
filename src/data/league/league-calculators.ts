@@ -208,15 +208,17 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore) {
             } else {
                 strikesInARow = 0;
             }
+
+            // Frame Atrributes - Do this inside the ball loop, or it misses turkeys across 9th and 10th frame
+            if (strikesInARow == 3) {
+                currFrame.attributes.push("Turkey");
+            } else if (strikesInARow == 12) {
+                currFrame.attributes.push("Perfect-Game");
+            }
         })
         currFrame.cumulativeScore = scoreAccum;
 
-        // Frame Atrributes
-        if (strikesInARow == 3) {
-            currFrame.attributes.push("Turkey");
-        } else if (strikesInARow == 12) {
-            currFrame.attributes.push("Perfect-Game");
-        }
+        // Frame Attributes
         const lastBallLabel = currFrame.ballScores[currFrame.ballScores.length - 1][1];
         if (lastBallLabel == undefined || (lastBallLabel !== "X" && lastBallLabel !== "/")) {
             potentialCleanGame = false;
