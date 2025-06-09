@@ -142,6 +142,7 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                             <WriteStatRow defn="Consecutive Strikes" value={<>
                                 {playerStats.strikesInARow.map(s => <WriteStatRow defn={s[0]} value={s[1]}/>)}
                             </>}/>
+                            <WriteStatRow defn="Strike Spare Ratio" value={writeRatioGroup(playerStats.strikesToSpares)}/>
                             <WriteStatRow defn="All Picked Up Avg" value={<><ConeStriped/> {playerStats.allSinglePinsPickedUpAverage} <ConeStriped/></>} toolTipText="Potential Average if all single pin spares were picked up. (Not yet implemented)"/>
                         </CardBody>
                         {playerStats.incompleteFrameData &&
@@ -343,7 +344,6 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
                                 <tbody>
                                 {teamDetails.roster.map(p => (
                                     <tr>
-                                        {/*TODO Distinguish between regular and subs*/}
                                         <td>{p.status === "REGULAR" ? <PersonFillLock/> : <PersonFillAdd/>} <Link to="#" onClick={() => setPlayerDetailsDisplay(p.id)}>{p.name}</Link></td>
                                         <td>{p.playerStats?.gameStats.count}</td>
                                         <td className="d-none d-md-block">{p.playerStats?.pinfall}</td>

@@ -227,6 +227,7 @@ export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: Pla
     stats.singlePinSpares = new RatioGroup(frameStatsCalculator.pickedUpSinglePinSpareAccum, frameStatsCalculator.singlePinSpareOppportunitiesAccum);
     stats.splits = new RatioGroup(frameStatsCalculator.pickedUpSplitSpareAccum, frameStatsCalculator.splitSpareOppportunitiesAccum);
     stats.opens = new RatioGroup(frameStatsCalculator.openFramesAccum, frameStatsCalculator.totalFramesAccum);
+    stats.strikesToSpares = new RatioGroup(frameStatsCalculator.strikeCountAccum, frameStatsCalculator.pickedUpSpareAccum);
 
     frameStatsCalculator.strikesInARow.forEach((value, key) => {
         stats.strikesInARow.push([key, value]);

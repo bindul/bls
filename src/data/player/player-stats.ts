@@ -48,6 +48,7 @@ export class PlayerStats {
     singlePinSpares: RatioGroup = new RatioGroup();
     opens: RatioGroup = new RatioGroup();
     splits: RatioGroup = new RatioGroup();
+    strikesToSpares: RatioGroup = new RatioGroup();
     cleanGames: number = 0;
     games300: number = 0;
     series800: number = 0;

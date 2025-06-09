@@ -20,7 +20,7 @@ import {type Breakpoint, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils.ts
 import Loader from "../loader.tsx";
 import {Badge, CardBody, CardHeader, Col, Row, Stack, Table} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import {type LeagueMatchup, type MatchupType, TeamScore} from "../../../data/league/league-matchup.ts";
+import {type LeagueMatchup, type MatchupType, SeriesScore, TeamScore} from "../../../data/league/league-matchup.ts";
 import moment from "moment";
 import {ChevronDoubleDown, ChevronDoubleUp} from "react-bootstrap-icons";
 import {isNonEmptyString} from "../../../data/utils/utils.ts";
@@ -116,6 +116,14 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
         }
     }
 
+    const calculateTeamHdcp = (seriesScore? : SeriesScore)=> {
+        let hdcp = "UNKNOWN";
+        if (seriesScore && seriesScore.hdcp && seriesScore.games) {
+            hdcp = String(seriesScore.hdcp / seriesScore.games);
+        }
+        return hdcp;
+    }
+
     const twoDigitNumberFormat = Intl.NumberFormat("en-US", {style: "decimal", minimumIntegerDigits: 2});
     const opponentTeamId = matchup.opponent?.teamId;
     const opponent = leagueDetails?.otherTeams.find(ot => ot.id === opponentTeamId);
@@ -141,7 +149,7 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
                             <Stack direction="vertical" className="mx-auto">
                                 <div className="align-middle">
                                     <TeamNameInfo division={teamDetails.division} teamNumber={teamDetails.number} name={teamDetails.name} enteringPosition={matchup.enteringRank}/>
-                                    <br/><span className="fs-sm">hdcp: {matchup.scores?.series.hdcp}</span>
+                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.scores?.series)}</span>
                                 </div>
                                 <div className="d-none d-sm-block"><GameSummaryAndPoints teamScore={matchup.scores} currentBreakpoint={currentBreakpoint}/></div>
                             </Stack>
@@ -157,7 +165,7 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
                             <Stack direction="vertical" className="mx-auto">
                                 <div className="text-end align-middle">
                                     <TeamNameInfo division={opponent?.division} teamNumber={opponent?.number} name={opponent?.name} enteringPosition={matchup.opponent?.enteringRank}/>
-                                    <br/><span className="fs-sm">hdcp: {matchup.opponent?.scores?.series.hdcp}</span>
+                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.opponent?.scores?.series)}</span>
                                 </div>
                                 <div className="d-none d-sm-block"><GameSummaryAndPoints teamScore={matchup.opponent?.scores} currentBreakpoint={currentBreakpoint}/></div>
                             </Stack>

@@ -31,6 +31,8 @@ export class TeamStats {
     handicap: number = 0;
     highGame: number = 0;
     highSeries: number =0;
+    lowGame: number = 0;
+    lowSeries: number =0;
 }
 
 @JsonObject("LeagueTeam")
@@ -81,6 +83,9 @@ export class LeaguePlayer {
 
     @JsonProperty("status", String)
     status: LeaguePlayerStatus | undefined = undefined;
+
+    @JsonProperty("parking-lot-threshold", Number)
+    parkingLotThreshold: number = 100;
 
     @JsonProperty("carry-over-league-stats", LeaguePlayerCarryOverStats)
     carryOverStats?: LeaguePlayerCarryOverStats = undefined;

@@ -19,7 +19,7 @@ import {Frame, type FrameAttributes, type LeagueMatchup, type ScoreLabel} from "
 import {TrackedLeagueTeam} from "../../../data/league/league-team-details.ts";
 import {type Breakpoint, BS_BP_XS, BS_BP_XXL, isBreakpointSmallerThan} from "../ui-utils.tsx";
 import {type FC, type ReactElement, type ReactNode, useEffect, useMemo, useState} from "react";
-import {Row, Col, Badge, Table, CardBody, OverlayTrigger, Tooltip, CardFooter} from "react-bootstrap";
+import {Row, Col, Badge, Table, CardBody, OverlayTrigger, Tooltip, CardFooter, Stack} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
@@ -47,6 +47,7 @@ const FrameAttributeIcons : Map<FrameAttributes, FrameAttributeIconInfo> = new M
     ["Gutter-Spare", {attribute: "Gutter-Spare", description: "Gutter - Spare!", iconColor: "teal", iconName: "Icon2CircleFill"}],
     ["Turkey", {attribute: "Turkey", description: "Gobble Gobble... Turkey!", iconColor: "black", iconName: "Icon3CircleFill"}],
     ["Split-Picked-Up", {attribute: "Split-Picked-Up", description: "Split 2 Spare!", iconColor: "cyan", iconName: "Icon4CircleFill"}],
+    ["Parking-Lot", {attribute: "Parking-Lot", description: "In the Parking Lot...", iconColor: "pink", iconName: "Icon5CircleFill"}],
     ["Clean-Game", {attribute: "Clean-Game", description: "Clean Game!", iconColor: "green", iconName: "Icon8CircleFill"}],
     ["Perfect-Game", {attribute: "Perfect-Game", description: "Perfect Game!!!", iconColor: "orange", iconName: "Icon9CircleFill"}],
 ]);
@@ -66,7 +67,7 @@ interface FrameAttributeIconProps {
     attribute: FrameAttributes;
 }
 const FrameAttributeIcon = ({attribute}: FrameAttributeIconProps) => {
-    // "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Clean-Game" | "Gutter-Spare" | "Split-Picked-Up"
+    // "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Clean-Game" | "Gutter-Spare" | "Split-Picked-Up" | "Parking-Lot"
     const iconInfo = FrameAttributeIcons.get(attribute);
     return (<>
         {iconInfo && <OverlayWithTooltip tooltip={iconInfo.description}><Icon iconName={iconInfo.iconName} color={iconInfo.iconColor}/></OverlayWithTooltip>}
@@ -81,6 +82,28 @@ const FrameAttributeIconLegend = () => {
                 {(idx + 1) < iconNum && <span>&nbsp;|&nbsp;</span>}
             </>)}
     </>);
+}
+
+const TeamIndSeriesGameFramesV2 = ({matchup, teamDetails, currentBreakpoint, gameIdx}: TeamIndSeriesGameFramesProps) => {
+
+    const frames: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    return (<>
+        <Stack direction="horizontal" gap={1}>
+            <div>Bindul</div>
+            {frames.map(frame => (
+                <div className="border rounded-1 border-dark-subtle border-opacity-10 h-100" style={{width: "10%", maxWidth: "30px"}}>
+                    <Stack direction="vertical">
+                        <Stack direction="horizontal" className="fs-xs justify-content-evenly">
+                            <div>X</div><div>/</div>
+                        </Stack>
+                        <div className="text-center border fs-sm p-0">{frame}</div>
+                        <div className="fs-xxs text-center"><FrameAttributeIcon attribute="Hung"/></div>
+                    </Stack>
+                </div>
+            ))}
+        </Stack>
+    </>)
 }
 
 interface TeamIndSeriesGameFramesProps extends MatchupDetailsDisplayProps {
@@ -151,7 +174,6 @@ const TeamIndSeriesGameFrames = ({matchup, teamDetails, currentBreakpoint, gameI
 
 const TeamIndSeriesGameScoresSummary = ({matchup, teamDetails, currentBreakpoint}: MatchupDetailsDisplayProps) => {
 
-    console.log(matchup.scores);
     return (<>
         <Table size="sm" bordered striped responsive={true} className={`p-0 lh-1 my-1 text-end ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ? "fs-xs" : ""}`}>
             <thead>
@@ -251,6 +273,17 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
                     </Col>
                 </Row>
             }
+        <Row>
+            <Col>
+                <Card className="my-2 mx-0">
+                    <CardBody className="p-1">
+                        {matchup.scores?.games.map((_game, g) =>
+                            <TeamIndSeriesGameFramesV2 leagueDetails={leagueDetails} matchup={matchup} teamDetails={teamDetails} currentBreakpoint={currentBreakpoint} gameIdx={g}/>
+                        )}
+                    </CardBody>
+                </Card>
+            </Col>
+        </Row>
         {matchup.notes && matchup.notes.length > 0 &&
             <Row>
                 <Col>

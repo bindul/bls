@@ -23,9 +23,9 @@ import {
     MatchupGameScore, SeriesScore,
     TeamPlayerGameScore, TeamScore
 } from "./league-matchup";
-import {LeagueScoringRules} from "./league-setup-config";
+import {LeagueBowlingDays, LeagueScoringRules} from "./league-setup-config";
 import {isNumeric} from "../utils/utils.ts";
-import {LeaguePlayerStats, TeamStats, type TrackedLeagueTeam} from "./league-team-details.ts";
+import {LeaguePlayer, LeaguePlayerStats, TeamStats, type TrackedLeagueTeam} from "./league-team-details.ts";
 import {calculatePlayerStats} from "../player/player-stats-calculator.ts";
 
 
@@ -34,8 +34,9 @@ import {calculatePlayerStats} from "../player/player-stats-calculator.ts";
 // ---------------------------------------------------------------------------------------------------------------------
 
 interface HandicapCalculator {
-    calculateAverge (games : GameScore[], carryOverPins?: number, carryOverGames?: number): number;
-    calculateHandicap (average: number): number;
+    calculateAverge(games: GameScore[], carryOverPins?: number, carryOverGames?: number): number;
+
+    calculateHandicap(average: number): number;
 }
 
 class ZeroHandicapCalculator implements HandicapCalculator {
@@ -71,7 +72,7 @@ class PercentAverageToTargetHandicapCapculator extends ZeroHandicapCalculator im
 }
 
 interface PointsCalculator {
-    assignPoints (teamScoreA: TeamScore, teamScoreB: TeamScore): void;
+    assignPoints(teamScoreA: TeamScore, teamScoreB: TeamScore): void;
 }
 
 class PpgPpsPointsCalculator implements PointsCalculator {
@@ -79,7 +80,7 @@ class PpgPpsPointsCalculator implements PointsCalculator {
     pointsOnSeriesWin: number;
     pointsOnGameTie: number;
     pointsOnSeriesTie: number;
-    
+
     constructor(pointsOnGameWin: number, pointsOnGameTie: number, pointsOnSeriesWin: number, pointsOnSeriesTie: number) {
         this.pointsOnGameWin = pointsOnGameWin;
         this.pointsOnGameTie = pointsOnGameTie;
@@ -114,7 +115,7 @@ class PpgPpsPointsCalculator implements PointsCalculator {
 // Factories
 // ---------------------------------------------------------------------------------------------------------------------
 
-function selectHandicapCalculator(leagueScoringRules: LeagueScoringRules | undefined) : HandicapCalculator {
+function selectHandicapCalculator(leagueScoringRules: LeagueScoringRules | undefined): HandicapCalculator {
     const type = leagueScoringRules?.handicap?.type;
     if (type) {
         if (type === "NONE") {
@@ -128,7 +129,7 @@ function selectHandicapCalculator(leagueScoringRules: LeagueScoringRules | undef
     return new ZeroHandicapCalculator();
 }
 
-function selectPointsCalculator(leagueScoringRules: LeagueScoringRules | undefined) : PointsCalculator {
+function selectPointsCalculator(leagueScoringRules: LeagueScoringRules | undefined): PointsCalculator {
     const type = leagueScoringRules?.pointScoring?.matchupPointScoringRule;
     if (type) {
         if (type === "PPG_PPS" && leagueScoringRules?.pointScoring?.ppgPpsMatchupPointScoringConfig) {
@@ -144,17 +145,17 @@ function selectPointsCalculator(leagueScoringRules: LeagueScoringRules | undefin
 // Loops through leagues
 // ---------------------------------------------------------------------------------------------------------------------
 
-function calculateFrameScores(playerGame: TeamPlayerGameScore) {
+function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePlayer | undefined) {
 
-    const getNextNScores = (frames: Frame[], curIdx :number, count :number) :number  => {
-        let toGet :number = count;
-        let accum :number = 0;
+    const getNextNScores = (frames: Frame[], curIdx: number, count: number): number => {
+        let toGet: number = count;
+        let accum: number = 0;
         for (let i = curIdx + 1; i < frames.length && toGet > 0; i++) {
             accum += frames[i].ballScores[0][0];
-            toGet --;
+            toGet--;
             if (toGet > 0 && frames[i].ballScores.length > 1) {
                 accum += frames[i].ballScores[1][0];
-                toGet --;
+                toGet--;
             }
         }
         return accum;
@@ -204,7 +205,7 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore) {
                 }
             }
             if (score[1] == "X") {
-                strikesInARow ++;
+                strikesInARow++;
             } else {
                 strikesInARow = 0;
             }
@@ -241,8 +242,14 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore) {
                 }
             }
         }
-        if (currFrame.number == 10 && potentialCleanGame) {
-            currFrame.attributes.push("Clean-Game");
+        if (currFrame.number == 10) {
+            if(potentialCleanGame) {
+                currFrame.attributes.push("Clean-Game");
+            }
+            const parkingLotMin = player?.parkingLotThreshold ?? 100; // Default 100
+            if (currFrame.cumulativeScore < parkingLotMin) {
+                currFrame.attributes.push("Parking-Lot");
+            }
         }
     }
 
@@ -255,7 +262,7 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore) {
 function setCrossPlayerFrameAttributes(matchup: LeagueMatchup) {
     const gameCount = matchup.scores?.games?.length ?? 0;
     for (let i = 0; i < gameCount; i++) {
-        const allPlayerFrames : Frame[][] = [];
+        const allPlayerFrames: Frame[][] = [];
         let missingFrames = false;
         matchup.scores?.playerScores.filter(ps => ps.games.length >= (i + 1)).forEach((playerScore) => {
             const gameScore = playerScore.games[i];
@@ -269,12 +276,11 @@ function setCrossPlayerFrameAttributes(matchup: LeagueMatchup) {
         });
         if (!missingFrames) {
             const playerCount = allPlayerFrames.length;
-            console.log(allPlayerFrames);
             for (let f = 0; f < 10; f++) {
                 let xc = 0;
                 for (let p = 0; p < playerCount; p++) {
                     if (allPlayerFrames[p][f].ballScores[0][1] === "X") {
-                        xc ++;
+                        xc++;
                     }
                 }
                 if (xc == playerCount) {
@@ -295,12 +301,12 @@ function setCrossPlayerFrameAttributes(matchup: LeagueMatchup) {
     }
 }
 
-function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculator: HandicapCalculator, scoringRules: LeagueScoringRules) {
+function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculator: HandicapCalculator, scoringRules: LeagueScoringRules, player?: LeaguePlayer) {
     // Handle frames
     for (let g = 0; g < playerScore.games.length; g++) {
         const game = playerScore.games[g];
         if (game.scratchScore == 0 && game.inFrames && game.inFrames.length > 0) {
-            calculateFrameScores(game);
+            calculateFrameScores(game, player);
         }
     }
 
@@ -344,9 +350,9 @@ function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculato
     playerScore.series.games = playerScore.games.length;
 }
 
-export function assignScoresAndPoints (matchup: LeagueMatchup, scoringRules: LeagueScoringRules, hdcpCalculator: HandicapCalculator, pointsCalculator: PointsCalculator) : void {
+export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: LeagueScoringRules, hdcpCalculator: HandicapCalculator, pointsCalculator: PointsCalculator, teamRoster: LeaguePlayer[]): void {
     const teamScores = matchup.scores;
-    const addGamesToSeries = (seriesScore: SeriesScore, matchupGames : MatchupGameScore[])=> {
+    const addGamesToSeries = (seriesScore: SeriesScore, matchupGames: MatchupGameScore[]) => {
         matchupGames.forEach(game => {
             seriesScore.scratchScore += game.scratchScore;
             seriesScore.effectiveScratchScore += game.effectiveScratchScore;
@@ -367,7 +373,8 @@ export function assignScoresAndPoints (matchup: LeagueMatchup, scoringRules: Lea
 
         // Set individual team scores
         teamScores.playerScores?.forEach((playerScore) => {
-            calculatePlayerScores(playerScore, hdcpCalculator, scoringRules);
+            const player = teamRoster.find(p => p.id === playerScore.player);
+            calculatePlayerScores(playerScore, hdcpCalculator, scoringRules, player);
         })
 
         // Calculate Matchup Scores
@@ -408,9 +415,13 @@ export function assignScoresAndPoints (matchup: LeagueMatchup, scoringRules: Lea
 
         let pointsWon = 0;
         let pointsLost = 0;
-        matchup.scores.games.forEach((game) => {pointsWon += game.pointsWon});
+        matchup.scores.games.forEach((game) => {
+            pointsWon += game.pointsWon
+        });
         pointsWon += matchup.scores.series.pointsWon;
-        matchup.opponent.scores?.games.forEach((game) => {pointsLost += game.pointsWon;});
+        matchup.opponent.scores?.games.forEach((game) => {
+            pointsLost += game.pointsWon;
+        });
         pointsLost += matchup.opponent.scores?.series.pointsWon ?? 0;
         matchup.pointsWonLost = [pointsWon, pointsLost];
     }
@@ -422,19 +433,26 @@ function rollupTeamScoresAndPoints(team: TrackedLeagueTeam) {
     let teamScratch: number = 0;
     let highGame: number = 0;
     let highSeries: number = 0;
+    let lowGame: number = Number.MAX_SAFE_INTEGER;
+    let lowSeries: number = Number.MAX_SAFE_INTEGER;
     team.matchups.forEach((matchup) => {
         pointsWon += matchup.pointsWonLost[0];
         pointsLost += matchup.pointsWonLost[1];
         if (matchup.scores) {
             const scores = matchup.scores;
-            console.log(scores)
             teamScratch += scores.series.effectiveScratchScore ?? 0;
             if (scores.series.effectiveScratchScore > highSeries) {
                 highSeries = scores.series.effectiveScratchScore;
             }
+            if (scores.series.effectiveScratchScore < lowSeries) {
+                lowSeries = scores.series.effectiveScratchScore;
+            }
             scores.games.forEach((game) => {
                 if (game.effectiveScratchScore > highGame) {
                     highGame = game.effectiveScratchScore;
+                }
+                if (game.effectiveScratchScore < lowGame) {
+                    lowGame = game.effectiveScratchScore;
                 }
             })
         }
@@ -444,9 +462,11 @@ function rollupTeamScoresAndPoints(team: TrackedLeagueTeam) {
     team.teamStats.scratchPins = teamScratch;
     team.teamStats.highGame = highGame;
     team.teamStats.highSeries = highSeries;
+    team.teamStats.lowGame = lowGame;
+    team.teamStats.lowSeries = lowSeries;
 }
 
-function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator : HandicapCalculator) {
+function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator: HandicapCalculator, bowlingDays: LeagueBowlingDays | undefined) {
   team.roster?.forEach((player) => {
       const playerGames: TeamPlayerGameScore[][] = [];
       team.matchups.forEach((matchup) => {
@@ -463,8 +483,8 @@ function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator : Ha
       // Compute League Player Stats
       if (playerStats.gameStats.average > 0) {
           playerStats.handicap = hdcpCalculator.calculateHandicap(playerStats.gameStats.average);
-          // TODO get the game per series count from config and remove hard coding
-          playerStats.averageBoosterSeries = Math.ceil(((playerStats.gameStats.average + 1) * (playerStats.gameStats.count + 3)) - playerStats.pinfall);
+          const gamesPerSeries = bowlingDays?.gamesPerWeek ?? 3; // Default 3
+          playerStats.averageBoosterSeries = Math.ceil(((Math.floor(playerStats.gameStats.average) + 1) * (playerStats.gameStats.count + gamesPerSeries)) - playerStats.pinfall);
       }
 
       const indGameOverAverage : LeagueAccolade = {type: "IND-GAME-OVER-AVERAGE", who: player.id ?? "UNKNOWN", when: undefined, howMuch: 0, description: ""};
@@ -574,15 +594,19 @@ export function decorateLeagueDetails (league : LeagueDetails) :LeagueDetails {
     const pointsCalculator : PointsCalculator = selectPointsCalculator(league.scoringRules);
     // Calculate scores and points
     const scoringRules: LeagueScoringRules = league.scoringRules ?? new LeagueScoringRules(); // Things will go really bad at this point
+
     league.teams?.forEach(team => {
+
+        const teamRoster = team.roster ?? [];
+
         team.matchups?.forEach((matchup) => {
-            assignScoresAndPoints(matchup, scoringRules, hdcpCalculator, pointsCalculator);
+            assignScoresAndPoints(matchup, scoringRules, hdcpCalculator, pointsCalculator, teamRoster);
             // Cross Player Frame Atrributes
             setCrossPlayerFrameAttributes(matchup);
         })
         rollupTeamScoresAndPoints(team);
         // Player Stats
-        calculateLeaguePlayerStats(team, hdcpCalculator);
+        calculateLeaguePlayerStats(team, hdcpCalculator, league.bowlingDays);
         // Update Team stats from player stats
         const teamStats = team.teamStats;
         if (teamStats) {

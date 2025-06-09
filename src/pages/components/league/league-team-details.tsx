@@ -14,35 +14,43 @@
  * limitations under the License.
  */
 
-import type {LeagueDetails} from "../../../data/league/league-details";
-import {CardBody, CardHeader, Col, Container, Row} from "react-bootstrap";
-import Loader from "../loader.tsx";
-import Card from "react-bootstrap/Card";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {TrackedLeagueTeam} from "../../../data/league/league-team-details.ts";
-import type {LeagueMatchup} from "../../../data/league/league-matchup.ts";
+
+import {CardBody, CardHeader, Col, Container, Row} from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 import {
     CaretDownFill, CaretLeft, CaretRight, CaretUpFill
 } from "react-bootstrap-icons";
-import {type Breakpoint} from "../ui-utils.tsx";
-import LeagueTeamRoster from "./league-team-roster.tsx";
-import {isNumeric} from "../../../data/utils/utils.ts";
-import LeagueTeamMatchup from "./league-team-matchup.tsx";
 
+import {TrackedLeagueTeam} from "../../../data/league/league-team-details";
+import type {LeagueMatchup} from "../../../data/league/league-matchup";
+import type {LeagueDetails} from "../../../data/league/league-details";
+import {isNumeric} from "../../../data/utils/utils";
+
+import Loader from "../loader";
+import {type Breakpoint} from "../ui-utils";
+import LeagueTeamRoster from "./league-team-roster";
+import LeagueTeamMatchup from "./league-team-matchup";
+
+type DataColRowStyle = "Default" | "Success";
 interface DataRowProps {
     defn: React.ReactNode;
-    value: React.ReactNode
+    value: React.ReactNode;
+    style?: DataColRowStyle;
 }
-function WriteDataRow ({defn, value} : DataRowProps) {
+function WriteDataColRow ({defn, value, style = "Default"} : DataRowProps) {
+    const rowBorder = style === "Success" ? "border-success-subtle" : "border-secondary";
+    const colDefnBackground = style === "Success" ? "bg-success-subtle" : "bg-secondary";
     return (
-        <Row className="border rounded-1 border-secondary">
-            <Col className="text-body-emphasis bg-secondary px-1">{defn}<span className="float-end">:</span></Col>
-            <Col className="px-1">{value}</Col>
-        </Row>
+        <Col xs={12} md={3}>
+            <Row className={`border rounded-1 ${rowBorder}`}>
+                <Col className={`text-body-emphasis ${colDefnBackground} px-1`}>{defn}<span className="float-end">:</span></Col>
+                <Col className="px-1">{value}</Col>
+            </Row>
+        </Col>
     );
 }
-
 
 interface LeagueTeamProps {
     teamDetails: TrackedLeagueTeam;
@@ -97,50 +105,26 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
         }
     }
 
-    const xsColWeight = 12;
-    const mdColWeight = 3;
-
     return (
         <Container fluid="true">
             <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                 <CardBody className="py-1 py-sm-2">
                     <Row className="gx-5 gy-1 mb-1">
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
-                        </Col>
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="Points" value={`${teamDetails.pointsWonLost[0]} - ${teamDetails.pointsWonLost[1]}`}/>
-                        </Col>
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="Starting Average" value={teamDetails.teamStats?.average}/>
-                        </Col>
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="Starting Handicap" value={teamDetails.teamStats?.handicap}/>
-                        </Col>
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="Scratch Pins" value={teamDetails.teamStats?.scratchPins}/>
-                        </Col>
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="High Game" value={teamDetails.teamStats?.highGame}/>
-                        </Col>
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <WriteDataRow defn="High Series" value={teamDetails.teamStats?.highSeries}/>
-                        </Col>
+                        <WriteDataColRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
+                        <WriteDataColRow defn="Points" value={`${teamDetails.pointsWonLost[0]} - ${teamDetails.pointsWonLost[1]}`}/>
+                        <WriteDataColRow defn="Starting Average" value={teamDetails.teamStats?.average}/>
+                        <WriteDataColRow defn="Starting Handicap" value={teamDetails.teamStats?.handicap}/>
+                        <WriteDataColRow defn="Low Game" value={teamDetails.teamStats?.lowGame}/>
+                        <WriteDataColRow defn="High Game" value={teamDetails.teamStats?.highGame}/>
+                        <WriteDataColRow defn="Low Series" value={teamDetails.teamStats?.lowSeries}/>
+                        <WriteDataColRow defn="High Series" value={teamDetails.teamStats?.highSeries}/>
+                        <WriteDataColRow defn="Scratch Pins" value={teamDetails.teamStats?.scratchPins}/>
                     </Row>
                     <Row className="gx-5 gy-1">
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <Row className="border rounded-1 border-success-subtle">
-                                <Col className="text-body-emphasis bg-success-subtle px-1">Next Matchup Lanes<span className="float-end">:</span></Col>
-                                <Col className="px-1">{formatNextMatchupLanes()}</Col>
-                            </Row>
-                        </Col>
-                        <Col xs={xsColWeight} md={mdColWeight}>
-                            <Row className="border rounded-1 border-success-subtle">
-                                <Col className="text-body-emphasis bg-success-subtle px-1">Next Opponent<span className="float-end">:</span></Col>
-                                <Col className="px-1">{formatNextMatchupOpponent()}</Col>
-                            </Row>
-                        </Col>
+                        <WriteDataColRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()} style="Success"/>
+                        <WriteDataColRow defn="Next Opponent" value={formatNextMatchupOpponent()} style="Success"/>
                     </Row>
+                    {/*TODO: Add Row and Graph of team scratch and position - May need new tsx with delayed import*/}
                 </CardBody>
             </Card>
         </Container>
