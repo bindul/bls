@@ -17,14 +17,13 @@
 import type {LeagueDetails} from "../../../data/league/league-details.ts";
 import {Frame, type FrameAttributes, type LeagueMatchup, type ScoreLabel} from "../../../data/league/league-matchup.ts";
 import {TrackedLeagueTeam} from "../../../data/league/league-team-details.ts";
-import {type Breakpoint, BS_BP_XS, BS_BP_XXL, isBreakpointSmallerThan} from "../ui-utils.tsx";
+import {type Breakpoint, BS_BP_SM, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils.tsx";
 import {type FC, type ReactElement, type ReactNode, useEffect, useMemo, useState} from "react";
 import {Row, Col, Badge, Table, CardBody, OverlayTrigger, Tooltip, CardFooter, Stack} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import * as icons from 'react-bootstrap-icons';
-import {Dot} from "react-bootstrap-icons";
 import {CollapsibleContainer} from "../collapsible-container.tsx";
 
 interface IconProps extends icons.IconProps {
@@ -51,6 +50,27 @@ const FrameAttributeIcons : Map<FrameAttributes, FrameAttributeIconInfo> = new M
     ["Clean-Game", {attribute: "Clean-Game", description: "Clean Game!", iconColor: "green", iconName: "Icon8CircleFill"}],
     ["Perfect-Game", {attribute: "Perfect-Game", description: "Perfect Game!!!", iconColor: "orange", iconName: "Icon9CircleFill"}],
 ]);
+
+interface FrameScoreLabelInfo {
+    label: string;
+    altText: string;
+    iconName: keyof typeof icons;
+}
+const FrameScoreLabels : Map<string, FrameScoreLabelInfo> = new Map([
+    ["X", {label: "X", altText: "Strike", iconName: "FileExcel"}],
+    ["/", {label: "/", altText: "Spare", iconName: "SlashSquare"}],
+    ["1S", {label: "1S", altText: "1 Split", iconName: "Icon1Circle"}],
+    ["2S", {label: "2S", altText: "2 Split", iconName: "Icon2Circle"}],
+    ["3S", {label: "3S", altText: "3 Split", iconName: "Icon3Circle"}],
+    ["4S", {label: "4S", altText: "4 Split", iconName: "Icon4Circle"}],
+    ["5S", {label: "5S", altText: "5 Split", iconName: "Icon5Circle"}],
+    ["6S", {label: "6S", altText: "6 Split", iconName: "Icon6Circle"}],
+    ["7S", {label: "7S", altText: "7 Split", iconName: "Icon7Circle"}],
+    ["8S", {label: "8S", altText: "8 Split", iconName: "Icon8Circle"}],
+    ["9S", {label: "9S", altText: "9 Split", iconName: "Icon9Circle"}],
+    ["-", {label: "-", altText: "Gutter", iconName: "Dash"}],
+    ["F", {label: "F", altText: "Fault", iconName: "ExclamationTriangle"}],
+])
 
 const findPlayer = (teamDetails: TrackedLeagueTeam, playerId: string | undefined) => {
     return teamDetails.roster.find(player => player.id === playerId)?.name ?? "UNKNOWN";
@@ -84,96 +104,79 @@ const FrameAttributeIconLegend = () => {
     </>);
 }
 
-const TeamIndSeriesGameFramesV2 = ({matchup, teamDetails, currentBreakpoint, gameIdx}: TeamIndSeriesGameFramesProps) => {
-
-    const frames: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-    return (<>
-        <Stack direction="horizontal" gap={1}>
-            <div>Bindul</div>
-            {frames.map(frame => (
-                <div className="border rounded-1 border-dark-subtle border-opacity-10 h-100" style={{width: "10%", maxWidth: "30px"}}>
-                    <Stack direction="vertical">
-                        <Stack direction="horizontal" className="fs-xs justify-content-evenly">
-                            <div>X</div><div>/</div>
-                        </Stack>
-                        <div className="text-center border fs-sm p-0">{frame}</div>
-                        <div className="fs-xxs text-center"><FrameAttributeIcon attribute="Hung"/></div>
-                    </Stack>
-                </div>
-            ))}
-        </Stack>
-    </>)
-}
-
 interface TeamIndSeriesGameFramesProps extends MatchupDetailsDisplayProps {
     gameIdx: number;
 }
-const TeamIndSeriesGameFrames = ({matchup, teamDetails, currentBreakpoint, gameIdx}: TeamIndSeriesGameFramesProps) => {
+const TeamIndSeriesGameFramesV2 = ({matchup, teamDetails, currentBreakpoint, gameIdx}: TeamIndSeriesGameFramesProps) => {
 
     const [smallScreen, setSmallScreen] = useState(false);
     const playerNames: string[] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps => findPlayer(teamDetails, ps.player)), [matchup, teamDetails]);
     const frames: Frame[][] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps => ps.games[gameIdx].frames), [matchup, gameIdx]);
+    const hasAttributes: boolean[] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps =>
+            !ps.games[gameIdx].frames.find(f => f.attributes  && f.attributes.length > 0)),
+        [matchup, gameIdx]);
     useEffect(() => {
         setSmallScreen(isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ?? false);
     }, [currentBreakpoint]);
 
     const writeScoreOrLabel = (b: [number, ScoreLabel?]) => {
+        let frameScoreLabel: FrameScoreLabelInfo | undefined = undefined;
         if (b[1]) {
-            if (b[1] === "X") {
-                return <span className="text-white bg-dark">X</span>
-            } else if (b[1] === "/") {
-                return <span className="text-white bg-dark">/</span>
-            } else if (b[1] === "-" || b[1] === "F") {
-                return <span className="">{b[1]}</span>
-            } else if (b[1] === "S") {
-                return <span className="text-decoration-underline">{b[0]}</span>
+            if (b[1] === "S") {
+                frameScoreLabel = FrameScoreLabels.get(b[0].toString() + "S");
+            } else {
+                frameScoreLabel = FrameScoreLabels.get(b[1]);
             }
-        } else {
-            return <span className="">{b[0]}</span>
         }
+        return frameScoreLabel ? <Icon iconName={frameScoreLabel.iconName} title={frameScoreLabel?.altText}/> : <>{b[0]}</>;
     }
 
     const writeScoreLabelRow = (f: Frame)=> {
-        return (<><td className="p-1 m-0 justify-content-evenly">
-            {writeScoreOrLabel(f.ballScores[0])}
-            {f.ballScores.length > 1 && writeScoreOrLabel(f.ballScores[1])}
-            {f.number == 10 && (f.ballScores.length > 2 && writeScoreOrLabel(f.ballScores[2]))}
-        </td>
+        return (<>
+            <div>{writeScoreOrLabel(f.ballScores[0])}</div>
+            {f.ballScores.length > 1 && <div>{writeScoreOrLabel(f.ballScores[1])}</div>}
+            {f.number == 10 && (f.ballScores.length > 2 && <div>{writeScoreOrLabel(f.ballScores[2])}</div>)}
         </>);
     }
 
+    const frameDivW = (f: Frame)=> {
+        return f.number == 10 ? "13%" : "9%";
+    }
+
     return (<>
-        {playerNames && frames &&
-            <Table bordered size="sm" className={`p-0 lh-1 mx-0 my-1 text-center font-monospace fw-lighter ${smallScreen ? "fs-xxs" : "fs-xs"}`}>
-                <tbody>
-                    <tr>
-                        <td className="p-0 m-0"></td>
-                        {frames[0].map(f => <td className="p-0 m-0">{f.number}</td>)}
-                    </tr>
-                    {playerNames.map((pn, pi) => <>
-                        <tr>
-                            <td scope="row" className="align-middle p-1 m-0 border-bottom-0" rowSpan={2}>{pn.substring(0,2)}</td>
-                            {frames[pi].map(f => writeScoreLabelRow(f))}
-                        </tr>
-                        <tr>
-                            {frames[pi].map(f => <td className="p-1 m-0">{f.cumulativeScore}</td>)}
-                        </tr>
-                        <tr>
-                            <td className="p-0 m-0 border-top-0"><Dot/></td>
-                            {frames[pi].map(f => <td className="p-1 m-0">
-                                {f.attributes?.map(a => <FrameAttributeIcon attribute={a}/>)}
-                            </td>)}
-                        </tr>
-                    </>)}
-                </tbody>
-            </Table>
-        }
-    </>);
+        {playerNames && frames && hasAttributes && playerNames.map((pn, pi) => <>
+            {smallScreen &&
+                <Row>
+                    <Col className="col-md-2"><div className="h-100 d-flex align-items-center fs-sm">{pn}</div></Col>
+                </Row>
+            }
+            <Row>
+                {!smallScreen && <Col className="col-md-2"><div className="h-100 d-flex align-items-center">{pn}</div></Col>}
+                <Col className="col-md-10">
+                    <Stack direction="horizontal" gap={1}>
+                        {frames[pi].map(frame => (
+                            <div className="border rounded-1 border-dark-subtle border-opacity-10 h-100" style={{width: frameDivW(frame), maxWidth: "45px"}}>
+                                <Stack direction="vertical">
+                                    <Stack direction="horizontal" className="fs-xs justify-content-evenly">
+                                        {writeScoreLabelRow(frame)}
+                                    </Stack>
+                                    <div className="text-center border fs-sm p-0 bg-secondary">{frame.cumulativeScore}</div>
+                                    <div className="fs-xxs text-center">
+                                        {frame.attributes?.map(a => <FrameAttributeIcon attribute={a}/>)}
+                                        {(!hasAttributes[pi] && frame.attributes.length == 0) && <>&nbsp;</>}
+                                    </div>
+                                </Stack>
+                            </div>
+                        ))}
+                    </Stack>
+                </Col>
+            </Row>
+            </>
+        )}
+    </>)
 }
 
 const TeamIndSeriesGameScoresSummary = ({matchup, teamDetails, currentBreakpoint}: MatchupDetailsDisplayProps) => {
-
     return (<>
         <Table size="sm" bordered striped responsive={true} className={`p-0 lh-1 my-1 text-end ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ? "fs-xs" : ""}`}>
             <thead>
@@ -251,14 +254,14 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
                 <Row className="gy-1 gx-1">
                     <Col>
                         <Card className="p-0 m-0">
-                            <CollapsibleContainer headerTitle={"Frame Data"} divId={matchup.week + "-framedata"} currentBreakpoint={currentBreakpoint} hideBelowBreakpoint={BS_BP_XXL}>
+                            <CollapsibleContainer headerTitle={"Frame Data"} divId={matchup.week + "-framedata"} currentBreakpoint={currentBreakpoint} hideBelowBreakpoint={BS_BP_SM}>
                                 <CardBody className="px-0 py-2 m-0">
                                     <Row className="row-cols-1 gy-2 gx-2 m-0 p-0">
                                         {matchup.scores?.games.map((_game, g) =>
                                             <Col>
                                                 <Card className="my-1 mx-0 h-100">
                                                     <CardBody className="p-1">
-                                                        <TeamIndSeriesGameFrames leagueDetails={leagueDetails} matchup={matchup} teamDetails={teamDetails} currentBreakpoint={currentBreakpoint} gameIdx={g}/>
+                                                        <TeamIndSeriesGameFramesV2 leagueDetails={leagueDetails} matchup={matchup} teamDetails={teamDetails} currentBreakpoint={currentBreakpoint} gameIdx={g}/>
                                                     </CardBody>
                                                 </Card>
                                             </Col>
@@ -273,23 +276,12 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
                     </Col>
                 </Row>
             }
-        <Row>
-            <Col>
-                <Card className="my-2 mx-0">
-                    <CardBody className="p-1">
-                        {matchup.scores?.games.map((_game, g) =>
-                            <TeamIndSeriesGameFramesV2 leagueDetails={leagueDetails} matchup={matchup} teamDetails={teamDetails} currentBreakpoint={currentBreakpoint} gameIdx={g}/>
-                        )}
-                    </CardBody>
-                </Card>
-            </Col>
-        </Row>
         {matchup.notes && matchup.notes.length > 0 &&
             <Row>
                 <Col>
                     <Card className="my-2 mx-0">
                         <CardBody className="p-1">
-                            <Card.Subtitle className="p-2 mb-0 d-none d-sm-block">Notes</Card.Subtitle>
+                            <Card.Subtitle className="p-2 mb-0">Notes</Card.Subtitle>
                             <ListGroup variant="flush">
                                 {matchup.notes.map(n => <ListGroupItem className="fs-sm py-0 px-2 m-0">{n}</ListGroupItem>)}
                             </ListGroup>

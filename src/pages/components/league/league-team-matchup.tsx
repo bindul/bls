@@ -15,18 +15,23 @@
  */
 
 import {type FC, useState} from "react";
-import {TrackedLeagueTeam} from "../../../data/league/league-team-details.ts";
-import {type Breakpoint, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils.tsx";
-import Loader from "../loader.tsx";
+import {Link} from "react-router-dom";
+import moment from "moment";
 import {Badge, CardBody, CardHeader, Col, Row, Stack, Table} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import {type LeagueMatchup, type MatchupType, SeriesScore, TeamScore} from "../../../data/league/league-matchup.ts";
-import moment from "moment";
-import {ChevronDoubleDown, ChevronDoubleUp} from "react-bootstrap-icons";
-import {isNonEmptyString} from "../../../data/utils/utils.ts";
-import type {LeagueDetails} from "../../../data/league/league-details.ts";
-import {Link} from "react-router-dom";
-import MatchupDetailsDisplay from "./league-team-matchup-details.tsx";
+import {
+    ArrowsCollapse,
+    ArrowsExpand,
+    BoxArrowDown,
+    BoxArrowUp
+} from "react-bootstrap-icons";
+import {isNonEmptyString} from "../../../data/utils/utils";
+import type {LeagueDetails} from "../../../data/league/league-details";
+import {TrackedLeagueTeam} from "../../../data/league/league-team-details";
+import {type Breakpoint, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils";
+import Loader from "../loader";
+import {type LeagueMatchup, type MatchupType, SeriesScore, TeamScore} from "../../../data/league/league-matchup";
+import MatchupDetailsDisplay from "./league-team-matchup-details";
 
 const MatchupTypeConversion :Map<MatchupType, string> = new Map([
     ["REGULAR-DIVISION", "Division"],
@@ -131,7 +136,7 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
 
     return (<>
         <Col>
-            <Card border="primary" className="mx-auto px-0 py-0 h-100 w-100">
+            <Card border="primary" className="mx-auto px-0 py-0 w-100">
                 <CardHeader className="bg-primary text-light fw-semibold px-2 py-0">
                     <Stack direction="horizontal" gap={3}>
                         <div>{weekPrefix} {twoDigitNumberFormat.format(matchup.week)}</div>
@@ -143,7 +148,7 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
                         <div>Lanes {twoDigitNumberFormat.format(matchup.lanes[0])} - {twoDigitNumberFormat.format(matchup.lanes[1])}</div>
                     </Stack>
                 </CardHeader>
-                <CardBody className="py-0 px-1">
+                <CardBody className="py-0 px-1 mb-auto">
                     <Stack direction="horizontal" gap={2}>
                         <div className="me-auto">
                             <Stack direction="vertical" className="mx-auto">
@@ -158,7 +163,13 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
                             <Stack direction="vertical" className="text-center h-100">
                                 <div><small className={matchup.matchup.startsWith("POSITION") ? "text-danger" : ""}>{MatchupTypeConversion.get(matchup.matchup)}</small></div>
                                 <div className="my-auto align-middle"><span className="fs-5">{matchup.pointsWonLost[0]} - {matchup.pointsWonLost[1]}</span></div>
-                                <div className="d-none d-sm-block"><Link to="#" onClick={() => {toggleVisiblity(matchup.week)}}>{isVisible(matchup.week)? <ChevronDoubleUp/> : <ChevronDoubleDown/>}</Link></div>
+                                {/* Expand / Collapse for larger screens - small screens is a little further down*/}
+                                <div className="d-none d-sm-block w-auto">
+                                    <Link to="#" onClick={() => {toggleVisiblity(matchup.week)}}>{isVisible(matchup.week)?
+                                        <><ArrowsCollapse className="fw-bold"/><br/><span className="fs-xs">Hide Game Details</span></> :
+                                        <><ArrowsExpand className="fw-bold"/><br/><span className="fs-xs">Game Details</span></>}
+                                    </Link>
+                                </div>
                             </Stack>
                         </div>
                         <div className="ms-auto">
@@ -171,10 +182,16 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
                             </Stack>
                         </div>
                     </Stack>
-                    <Stack direction="horizontal" gap={0} className="d-block d-sm-none">
+                    <Stack direction="horizontal" gap={0} className="d-block d-sm-none my-1">
                         <div><GameSummaryAndPoints teamNumber={teamDetails.number} teamScore={matchup.scores} currentBreakpoint={currentBreakpoint}/></div>
                         <div><GameSummaryAndPoints teamNumber={opponent?.number} teamScore={matchup.opponent?.scores} currentBreakpoint={currentBreakpoint}/></div>
-                        <div><div className="mx-auto d-table fs-xs"><Link to="#" onClick={() => {toggleVisiblity(matchup.week)}}>{isVisible(matchup.week)? <ChevronDoubleUp/> : <ChevronDoubleDown/>}</Link></div></div>
+                        {/* Expand / Collapse for small screens */}
+                        <div className="border border-primary-subtle bg-secondary my-1"><div className="mx-auto d-table">
+                            <Link to="#" onClick={() => {toggleVisiblity(matchup.week)}}>{isVisible(matchup.week)?
+                                <><BoxArrowUp className="fw-bold fs-sm"/> <span className="fs-sm">Hide Details</span></> :
+                                <><BoxArrowDown className="fw-bolder fs-sm"/> <span className="fs-sm">Show Details</span></>}
+                            </Link>
+                        </div></div>
                     </Stack>
                 </CardBody>
                 <CardBody className={`p-0 mx-1 my-1 ${isVisible(matchup.week) ? "d-block" : "d-none"}`}>
