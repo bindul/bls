@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import {type FC, useState} from "react";
+import {type FC, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import {Badge, CardBody, CardHeader, Col, Row, Stack, Table} from "react-bootstrap";
@@ -95,6 +95,15 @@ interface MatchupDisplayProps {
 const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}: MatchupDisplayProps) => {
 
     const[matchupDetailsExpanded, setMatchupDetailsExpanded] = useState<MatchupDetailsExplandedProps[]>([]);
+    const[showMatchupDetails, setShowMatchupDetails] = useState<boolean>(true);
+
+    useEffect(() => {
+        const today = moment();
+        if (!matchup.bowlDate || matchup.bowlDate.isAfter(today) || !matchup.scores || !matchup.scores.games || matchup.scores.games.length == 0) {
+            // We don't have data for this matchup
+            setShowMatchupDetails(false);
+        }
+    }, [matchup]);
 
     const isVisible = (week: number) => {
         const cd = matchupDetailsExpanded.find(mde => mde.week === week);
@@ -121,10 +130,12 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
         }
     }
 
-    const calculateTeamHdcp = (seriesScore? : SeriesScore)=> {
+    const calculateTeamHdcp = (seriesScore? : SeriesScore, preCalcHdcp?: number)=> {
         let hdcp = "UNKNOWN";
         if (seriesScore && seriesScore.hdcp && seriesScore.games) {
             hdcp = String(seriesScore.hdcp / seriesScore.games);
+        } else if (preCalcHdcp && preCalcHdcp > 0) {
+            hdcp = preCalcHdcp.toString();
         }
         return hdcp;
     }
@@ -136,8 +147,8 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
 
     return (<>
         <Col>
-            <Card border="primary" className="mx-auto px-0 py-0 w-100">
-                <CardHeader className="bg-primary text-light fw-semibold px-2 py-0">
+            <Card border={showMatchupDetails ? "primary" : "dark"} className="mx-auto px-0 py-0 w-100">
+                <CardHeader className={`text-light fw-semibold px-2 py-0 ${showMatchupDetails ? "bg-primary" : "bg-dark"}`}>
                     <Stack direction="horizontal" gap={3}>
                         <div>{weekPrefix} {twoDigitNumberFormat.format(matchup.week)}</div>
                         <div>{matchup.scheduledDate?.format("DD MMM")}</div>
@@ -154,21 +165,27 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
                             <Stack direction="vertical" className="mx-auto">
                                 <div className="align-middle">
                                     <TeamNameInfo division={teamDetails.division} teamNumber={teamDetails.number} name={teamDetails.name} enteringPosition={matchup.enteringRank}/>
-                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.scores?.series)}</span>
+                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.scores?.series, teamDetails.teamStats?.handicap)}</span>
                                 </div>
-                                <div className="d-none d-sm-block"><GameSummaryAndPoints teamScore={matchup.scores} currentBreakpoint={currentBreakpoint}/></div>
+                                <div className="d-none d-sm-block">
+                                    {showMatchupDetails && <GameSummaryAndPoints teamScore={matchup.scores} currentBreakpoint={currentBreakpoint}/>}
+                                </div>
                             </Stack>
                         </div>
                         <div>
                             <Stack direction="vertical" className="text-center h-100">
                                 <div><small className={matchup.matchup.startsWith("POSITION") ? "text-danger" : ""}>{MatchupTypeConversion.get(matchup.matchup)}</small></div>
-                                <div className="my-auto align-middle"><span className="fs-5">{matchup.pointsWonLost[0]} - {matchup.pointsWonLost[1]}</span></div>
+                                <div className="my-auto align-middle">
+                                    {showMatchupDetails && <span className="fs-5">{matchup.pointsWonLost[0]} - {matchup.pointsWonLost[1]}</span>}
+                                </div>
                                 {/* Expand / Collapse for larger screens - small screens is a little further down*/}
                                 <div className="d-none d-sm-block w-auto">
-                                    <Link to="#" onClick={() => {toggleVisiblity(matchup.week)}}>{isVisible(matchup.week)?
-                                        <><ArrowsCollapse className="fw-bold"/><br/><span className="fs-xs">Hide Game Details</span></> :
-                                        <><ArrowsExpand className="fw-bold"/><br/><span className="fs-xs">Game Details</span></>}
-                                    </Link>
+                                    {showMatchupDetails &&
+                                        <Link to="#" onClick={() => {toggleVisiblity(matchup.week)}}>{isVisible(matchup.week)?
+                                            <><ArrowsCollapse className="fw-bold"/><br/><span className="fs-xs">Hide Game Details</span></> :
+                                            <><ArrowsExpand className="fw-bold"/><br/><span className="fs-xs">Game Details</span></>}
+                                        </Link>
+                                    }
                                 </div>
                             </Stack>
                         </div>
@@ -176,26 +193,34 @@ const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}
                             <Stack direction="vertical" className="mx-auto">
                                 <div className="text-end align-middle">
                                     <TeamNameInfo division={opponent?.division} teamNumber={opponent?.number} name={opponent?.name} enteringPosition={matchup.opponent?.enteringRank}/>
-                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.opponent?.scores?.series)}</span>
+                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.opponent?.scores?.series, matchup.opponent?.teamHdcp)}</span>
                                 </div>
-                                <div className="d-none d-sm-block"><GameSummaryAndPoints teamScore={matchup.opponent?.scores} currentBreakpoint={currentBreakpoint}/></div>
+                                <div className="d-none d-sm-block">
+                                    {showMatchupDetails && <GameSummaryAndPoints teamScore={matchup.opponent?.scores} currentBreakpoint={currentBreakpoint}/>}
+                                </div>
                             </Stack>
                         </div>
                     </Stack>
                     <Stack direction="horizontal" gap={0} className="d-block d-sm-none my-1">
-                        <div><GameSummaryAndPoints teamNumber={teamDetails.number} teamScore={matchup.scores} currentBreakpoint={currentBreakpoint}/></div>
-                        <div><GameSummaryAndPoints teamNumber={opponent?.number} teamScore={matchup.opponent?.scores} currentBreakpoint={currentBreakpoint}/></div>
+                        <div>
+                            {showMatchupDetails && <GameSummaryAndPoints teamNumber={teamDetails.number} teamScore={matchup.scores} currentBreakpoint={currentBreakpoint}/>}
+                        </div>
+                        <div>
+                            {showMatchupDetails && <GameSummaryAndPoints teamNumber={opponent?.number} teamScore={matchup.opponent?.scores} currentBreakpoint={currentBreakpoint}/>}
+                        </div>
                         {/* Expand / Collapse for small screens */}
-                        <div className="border border-primary-subtle bg-secondary my-1"><div className="mx-auto d-table">
-                            <Link to="#" onClick={() => {toggleVisiblity(matchup.week)}}>{isVisible(matchup.week)?
-                                <><BoxArrowUp className="fw-bold fs-sm"/> <span className="fs-sm">Hide Details</span></> :
-                                <><BoxArrowDown className="fw-bolder fs-sm"/> <span className="fs-sm">Show Details</span></>}
-                            </Link>
-                        </div></div>
+                        {showMatchupDetails && <div className="border border-primary-subtle bg-secondary my-1">
+                            <div className="mx-auto d-table">
+                                <Link to="#" onClick={() => {toggleVisiblity(matchup.week)}}>{isVisible(matchup.week)?
+                                    <><BoxArrowUp className="fw-bold fs-sm"/> <span className="fs-sm">Hide Details</span></> :
+                                    <><BoxArrowDown className="fw-bolder fs-sm"/> <span className="fs-sm">Show Details</span></>}
+                                </Link>
+                            </div>
+                        </div>}
                     </Stack>
                 </CardBody>
                 <CardBody className={`p-0 mx-1 my-1 ${isVisible(matchup.week) ? "d-block" : "d-none"}`}>
-                    <MatchupDetailsDisplay leagueDetails={leagueDetails} teamDetails={teamDetails} matchup={matchup} currentBreakpoint={currentBreakpoint} />
+                    {showMatchupDetails && <MatchupDetailsDisplay leagueDetails={leagueDetails} teamDetails={teamDetails} matchup={matchup} currentBreakpoint={currentBreakpoint} />}
                 </CardBody>
                 <div className="my-auto"/>
             </Card>
@@ -210,7 +235,6 @@ interface LeagueTeamMatchupsProps {
     leagueDetailsLoading: boolean;
 }
 const LeagueTeamMatchup : FC<LeagueTeamMatchupsProps> = ({leagueDetails, teamDetails, leagueDetailsLoading, currentBreakpoint}) => {
-    const today = moment();
     return (<>
         {leagueDetailsLoading && <div className="card-body"><Loader/></div>}
         {teamDetails &&
@@ -219,8 +243,7 @@ const LeagueTeamMatchup : FC<LeagueTeamMatchupsProps> = ({leagueDetails, teamDet
                     <CardHeader className="text-white bg-dark text-center fw-bolder py-1">Matchups</CardHeader>
                     <CardBody className="mx-0 px-1 px-sm-2 py-2">
                         <Row className="row-cols-1 row-cols-lg-2 g-2">
-                            {teamDetails.matchups.filter(matchup => matchup.bowlDate && matchup.bowlDate.isBefore(today))
-                                .map(matchup => <MatchupDisplay leagueDetails={leagueDetails} matchup={matchup} teamDetails={teamDetails} currentBreakpoint={currentBreakpoint}/>)}
+                            {teamDetails.matchups.map(matchup => <MatchupDisplay leagueDetails={leagueDetails} matchup={matchup} teamDetails={teamDetails} currentBreakpoint={currentBreakpoint}/>)}
                         </Row>
                     </CardBody>
                 </Card>
