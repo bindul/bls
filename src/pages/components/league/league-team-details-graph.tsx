@@ -16,31 +16,40 @@
 
 import type {FC} from "react";
 
-import type {ApexOptions} from "apexcharts";
 import Chart from "react-apexcharts";
+import type {ApexOptions} from "apexcharts";
 
 import {Col, Container, Row} from "react-bootstrap";
-
 import {BS_BP_LG, BS_BP_XS, BS_BP_XXL} from "../ui-utils";
-import type {PlayerDayData} from "./league-team-roster";
 
-interface TeamPlayerStatGraphProps {
-    playerData: PlayerDayData[];
+import type {TeamPositionScoreData} from "./league-team-details";
+
+interface TeamStatGraphProps {
+    teamPosScores: TeamPositionScoreData[];
 }
-const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
-    const chartOptions : ApexOptions = {
-        chart: {
-            id: 'Player-Averages',
-            type: 'line',
-        },
-        series: [
-            {
-                name: 'Weekly Average',
-                data: playerData.map(p => [p.bowlDate.getTime(), p.average]),
+const TeamStatGraph : FC<TeamStatGraphProps> = ({teamPosScores} : TeamStatGraphProps) => {
+    /*
+    {
+                name: 'Team Scores',
+                data: teamPosScores.map(tps => [tps.bowlDate.getTime(), tps.scratchSeries])
             },
             {
-                name: 'Running Average',
-                data: playerData.map(p => [p.bowlDate.getTime(), p.runningAverageAfter]),
+                name: 'Team Rank',
+                data: teamPosScores.map(tps => [tps.bowlDate.getTime(), tps.position])
+            }
+     */
+    const chartOptions : ApexOptions = {
+        chart: {
+            id: 'Team-Performance',
+            type: 'line',
+        },
+        series: [{
+                name: 'Team Scratch Series',
+                data: teamPosScores.map(tps => [tps.bowlDate.getTime(), tps.scratchSeries])
+            },
+            {
+                name: 'Team League Rank',
+                data: teamPosScores.filter(tps => tps.position > 0).map(tps => [tps.bowlDate.getTime(), tps.position])
             }
         ],
         xaxis: {
@@ -49,11 +58,20 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
                 format: 'dd-MMM'
             }
         },
-        yaxis: {
-            decimalsInFloat: 0
-        },
+        yaxis: [
+            {
+                decimalsInFloat: 0
+            },
+            {
+                opposite: true,
+                reversed: true,
+                decimalsInFloat: 0,
+                forceNiceScale: true,
+                stepSize: 5
+            }
+        ],
         title: {
-            text: "Player Averages"
+            text: "Team Scores and Rank"
         },
         noData: {
             text: "Loading..."
@@ -97,7 +115,6 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
                         options={chartOptions}
                         series={chartOptions.series}
                         type="line"
-
                     />
                 </Col>
             </Row>
@@ -105,4 +122,4 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
     );
 }
 
-export default TeamPlayerStatGraph;
+export default TeamStatGraph;

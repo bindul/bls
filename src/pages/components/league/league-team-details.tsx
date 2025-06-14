@@ -15,7 +15,8 @@
  */
 
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {lazy, Suspense, useEffect, useState} from "react";
+import moment from "moment";
 
 import {CardBody, CardHeader, Col, Container, Row} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
@@ -32,6 +33,35 @@ import Loader from "../loader";
 import {type Breakpoint} from "../ui-utils";
 import LeagueTeamRoster from "./league-team-roster";
 import LeagueTeamMatchup from "./league-team-matchup";
+
+const TeamStatGraph = lazy(() => import("./league-team-details-graph"));
+
+export interface TeamPositionScoreData {
+    bowlDate: Date;
+    position: number;
+    scratchSeries: number;
+}
+function buildTeamPositionScoreData (teamDetails: TrackedLeagueTeam): TeamPositionScoreData[] {
+
+    const today = moment();
+    const currentRank = isNumeric(teamDetails.currentRank) ? Number.parseInt(teamDetails.currentRank) : 0;
+    const filteredMatchups = teamDetails.matchups.filter(matchup => matchup.bowlDate && matchup.bowlDate.isBefore(today) && matchup.scores && matchup.scores.series);
+
+    return filteredMatchups.map((matchup, idx) => {
+            let nextRank = currentRank;
+            if (filteredMatchups.length > (idx + 1)) {
+                const nextRankCandidate = filteredMatchups[idx + 1].enteringRank;
+                if (isNumeric(nextRankCandidate)) {
+                    nextRank = Number.parseInt(nextRankCandidate);
+                }
+            }
+            return {
+                bowlDate: matchup.bowlDate?.toDate() ?? new Date(), // Should not happen
+                position: nextRank,
+                scratchSeries: matchup.scores?.series.effectiveScratchScore ?? 0
+            };
+        });
+}
 
 type DataColRowStyle = "Default" | "Success";
 interface DataRowProps {
@@ -57,6 +87,12 @@ interface LeagueTeamProps {
     leagueDetails: LeagueDetails | null;
 }
 function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProps) {
+
+    const [teamPositionScoreData, setTeamPositionScoreData] = useState<TeamPositionScoreData[]>([]);
+    useEffect(() => {
+        setTeamPositionScoreData(buildTeamPositionScoreData(teamDetails));
+    }, [teamDetails]);
+    console.log(teamPositionScoreData);
 
     let lastMatchup: LeagueMatchup;
     let nextMatchup: LeagueMatchup;
@@ -108,7 +144,7 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
     return (
         <Container fluid="true">
             <Card className="text-start mx-0 mb-0 h-100" border="secondary">
-                <CardBody className="py-1 py-sm-2">
+                <CardBody className="pt-1 pt-sm-2">
                     <Row className="gx-5 gy-1 mb-1">
                         <WriteDataColRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
                         <WriteDataColRow defn="Points" value={`${teamDetails.pointsWonLost[0]} - ${teamDetails.pointsWonLost[1]}`}/>
@@ -124,7 +160,11 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
                         <WriteDataColRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()} style="Success"/>
                         <WriteDataColRow defn="Next Opponent" value={formatNextMatchupOpponent()} style="Success"/>
                     </Row>
-                    {/*TODO: Add Row and Graph of team scratch and position - May need new tsx with delayed import*/}
+                </CardBody>
+                <CardBody className="pb-1 pb-sm-2">
+                    <Suspense fallback={<Loader />}>
+                        <TeamStatGraph teamPosScores={teamPositionScoreData}/>
+                    </Suspense>
                 </CardBody>
             </Card>
         </Container>
@@ -138,7 +178,6 @@ interface LeagueTeamDetailsProps {
     teamId?: string;
     children?: React.ReactNode;
 }
-
 const LeagueTeamDetails : React.FC<LeagueTeamDetailsProps> = ({leagueDetails, leagueDetailsLoading, currentBreakpoint, teamId}: LeagueTeamDetailsProps) => {
     const [teamDetails, setTeamDetails] = useState<TrackedLeagueTeam | null>(null);
 

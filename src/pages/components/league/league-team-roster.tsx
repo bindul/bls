@@ -14,21 +14,25 @@
  *  limitations under the License.
  */
 
-import {LeaguePlayer, LeaguePlayerStats, TrackedLeagueTeam} from "../../../data/league/league-team-details";
+import * as React from "react";
 import {type FC, lazy, Suspense, useEffect, useState} from "react";
-import {type Breakpoint, BS_BP_SM, BS_BP_XS} from "../ui-utils";
+import {Link} from "react-router-dom";
+
 import {CardBody, CardFooter, CardHeader, Col, Container, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import Loader from "../loader";
-import {Link} from "react-router-dom";
 import {ConeStriped, PersonFillAdd, PersonFillLock, XCircle} from "react-bootstrap-icons";
-import * as React from "react";
+
+import Loader from "../loader";
+import {type Breakpoint, BS_BP_SM, BS_BP_XS} from "../ui-utils";
+
 import type {LeagueAccolade} from "../../../data/league/league-details";
+import {LeaguePlayer, LeaguePlayerStats, TrackedLeagueTeam} from "../../../data/league/league-team-details";
 import {RatioGroup} from "../../../data/player/player-stats";
+import {type LeagueMatchup, LeagueTeamPlayerScore} from "../../../data/league/league-matchup";
 
 const TeamPlayerStatGraph = lazy(() => import("./league-player-stat-graph"));
 
-
+// TODO Change 3 game assumption later
 export interface PlayerDayData {
     week: number;
     bowlDate: Date;
@@ -38,26 +42,48 @@ export interface PlayerDayData {
     game3: number;
     series: number;
     average: number;
+    runningAverageAfter: number;
 }
 function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
-    const data : PlayerDayData[] = [];
-    // data.push(["Weeks", "Entering Avg", "Game 1", "Game 2", "Game 3", "Series", "Average"]); // TODO Change 3 game assumption later
-    teamDetails.matchups.forEach((matchup) => {
+
+    type MatchupPlayerScore = {
+        matchup: LeagueMatchup;
+        playerScore: LeagueTeamPlayerScore;
+    }
+
+    const currentPlayerAvg = teamDetails.roster.find(player => player.id === playerId)?.playerStats?.gameStats.average ?? 0;
+    // We do this in 2 steps since we are grabbing average from the next matchup
+    // TODO This is an ugly temporary solution until we move calculations to the backend and its hopefully calculated there
+    const matchupPlayerScores : MatchupPlayerScore[] = [];
+    teamDetails.matchups.forEach(matchup => {
         const playerScore = matchup.scores?.playerScores.find(ps => ps.player === playerId);
-        if (playerScore && !playerScore.games[0].blind) {
-            // Assuming one game blind is all games blind
-            const entry: PlayerDayData = {
-                week: matchup.week,
-                bowlDate: matchup.bowlDate?.toDate() ?? new Date(), // This should never happen, but just in case
-                enteringAvg: playerScore.hdcpSettingDay ? 0 : playerScore.enteringAverage,
-                game1: playerScore.games[0].scratchScore,
-                game2: playerScore.games[1].scratchScore,
-                game3: playerScore.games[2].scratchScore,
-                series: playerScore.series.scratchScore,
-                average: playerScore.series.average
-            };
-            data.push(entry);
+        if (playerScore && !playerScore.games[0].blind) { // Assuming one game blind is all games blind
+            matchupPlayerScores.push({
+                matchup: matchup,
+                playerScore: playerScore
+            });
         }
+    });
+
+    const data : PlayerDayData[] = matchupPlayerScores.map((mps, idx) => {
+        let runningAvgAfter = currentPlayerAvg;
+        if (matchupPlayerScores.length > (idx + 1)) {
+            const nextMatchupPlayerScore = matchupPlayerScores[idx + 1].playerScore;
+            if (nextMatchupPlayerScore && nextMatchupPlayerScore.enteringAverage) {
+                runningAvgAfter = nextMatchupPlayerScore.enteringAverage;
+            }
+        }
+        return {
+            week: mps.matchup.week,
+            bowlDate: mps.matchup.bowlDate?.toDate() ?? new Date(), // This should never happen, but just in case
+            enteringAvg: mps.playerScore.hdcpSettingDay ? 0 : mps.playerScore.enteringAverage,
+            game1: mps.playerScore.games[0].scratchScore,
+            game2: mps.playerScore.games[1].scratchScore,
+            game3: mps.playerScore.games[2].scratchScore,
+            series: mps.playerScore.series.scratchScore,
+            average: mps.playerScore.series.average,
+            runningAverageAfter: runningAvgAfter
+        };
     });
     return data;
 }
@@ -285,7 +311,6 @@ function ShowPlayerDetails ({playerDetailsDisplay, teamDetails, closePlayerDetai
 
     const player: LeaguePlayer | undefined = teamDetails.roster.find(p => p.id == playerDetailsDisplay);
     const playerStats: LeaguePlayerStats | undefined = player?.playerStats;
-    // const playerGameData : PlayerDayData[] =
 
     return (
         <Card border="dark" className="mt-1 mb-1 p-0 mx-2">
