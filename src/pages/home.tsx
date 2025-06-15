@@ -15,22 +15,17 @@
  */
 
 import  {type FC} from "react";
-import {ConeStriped} from "react-bootstrap-icons";
-import LeagueList from './components/league/league-list.tsx';
-import PlayerList from "./components/player/player-list.tsx";
+
+import NewsHighlights from "./components/news/news";
+import LeagueList from './components/league/league-list';
+import PlayerList from "./components/player/player-list";
 
 const Home :FC = () => {
     return (
         <>
             {/*Highlight of the week | style="max-width: 20rem;"*/}
             <div className="container-fluid">
-                <div className="card border-success mb-3">
-                    <div className="card-header">Recent Highlights</div>
-                    <div className="card-body">
-                        <h4 className="card-title">News from recent games</h4>
-                        <p className="card-text"><ConeStriped/> Not yet implemented! <ConeStriped/></p>
-                    </div>
-                </div>
+                <NewsHighlights />
             </div>
             <div className="container-md">
                 <div className="row">

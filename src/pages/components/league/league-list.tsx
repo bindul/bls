@@ -37,6 +37,7 @@ interface LeagueLinkProps {
     to? :To;
     children? :React.ReactNode;
 }
+// TODO Change it from class component to Functional Component
 class LeagueLink extends React.Component<LeagueLinkProps, {}> {
     render() {
         if (this.props.condition && this.props.to != undefined) {
