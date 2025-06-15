@@ -14,9 +14,10 @@
  *  limitations under the License.
  */
 
-import {TeamPlayerGameScore} from "../league/league-matchup";
+import {Frame, TeamPlayerGameScore} from "../league/league-matchup";
 import {PlayerStats, RatioGroup} from "./player-stats";
 import * as ss from "simple-statistics";
+import {accumulateFrameScores} from "../league/league-calculators";
 
 class FrameStatCalculator {
     firstBallAccum: number = 0;
@@ -33,6 +34,7 @@ class FrameStatCalculator {
     openFramesAccum: number = 0;
     totalFramesAccum: number = 0;
     strikesInARow: Map<number, number> = new Map();
+    singlePinsPickedUpGameScores: number[] = [];
 
     private saveStrikeCounter (strikes: number) {
         if (strikes >= 3) {
@@ -42,6 +44,36 @@ class FrameStatCalculator {
                 this.strikesInARow.set(strikes, 1);
             }
         }
+    }
+
+    private computeAllSinglePinsPickedUpGameScore (game: TeamPlayerGameScore) : number {
+        if (!game.frames || game.frames.length === 0) {
+            // No frames available, we can't do anything
+            return game.scratchScore;
+        }
+
+        const copyFrame = (frame: Frame) : Frame => {
+            const nf = new Frame();
+            nf.number = frame.number;
+            nf.ballScores = frame.ballScores.map(bs => [bs[0], bs[1]]);
+            return nf;
+        }
+
+        const simulateSinglePinSpare = (frame: Frame, ball: number)=> {
+            frame.ballScores[ball - 1][0] = 1;
+            frame.ballScores[ball - 1][1] = "/";
+        }
+
+        const newFrames : Frame[] = game.frames.map(frame => copyFrame(frame));
+        newFrames.forEach(frame => {
+            if (frame.ballScores[0][0] == 9 && frame.ballScores[1][0] == 0) {
+                simulateSinglePinSpare(frame, 2);
+            }
+            if (frame.number == 10 && frame.ballScores[0][0] == 10 && frame.ballScores[1][0] == 9 && frame.ballScores[2][0] == 0) {
+                simulateSinglePinSpare(frame, 3);
+            }
+        })
+        return accumulateFrameScores(newFrames);
     }
 
     addGame(game: TeamPlayerGameScore) {
@@ -151,6 +183,7 @@ class FrameStatCalculator {
         if (potentialCleanGame) {
             this.cleanGameCount++;
         }
+        this.singlePinsPickedUpGameScores.push(this.computeAllSinglePinsPickedUpGameScore(game));
     }
 
     getFirstBallAverage() {
@@ -233,4 +266,6 @@ export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: Pla
         stats.strikesInARow.push([key, value]);
     })
     stats.strikesInARow.sort((a, b) => a[0] - b[0]);
+
+    stats.allSinglePinsPickedUpAverage = ss.mean(frameStatsCalculator.singlePinsPickedUpGameScores);
 }

@@ -92,7 +92,6 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
     useEffect(() => {
         setTeamPositionScoreData(buildTeamPositionScoreData(teamDetails));
     }, [teamDetails]);
-    console.log(teamPositionScoreData);
 
     let lastMatchup: LeagueMatchup;
     let nextMatchup: LeagueMatchup;

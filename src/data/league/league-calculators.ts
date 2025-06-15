@@ -145,8 +145,7 @@ function selectPointsCalculator(leagueScoringRules: LeagueScoringRules | undefin
 // Loops through leagues
 // ---------------------------------------------------------------------------------------------------------------------
 
-function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePlayer | undefined) {
-
+export function accumulateFrameScores (frames: Frame[]) {
     const getNextNScores = (frames: Frame[], curIdx: number, count: number): number => {
         let toGet: number = count;
         let accum: number = 0;
@@ -160,6 +159,27 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePl
         }
         return accum;
     }
+
+    let scoreAccum = 0;
+    frames.forEach((currFrame, i) => {
+        currFrame.ballScores.forEach((score) => {
+            scoreAccum += score[0];
+            if (i < 9) {
+                // Not the 10th frame
+                if (score[1] == "X") {
+                    scoreAccum += getNextNScores(frames, i, 2);
+                } else if (score[1] == "/") {
+                    scoreAccum += getNextNScores(frames, i, 1);
+                }
+            }
+        })
+        currFrame.cumulativeScore = scoreAccum;
+    });
+
+    return scoreAccum;
+}
+
+function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePlayer | undefined) {
 
     if (!playerGame.frames) {
         playerGame.frames = [];
@@ -189,35 +209,25 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePl
     }
 
     // Calculate cumulative scores
-    let scoreAccum = 0;
+    const scoreAccum = accumulateFrameScores(playerGame.frames); // Also sets the cumulative scores
     let strikesInARow = 0;
     let potentialCleanGame = true;
     for (let i = 0; i < playerGame.frames.length; i++) {
         const currFrame = playerGame.frames[i];
         currFrame.ballScores.forEach((score) => {
-            scoreAccum += score[0];
-            if (i < 9) {
-                // Not the 10th frame
-                if (score[1] == "X") {
-                    scoreAccum += getNextNScores(playerGame.frames, i, 2);
-                } else if (score[1] == "/") {
-                    scoreAccum += getNextNScores(playerGame.frames, i, 1);
-                }
-            }
             if (score[1] == "X") {
                 strikesInARow++;
             } else {
                 strikesInARow = 0;
             }
 
-            // Frame Atrributes - Do this inside the ball loop, or it misses turkeys across 9th and 10th frame
+            // Frame Attributes - Do this inside the ball loop, or it misses turkeys across 9th and 10th frame
             if (strikesInARow == 3) {
                 currFrame.attributes.push("Turkey");
             } else if (strikesInARow == 12) {
                 currFrame.attributes.push("Perfect-Game");
             }
         })
-        currFrame.cumulativeScore = scoreAccum;
 
         // Frame Attributes
         const lastBallLabel = currFrame.ballScores[currFrame.ballScores.length - 1][1];
@@ -289,7 +299,7 @@ function setCrossPlayerFrameAttributes(matchup: LeagueMatchup) {
                         allPlayerFrames[p][f].attributes.push("Star");
                     }
                 } else if (xc == playerCount - 1) {
-                    // Someong got hung
+                    // Someone got hung
                     for (let p = 0; p < playerCount; p++) {
                         if (allPlayerFrames[p][f].ballScores[0][1] !== "X") {
                             allPlayerFrames[p][f].attributes.push("Hung");
@@ -601,7 +611,7 @@ export function decorateLeagueDetails (league : LeagueDetails) :LeagueDetails {
 
         team.matchups?.forEach((matchup) => {
             assignScoresAndPoints(matchup, scoringRules, hdcpCalculator, pointsCalculator, teamRoster);
-            // Cross Player Frame Atrributes
+            // Cross Player Frame Attributes
             setCrossPlayerFrameAttributes(matchup);
         })
         rollupTeamScoresAndPoints(team);

@@ -20,7 +20,7 @@ import {Link} from "react-router-dom";
 
 import {CardBody, CardFooter, CardHeader, Col, Container, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import {ConeStriped, PersonFillAdd, PersonFillLock, XCircle} from "react-bootstrap-icons";
+import {DashSquare, Icon9Square, PersonFillAdd, PersonFillLock, XCircle} from "react-bootstrap-icons";
 
 import Loader from "../loader";
 import {type Breakpoint, BS_BP_SM, BS_BP_XS} from "../ui-utils";
@@ -151,7 +151,8 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                             <WriteStatRow defn="Handicap" value={playerStats.handicap}/>
                             <WriteStatRow defn="Best Game over Avg" value={writeAccolade(playerStats.bestGameOverAverage)}/>
                             <WriteStatRow defn="Best Series over Avg" value={writeAccolade(playerStats.bestSeriesOverAverage)}/>
-                            <WriteStatRow defn="Average Booster" value={playerStats.averageBoosterSeries} toolTipText={`Bowl a ${playerStats.averageBoosterSeries} series to increase average by 1 pin.`}/>
+                            <WriteStatRow defn="Average Booster" value={playerStats.averageBoosterSeries}
+                                          toolTipText={`Bowl a ${playerStats.averageBoosterSeries} series to increase average by 1 pin.`}/>
                         </CardBody>
                     </Card>
                 </Col>
@@ -169,7 +170,9 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                                 {playerStats.strikesInARow.map(s => <WriteStatRow defn={s[0]} value={s[1]}/>)}
                             </>}/>
                             <WriteStatRow defn="Strike Spare Ratio" value={writeRatioGroup(playerStats.strikesToSpares)}/>
-                            <WriteStatRow defn="All Picked Up Avg" value={<><ConeStriped/> {playerStats.allSinglePinsPickedUpAverage} <ConeStriped/></>} toolTipText="Potential Average if all single pin spares were picked up. (Not yet implemented)"/>
+                            <WriteStatRow defn={<><Icon9Square/><DashSquare/> Picked Up Avg</>}
+                                          value={numberFormat.format(playerStats.allSinglePinsPickedUpAverage)}
+                                          toolTipText="Potential Average if all single pin spares were picked up."/>
                         </CardBody>
                         {playerStats.incompleteFrameData &&
                             <CardFooter><small>Some stats may be missing or incomplete as frame data is missing for some games.</small></CardFooter>
@@ -248,7 +251,9 @@ function PlayerGamesTable ({playerGameData, currentBreakPoint}: PlayerGamesTable
                                     <td>{p.game2}</td>
                                     <td>{p.game3}</td>
                                     <td>{p.series}</td>
-                                    <td className={p.average < p.enteringAvg ? "text-danger" : ""}>{numberFormat.format(p.average)}</td>
+                                    <td className={p.average < p.enteringAvg ? "text-danger" : ""}>
+                                        {numberFormat.format(p.average)}
+                                    </td>
                                 </tr>)}
                             </tbody>
                         </Table>
@@ -284,7 +289,9 @@ function PlayerGamesTable ({playerGameData, currentBreakPoint}: PlayerGamesTable
                                 </tr>
                                 <tr>
                                     <th scope="row">Average</th>
-                                    {playerGameData.map(p => <td className={p.average < p.enteringAvg ? "text-danger" : ""}>{numberFormat.format(p.average)}</td>)}
+                                    {playerGameData.map(p =>
+                                        <td className={p.average < p.enteringAvg ? "text-danger" : ""}>{numberFormat.format(p.average)}</td>
+                                    )}
                                 </tr>
                             </tbody>
                         </Table>
@@ -369,20 +376,28 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
                                 <tbody>
                                 {teamDetails.roster.map(p => (
                                     <tr>
-                                        <td>{p.status === "REGULAR" ? <PersonFillLock/> : <PersonFillAdd/>} <Link to="#" onClick={() => setPlayerDetailsDisplay(p.id)}>{p.name}</Link></td>
+                                        <td>
+                                            {p.status === "REGULAR" ? <PersonFillLock/> : <PersonFillAdd/>}
+                                            <Link to="#" onClick={() => setPlayerDetailsDisplay(p.id)}>{p.name}</Link>
+                                        </td>
                                         <td>{p.playerStats?.gameStats.count}</td>
                                         <td className="d-none d-md-block">{p.playerStats?.pinfall}</td>
                                         <td>{p.playerStats?.gameStats.average.toFixed(2)}</td>
                                         <td>{p.playerStats?.handicap}</td>
-                                        <td className="d-none d-md-block">{p.playerStats?.seriesStats.average.toFixed(2)}</td>
+                                        <td className="d-none d-md-block">
+                                            {p.playerStats?.seriesStats.average.toFixed(2)}
+                                        </td>
                                     </tr>
                                 ))}
                                 </tbody>
                             </Table>
                     </CardBody>
-                    <CardFooter><small>Click on player names to see advanced stats</small></CardFooter>
+                    <CardFooter><small>Click on player names to see more stats</small></CardFooter>
                 </Card>
-                {playerDetailsDisplay && <ShowPlayerDetails playerDetailsDisplay={playerDetailsDisplay} teamDetails={teamDetails} closePlayerDetails={closePlayerDetails} currentBreakpoint={currentBreakpoint}/>}
+                {playerDetailsDisplay &&
+                    <ShowPlayerDetails playerDetailsDisplay={playerDetailsDisplay} teamDetails={teamDetails}
+                                       closePlayerDetails={closePlayerDetails} currentBreakpoint={currentBreakpoint}/>
+                }
             </CardBody>
         }
     </>);
