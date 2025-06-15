@@ -28,16 +28,6 @@ interface TeamStatGraphProps {
     teamPosScores: TeamPositionScoreData[];
 }
 const TeamStatGraph : FC<TeamStatGraphProps> = ({teamPosScores} : TeamStatGraphProps) => {
-    /*
-    {
-                name: 'Team Scores',
-                data: teamPosScores.map(tps => [tps.bowlDate.getTime(), tps.scratchSeries])
-            },
-            {
-                name: 'Team Rank',
-                data: teamPosScores.map(tps => [tps.bowlDate.getTime(), tps.position])
-            }
-     */
     const chartOptions : ApexOptions = {
         chart: {
             id: 'Team-Performance',

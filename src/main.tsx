@@ -18,7 +18,7 @@
 import 'bootswatch/dist/lumen/bootstrap.min.css';
 import './sass/bls.scss';
 
-import {ContextCacheProvider} from "./data/utils/context-cache";
+import {ContextCacheProvider} from "./pages/components/cache/context-cache.tsx";
 
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'

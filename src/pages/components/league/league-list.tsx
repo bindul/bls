@@ -20,7 +20,7 @@ import {
     LEAGUE_LIST_CACHE_CATEGORY,
     leagueInfoListFetcher
 } from "../../../data/league/league-api";
-import {useCachedFetcher} from "../../../data/utils/data-loader";
+import {useCachedFetcher} from "../cache/data-loader.tsx";
 
 import Card from "react-bootstrap/Card"
 import ListGroup from "react-bootstrap/ListGroup"

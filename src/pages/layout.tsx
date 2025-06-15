@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 import { Outlet, Link } from "react-router-dom";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
 import ScrollToTop from "./components/scroll-to-top.tsx";
-import type {FC} from "react";
+import {type FC, useRef} from "react";
 
 import ImgBowlingLogo from "./../assets/bowling-svgrepo-com.svg";
+import ClearCache, {type ClearCacheRef} from "./components/cache/clear-cache.tsx";
 
 const Layout :FC = () => {
+    const clearCacheRef = useRef<ClearCacheRef>(null);
+
     return (
         // Set Layout
         <>
-            {/* Decide on the Container sizes lster */}
+            {/* Decide on the Container sizes later */}
             <div className="container py-4 px-3 mx-auto">
                 <header className="justify-content-between align-items-md-center pb-2 mb-2 mb-lg-3">
                     {/* Nav Bar */}
@@ -48,6 +51,12 @@ const Layout :FC = () => {
                                     <Nav.Item>
                                         <Nav.Link eventKey="player" as={Link} to="/player" disabled>Players</Nav.Link>
                                     </Nav.Item>
+                                    <NavDropdown title="Utilities" id="utilities-navbar">
+                                        <NavDropdown.Item eventKey="clear-cache" as={Link} to="#"
+                                                          onClick={() => clearCacheRef.current?.clearCache()}>
+                                            Clear Cache
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
                                 </Nav>
                             </Navbar.Collapse>
                         </Container>
@@ -55,6 +64,7 @@ const Layout :FC = () => {
                 </header>
 
                 <ScrollToTop />
+                <ClearCache ref={clearCacheRef}/>
 
                 {/* Actual Content Here */}
                 <Container fluid="true">

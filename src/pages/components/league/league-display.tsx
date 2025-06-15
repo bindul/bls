@@ -16,7 +16,7 @@
 
 import {type FC, useCallback, useEffect, useState} from "react";
 import {LEAGUE_DETAILS_CACHE_CATEGORY, leagueTeamDetailsFetcher} from "../../../data/league/league-api";
-import {useCachedFetcher} from "../../../data/utils/data-loader";
+import {useCachedFetcher} from "../cache/data-loader.tsx";
 import type {LeagueDetails} from "../../../data/league/league-details";
 import type {LeagueInfo} from "../../../data/league/league-info";
 import LeagueSummary from "./league-summary";

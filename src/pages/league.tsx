@@ -24,7 +24,7 @@ import {
     leagueInfoListFetcher
 } from "../data/league/league-api.ts";
 import {AvailableLeagues} from "../data/league/league-info";
-import {useCachedFetcher} from "../data/utils/data-loader";
+import {useCachedFetcher} from "./components/cache/data-loader.tsx";
 import LeagueList from "./components/league/league-list";
 import LeagueDisplay from "./components/league/league-display";
 

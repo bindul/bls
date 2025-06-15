@@ -21,7 +21,7 @@ import {CardBody, CardFooter, CardHeader, CardText, CardTitle} from "react-boots
 import Loader from "../loader";
 import type {Players} from "../../../data/player/player-info";
 import {PLAYER_LIST_CACHE_CATEGORY, playerListFetcher} from "../../../data/player/player-api";
-import {useCachedFetcher} from "../../../data/utils/data-loader";
+import {useCachedFetcher} from "../cache/data-loader.tsx";
 import ErrorDisplay from "../error-display";
 
 function PlayerList() {

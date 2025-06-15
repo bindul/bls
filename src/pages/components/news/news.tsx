@@ -22,7 +22,7 @@ import moment from "moment";
 import {compareMoments} from "../../../data/utils/utils";
 import {NEWS_CACHE_CATEGORY, newsFetcher} from "../../../data/news/news-api";
 import type {News} from "../../../data/news/news-items";
-import {useCachedFetcher} from "../../../data/utils/data-loader";
+import {useCachedFetcher} from "../cache/data-loader.tsx";
 
 import Loader from "../loader";
 import ErrorDisplay from "../error-display";
