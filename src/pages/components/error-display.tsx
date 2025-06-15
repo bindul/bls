@@ -13,9 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Alert from 'react-bootstrap/Alert'
+
+import {type FC, useEffect, useState} from "react";
+import {Container, Alert} from "react-bootstrap";
 import {ExclamationOctagonFill} from "react-bootstrap-icons";
-import * as React from "react";
+import {BS_BP_XS, BS_BP_SM, BS_BP_MD, BS_BP_LG, BS_BP_XL, BS_BP_XXL, getBreakpoint} from "./ui-utils";
+
+const SCREEN_SIZE_MAX_WIDTH = new Map([
+    [BS_BP_XS, "20rem"],
+    [BS_BP_SM, "25rem"],
+    [BS_BP_MD, "35rem"],
+    [BS_BP_LG, "40rem"],
+    [BS_BP_XL, "50rem"],
+    [BS_BP_XXL, "60rem"],
+]);
+const SAFE_MAX_WIDTH = "20rem";
 
 interface ErrorDisplayProps {
     message?: string;
@@ -24,29 +36,56 @@ interface ErrorDisplayProps {
 }
 
 function ErrorDetails({error} :ErrorDisplayProps) {
+
+    const MAX_MSG_LENGTH = 1000;
+    const truncateMessage = (message: string) => {
+        if (message && message.length > MAX_MSG_LENGTH) {
+            return message.substring(0, MAX_MSG_LENGTH) + '...';
+        }
+        return message;
+    }
+
     if (error != undefined) {
-        const em = error.name + " " + error.message;
+        const em = error.name + " " + truncateMessage(error.message);
         return (
             <>
                 <hr />
-                <p className="mb-0 font-monospace">For the nerds: {em}</p>
+                <p className="mb-0 font-monospace fs-xs">For the nerds: {em}</p>
             </>
         );
     }
     return (<></>);
 }
 
-const Error:React.FC<ErrorDisplayProps> = (props :ErrorDisplayProps) => {
-    // TODO May need to capture the close event and allow callbacks
+const Error: FC<ErrorDisplayProps> = (props :ErrorDisplayProps) => {
+
+    const [maxWidth, setMaxWidth] = useState<string>("20rem");
+
+    useEffect(() => {
+        const handleResize = () => {
+            const breakpoint = getBreakpoint();
+            setMaxWidth(SCREEN_SIZE_MAX_WIDTH.get(breakpoint) ?? SAFE_MAX_WIDTH);
+        };
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    console.error("Error in BLS App: ", props.message, props.error);
     return (
-        <div className="alert-top">
-            <Alert variant="warning" dismissible onClose={props.onClose}>
+        <Container fluid={true} id="error-display" className="d-flex justify-content-center">
+            <Alert variant="warning" dismissible={true} onClose={props.onClose} style={{maxWidth: maxWidth}}>
                 <Alert.Heading><ExclamationOctagonFill/> Your last action failed!</Alert.Heading>
                 {props.message && <p>{props.message}</p>}
                 <ErrorDetails error={props.error} />
             </Alert>
-        </div>
+        </Container>
     );
 }
 
+/*
+        <div className="alert-top">
+ */
 export default Error;
