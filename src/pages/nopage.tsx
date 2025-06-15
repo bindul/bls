@@ -15,11 +15,32 @@
  */
 
 import type {FC} from "react";
+import Card from "react-bootstrap/Card";
+import {CardBody, CardHeader, Container} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import {ExclamationTriangle} from "react-bootstrap-icons";
 
 const NoPage :FC = () => {
     return (
         <>
-            <h1>404</h1>
+            <Container fluid={true} className="d-flex justify-content-center py-4 px-3 mx-auto">
+                <Card border="danger" style={{width: "80%"}}>
+                    <CardHeader className="bg-danger text-white">
+                        <div className="fs-5">
+                            <span className="fw-bold me-auto">404 : Bad Link</span>
+                            <span className="float-end"><ExclamationTriangle/></span>
+                        </div>
+                    </CardHeader>
+                    <CardBody>
+                        <div className="text-danger text-center">
+                            We seem to have reached a page / link that either never existed or no longer exists.
+                            <br /><br />
+                            Shout at the person who sent you this link (perhaps update your bookmarks?) and start over
+                            from the <Link to="/">home page</Link> of the site.
+                        </div>
+                    </CardBody>
+                </Card>
+            </Container>
         </>
     )
 };
