@@ -15,7 +15,7 @@
  */
 
 import type {FC, ReactNode} from "react";
-import {lazy, Suspense, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import moment from "moment";
 
 import {Card, CardBody, CardHeader, Col, Container, Row} from "react-bootstrap";
@@ -32,8 +32,7 @@ import Loader from "../loader";
 import {type Breakpoint} from "../ui-utils";
 import LeagueTeamRoster from "./league-team-roster";
 import LeagueTeamMatchup from "./league-team-matchup";
-
-const TeamStatGraph = lazy(() => import("./league-team-details-graph"));
+import TeamStatGraph from "./league-team-details-graph";
 
 export interface TeamPositionScoreData {
     bowlDate: Date;
@@ -157,9 +156,7 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
                     </Row>
                 </CardBody>
                 <CardBody className="pb-1 pb-sm-2">
-                    <Suspense fallback={<Loader />}>
-                        <TeamStatGraph teamPosScores={teamPositionScoreData}/>
-                    </Suspense>
+                    <TeamStatGraph teamPosScores={teamPositionScoreData}/>
                 </CardBody>
             </Card>
         </Container>

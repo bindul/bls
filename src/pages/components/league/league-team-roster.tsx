@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import {type FC, lazy, type ReactNode, Suspense, useEffect, useState} from "react";
+import {type FC, type ReactNode, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 import {Card, CardBody, CardFooter, CardHeader, Col, Container, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
@@ -27,8 +27,7 @@ import type {LeagueAccolade} from "../../../data/league/league-details";
 import {LeaguePlayer, LeaguePlayerStats, TrackedLeagueTeam} from "../../../data/league/league-team-details";
 import {RatioGroup} from "../../../data/player/player-stats";
 import {type LeagueMatchup, LeagueTeamPlayerScore} from "../../../data/league/league-matchup";
-
-const TeamPlayerStatGraph = lazy(() => import("./league-player-stat-graph"));
+import TeamPlayerStatGraph from "./league-player-stat-graph";
 
 // TODO Change 3 game assumption later
 export interface PlayerDayData {
@@ -333,9 +332,7 @@ const PlayerDetails :FC<PlayerDetailsProps> = ({playerDetailsDisplay, teamDetail
                     <PlayerGamesTable playerGameData={playerGameData} currentBreakPoint={currentBreakpoint}/>
                 </CardBody>
                 <CardBody className={"px-2 py-2"}>
-                    <Suspense fallback={<Loader />}>
-                        <TeamPlayerStatGraph playerData={playerGameData}/>
-                    </Suspense>
+                    <TeamPlayerStatGraph playerData={playerGameData}/>
                 </CardBody>
             </>)}
         </Card>

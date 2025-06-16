@@ -7,7 +7,14 @@ export default defineConfig({
   plugins: [react()],
   build: {
     minify: true,
-
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-bootstrap-icons': ['react-bootstrap-icons'],
+          'react-apexcharts': ['react-apexcharts', 'apexcharts'],
+        }
+      }
+    },
   },
   // Silence Sass deprecation warnings. See note below.
   css: {
