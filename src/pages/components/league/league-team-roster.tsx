@@ -44,7 +44,7 @@ export interface PlayerDayData {
 }
 function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
 
-    type MatchupPlayerScore = {
+    interface MatchupPlayerScore {
         matchup: LeagueMatchup;
         playerScore: LeagueTeamPlayerScore;
     }
@@ -67,7 +67,7 @@ function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
         let runningAvgAfter = currentPlayerAvg;
         if (matchupPlayerScores.length > (idx + 1)) {
             const nextMatchupPlayerScore = matchupPlayerScores[idx + 1].playerScore;
-            if (nextMatchupPlayerScore && nextMatchupPlayerScore.enteringAverage) {
+            if (nextMatchupPlayerScore.enteringAverage) {
                 runningAvgAfter = nextMatchupPlayerScore.enteringAverage;
             }
         }
@@ -95,7 +95,7 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
         if (accolade) {
             retStr = (accolade.description && accolade.description.length > 0) ? accolade.description : String(accolade.howMuch);
             retStr += " on ";
-            retStr += accolade.when?.format("DD MMM");
+            retStr += accolade.when?.format("DD MMM") ?? "";
         }
         return retStr;
     }
@@ -104,8 +104,8 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
     const percentFormat = Intl.NumberFormat("en-US", {style: "percent", maximumFractionDigits: 2});
     const writeRatioGroup = (rg : RatioGroup) => {
         let val = "";
-        if (rg && rg.denominator > 0) {
-            val = percentFormat.format(rg.pct) + " (" + rg.numerator + "/" + rg.denominator + ")";
+        if (rg.denominator > 0) {
+            val = percentFormat.format(rg.pct) + " (" + String(rg.numerator) + "/" + String(rg.denominator) + ")";
         }
         return val;
     }
@@ -125,7 +125,7 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                             <StatRow defn="Games - SD" value={numberFormat.format(playerStats.gameStats.sd)}/>
                             <StatRow defn="300 Games" value={playerStats.games300}/>
                             {playerStats.gameAverages.map((ga, idx) =>
-                                <StatRow defn={`Games ${idx + 1} Avg`} value={numberFormat.format(ga)}/>
+                                <StatRow defn={`Games ${String(idx + 1)} Avg`} value={numberFormat.format(ga)} key={"game-avg-" + idx.toString() + "-" + ga.toString()}/>
                             )}
                         </CardBody>
                     </Card>
@@ -150,7 +150,7 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                             <StatRow defn="Best Game over Avg" value={writeAccolade(playerStats.bestGameOverAverage)}/>
                             <StatRow defn="Best Series over Avg" value={writeAccolade(playerStats.bestSeriesOverAverage)}/>
                             <StatRow defn="Average Booster" value={playerStats.averageBoosterSeries}
-                                          toolTipText={`Bowl a ${playerStats.averageBoosterSeries} series to increase average by 1 pin.`}/>
+                                          toolTipText={`Bowl a series of at least this number to increase average by 1 pin.`}/>
                         </CardBody>
                     </Card>
                 </Col>
@@ -165,7 +165,7 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                             <StatRow defn="Picked up Splits" value={writeRatioGroup(playerStats.splits)}/>
                             <StatRow defn="Opens" value={writeRatioGroup(playerStats.opens)}/>
                             <StatRow defn="Consecutive Strikes" value={<>
-                                {playerStats.strikesInARow.map(s => <StatRow defn={s[0]} value={s[1]}/>)}
+                                {playerStats.strikesInARow.map(s => <StatRow defn={s[0]} value={s[1]} key={"strikes-row-" + s[0].toString() + "-" + s[1].toString()}/>)}
                             </>}/>
                             <StatRow defn="Strike Spare Ratio" value={writeRatioGroup(playerStats.strikesToSpares)}/>
                             <StatRow defn={<><Icon9Square/><DashSquare/> Picked Up Avg</>}
@@ -193,7 +193,7 @@ const StatRow :FC<StatRowProps> = ({defn, value, toolTipText} : StatRowProps)=> 
             <Col className="text-body-emphasis bg-secondary px-1">
                 {toolTipText && <OverlayTrigger overlay={
                     <Tooltip id={Math.random().toString()}>{toolTipText}</Tooltip>}>
-                    <a href="#" onClick={(e) => e.preventDefault()}>{defn}</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); }}>{defn}</a>
                 </OverlayTrigger>}
                 {!toolTipText && defn}
                 <span className="float-end">:</span>
@@ -217,7 +217,7 @@ const PlayerGamesTable :FC<PlayerGamesTableProps> = ({playerGameData, currentBre
         } else if (playerGameData.length > 8) {
             hideBelowBreakpoint = BS_BP_SM;
         }
-        if (currentBreakPoint && hideBelowBreakpoint && currentBreakPoint.order <= hideBelowBreakpoint.order) {
+        if (hideBelowBreakpoint && currentBreakPoint.order <= hideBelowBreakpoint.order) {
             setTranspose(true);
         }
     }, [currentBreakPoint, playerGameData]);
@@ -242,7 +242,7 @@ const PlayerGamesTable :FC<PlayerGamesTableProps> = ({playerGameData, currentBre
                             </thead>
                             <tbody>
                             {playerGameData.map(p =>
-                                <tr>
+                                <tr key={"pgd-" + p.week.toString() + p.series.toString()}>
                                     <td>{p.week}</td>
                                     <td>{p.enteringAvg}</td>
                                     <td>{p.game1}</td>
@@ -261,34 +261,36 @@ const PlayerGamesTable :FC<PlayerGamesTableProps> = ({playerGameData, currentBre
                             <thead className="table-dark">
                                 <tr>
                                     <th scope="col">Week</th>
-                                    {playerGameData.map(p => <th scope="col">{p.week}</th>)}
+                                    {playerGameData.map(p => <th scope="col" key={"gw-" + p.week.toString() + "-" + Math.random().toString()}>{p.week}</th>)}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">Entering Avg</th>
-                                    {playerGameData.map(p => <td>{p.enteringAvg}</td>)}
+                                    {playerGameData.map(p => <td key={"gea-" + p.week.toString() + "-" + Math.random().toString()}>{p.enteringAvg}</td>)}
                                 </tr>
                                 <tr>
                                     <th scope="row">Game 1</th>
-                                    {playerGameData.map(p => <td>{p.game1}</td>)}
+                                    {playerGameData.map(p => <td key={"g1-" + p.week.toString() + "-" + Math.random().toString()}>{p.game1}</td>)}
                                 </tr>
                                 <tr>
                                     <th scope="row">Game 2</th>
-                                    {playerGameData.map(p => <td>{p.game2}</td>)}
+                                    {playerGameData.map(p => <td key={"g2-" + p.week.toString() + "-" + Math.random().toString()}>{p.game2}</td>)}
                                 </tr>
                                 <tr>
                                     <th scope="row">Game 3</th>
-                                    {playerGameData.map(p => <td>{p.game3}</td>)}
+                                    {playerGameData.map(p => <td key={"g3-" + p.week.toString() + "-" + Math.random().toString()}>{p.game3}</td>)}
                                 </tr>
                                 <tr>
                                     <th scope="row">Series</th>
-                                    {playerGameData.map(p => <td>{p.series}</td>)}
+                                    {playerGameData.map(p => <td  key={"gs-" + p.week.toString() + "-" + Math.random().toString()}>{p.series}</td>)}
                                 </tr>
                                 <tr>
                                     <th scope="row">Average</th>
                                     {playerGameData.map(p =>
-                                        <td className={p.average < p.enteringAvg ? "text-danger" : ""}>{numberFormat.format(p.average)}</td>
+                                        <td className={p.average < p.enteringAvg ? "text-danger" : ""} key={"gavg-" + p.week.toString() + "-" + Math.random().toString()}>
+                                            {numberFormat.format(p.average)}
+                                        </td>
                                     )}
                                 </tr>
                             </tbody>
@@ -320,7 +322,7 @@ const PlayerDetails :FC<PlayerDetailsProps> = ({playerDetailsDisplay, teamDetail
     return (
         <Card border="dark" className="mt-1 mb-1 p-0 mx-2">
             <CardHeader className="py-1 px-2 text-white bg-dark">
-                <span className="fs-6">{player && player.name}</span>
+                <span className="fs-6">{player?.name}</span>
                 <span className="float-end"><a onClick={closePlayerDetails}><XCircle/></a></span>
             </CardHeader>
             {playerStats && (<>
@@ -354,50 +356,48 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
 
     return (<>
         {leagueDetailsLoading && <div className="card-body"><Loader/></div>}
-        {teamDetails &&
-            <CardBody className="px-0 py-1 border border-secondary-subtle">
-                <Card className="mx-2">
-                    <CardHeader className="text-white bg-dark text-center fw-bolder py-1">Roster</CardHeader>
-                    <CardBody className="mx-0 px-0 py-2">
-                            <Table responsive={true} size="sm" >
-                                <thead>
-                                <tr>
-                                    {/*Some columns are hidden on smaller screens*/}
-                                    <th>Player</th>
-                                    <th>Games</th>
-                                    <th className="d-none d-md-block">Scratch Pins</th>
-                                    <th>Average</th>
-                                    <th>Handicap</th>
-                                    <th className="d-none d-md-block">Series Avg</th>
+        <CardBody className="px-0 py-1 border border-secondary-subtle">
+            <Card className="mx-2">
+                <CardHeader className="text-white bg-dark text-center fw-bolder py-1">Roster</CardHeader>
+                <CardBody className="mx-0 px-0 py-2">
+                        <Table responsive={true} size="sm" >
+                            <thead>
+                            <tr>
+                                {/*Some columns are hidden on smaller screens*/}
+                                <th>Player</th>
+                                <th>Games</th>
+                                <th className="d-none d-md-block">Scratch Pins</th>
+                                <th>Average</th>
+                                <th>Handicap</th>
+                                <th className="d-none d-md-block">Series Avg</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {teamDetails.roster.map(p => (
+                                <tr key={p.id}>
+                                    <td>
+                                        {p.status === "REGULAR" ? <PersonFillLock/> : <PersonFillAdd/>}
+                                        <Link to="#" onClick={() => { setPlayerDetailsDisplay(p.id); }}>{p.name}</Link>
+                                    </td>
+                                    <td>{p.playerStats?.gameStats.count}</td>
+                                    <td className="d-none d-md-block">{p.playerStats?.pinfall}</td>
+                                    <td>{p.playerStats?.gameStats.average.toFixed(2)}</td>
+                                    <td>{p.playerStats?.handicap}</td>
+                                    <td className="d-none d-md-block">
+                                        {p.playerStats?.seriesStats.average.toFixed(2)}
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {teamDetails.roster.map(p => (
-                                    <tr>
-                                        <td>
-                                            {p.status === "REGULAR" ? <PersonFillLock/> : <PersonFillAdd/>}
-                                            <Link to="#" onClick={() => setPlayerDetailsDisplay(p.id)}>{p.name}</Link>
-                                        </td>
-                                        <td>{p.playerStats?.gameStats.count}</td>
-                                        <td className="d-none d-md-block">{p.playerStats?.pinfall}</td>
-                                        <td>{p.playerStats?.gameStats.average.toFixed(2)}</td>
-                                        <td>{p.playerStats?.handicap}</td>
-                                        <td className="d-none d-md-block">
-                                            {p.playerStats?.seriesStats.average.toFixed(2)}
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </Table>
-                    </CardBody>
-                    <CardFooter><small>Click on player names to see more stats</small></CardFooter>
-                </Card>
-                {playerDetailsDisplay &&
-                    <PlayerDetails playerDetailsDisplay={playerDetailsDisplay} teamDetails={teamDetails}
-                                       closePlayerDetails={closePlayerDetails} currentBreakpoint={currentBreakpoint}/>
-                }
-            </CardBody>
-        }
+                            ))}
+                            </tbody>
+                        </Table>
+                </CardBody>
+                <CardFooter><small>Click on player names to see more stats</small></CardFooter>
+            </Card>
+            {playerDetailsDisplay &&
+                <PlayerDetails playerDetailsDisplay={playerDetailsDisplay} teamDetails={teamDetails}
+                                   closePlayerDetails={closePlayerDetails} currentBreakpoint={currentBreakpoint}/>
+            }
+        </CardBody>
     </>);
 }
 

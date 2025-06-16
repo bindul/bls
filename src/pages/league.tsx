@@ -41,7 +41,7 @@ const League :FC = () => {
         }
         if (leagueListData) {
             const leagueInfo = leagueListData.findLeague(leagueId);
-            if (!leagueInfo || leagueInfo.dataLoc == null || leagueListLoadError) {
+            if (leagueInfo?.dataLoc == null) {
                 return (<>
                     <LeagueList />
                     <ErrorDisplay message="Incorrect League ID. Please select a correct league."/>

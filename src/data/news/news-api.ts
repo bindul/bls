@@ -18,10 +18,9 @@ import {createJsonConverter} from "../utils/json-utils";
 import {News} from "./news-items";
 
 export const NEWS_CACHE_CATEGORY = "news";
-const APP_URL_BASE = import.meta.env.VITE_DATA_URL_BASE;
 const NEWS_RESOURCE = import.meta.env.VITE_DATA_NEWS_INDEX_RESOURCE;
 
 export const newsFetcher = async() =>
-    fetch(APP_URL_BASE + NEWS_RESOURCE)
+    fetch(NEWS_RESOURCE)
         .then(res => res.json())
-        .then(json => createJsonConverter().deserializeObject<News>(json, News)); // The method is deprecated, but deserialize returns an array which we don't want
+        .then((json :object) => createJsonConverter().deserialize<News>(json, News) as unknown as News);

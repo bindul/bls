@@ -32,7 +32,7 @@ const OtherTeams: FC<OtherTeamsProps> = ({leagueDetails, leagueDetailsLoading, c
                 <CardHeader className="px-2">Other League Teams</CardHeader>
                 {/*Still Loading*/}
                 {leagueDetailsLoading && <div className="card-body"><Loader/></div>}
-                {leagueDetails && leagueDetails.otherTeams &&
+                {leagueDetails?.otherTeams &&
                     <CardBody className="px-2">
                         <Container fluid>
                             <Table className="table-responsive-sm">
@@ -46,15 +46,15 @@ const OtherTeams: FC<OtherTeamsProps> = ({leagueDetails, leagueDetailsLoading, c
                                 </thead>
                                 <tbody>
                                 {leagueDetails.otherTeams.map(otherTeam => (
-                                    <tr>
+                                    <tr key={"ot-" + otherTeam.number.toString()}>
                                         <td>{otherTeam.division}</td>
                                         <td>{otherTeam.number}</td>
                                         <td>{otherTeam.name}</td>
                                         <td>
                                             <Container fluid>
                                                 <Row>
-                                                    {otherTeam.players && otherTeam.players.map(player => (
-                                                        <Col md={3} className="px-0">{player}</Col>
+                                                    {otherTeam.players?.map((player, i) => (
+                                                        <Col md={3} className="px-0" key={"pl-" + otherTeam.number.toString() + "-" + i.toString()}>{player}</Col>
                                                     ))}
                                                 </Row>
                                             </Container>

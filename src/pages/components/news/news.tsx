@@ -35,11 +35,11 @@ const NewsHighlights : FC = () => {
         <Card border="success" className="mb-3">
             <CardHeader as="h4">Recent Highlights</CardHeader>
             {isLoading && <CardBody><Loader /></CardBody>}
-            {error && <ErrorDisplay message="Error loading news highlights." error={error} />}
-            {data && data.newsItems.filter(ni => ni.date.isSameOrAfter(twoWeeksBack))
+            {(error != null) && <ErrorDisplay message="Error loading news highlights." error={error} />}
+            {data?.newsItems.filter(ni => ni.date.isSameOrAfter(twoWeeksBack))
                 .sort((a, b) => compareMoments(a.date, b.date))
-                .map(ni =>
-                <CardBody className="border border-secondary py-1 my-1">
+                .map((ni, idx) =>
+                <CardBody className="border border-secondary py-1 my-1" key={"news-" + idx.toString()}>
                     <Stack direction="horizontal" gap={3}>
                         <div>{ni.date.format("DD MMM")}</div>
                         <div>

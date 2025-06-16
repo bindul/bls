@@ -31,16 +31,14 @@ const PlayerList :FC = ()=> {
     return (
         <Card className="mb-3">
             <CardHeader as="h3">Players</CardHeader>
-            {/*Still Loading*/}
             {isLoading && <div className="card-body"><Loader /></div>}
-            {/*Set error handling here, or the rest of the component does not get displayed*/}
-            {error && <ErrorDisplay message="Error loading players. Lots of things on the site will probably not work." error={error}/>}
+            {(error != null) && <ErrorDisplay message="Error loading players. Lots of things on the site will probably not work." error={error}/>}
             {data &&
                 <CardBody className="border-primary">
                     <CardTitle><HourglassSplit/> Player Stats (WIP)</CardTitle>
                     <CardText>Future: links to individuals stats pages with numbers across leagues, like:</CardText>
                     <ul>
-                        {data.players.map((player, index) => (<li><a href="#" key={index} className="card-link">{player.name}</a></li>))}
+                        {data.players.map((player) => (<li key={player.id}><a href="#" className="card-link">{player.name}</a></li>))}
                     </ul>
                 </CardBody>
             }

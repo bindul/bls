@@ -15,19 +15,19 @@
  */
 
 export class StatGroup {
-    count: number = 0;
-    average: number = 0;
-    min: number = 0;
-    max: number = 0;
-    sd: number = 0;
+    count = 0;
+    average = 0;
+    min = 0;
+    max = 0;
+    sd = 0;
 }
 
 export class RatioGroup {
-    numerator: number = 0;
-    denominator: number = 0;
-    pct: number = 0;
+    numerator = 0;
+    denominator = 0;
+    pct = 0;
 
-    constructor (numerator: number = 0, denominator: number = 0) {
+    constructor (numerator = 0, denominator = 0) {
         this.numerator = numerator;
         this.denominator = denominator;
         this.pct = (denominator == 0) ? 0 : numerator / denominator;
@@ -37,21 +37,21 @@ export class RatioGroup {
 export type StrikesInARow = [number, number];
 
 export class PlayerStats {
-    incompleteFrameData: boolean = false;
-    pinfall: number = 0;
+    incompleteFrameData = false;
+    pinfall = 0;
     gameStats: StatGroup = new StatGroup();
     seriesStats: StatGroup = new StatGroup();
     gameAverages: number[] = [];
-    firstBallAverage: number = 0;
+    firstBallAverage = 0;
     strikes: RatioGroup = new RatioGroup();
     spares: RatioGroup = new RatioGroup();
     singlePinSpares: RatioGroup = new RatioGroup();
     opens: RatioGroup = new RatioGroup();
     splits: RatioGroup = new RatioGroup();
     strikesToSpares: RatioGroup = new RatioGroup();
-    cleanGames: number = 0;
-    games300: number = 0;
-    series800: number = 0;
+    cleanGames = 0;
+    games300 = 0;
+    series800 = 0;
     strikesInARow: StrikesInARow[] = [];
-    allSinglePinsPickedUpAverage: number = 0;
+    allSinglePinsPickedUpAverage = 0;
 }

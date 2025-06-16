@@ -29,35 +29,20 @@ const SCREEN_SIZE_MAX_WIDTH = new Map([
 ]);
 const SAFE_MAX_WIDTH = "20rem";
 
+const truncateMessage = (message: string) => {
+    const maxMsgLen = import.meta.env.VITE_ERROR_MAX_DETAILS_TEXT_LEN;
+    if (message && message.length > maxMsgLen) {
+        return message.substring(0, maxMsgLen) + '...';
+    }
+    return message;
+}
+
 interface ErrorDisplayProps {
     message?: string;
-    error?: Error;
-    onClose?: (show: boolean, event: any) => void;
+    error?: unknown;
+    onClose?: (show: boolean, event: Event) => void;
 }
-
-function ErrorDetails({error} :ErrorDisplayProps) {
-
-    const truncateMessage = (message: string) => {
-        const maxMsgLen = import.meta.env.VITE_ERROR_MAX_DETAILS_TEXT_LEN;
-        if (message && message.length > maxMsgLen) {
-            return message.substring(0, maxMsgLen) + '...';
-        }
-        return message;
-    }
-
-    if (error != undefined) {
-        const em = error.name + " " + truncateMessage(error.message);
-        return (
-            <>
-                <hr />
-                <p className="mb-0 font-monospace fs-xs">For the nerds: {em}</p>
-            </>
-        );
-    }
-    return (<></>);
-}
-
-const Error: FC<ErrorDisplayProps> = (props :ErrorDisplayProps) => {
+const ErrorDisplay: FC<ErrorDisplayProps> = ({message, error, onClose} :ErrorDisplayProps) => {
     const [maxWidth, setMaxWidth] = useState<string>("20rem");
 
     useEffect(() => {
@@ -72,16 +57,18 @@ const Error: FC<ErrorDisplayProps> = (props :ErrorDisplayProps) => {
         };
     }, []);
 
-    console.error("Error in BLS App: ", props.message, props.error);
+    const em = (error) ? (error as Error).name + " " + truncateMessage((error as Error).message) : null;
+
+    console.error("Error in BLS App: ", message, error);
     return (
         <Container fluid={true} id="error-display" className="d-flex justify-content-center">
-            <Alert variant="warning" dismissible={true} onClose={props.onClose} style={{maxWidth: maxWidth}}>
+            <Alert variant="warning" dismissible={true} onClose={onClose} style={{maxWidth: maxWidth}}>
                 <Alert.Heading><ExclamationOctagonFill/> Your last action failed!</Alert.Heading>
-                {props.message && <p>{props.message}</p>}
-                <ErrorDetails error={props.error} />
+                {message && <p>{message}</p>}
+                {em && <><hr /><p className="mb-0 font-monospace fs-xs">For the nerds: {em}</p></>}
             </Alert>
         </Container>
     );
 }
 
-export default Error;
+export default ErrorDisplay;

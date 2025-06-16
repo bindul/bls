@@ -44,7 +44,7 @@ function buildTeamPositionScoreData (teamDetails: TrackedLeagueTeam): TeamPositi
     const today = moment();
     const currentRank = isNumeric(teamDetails.currentRank) ? Number.parseInt(teamDetails.currentRank) : 0;
     const filteredMatchups = teamDetails.matchups.filter(matchup =>
-        matchup.bowlDate && matchup.bowlDate.isBefore(today) && matchup.scores && matchup.scores.series);
+        matchup.bowlDate && matchup.bowlDate.isBefore(today) && matchup.scores?.series);
 
     return filteredMatchups.map((matchup, idx) => {
             let nextRank = currentRank;
@@ -95,7 +95,7 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
     let nextMatchup: LeagueMatchup;
     for (let i = 0; i < teamDetails.matchups.length; i++) {
         const matchup = teamDetails.matchups[i];
-        if (!matchup.scores || !matchup.scores.playerScores || matchup.scores.playerScores.length === 0) {
+        if (!matchup.scores?.playerScores || matchup.scores.playerScores.length === 0) {
             nextMatchup = matchup;
             if (i > 0) {
                 lastMatchup = teamDetails.matchups[i - 1];
@@ -106,7 +106,7 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
 
     const rankComparison = () => {
         let retVal = <></>
-        if (lastMatchup && isNumeric(teamDetails.currentRank) && isNumeric(lastMatchup.enteringRank)) {
+        if (isNumeric(teamDetails.currentRank) && isNumeric(lastMatchup.enteringRank)) {
             const lastMatchupRank = parseInt(lastMatchup.enteringRank);
             const currentRank = parseInt(teamDetails.currentRank);
             if (lastMatchupRank > currentRank) {
@@ -121,16 +121,14 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
     }
 
     const formatNextMatchupLanes = () => {
-        if (nextMatchup) {
-            return nextMatchup.lanes[0] + " - " + nextMatchup.lanes[1] ;
-        }
+        return String(nextMatchup.lanes[0]) + " - " + String(nextMatchup.lanes[1]);
     }
     const formatNextMatchupOpponent = () => {
-        if (nextMatchup && nextMatchup.opponent && nextMatchup.opponent.teamId) {
+        if (nextMatchup.opponent?.teamId) {
             const otherTeam = leagueDetails?.otherTeams.find(ot => ot.id === nextMatchup.opponent?.teamId);
             if (otherTeam) {
-                let retVal = "#" + otherTeam.number + " " + otherTeam.name;
-                if (nextMatchup.opponent.enteringRank != null && nextMatchup.opponent.enteringRank.length > 0) {
+                let retVal = "#" + otherTeam.number.toString() + " " + String(otherTeam.name);
+                if (nextMatchup.opponent.enteringRank.length > 0) {
                     retVal = retVal + " [" + nextMatchup.opponent.enteringRank + "]";
                 }
                 return retVal;
@@ -144,7 +142,7 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
                 <CardBody className="pt-1 pt-sm-2">
                     <Row className="gx-5 gy-1 mb-1">
                         <DataColRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
-                        <DataColRow defn="Points" value={`${teamDetails.pointsWonLost[0]} - ${teamDetails.pointsWonLost[1]}`}/>
+                        <DataColRow defn="Points" value={`${String(teamDetails.pointsWonLost[0])} - ${String(teamDetails.pointsWonLost[1])}`}/>
                         <DataColRow defn="Starting Average" value={teamDetails.teamStats?.average}/>
                         <DataColRow defn="Starting Handicap" value={teamDetails.teamStats?.handicap}/>
                         <DataColRow defn="Low Game" value={teamDetails.teamStats?.lowGame}/>
@@ -180,9 +178,9 @@ const LeagueTeamDetails : FC<LeagueTeamDetailsProps> = ({leagueDetails, leagueDe
 
     useEffect(() => {
         if (leagueDetails && teamId) {
-            for (let i = 0; i < leagueDetails.teams.length; i++) {
-                if (leagueDetails.teams[i].id === teamId) {
-                    setTeamDetails(leagueDetails.teams[i]);
+            for (const item of leagueDetails.teams) {
+                if (item.id === teamId) {
+                    setTeamDetails(item);
                     break;
                 }
             }

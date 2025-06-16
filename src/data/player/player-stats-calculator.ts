@@ -20,20 +20,20 @@ import * as ss from "simple-statistics";
 import {accumulateFrameScores} from "../league/league-calculators";
 
 class FrameStatCalculator {
-    firstBallAccum: number = 0;
-    firstBallCount: number = 0;
-    cleanGameCount: number = 0;
-    strikeCountAccum: number = 0;
-    strikeOpportunitiesAccum: number = 0;
-    pickedUpSpareAccum: number = 0;
-    spareOpportunitiesAccum: number = 0;
-    pickedUpSinglePinSpareAccum: number = 0;
-    singlePinSpareOppportunitiesAccum: number = 0;
-    pickedUpSplitSpareAccum: number = 0;
-    splitSpareOppportunitiesAccum: number = 0;
-    openFramesAccum: number = 0;
-    totalFramesAccum: number = 0;
-    strikesInARow: Map<number, number> = new Map();
+    firstBallAccum = 0;
+    firstBallCount = 0;
+    cleanGameCount = 0;
+    strikeCountAccum = 0;
+    strikeOpportunitiesAccum = 0;
+    pickedUpSpareAccum = 0;
+    spareOpportunitiesAccum = 0;
+    pickedUpSinglePinSpareAccum = 0;
+    singlePinSpareOppportunitiesAccum = 0;
+    pickedUpSplitSpareAccum = 0;
+    splitSpareOppportunitiesAccum = 0;
+    openFramesAccum = 0;
+    totalFramesAccum = 0;
+    strikesInARow = new Map<number, number>();
     singlePinsPickedUpGameScores: number[] = [];
 
     private saveStrikeCounter (strikes: number) {
@@ -47,7 +47,7 @@ class FrameStatCalculator {
     }
 
     private computeAllSinglePinsPickedUpGameScore (game: TeamPlayerGameScore) : number {
-        if (!game.frames || game.frames.length === 0) {
+        if (game.frames.length === 0) {
             // No frames available, we can't do anything
             return game.scratchScore;
         }
@@ -147,6 +147,7 @@ class FrameStatCalculator {
 
             if (frameNum == 10) {
                 // Set the strike opportunities - number of full racks
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 if (ball2Score == 10 && ball2Score == 10) {
                     this.strikeOpportunitiesAccum += 12;
                 } else if (ball1Score == 10 || first2BallScores == 10) {
@@ -180,6 +181,7 @@ class FrameStatCalculator {
         });
         this.totalFramesAccum += game.frames.length;
         this.saveStrikeCounter(strikeCounter); // Someone might finish on a strike
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (potentialCleanGame) {
             this.cleanGameCount++;
         }
@@ -191,7 +193,7 @@ class FrameStatCalculator {
     }
 }
 
-export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: PlayerStats, gamesCount: number = 3) {
+export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: PlayerStats, gamesCount = 3) {
     const gameScoresByGame :number[][] = [];
     for (let i = 0; i < gamesCount; i++) {
         gameScoresByGame.push([]);
@@ -205,14 +207,14 @@ export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: Pla
         let hasBlind = false;
         for (let i = 0; i < gamesCount; i++) {
             const gameScore = serie[i];
-            if (gameScore && !gameScore.blind) {
+            if (!gameScore.blind) {
                 gameScoresByGame[i].push(gameScore.scratchScore);
                 allGameScores.push(gameScore.scratchScore);
                 seriesAccum += gameScore.scratchScore;
                 if (gameScore.scratchScore == 300) {
                     stats.games300 += 1;
                 }
-                if (gameScore.frames && gameScore.frames.length > 0) {
+                if (gameScore.frames.length > 0) {
                     frameStatsCalculator.addGame(gameScore);
                 } else {
                     stats.incompleteFrameData = true;

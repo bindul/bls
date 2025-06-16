@@ -34,7 +34,7 @@ import Loader from "../loader";
 import {type LeagueMatchup, type MatchupType, SeriesScore, TeamScore} from "../../../data/league/league-matchup";
 import MatchupDetailsDisplay from "./league-team-matchup-details";
 
-const MatchupTypeConversion :Map<MatchupType, string> = new Map([
+const MatchupTypeConversion  = new Map<MatchupType, string>([
     ["REGULAR-DIVISION", "Division"],
     ["REGULAR-INTER-DIVISION", "Inter Division"],
     ["POSITION", "Position"],
@@ -64,17 +64,22 @@ interface GameSummaryAndPointsProps {
     currentBreakpoint?: Breakpoint;
 }
 const GameSummaryAndPoints :FC<GameSummaryAndPointsProps> = ({teamNumber, teamScore, currentBreakpoint}: GameSummaryAndPointsProps) => {
+    const keyPrefix = Math.random().toString();
     return (<>
-    {teamScore && teamScore.games && teamScore.series &&
+    {teamScore?.games &&
         <Table bordered size="sm" className={`p-0 lh-1 my-1 text-end ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ? "fs-xs" : ""}`}>
             <tbody>
                 <tr>
                     {teamNumber && teamNumber > 0 && <td rowSpan={2} className="align-middle text-center fw-semibold">#{teamNumber}</td>}
-                    {teamScore.games.map(g => <td className="p-1">{g.effectiveScratchScore}</td>)}
+                    {teamScore.games.map((g, i) =>
+                        <td className="p-1" key={"scratch-" + keyPrefix + "-" + i.toString()}>{g.effectiveScratchScore}</td>
+                    )}
                     <td className="p-1">{teamScore.series.effectiveScratchScore}</td>
                 </tr>
                 <tr>
-                    {teamScore.games.map(g => <td  className={`p-1 ${g.pointsWon > 0 ? "bg-success-subtle" : ""}`}>{g.hdcpScore}</td>)}
+                    {teamScore.games.map((g, i) =>
+                        <td className={`p-1 ${g.pointsWon > 0 ? "bg-success-subtle" : ""}`} key={"hdcp-" + keyPrefix + "-" + i.toString()}>{g.hdcpScore}</td>
+                    )}
                     <td className={`p-1 ${teamScore.series.pointsWon > 0 ? "bg-success-subtle" : ""}`}>{teamScore.series.hdcpScore}</td>
                 </tr>
             </tbody>
@@ -100,7 +105,7 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
 
     useEffect(() => {
         const today = moment();
-        if (!matchup.bowlDate || matchup.bowlDate.isAfter(today) || !matchup.scores || !matchup.scores.games || matchup.scores.games.length == 0) {
+        if (!matchup.bowlDate || matchup.bowlDate.isAfter(today) || !matchup.scores?.games || matchup.scores.games.length == 0) {
             // We don't have data for this matchup
             setShowMatchupDetails(false);
         }
@@ -133,7 +138,7 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
 
     const calculateTeamHdcp = (seriesScore? : SeriesScore, preCalcHdcp?: number)=> {
         let hdcp = "UNKNOWN";
-        if (seriesScore && seriesScore.hdcp && seriesScore.games) {
+        if (seriesScore?.hdcp && seriesScore.games) {
             hdcp = String(seriesScore.hdcp / seriesScore.games);
         } else if (preCalcHdcp && preCalcHdcp > 0) {
             hdcp = preCalcHdcp.toString();
@@ -238,18 +243,22 @@ interface LeagueTeamMatchupsProps {
 const LeagueTeamMatchup : FC<LeagueTeamMatchupsProps> = ({leagueDetails, teamDetails, leagueDetailsLoading, currentBreakpoint}) => {
     return (<>
         {leagueDetailsLoading && <div className="card-body"><Loader/></div>}
-        {teamDetails &&
-            <CardBody className="px-0 py-1 border border-secondary-subtle">
-                <Card className="mx-1">
-                    <CardHeader className="text-white bg-dark text-center fw-bolder py-1">Matchups</CardHeader>
-                    <CardBody className="mx-0 px-1 px-sm-2 py-2">
-                        <Row className="row-cols-1 row-cols-lg-2 g-2">
-                            {teamDetails.matchups.map(matchup => <MatchupDisplay leagueDetails={leagueDetails} matchup={matchup} teamDetails={teamDetails} currentBreakpoint={currentBreakpoint}/>)}
-                        </Row>
-                    </CardBody>
-                </Card>
-            </CardBody>
-        }
+        <CardBody className="px-0 py-1 border border-secondary-subtle">
+            <Card className="mx-1">
+                <CardHeader className="text-white bg-dark text-center fw-bolder py-1">Matchups</CardHeader>
+                <CardBody className="mx-0 px-1 px-sm-2 py-2">
+                    <Row className="row-cols-1 row-cols-lg-2 g-2">
+                        {teamDetails.matchups.map(matchup =>
+                            <MatchupDisplay leagueDetails={leagueDetails}
+                                            matchup={matchup}
+                                            teamDetails={teamDetails}
+                                            currentBreakpoint={currentBreakpoint}
+                                            key={"league-matchup-" + matchup.week.toString()}/>
+                        )}
+                    </Row>
+                </CardBody>
+            </Card>
+        </CardBody>
     </>);
 }
 

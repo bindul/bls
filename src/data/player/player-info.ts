@@ -22,7 +22,7 @@ import type {Moment} from "moment";
 export class PlayerInfo {
 
     @JsonProperty("id", String)
-    id: string = "";
+    id = "";
 
     @JsonProperty("name", String)
     name: string | undefined = undefined;

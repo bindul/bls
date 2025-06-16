@@ -56,22 +56,22 @@ const LeagueSummaryInfo :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSu
             <PropValueLine prop="Start Date" value={leagueDetails.bowlingDays?.startDate?.format("ddd, MMM Do YYYY")}/>
             <PropValueLine prop="Games per Matchup" value={leagueDetails.bowlingDays?.gamesPerWeek}/>
             <PropValueLine prop="Duration" value={
-                leagueDetails.bowlingDays?.duration + " " + mapDurationUnits(leagueDetails.bowlingDays?.durationUnit)
+                String(leagueDetails.bowlingDays?.duration) + " " + mapDurationUnits(leagueDetails.bowlingDays?.durationUnit)
             }/>
             {leagueDetails.bowlingDays?.positionRounds &&
                 <PropValueLine prop="Position Rounds" value={
-                    leagueDetails.bowlingDays?.positionRounds.map((element, index) => {
+                    leagueDetails.bowlingDays.positionRounds.map((element, index) => {
                         let val = "";
                         if (index == 0) {
-                            val = mapDurationUnits(element?.substring(0, 2)) + " "
+                            val = mapDurationUnits(element.substring(0, 2)) + " "
                         }
                         val += element.substring(2) + " ";
                         return val;
                     })
                 }/>
             }
-            {leagueDetails.onlineScoring?.map(o =>
-                <Card border="info" className="mt-1 mb-1 p-0">
+            {leagueDetails.onlineScoring.map((o, i) =>
+                <Card border="info" className="mt-1 mb-1 p-0" key={"league-online-scoring-" + i.toString()}>
                     <CardHeader className="py-1 px-2">Online Scoring</CardHeader>
                     <CardBody className="py-1 px-2">
                         <PropValueLine prop="Platform" value={o.platform}/>
@@ -97,13 +97,13 @@ const LeagueRules :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSummaryD
     }
     const createVacantOrAbsentScoringStatement = (voaos :VacantOrAbsentOpponentScoring | undefined) => {
         let out = "";
-        if (voaos && voaos.allowed) {
+        if (voaos?.allowed) {
             if (voaos.scoringType === "FORFEIT") {
                 out += "Opponent Forfeit, all points awarded";
             } else if (voaos.scoringType === "POINTS_WITHIN_AVG") {
                 out += "Score within"
-                if (voaos.pointsWithinAverageConfig && voaos.pointsWithinAverageConfig.pointsWithinTeamAverage) {
-                    out = out + " " + voaos.pointsWithinAverageConfig.pointsWithinTeamAverage;
+                if (voaos.pointsWithinAverageConfig?.pointsWithinTeamAverage) {
+                    out = out + " " + String(voaos.pointsWithinAverageConfig.pointsWithinTeamAverage);
                 }
                 out += " pins of team average / game"
             }
@@ -112,30 +112,30 @@ const LeagueRules :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSummaryD
     }
 
     return (<>
-        <PropValueLine prop="Team Lineup / Roster Size" value={`${scoringRules.lineup} / ${scoringRules.roster}`}/>
+        <PropValueLine prop="Team Lineup / Roster Size" value={`${String(scoringRules.lineup)} / ${String(scoringRules.roster)}`}/>
         <PropValueLine prop="Legal Minimum Lineup" value={scoringRules.legalMinLineup}/>
         <PropValueLine prop="Substitutes Allowed" value={scoringRules.subsAllowed ? "Yes" : "No"}/>
         <PropValueLine prop="Handicapped" value={scoringRules.handicap?.type != "NONE" ? "Yes" : "No"}/>
         {scoringRules.handicap &&
             scoringRules.handicap.type === "PCT_AVG_TO_TGT" &&
-            scoringRules.handicap?.pctAvgToTargetConfig &&
+            scoringRules.handicap.pctAvgToTargetConfig &&
             <PropValueLine prop="Handicap" value={<>
-                <span className="text-info-emphasis">{scoringRules.handicap?.pctAvgToTargetConfig?.pctToTarget}%</span> of
-                (<span className="text-info-emphasis">{scoringRules.handicap?.pctAvgToTargetConfig?.target}</span> - AVG)
+                <span className="text-info-emphasis">{scoringRules.handicap.pctAvgToTargetConfig.pctToTarget}%</span> of
+                (<span className="text-info-emphasis">{scoringRules.handicap.pctAvgToTargetConfig.target}</span> - AVG)
             </>}/>
         }
         <PropValueLine prop="Blinds Allowed" value={scoringRules.blindPenalty?.allowed ? "Yes" : "No"}/>
         <PropValueLine prop="Blind Penalty" value={scoringRules.blindPenalty?.defaultPenalty}/>
         {scoringRules.blindPenalty?.missedMatchupsPenalty &&
-            scoringRules.blindPenalty?.missedMatchupsPenalty > 0 &&
+            scoringRules.blindPenalty.missedMatchupsPenalty > 0 &&
             <PropValueLine prop="Missed Days Blind Penalty" value={<>
-                <span className="text-info-emphasis">{scoringRules.blindPenalty?.missedMatchupsPenalty}</span> pins after&nbsp;
-                <span className="text-info-emphasis">{scoringRules.blindPenalty?.missedMatchupsThreshold}</span> days
+                <span className="text-info-emphasis">{scoringRules.blindPenalty.missedMatchupsPenalty}</span> pins after&nbsp;
+                <span className="text-info-emphasis">{scoringRules.blindPenalty.missedMatchupsThreshold}</span> days
             </>}/>
         }
         {scoringRules.pointScoring?.matchupPointScoringRule &&
-            scoringRules.pointScoring?.matchupPointScoringRule === "PPG_PPS" &&
-            scoringRules.pointScoring?.ppgPpsMatchupPointScoringConfig && <>
+            scoringRules.pointScoring.matchupPointScoringRule === "PPG_PPS" &&
+            scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig && <>
                 <PropValueLine prop="Point Scoring" value={<>
                     <span className="text-info-emphasis">{scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.pointsPerGame}</span> /game +&nbsp;
                     <span className="text-info-emphasis">{scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.pointsPerSeries}</span> /series
@@ -144,12 +144,10 @@ const LeagueRules :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSummaryD
                     <span className="text-info-emphasis">{scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.pointsPerGameOnTie}</span> /game +&nbsp;
                     <span className="text-info-emphasis">{scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.pointsPerSeriesOnTie}</span> /series
                 </>}/>
-                {scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.absentOpponentAllowed &&
-                    <PropValueLine prop="Absent Opponent Scoring" value={scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.absentOpponentAllowed ? "Yes | " + createVacantOrAbsentScoringStatement(scoringRules.pointScoring.absentOpponentScoring) : "No"}/>
-                }
-                {scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.vacantOpponentAllowed &&
-                    <PropValueLine prop="Vacant Team Opponent Scoring" value={scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.vacantOpponentAllowed ? "Yes | " + createVacantOrAbsentScoringStatement(scoringRules.pointScoring.vacantOpponentScoring) : "No"}/>
-                }
+                {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
+                {scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.absentOpponentAllowed && <PropValueLine prop="Absent Opponent Scoring" value={scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.absentOpponentAllowed ? "Yes | " + createVacantOrAbsentScoringStatement(scoringRules.pointScoring.absentOpponentScoring) : "No"}/>}
+                {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
+                {scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.vacantOpponentAllowed && <PropValueLine prop="Vacant Team Opponent Scoring" value={scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig.vacantOpponentAllowed ? "Yes | " + createVacantOrAbsentScoringStatement(scoringRules.pointScoring.vacantOpponentScoring) : "No"}/>}
             </>
         }
     </>);
@@ -157,7 +155,7 @@ const LeagueRules :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSummaryD
 
 const LeagueHonorRoll :FC<LeagueSummaryDataProps> = ({leagueDetails} : LeagueSummaryDataProps)=> {
     const findPlayer = (playerId: string) => {
-        let playerName: string = "UNKNOWN";
+        let playerName = "UNKNOWN";
         leagueDetails.teams.forEach((team) => {
             playerName = team.roster.find(player => player.id === playerId)?.name ?? "UNKNOWN";
         })
@@ -181,8 +179,8 @@ const LeagueHonorRoll :FC<LeagueSummaryDataProps> = ({leagueDetails} : LeagueSum
     return (<>
         <Card border="info" className="mt-1 mb-1 p-0">
             <CardHeader className="py-1 px-2 text-white bg-info"><span className="fs-6">Honor Roll</span></CardHeader>
-            {leagueDetails.leagueAccolades.map(accolade => (
-                <CardBody className="py-1 px-1 my-0 mx-2">
+            {leagueDetails.leagueAccolades.map((accolade, idx) => (
+                <CardBody className="py-1 px-1 my-0 mx-2" key={"league-accolage-" + idx.toString()}>
                     <Container>
                         <Row>
                             <Col className="bg-info-subtle text-info-emphasis">{accoladeLabels.get(accolade.type)}</Col>
@@ -260,7 +258,7 @@ const LeagueSummary: FC<LeagueSummaryParams> = ({leagueDetails, leagueDetailsLoa
                 {leagueDetails &&
                     <CardBody className="px-2">
                         <CardTitle as="h4" className="pb-2 d-flex justify-content-center">
-                            <div className="text-center">{leagueDetails.season} {leagueDetails.name}&nbsp;<small className="text-body-secondary">@ {leagueDetails?.center}</small></div>
+                            <div className="text-center">{leagueDetails.season} {leagueDetails.name}&nbsp;<small className="text-body-secondary">@ {leagueDetails.center}</small></div>
                         </CardTitle>
                         <LeagueSummaryData leagueDetails={leagueDetails} currentBreakpoint={currentBreakpoint}/>
                     </CardBody>

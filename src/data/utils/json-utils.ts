@@ -40,8 +40,8 @@ export class DayOfWeekConverter implements JsonCustomConvert<Moment | null> {
         }
         return null;
     }
-    deserialize(data: any): Moment | null {
-        if (data === null || data === "") return null;
+    deserialize(data: string): Moment | null {
+        if (data === "") return null;
         return moment().day(data);
     }
 }
@@ -54,8 +54,8 @@ export class HHMMTimeConverter implements JsonCustomConvert<Moment | null> {
         }
         return null;
     }
-    deserialize(data: any): Moment | null {
-        if (data === null || data === "") return null;
+    deserialize(data: string): Moment | null {
+        if (data === "") return null;
         return moment(data, "HH:mm");
     }
 }
@@ -68,8 +68,8 @@ export class DateConverter implements JsonCustomConvert<Moment | null> {
         }
         return null;
     }
-    deserialize(data: any): Moment | null {
-        if (data === null || data === "") return null;
+    deserialize(data: string): Moment | null {
+        if (data === "") return null;
         return moment(data, "YYYY-MM-DD");
     }
 }

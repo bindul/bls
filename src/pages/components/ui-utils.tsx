@@ -34,7 +34,7 @@ export const BREAKPOINTS : Breakpoint[] = [BS_BP_XS, BS_BP_SM, BS_BP_MD, BS_BP_L
 export const getBreakpoint = () => {
     const width = window.innerWidth;
     const bp = BREAKPOINTS.find(bp => (width > bp.minWidth && width < bp.maxWidth));
-    return bp? bp : BS_BP_XXL;
+    return bp ?? BS_BP_XXL;
 };
 
 export function isBreakpointSmallerThan (check?: Breakpoint, comparison?: Breakpoint) {

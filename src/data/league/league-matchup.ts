@@ -22,38 +22,38 @@ import {DateConverter} from "../utils/json-utils";
 export class GameScore {
 
     @JsonProperty("scratch-score", Number)
-    scratchScore: number = 0;
+    scratchScore = 0;
 
     /**
      * Scratch score including blinds, absent and vacant teams
      */
-    effectiveScratchScore: number = 0;
+    effectiveScratchScore = 0;
 
     @JsonProperty("hdcp", Number)
-    hdcp: number = 0;
+    hdcp = 0;
 
     @JsonProperty("hdcp-score", Number)
-    hdcpScore: number = 0;
+    hdcpScore = 0;
 }
 
 export class SeriesScore extends GameScore {
-    average: number = 0;
-    games: number = 0;
-    pointsWon : number = 0;
+    average = 0;
+    games = 0;
+    pointsWon  = 0;
 }
 
 @JsonObject("MatchupGameScore")
 export class MatchupGameScore extends GameScore {
-    pointsWon : number = 0;
+    pointsWon  = 0;
 }
 
 // TODO Refactor part or most of this or create interface
 export type ScoreLabel = "X" | "/" | "S" | "F" | "-";
 export type FrameAttributes = "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Clean-Game" | "Gutter-Spare" | "Split-Picked-Up" | "Parking-Lot";
 export class Frame {
-    number: number = 0;
+    number = 0;
     ballScores: [number, ScoreLabel?][] = [];
-    cumulativeScore: number = 0;
+    cumulativeScore = 0;
     attributes: FrameAttributes[] = [];
 }
 
@@ -62,7 +62,7 @@ export class Frame {
 export class TeamPlayerGameScore extends GameScore {
 
     @JsonProperty("blind", Boolean)
-    blind: boolean = false;
+    blind = false;
 
     @JsonProperty("arsenal", [String])
     arsenal: string[] = [];
@@ -80,10 +80,10 @@ export class LeagueTeamPlayerScore {
     player: string | undefined = undefined;
 
     @JsonProperty("entering-average", Number)
-    enteringAverage: number = 0;
+    enteringAverage = 0;
 
-    enteringHdcp: number = 0;
-    average: number = 0;
+    enteringHdcp = 0;
+    average = 0;
 
     @JsonProperty("hdcp-setting-day", Boolean)
     hdcpSettingDay?: boolean = false;
@@ -120,22 +120,22 @@ export class OpponentTeam {
     teamId: string | undefined = undefined;
 
     @JsonProperty("entering-rank", String)
-    enteringRank: string = "";
+    enteringRank = "";
 
     @JsonProperty("players", [String])
     playersBowled: string[] = [];
 
     @JsonProperty("hdcp", Number)
-    teamHdcp: number = 0;
+    teamHdcp = 0;
 
     @JsonProperty("vacant", Boolean)
-    vacant: boolean = false;
+    vacant = false;
 
     @JsonProperty("absent", Boolean)
-    absent: boolean = false;
+    absent = false;
 
     @JsonProperty("pre-post-bowl", Boolean)
-    prePostBowl: boolean = false;
+    prePostBowl = false;
 
     @JsonProperty("scores", OpponentTeamScore)
     scores: OpponentTeamScore | undefined = undefined;
@@ -148,7 +148,7 @@ export type OilPattern = "HOUSE-SHOT-FRESH" | "HOUSE-SHOT-2ND-LEAGUE" | "BURNT-N
 export class LeagueMatchup {
 
     @JsonProperty("week", Number)
-    week :number = 0;
+    week  = 0;
 
     @JsonProperty("scheduled-date", DateConverter)
     scheduledDate :Moment | undefined = undefined;
@@ -160,7 +160,7 @@ export class LeagueMatchup {
     matchup :MatchupType = "OTHERS";
 
     @JsonProperty("entering-rank", String)
-    enteringRank :string = "";
+    enteringRank  = "";
 
     @JsonProperty("lanes", [Number])
     lanes :number[] = [];

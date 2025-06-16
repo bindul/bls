@@ -56,7 +56,7 @@ export function CollapsibleContainer({ children, headerTitle, divId, currentBrea
     return (
         <>
             <CardBody className={`my-0 pt-1 pb-0 ${tbvc}`}>
-                <Link onClick={() => setOpen(!open)} to={`#${divId}`} aria-expanded={open} aria-controls={divId} data-toggle="collapse">
+                <Link onClick={() => { setOpen(!open); }} to={`#${divId}`} aria-expanded={open} aria-controls={divId} data-toggle="collapse">
                     <span className={`fs-6 lh-sm ${open ? 'd-none' : ''}`}>{headerTitle}</span>
                     <span className="float-end">{open ? <ChevronDown width={12} height={12}/> : <ChevronLeft width={12} height={12}/>}</span>
                 </Link>

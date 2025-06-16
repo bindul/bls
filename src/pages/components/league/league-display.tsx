@@ -38,8 +38,9 @@ interface LeagueDisplayProps {
     children?: React.ReactNode;
 }
 const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisplayProps) => {
-    const fetcher = useCallback((dataLoc: string | undefined) => leagueTeamDetailsFetcher(dataLoc), []);
-    const {data: leagueDetails, isLoading: leagueDetailsLoading, error: leagueDetailsLoadError } = useCachedFetcher<LeagueDetails>(fetcher.bind(null, leagueInfo.dataLoc), LEAGUE_DETAILS_CACHE_CATEGORY, leagueInfo.id);
+    const fetcher = useCallback((dataLoc: string) => leagueTeamDetailsFetcher(dataLoc), []);
+    const {data: leagueDetails, isLoading: leagueDetailsLoading, error: leagueDetailsLoadError } = useCachedFetcher<LeagueDetails>(
+        fetcher.bind(null, leagueInfo.dataLoc ?? "will-fail.json"), LEAGUE_DETAILS_CACHE_CATEGORY, leagueInfo.id);
 
     const [displayedTeam, setDisplayedTeam] = useState<string>("");
     const [currentDisplay, setCurrentDisplay] = useState<CurrentLeagueDetailsDisplay>("TEAM");
@@ -88,20 +89,23 @@ const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisp
             <Container fluid="true">
             {leagueDetails && <Nav variant="pills" className="py-0 my-0">
                 {leagueDetails.teams.map(team => (
-                    <Nav.Item>
+                    <Nav.Item key={team.id}>
                         <Nav.Link eventKey={team.id} active={currentDisplay == "TEAM" && displayedTeam === team.id}
                                   onClick={() => {setCurrentDisplay("TEAM"); setDisplayedTeam(team.id ?? "");}}>{team.name}</Nav.Link>
                     </Nav.Item>
                     ))}
                 {leagueDetails.otherTeams.length > 0 && <Nav.Item>
-                    <Nav.Link eventKey="OTHER_TEAMS" active={currentDisplay == "OTHER_TEAMS"} onClick={() => setCurrentDisplay("OTHER_TEAMS")}>Other Teams</Nav.Link>
+                    <Nav.Link eventKey="OTHER_TEAMS" active={currentDisplay == "OTHER_TEAMS"}
+                              onClick={() => { setCurrentDisplay("OTHER_TEAMS"); }}>
+                        Other Teams
+                    </Nav.Link>
                 </Nav.Item>
                 }
             </Nav>}
             </Container>
             {showInvalidTeamIdError && <ErrorDisplay message="Invalid Team Id, will display the first team, use the team navigation to select from available teams."
-                                                     error={new Error("Entered Team Id: " + teamId)}
-                                                     onClose={() => setShowInvalidTeamIdError(false)}/>}
+                                                     error={new Error("Entered Team Id: " + String(teamId))}
+                                                     onClose={() => { setShowInvalidTeamIdError(false); }}/>}
             {currentDisplay == "TEAM" && <LeagueTeamDetails leagueDetails={leagueDetails} leagueDetailsLoading={leagueDetailsLoading} currentBreakpoint={currentBreakpoint} teamId={displayedTeam} />}
             {currentDisplay == "OTHER_TEAMS" && <OtherTeams leagueDetails={leagueDetails} leagueDetailsLoading={leagueDetailsLoading}/>}
         </>

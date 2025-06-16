@@ -120,8 +120,9 @@ function selectHandicapCalculator(leagueScoringRules: LeagueScoringRules | undef
     if (type) {
         if (type === "NONE") {
             return new ZeroHandicapCalculator();
-        } else if (type === "PCT_AVG_TO_TGT" && leagueScoringRules?.handicap?.pctAvgToTargetConfig) {
-            const config = leagueScoringRules?.handicap?.pctAvgToTargetConfig;
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        } else if (type === "PCT_AVG_TO_TGT" && leagueScoringRules.handicap?.pctAvgToTargetConfig) {
+            const config = leagueScoringRules.handicap.pctAvgToTargetConfig;
             return new PercentAverageToTargetHandicapCapculator(config.target, config.pctToTarget)
         }
     }
@@ -132,9 +133,9 @@ function selectHandicapCalculator(leagueScoringRules: LeagueScoringRules | undef
 function selectPointsCalculator(leagueScoringRules: LeagueScoringRules | undefined): PointsCalculator {
     const type = leagueScoringRules?.pointScoring?.matchupPointScoringRule;
     if (type) {
-        if (type === "PPG_PPS" && leagueScoringRules?.pointScoring?.ppgPpsMatchupPointScoringConfig) {
-            const config = leagueScoringRules?.pointScoring?.ppgPpsMatchupPointScoringConfig;
-            return new PpgPpsPointsCalculator(config?.pointsPerGame, config?.pointsPerGameOnTie, config?.pointsPerSeries, config?.pointsPerSeriesOnTie);
+        if (type === "PPG_PPS" && leagueScoringRules.pointScoring?.ppgPpsMatchupPointScoringConfig) {
+            const config = leagueScoringRules.pointScoring.ppgPpsMatchupPointScoringConfig;
+            return new PpgPpsPointsCalculator(config.pointsPerGame, config.pointsPerGameOnTie, config.pointsPerSeries, config.pointsPerSeriesOnTie);
         }
     }
     console.debug("Missing or incorrect League Points Calculator, returning O points assignment", leagueScoringRules?.pointScoring);
@@ -148,7 +149,7 @@ function selectPointsCalculator(leagueScoringRules: LeagueScoringRules | undefin
 export function accumulateFrameScores (frames: Frame[]) {
     const getNextNScores = (frames: Frame[], curIdx: number, count: number): number => {
         let toGet: number = count;
-        let accum: number = 0;
+        let accum = 0;
         for (let i = curIdx + 1; i < frames.length && toGet > 0; i++) {
             accum += frames[i].ballScores[0][0];
             toGet--;
@@ -179,13 +180,13 @@ export function accumulateFrameScores (frames: Frame[]) {
     return scoreAccum;
 }
 
-function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePlayer | undefined) {
+function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePlayer) {
 
-    if (!playerGame.frames) {
-        playerGame.frames = [];
-    }
+    // if (!playerGame.frames) {
+    //     playerGame.frames = [];
+    // }
     // Build the Frame Objects
-    for (let f: number = 0; f < playerGame.inFrames.length; f++) {
+    for (let f = 0; f < playerGame.inFrames.length; f++) {
         // We assume Frame objects are not set, we set them
         const frame = new Frame();
         frame.number = f + 1;
@@ -212,8 +213,7 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePl
     const scoreAccum = accumulateFrameScores(playerGame.frames); // Also sets the cumulative scores
     let strikesInARow = 0;
     let potentialCleanGame = true;
-    for (let i = 0; i < playerGame.frames.length; i++) {
-        const currFrame = playerGame.frames[i];
+    for (const currFrame of playerGame.frames) {
         currFrame.ballScores.forEach((score) => {
             if (score[1] == "X") {
                 strikesInARow++;
@@ -264,26 +264,27 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePl
     }
 
     // Set the scratch for the game
-    if (playerGame.scratchScore == undefined || playerGame.scratchScore == 0) {
+    if (playerGame.scratchScore == 0) {
         playerGame.scratchScore = scoreAccum;
     }
 }
 
 function setCrossPlayerFrameAttributes(matchup: LeagueMatchup) {
-    const gameCount = matchup.scores?.games?.length ?? 0;
+    const gameCount = matchup.scores?.games.length ?? 0;
     for (let i = 0; i < gameCount; i++) {
         const allPlayerFrames: Frame[][] = [];
         let missingFrames = false;
         matchup.scores?.playerScores.filter(ps => ps.games.length >= (i + 1)).forEach((playerScore) => {
             const gameScore = playerScore.games[i];
             if (!gameScore.blind) {
-                if (gameScore.frames && gameScore.frames.length > 0) {
+                if (gameScore.frames.length > 0) {
                     allPlayerFrames.push(gameScore.frames);
                 } else {
                     missingFrames = true;
                 }
             }
         });
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!missingFrames) {
             const playerCount = allPlayerFrames.length;
             for (let f = 0; f < 10; f++) {
@@ -313,9 +314,8 @@ function setCrossPlayerFrameAttributes(matchup: LeagueMatchup) {
 
 function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculator: HandicapCalculator, scoringRules: LeagueScoringRules, player?: LeaguePlayer) {
     // Handle frames
-    for (let g = 0; g < playerScore.games.length; g++) {
-        const game = playerScore.games[g];
-        if (game.scratchScore == 0 && game.inFrames && game.inFrames.length > 0) {
+    for (const game of playerScore.games) {
+        if (game.scratchScore == 0 && game.inFrames.length > 0) {
             calculateFrameScores(game, player);
         }
     }
@@ -341,7 +341,7 @@ function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculato
         if (game.blind) {
             // We don't have scratch score
             // TODO Deal with Handicap Penalty after missed games
-            game.effectiveScratchScore = playerScore.enteringAverage - (scoringRules?.blindPenalty?.defaultPenalty ?? 0);
+            game.effectiveScratchScore = playerScore.enteringAverage - (scoringRules.blindPenalty?.defaultPenalty ?? 0);
         } else {
             game.effectiveScratchScore = game.scratchScore;
         }
@@ -373,23 +373,23 @@ export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: Leag
     }
     if (teamScores) {
         const getWithSetGameScores = (game: number) => {
-            if (teamScores?.games.length <= game) {
-                for (let i = 0; i < (game - teamScores?.games.length + 1); i++) {
-                    teamScores?.games.push(new MatchupGameScore());
+            if (teamScores.games.length <= game) {
+                for (let i = 0; i < (game - teamScores.games.length + 1); i++) {
+                    teamScores.games.push(new MatchupGameScore());
                 }
             }
-            return teamScores?.games[game];
+            return teamScores.games[game];
         }
 
         // Set individual team scores
-        teamScores.playerScores?.forEach((playerScore) => {
+        teamScores.playerScores.forEach((playerScore) => {
             const player = teamRoster.find(p => p.id === playerScore.player);
             calculatePlayerScores(playerScore, hdcpCalculator, scoringRules, player);
         })
 
         // Calculate Matchup Scores
-        teamScores.playerScores?.forEach((playerScore) => {
-            playerScore.games!.forEach((game, g) => {
+        teamScores.playerScores.forEach((playerScore) => {
+            playerScore.games.forEach((game, g) => {
                 const matchupGame = getWithSetGameScores(g);
                 matchupGame.scratchScore += game.scratchScore;
                 matchupGame.effectiveScratchScore += game.effectiveScratchScore;
@@ -402,9 +402,9 @@ export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: Leag
         addGamesToSeries(teamScores.series, teamScores.games);
     }
 
-    if (matchup.opponent && matchup.opponent.scores) {
+    if (matchup.opponent?.scores) {
         // Set Handicap and Calculate totals
-        matchup.opponent.scores.games!.forEach((game) => {
+        matchup.opponent.scores.games.forEach((game) => {
             game.hdcp = matchup.opponent?.teamHdcp ?? 0;
             game.effectiveScratchScore = game.scratchScore;
             game.hdcpScore = game.effectiveScratchScore + game.hdcp;
@@ -440,9 +440,9 @@ export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: Leag
 function rollupTeamScoresAndPoints(team: TrackedLeagueTeam) {
     let pointsWon = 0;
     let pointsLost = 0;
-    let teamScratch: number = 0;
-    let highGame: number = 0;
-    let highSeries: number = 0;
+    let teamScratch = 0;
+    let highGame = 0;
+    let highSeries = 0;
     let lowGame: number = Number.MAX_SAFE_INTEGER;
     let lowSeries: number = Number.MAX_SAFE_INTEGER;
     team.matchups.forEach((matchup) => {
@@ -450,7 +450,7 @@ function rollupTeamScoresAndPoints(team: TrackedLeagueTeam) {
         pointsLost += matchup.pointsWonLost[1];
         if (matchup.scores) {
             const scores = matchup.scores;
-            teamScratch += scores.series.effectiveScratchScore ?? 0;
+            teamScratch += scores.series.effectiveScratchScore;
             if (scores.series.effectiveScratchScore > highSeries) {
                 highSeries = scores.series.effectiveScratchScore;
             }
@@ -477,7 +477,7 @@ function rollupTeamScoresAndPoints(team: TrackedLeagueTeam) {
 }
 
 function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator: HandicapCalculator, bowlingDays: LeagueBowlingDays | undefined) {
-  team.roster?.forEach((player) => {
+  team.roster.forEach((player) => {
       const playerGames: TeamPlayerGameScore[][] = [];
       team.matchups.forEach((matchup) => {
           const games = matchup.scores?.playerScores.find(ps => ps.player == player.id);
@@ -501,19 +501,20 @@ function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator: Han
       const indSeriesOverAverage : LeagueAccolade = {type: "IND-SERIES-OVER-AVERAGE", who: player.id ?? "UNKNOWN", when: undefined, howMuch: 0, description: ""};
       team.matchups.forEach((matchup) => {
           const playerScore = matchup.scores?.playerScores.find(ps => ps.player == player.id);
-          if (playerScore && playerScore.enteringAverage) {
+          if (playerScore?.enteringAverage) {
               const enteringAvg = playerScore.enteringAverage;
               playerScore.games.forEach((game) => {
                   if (game.scratchScore - enteringAvg > indGameOverAverage.howMuch) {
                       indGameOverAverage.howMuch = game.scratchScore - enteringAvg;
                       indGameOverAverage.when = matchup.bowlDate;
-                      indGameOverAverage.description = game.scratchScore + " - " + enteringAvg + " = " + indGameOverAverage.howMuch;
+                      indGameOverAverage.description = String(game.scratchScore) + " - " + String(enteringAvg) + " = " + String(indGameOverAverage.howMuch);
                   }
               })
               if (playerScore.series.scratchScore - (3 * enteringAvg) > indSeriesOverAverage.howMuch) {
                   indSeriesOverAverage.howMuch = playerScore.series.scratchScore - (3 * enteringAvg);
                   indSeriesOverAverage.when = matchup.bowlDate;
-                  indSeriesOverAverage.description = playerScore.series.scratchScore + " - " + (enteringAvg * playerScore.series.games) + " = " + indSeriesOverAverage.howMuch;
+                  indSeriesOverAverage.description = String(playerScore.series.scratchScore) + " - "
+                      + String(enteringAvg * playerScore.series.games) + " = " + String(indSeriesOverAverage.howMuch);
               }
           }
       })
@@ -556,37 +557,36 @@ function gatherLeagueStatsAndLeaders(league: LeagueDetails) {
                     teamScratchSeries.howMuch = matchup.scores.series.scratchScore
                 }
 
-                if (matchup.scores.playerScores) {
-                    matchup.scores.playerScores.forEach((playerScore) => {
-                        const player = playerScore.player ?? "UNKNOWN";
-                        const hdcpSettingDay = playerScore.hdcpSettingDay;
-                        const enteringAverage = playerScore.enteringAverage;
-                        playerScore.games.forEach((game) => {
-                            if (game.scratchScore > indScratchGame.howMuch) {
-                                indScratchGame.who = player;
-                                indScratchGame.when = bowlDate;
-                                indScratchGame.howMuch = game.scratchScore;
-                            }
-                            if (!hdcpSettingDay && !game.blind && (game.scratchScore - enteringAverage) > indGameOverAverage.howMuch) {
-                                indGameOverAverage.who = player;
-                                indGameOverAverage.when = bowlDate;
-                                indGameOverAverage.howMuch = game.scratchScore - enteringAverage;
-                                indGameOverAverage.description = game.scratchScore + " - " + enteringAverage + " = " + indGameOverAverage.howMuch;
-                            }
-                        });
-                        if (playerScore.series.scratchScore > indScratchSeries.howMuch) {
-                            indScratchSeries.who = player;
-                            indScratchSeries.when = bowlDate;
-                            indScratchSeries.howMuch = playerScore.series.scratchScore;
+                matchup.scores.playerScores.forEach((playerScore) => {
+                    const player = playerScore.player ?? "UNKNOWN";
+                    const hdcpSettingDay = playerScore.hdcpSettingDay;
+                    const enteringAverage = playerScore.enteringAverage;
+                    playerScore.games.forEach((game) => {
+                        if (game.scratchScore > indScratchGame.howMuch) {
+                            indScratchGame.who = player;
+                            indScratchGame.when = bowlDate;
+                            indScratchGame.howMuch = game.scratchScore;
                         }
-                        if (!hdcpSettingDay && (playerScore.series.scratchScore - (enteringAverage * playerScore.series.games)) > indSeriesOverAverage.howMuch) {
-                            indSeriesOverAverage.who = player;
-                            indSeriesOverAverage.when = bowlDate;
-                            indSeriesOverAverage.howMuch = playerScore.series.scratchScore - (enteringAverage * playerScore.series.games);
-                            indSeriesOverAverage.description = playerScore.series.scratchScore + " - " + (enteringAverage * playerScore.series.games) + " = " + indSeriesOverAverage.howMuch;
+                        if (!hdcpSettingDay && !game.blind && (game.scratchScore - enteringAverage) > indGameOverAverage.howMuch) {
+                            indGameOverAverage.who = player;
+                            indGameOverAverage.when = bowlDate;
+                            indGameOverAverage.howMuch = game.scratchScore - enteringAverage;
+                            indGameOverAverage.description = String(game.scratchScore) + " - " + String(enteringAverage) + " = " + String(indGameOverAverage.howMuch);
                         }
-                    })
-                }
+                    });
+                    if (playerScore.series.scratchScore > indScratchSeries.howMuch) {
+                        indScratchSeries.who = player;
+                        indScratchSeries.when = bowlDate;
+                        indScratchSeries.howMuch = playerScore.series.scratchScore;
+                    }
+                    if (!hdcpSettingDay && (playerScore.series.scratchScore - (enteringAverage * playerScore.series.games)) > indSeriesOverAverage.howMuch) {
+                        indSeriesOverAverage.who = player;
+                        indSeriesOverAverage.when = bowlDate;
+                        indSeriesOverAverage.howMuch = playerScore.series.scratchScore - (enteringAverage * playerScore.series.games);
+                        indSeriesOverAverage.description = String(playerScore.series.scratchScore) + " - "
+                            + String(enteringAverage * playerScore.series.games) + " = " + String(indSeriesOverAverage.howMuch);
+                    }
+                })
             }
         });
         team.roster.forEach((p) => {
@@ -603,14 +603,11 @@ export function decorateLeagueDetails (league : LeagueDetails) :LeagueDetails {
     const hdcpCalculator :HandicapCalculator = selectHandicapCalculator(league.scoringRules);
     const pointsCalculator : PointsCalculator = selectPointsCalculator(league.scoringRules);
     // Calculate scores and points
-    const scoringRules: LeagueScoringRules = league.scoringRules ?? new LeagueScoringRules(); // Things will go really bad at this point
+    const scoringRules: LeagueScoringRules = league.scoringRules ?? new LeagueScoringRules(); // Without scoring rules and an empty object to avoid errors, calculations will be off
 
-    league.teams?.forEach(team => {
-
-        const teamRoster = team.roster ?? [];
-
-        team.matchups?.forEach((matchup) => {
-            assignScoresAndPoints(matchup, scoringRules, hdcpCalculator, pointsCalculator, teamRoster);
+    league.teams.forEach(team => {
+        team.matchups.forEach((matchup) => {
+            assignScoresAndPoints(matchup, scoringRules, hdcpCalculator, pointsCalculator, team.roster);
             // Cross Player Frame Attributes
             setCrossPlayerFrameAttributes(matchup);
         })

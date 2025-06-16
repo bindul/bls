@@ -45,10 +45,10 @@ export class LeagueDetails {
     center: string | undefined = undefined;
 
     @JsonProperty("usbc-sanctioned", Boolean)
-    usbcSanctioned: boolean = false;
+    usbcSanctioned = false;
 
     @JsonProperty("completed", Boolean)
-    completed: boolean = false;
+    completed = false;
 
     @JsonProperty("online-scoring", [OnlineScoring])
     onlineScoring: OnlineScoring[] = [];

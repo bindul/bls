@@ -20,18 +20,19 @@ import {useContextCache} from "./context-cache";
 export interface CachedFetcherReturn<T> {
     data: T | null;
     isLoading: boolean;
-    error: Error | null;
+    error: unknown;
 }
-export function useCachedFetcher<T>(fetcher :() => Promise<T>, category: string, key?:string): CachedFetcherReturn<T> {
+export function useCachedFetcher<T extends object>(fetcher :() => Promise<T>, category: string, key?:string): CachedFetcherReturn<T> {
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<unknown>(null);
     const contextCache = useContextCache();
 
     useEffect(() => {
         // Check cache
         if (contextCache != null) {
-            const value = contextCache.get<T>(category, key);
+            const value = contextCache.get(category, key) as T;
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (value != null) {
                 setData(value);
                 setLoading(false);
@@ -40,15 +41,16 @@ export function useCachedFetcher<T>(fetcher :() => Promise<T>, category: string,
         }
 
         fetcher().then((data) => {
-            if (contextCache != null) {
-                contextCache.put<T>(category, key, data);
-            }
-            setData(data);
-        })
-            .catch(error => {
+                if (contextCache != null) {
+                    contextCache.put(category, key, data);
+                }
+                setData(data);
+            })
+            .catch((error :unknown) => {
                 console.error(error);
-                setError(error);})
-            .finally(() => setLoading(false));
+                setError(error);
+            })
+            .finally(() => { setLoading(false); });
     }, []);
 
     return {data, isLoading, error};

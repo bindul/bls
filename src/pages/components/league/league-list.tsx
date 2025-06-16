@@ -52,8 +52,8 @@ interface LeagueProps {
 const League :FC<LeagueProps> = ({league} :LeagueProps)=> {
     // TODO: Relook at this style if we end up with more than one team in a league
     return (<>
-        {league.teams?.map(team => (
-            <LeagueLink hasData={league.hasData()} teamId={team.id} to={`/league/${league.id}/${team.id}`} key={team.id}>
+        {league.teams.map(team => (
+            <LeagueLink hasData={league.hasData()} teamId={team.id} to={`/league/${String(league.id)}/${String(team.id)}`} key={team.id}>
                 <div>
                     <span className="fw-light text-muted">{league.name} <ArrowRightShort /> </span>
                     <span {...league.hasData() ? {className: "card-link"} : {}}>{team.name}</span>
@@ -71,15 +71,13 @@ const LeagueList :FC = ()=> {
     return (
         <Card className="mb-3">
             <CardHeader as="h3">Leagues & Teams</CardHeader>
-            {/*Still Loading*/}
             {isLoading && <div className="card-body"><Loader /></div>}
-            {/*Set error handling here, or the rest of the component does not get displayed*/}
-            {error && <ErrorDisplay message="Error loading leagues. Nothing else on the site will probably work." error={error}/>}
-            {data && data.seasons?.map(season => (
+            {(error != null) && <ErrorDisplay message="Error loading leagues. Nothing else on the site will probably work." error={error}/>}
+            {data?.seasons.map(season => (
                 <CardBody className="border-primary" key={season.season}>
                     <CardTitle>{season.season} Season</CardTitle>
                     <ListGroup id={season.season}>
-                        {season.leagues && season.leagues.map(league => (
+                        {season.leagues.map(league => (
                             <League league={league} key={league.id}/>
                         ))}
                     </ListGroup>

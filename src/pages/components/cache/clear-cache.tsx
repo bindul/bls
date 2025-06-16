@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import {type ForwardedRef, forwardRef, useImperativeHandle, useState} from "react";
+import {type ForwardedRef, useImperativeHandle, useState} from "react";
 import {Toast, ToastContainer} from "react-bootstrap";
 import {DatabaseX} from "react-bootstrap-icons";
 import Loader from "../loader";
@@ -24,26 +24,30 @@ export interface ClearCacheRef {
     clearCache: () => void;
 }
 
-const ClearCache = forwardRef<ClearCacheRef>((_props: unknown, ref : ForwardedRef<ClearCacheRef>) => {
+interface ClearCacheProps {
+    ref : ForwardedRef<ClearCacheRef>;
+}
+const ClearCache = ({ ref }: ClearCacheProps) => {
     const [toastVisible, setToastVisible] = useState<boolean>(false);
     const [cacheCleared, setCacheCleared] = useState<boolean>(false);
     const cache = useContextCache();
 
-    async function initiate() {
+    function initiate() {
         setCacheCleared(false);
         setToastVisible(true);
 
-        await cache?.clear().then(() => setCacheCleared(true));
+        cache?.clear();
+        setCacheCleared(true);
     }
 
     useImperativeHandle(ref, () => ({
-        clearCache: () => initiate()
+        clearCache: () => { initiate(); }
     }));
 
     return (
         <ToastContainer position="bottom-end">
             {toastVisible &&
-                <Toast onClose={() => setToastVisible(false)}>
+                <Toast onClose={() => { setToastVisible(false); }}>
                     <Toast.Header>
                         <DatabaseX/>
                         <strong className="me-auto">&nbsp; Clearing Local Cache</strong>
@@ -56,6 +60,6 @@ const ClearCache = forwardRef<ClearCacheRef>((_props: unknown, ref : ForwardedRe
             }
         </ToastContainer>
     );
-});
+};
 
 export default ClearCache;

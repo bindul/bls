@@ -16,7 +16,20 @@
 
 import {type FC, type ReactElement, type ReactNode, useEffect, useMemo, useState} from "react";
 
-import {Row, Col, Badge, Table, Card, CardBody, OverlayTrigger, Tooltip, CardFooter, Stack, ListGroup, ListGroupItem} from "react-bootstrap";
+import {
+    Row,
+    Col,
+    Badge,
+    Table,
+    Card,
+    CardBody,
+    OverlayTrigger,
+    Tooltip,
+    CardFooter,
+    Stack,
+    ListGroup,
+    ListGroupItem
+} from "react-bootstrap";
 import * as icons from 'react-bootstrap-icons';
 
 import type {LeagueDetails} from "../../../data/league/league-details";
@@ -39,7 +52,7 @@ interface FrameAttributeIconInfo {
     iconColor: string;
     iconName: keyof typeof icons;
 }
-const FrameAttributeIcons : Map<FrameAttributes, FrameAttributeIconInfo> = new Map([
+const FrameAttributeIcons  = new Map<FrameAttributes, FrameAttributeIconInfo>([
     ["Hung", {attribute: "Hung", description: "Got Hung!", iconColor: "red", iconName: "Icon0CircleFill"}],
     ["Star", {attribute: "Star", description: "Beer / Star Frame!", iconColor: "indigo", iconName: "Icon1CircleFill"}],
     ["Gutter-Spare", {attribute: "Gutter-Spare", description: "Gutter - Spare!", iconColor: "teal", iconName: "Icon2CircleFill"}],
@@ -55,7 +68,7 @@ interface FrameScoreLabelInfo {
     altText: string;
     iconName: keyof typeof icons;
 }
-const FrameScoreLabels : Map<string, FrameScoreLabelInfo> = new Map([
+const FrameScoreLabels  = new Map<string, FrameScoreLabelInfo>([
     ["X", {label: "X", altText: "Strike", iconName: "FileExcel"}],
     ["/", {label: "/", altText: "Spare", iconName: "SlashSquare"}],
     ["1S", {label: "1S", altText: "1 Split", iconName: "Icon1Circle"}],
@@ -95,12 +108,13 @@ const FrameAttributeIcon :FC<FrameAttributeIconProps> = ({attribute}: FrameAttri
 
 const FrameAttributeIconLegend :FC = () => {
     const iconNum = FrameAttributeIcons.size;
+    const keyPrefix = "fr-attr-legent-" + Math.random().toString() + "-";
     return (<>
         {Array.from(FrameAttributeIcons.values()).map((icn: FrameAttributeIconInfo, idx: number) =>
-            <>
+            <span key={keyPrefix + idx.toString()}>
                 <Icon iconName={icn.iconName} color={icn.iconColor}/>: {icn.description}
                 {(idx + 1) < iconNum && <span>&nbsp;|&nbsp;</span>}
-            </>)}
+            </span>)}
     </>);
 }
 
@@ -114,7 +128,7 @@ const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, t
     const playerNames: string[] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps => findPlayer(teamDetails, ps.player)), [matchup, teamDetails]);
     const frames: Frame[][] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps => ps.games[gameIdx].frames), [matchup, gameIdx]);
     const hasAttributes: boolean[] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps =>
-            !ps.games[gameIdx].frames.find(f => f.attributes  && f.attributes.length > 0)),
+            !ps.games[gameIdx].frames.find(f => f.attributes.length > 0)),
         [matchup, gameIdx]);
 
     useEffect(() => {
@@ -130,7 +144,7 @@ const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, t
                 frameScoreLabel = FrameScoreLabels.get(b[1]);
             }
         }
-        return frameScoreLabel ? <Icon iconName={frameScoreLabel.iconName} title={frameScoreLabel?.altText}/> : <>{b[0]}</>;
+        return frameScoreLabel ? <Icon iconName={frameScoreLabel.iconName} title={frameScoreLabel.altText}/> : <>{b[0]}</>;
     }
 
     const writeScoreLabelRow = (f: Frame)=> {
@@ -145,26 +159,37 @@ const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, t
         return f.number == 10 ? "13%" : "9%";
     }
 
+    const keyPrefix = "fd-wk-" + matchup.week.toString() + "-" + gameIdx.toString() + "-";
     return (<>
-        {playerNames && frames && hasAttributes && playerNames.map((pn, pi) => <>
+        {playerNames && frames && hasAttributes && playerNames.map((pn, pi) => <div key={keyPrefix + pi.toString()}>
             {smallScreen &&
-                <Row>
-                    <Col className="col-md-2"><div className="h-100 d-flex align-items-center fs-sm">{pn}</div></Col>
+                <Row key={keyPrefix + "pn-ss-" + pi.toString()}>
+                    <Col className="col-md-2">
+                        <div className="h-100 d-flex align-items-center fs-sm">{pn}</div>
+                    </Col>
                 </Row>
             }
             <Row>
-                {!smallScreen && <Col className="col-md-2"><div className="h-100 d-flex align-items-center">{pn}</div></Col>}
+                {!smallScreen &&
+                    <Col className="col-md-2" key={keyPrefix + "pn-nss-" + pi.toString()}>
+                        <div className="h-100 d-flex align-items-center">{pn}</div>
+                    </Col>
+                }
                 <Col className="col-md-10">
                     <Stack direction="horizontal" gap={1}>
                         {frames[pi].map(frame => (
-                            <div className="border rounded-1 border-dark-subtle border-opacity-10 h-100" style={{width: frameDivW(frame), maxWidth: "45px"}}>
+                            <div className="border rounded-1 border-dark-subtle border-opacity-10 h-100"
+                                 style={{width: frameDivW(frame), maxWidth: "45px"}}
+                                 key={keyPrefix + "pn-nss-" + pi.toString() + "-f-" + frame.number.toString()}>
                                 <Stack direction="vertical">
                                     <Stack direction="horizontal" className="fs-xs justify-content-evenly">
                                         {writeScoreLabelRow(frame)}
                                     </Stack>
                                     <div className="text-center border fs-sm p-0 bg-secondary">{frame.cumulativeScore}</div>
                                     <div className="fs-xxs text-center">
-                                        {frame.attributes?.map(a => <FrameAttributeIcon attribute={a}/>)}
+                                        {frame.attributes.map((a, i) =>
+                                            <FrameAttributeIcon attribute={a} key={keyPrefix + "pn-nss-" + pi.toString() + "-f-" + frame.number.toString() + "-att-" + i.toString()}/>
+                                        )}
                                         {(!hasAttributes[pi] && frame.attributes.length == 0) && <>&nbsp;</>}
                                     </div>
                                 </Stack>
@@ -173,12 +198,13 @@ const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, t
                     </Stack>
                 </Col>
             </Row>
-            </>
+        </div>
         )}
     </>)
 }
 
 const TeamIndSeriesGameScoresSummary :FC<MatchupDetailsDisplayProps> = ({matchup, teamDetails, currentBreakpoint}: MatchupDetailsDisplayProps) => {
+    const keyPrefix = Math.random().toString();
     return (<>
         <Table size="sm" bordered striped responsive={true} className={`p-0 lh-1 my-1 text-end ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ? "fs-xs" : ""}`}>
             <thead>
@@ -194,11 +220,13 @@ const TeamIndSeriesGameScoresSummary :FC<MatchupDetailsDisplayProps> = ({matchup
             </thead>
             <tbody>
                 {matchup.scores?.playerScores.map(ps =>
-                <tr>
+                <tr key={String(ps.player) + "-" + keyPrefix}>
                     <th scope="row text-truncate">{findPlayer(teamDetails, ps.player)}</th>
                     <td className="text-body-tertiary text-end">{ps.enteringAverage}</td>
-                    {ps.games.map(g =>
-                        <td className="text-end">{g.blind ? <Badge bg="dark" className="float-start">B</Badge> : ""}{g.effectiveScratchScore}</td>
+                    {ps.games.map((g, i) =>
+                        <td className="text-end" key={"scratch-" + String(ps.player) + "-" + keyPrefix + "-" + i.toString()}>
+                            {g.blind ? <Badge bg="dark" className="float-start">B</Badge> : ""}{g.effectiveScratchScore}
+                        </td>
                     )}
                     <td className="text-body-emphasis text-end">{ps.series.effectiveScratchScore}</td>
                     <td className="text-body-emphasis text-end">{ps.series.hdcpScore}</td>
@@ -206,16 +234,16 @@ const TeamIndSeriesGameScoresSummary :FC<MatchupDetailsDisplayProps> = ({matchup
                 )}
                 <tr>
                     <th scope="row" colSpan={2}>Team Gm</th>
-                    {matchup.scores?.games.map(g =>
-                        <td className="text-body-emphasis text-end">{g.effectiveScratchScore}</td>
+                    {matchup.scores?.games.map((g, i) =>
+                        <td className="text-body-emphasis text-end" key={"scratch-" + keyPrefix + "-" + i.toString()}>{g.effectiveScratchScore}</td>
                     )}
                     <td className="text-end">{matchup.scores?.series.effectiveScratchScore}</td>
                     <td></td>
                 </tr>
                 <tr>
                     <th scope="row" colSpan={2}>+ HDCP</th>
-                    {matchup.scores?.games.map(g =>
-                        <td className="text-primary-emphasis text-end">{g.hdcpScore}</td>
+                    {matchup.scores?.games.map((g, i) =>
+                        <td className="text-primary-emphasis text-end" key={"hdcp-" + keyPrefix + "-" + i.toString()}>{g.hdcpScore}</td>
                     )}
                     <td className="text-primary-emphasis text-end">{matchup.scores?.series.hdcpScore}</td>
                     <td></td>
@@ -235,11 +263,12 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
     const [hasFrameData, setHasFrameData] = useState(true);
 
     useEffect(() => {
-        matchup.scores?.playerScores.forEach(ps => ps.games.forEach(psg => {
-            if (!psg.blind && (!psg.frames || psg.frames.length == 0)) {
+        matchup.scores?.playerScores.forEach(ps => { ps.games.forEach(psg => {
+            if (!psg.blind && psg.frames.length == 0) {
                 setHasFrameData(false); // We are missing frame data for this matchup
             }
-        }))
+        });
+        })
     }, [matchup]);
 
     return (<>
@@ -256,14 +285,21 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
                 <Row className="gy-1 gx-1">
                     <Col>
                         <Card className="p-0 m-0">
-                            <CollapsibleContainer headerTitle={"Frame Data"} divId={matchup.week + "-framedata"} currentBreakpoint={currentBreakpoint} hideBelowBreakpoint={BS_BP_SM}>
+                            <CollapsibleContainer headerTitle={"Frame Data"} divId={matchup.week.toString() + "-framedata"} currentBreakpoint={currentBreakpoint} hideBelowBreakpoint={BS_BP_SM}>
                                 <CardBody className="px-0 py-2 m-0">
                                     <Row className="row-cols-1 gy-2 gx-2 m-0 p-0">
                                         {matchup.scores?.games.map((_game, g) =>
-                                            <Col>
+                                            <Col key={"frames-" + matchup.week.toString() + "-" + g.toString()}>
                                                 <Card className="my-1 mx-0 h-100">
                                                     <CardBody className="p-1">
-                                                        <TeamIndSeriesGameFramesV2 leagueDetails={leagueDetails} matchup={matchup} teamDetails={teamDetails} currentBreakpoint={currentBreakpoint} gameIdx={g}/>
+                                                        <div className={`bg-secondary p-0 m-0 mb-md-2 text-center ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_SM) ? "fs-sm" : "fs-6"}`}>
+                                                            Game {g + 1}
+                                                        </div>
+                                                        <TeamIndSeriesGameFramesV2 leagueDetails={leagueDetails}
+                                                                                   matchup={matchup}
+                                                                                   teamDetails={teamDetails}
+                                                                                   currentBreakpoint={currentBreakpoint}
+                                                                                   gameIdx={g}/>
                                                     </CardBody>
                                                 </Card>
                                             </Col>
@@ -278,14 +314,16 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
                     </Col>
                 </Row>
             }
-        {matchup.notes && matchup.notes.length > 0 &&
+        {matchup.notes.length > 0 &&
             <Row>
                 <Col>
                     <Card className="my-2 mx-0">
                         <CardBody className="p-1">
                             <Card.Subtitle className="p-2 mb-0">Notes</Card.Subtitle>
                             <ListGroup variant="flush">
-                                {matchup.notes.map(n => <ListGroupItem className="fs-sm py-0 px-2 m-0">{n}</ListGroupItem>)}
+                                {matchup.notes.map((n, i) =>
+                                    <ListGroupItem className="fs-sm py-0 px-2 m-0" key={"notes-" + matchup.week.toString() + "-" + i.toString()}>{n}</ListGroupItem>
+                                )}
                             </ListGroup>
                         </CardBody>
                     </Card>

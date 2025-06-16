@@ -14,36 +14,36 @@
  *  limitations under the License.
  */
 
-import {createContext, type FC, type ReactNode, useContext} from "react";
+import {createContext, type FC, type ReactNode, use, useMemo} from "react";
 
 const DEFAULT_TTL = import.meta.env.VITE_CACHE_DEFAULT_TTL;
 const DEFAULT_MAX_CACHE_PER_CATEGORY = import.meta.env.VITE_CACHE_MAX_ENTRY_PER_CATEGORY;
 export const SINGLE_ENTRY_CATEGORY_KEY = "SINGLE_DEFAULT";
 
-export type CacheEntry = {
+export interface CacheEntry {
     key: string;
-    data: any;
+    data: object;
     lastFetched: number;
     ttl: number;
 }
 
 export class Cache {
-    cache: Map<string, Map<string, CacheEntry>> = new Map();
+    cache = new Map<string, Map<string, CacheEntry>>();
 
-    get <T>(category: string, key: string = SINGLE_ENTRY_CATEGORY_KEY ) : T | null {
+    get (category: string, key: string = SINGLE_ENTRY_CATEGORY_KEY ) : unknown {
         const categoryCache = this.getCategoryCache(category, false);
         if (categoryCache) {
-            return this.getEntryWithExpiryCheck(key, categoryCache)?.data ?? null;
+            return this.getEntryWithExpiryCheck(key, categoryCache)?.data;
         }
         return null;
     }
 
-    put <T>(category: string, key: string = SINGLE_ENTRY_CATEGORY_KEY, data: T, overrideTtl?: number)  {
+    put (category: string, key: string = SINGLE_ENTRY_CATEGORY_KEY, data: object, overrideTtl?: number)  {
         const entry: CacheEntry = {
             key: key,
             data: data,
             lastFetched: Date.now(),
-            ttl: overrideTtl || DEFAULT_TTL
+            ttl: overrideTtl ?? DEFAULT_TTL
         }
 
         const categoryCache = this.getCategoryCache(category, true);
@@ -57,7 +57,7 @@ export class Cache {
         }
     }
 
-    async clear() {
+    clear() {
         this.cache.clear();
     }
 
@@ -108,14 +108,15 @@ interface ContextCacheProviderParams {
     children?: ReactNode;
 }
 export const ContextCacheProvider: FC<ContextCacheProviderParams> = ({children} :ContextCacheProviderParams) => {
-    const cache = new Cache();
+    const cache = useMemo(() => new Cache(), []);
     return  (
-        <ContextCache.Provider value={cache}>
+        <ContextCache value={cache}>
             {children}
-        </ContextCache.Provider>
+        </ContextCache>
     );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useContextCache = () => {
-    return useContext(ContextCache);
+    return use(ContextCache);
 }

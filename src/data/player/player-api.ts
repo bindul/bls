@@ -21,28 +21,24 @@ import {createJsonConverter} from "../utils/json-utils";
 import {compareMoments} from "../utils/utils";
 
 export const PLAYER_LIST_CACHE_CATEGORY = "player-list";
-const APP_URL_BASE = import.meta.env.VITE_DATA_URL_BASE;
+// const APP_URL_BASE = import.meta.env.VITE_DATA_URL_BASE;
 const PLAYER_INDEX_RESOURCE = import.meta.env.VITE_DATA_PLAYERS_INDEX_RESOURCE;
 
 function postProcessLoadedPlayers(players : Players) : Players {
-    if (players != null) {
-        // Set default last bowled dates for every player
-        players.players?.forEach(player => {
-            if (player.lastBowled == null) {
-                player.lastBowled = moment();
-            }
-        })
-        // Sort by last bowled and then by initials
-        players.players?.sort((a:PlayerInfo, b:PlayerInfo) => {
-            const lbd = compareMoments(a.lastBowled, b.lastBowled);
-            return lbd != 0 ? lbd : a.id.localeCompare(b.id);
-        });
-    }
+    // Set default last bowled dates for every player
+    players.players.forEach(player => {
+        player.lastBowled ??= moment();
+    })
+    // Sort by last bowled and then by initials
+    players.players.sort((a:PlayerInfo, b:PlayerInfo) => {
+        const lbd = compareMoments(a.lastBowled, b.lastBowled);
+        return lbd != 0 ? lbd : a.id.localeCompare(b.id);
+    });
     return players;
 }
 
 export const playerListFetcher = async() =>
-    fetch(APP_URL_BASE + PLAYER_INDEX_RESOURCE)
+    fetch(PLAYER_INDEX_RESOURCE)
         .then(res => res.json())
-        .then(json => createJsonConverter().deserializeObject<Players>(json, Players)) // The method is deprecated, but deserialize returns an array which we don't want
+        .then((json :object) => createJsonConverter().deserialize<Players>(json, Players) as unknown as Players)
         .then(p => postProcessLoadedPlayers(p));

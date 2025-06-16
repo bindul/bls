@@ -37,7 +37,7 @@ export class LeagueInfo {
     dataLoc?: string = undefined;
 
     @JsonProperty("ongoing", Boolean)
-    ongoing: boolean = false;
+    ongoing = false;
 
     @JsonProperty("teams", [LeagueInfoTeam])
     teams: LeagueInfoTeam[] = [];
@@ -63,9 +63,9 @@ export class AvailableLeagues {
     seasons: LeagueSeason[] = [];
 
     findLeague(leagueId: string) {
-        for (let i = 0; i < this.seasons.length; i++) {
-            if (this.seasons[i].leagues != null) {
-                const league :LeagueInfo | undefined = this.seasons[i].leagues.find((league :LeagueInfo) => league.id === leagueId);
+        for (const item of this.seasons) {
+            if (item.leagues.length > 0) {
+                const league :LeagueInfo | undefined = item.leagues.find((league :LeagueInfo) => league.id === leagueId);
                 if (league != undefined) {
                     return league;
                 }

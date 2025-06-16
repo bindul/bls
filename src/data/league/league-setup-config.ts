@@ -23,13 +23,13 @@ export type OnlineScoringPlatform = "LeagueSecretary" | "LeaguePals" | "None"
 @JsonObject("LeagueSecretaryInfo")
 export class LeagueSecretaryInfo {
     @JsonProperty("center-id", Number)
-    centerId: number = 0;
+    centerId = 0;
 
     @JsonProperty("center-dashboard-url", String)
     centerDashboardUrl: string | undefined = undefined;
 
     @JsonProperty("league-id", Number)
-    leagueId: number = 0;
+    leagueId = 0;
 
     @JsonProperty("league-dashboard-url", String)
     leagueDashboardUrl: string | undefined = undefined;
@@ -50,7 +50,7 @@ export type LeagueBowlingDurationUnit = "WK" | "MT" | "TW" | "FN"
 export class LeagueBowlingDays {
 
     @JsonProperty("games-per-week", Number)
-    gamesPerWeek: number = 0;
+    gamesPerWeek = 0;
 
     @JsonProperty("bowls-on", DayOfWeekConverter)
     bowlsOn: Moment | undefined = undefined;
@@ -62,7 +62,7 @@ export class LeagueBowlingDays {
     startDate: Moment | undefined = undefined;
 
     @JsonProperty("duration", Number)
-    duration: number = 0;
+    duration = 0;
 
     @JsonProperty("duration-unit", String)
     durationUnit: LeagueBowlingDurationUnit = "WK"
@@ -77,10 +77,10 @@ export type HandicapType = "NONE" | "PCT_AVG_TO_TGT";
 export class PercentOfAverageToTargetHandicapConfig {
 
     @JsonProperty("pct-to-target", Number)
-    pctToTarget: number = 0;
+    pctToTarget = 0;
 
     @JsonProperty("target", Number)
-    target: number = 0;
+    target = 0;
 }
 
 @JsonObject("LeagueHandicap")
@@ -92,7 +92,7 @@ export class LeagueHandicap {
     @JsonProperty("pct-avg-to-tgt-config", PercentOfAverageToTargetHandicapConfig)
     pctAvgToTargetConfig?: PercentOfAverageToTargetHandicapConfig = undefined;
 
-    // TODO Future - add info about USBC carry over handicap
+    // TODO Future - add info about U.S.B.C. carry over handicap
     // TODO Future - add absent score / handicap
     // TODO Update League Summary page
 }
@@ -103,14 +103,14 @@ export type VacantOrAbsentOpponentScoringType = "POINTS_WITHIN_AVG" | "FORFEIT";
 export class PointsWithinAverageVacantAbsentScoringConfig {
 
     @JsonProperty("points-within-team-avg", Number)
-    pointsWithinTeamAverage: number = 0;
+    pointsWithinTeamAverage = 0;
 }
 
 @JsonObject("VacantOrAbsentOpponentScoring")
 export class VacantOrAbsentOpponentScoring {
 
     @JsonProperty("allowed", Boolean)
-    allowed: boolean = false;
+    allowed = false;
 
     @JsonProperty("type", String)
     scoringType?: VacantOrAbsentOpponentScoringType = "FORFEIT";
@@ -119,28 +119,28 @@ export class VacantOrAbsentOpponentScoring {
     pointsWithinAverageConfig?: PointsWithinAverageVacantAbsentScoringConfig = undefined;
 }
 
-export type MatchupPointScoringRule = "PPG_PPS";
+export type MatchupPointScoringRule = "PPG_PPS" | "UNKNOWN";
 
 @JsonObject("PpgPpsMatchupPointScoringConfig")
 export class PpgPpsMatchupPointScoringConfig {
 
     @JsonProperty("points-per-game", Number)
-    pointsPerGame: number = 1;
+    pointsPerGame = 1;
 
     @JsonProperty("points-per-series", Number)
-    pointsPerSeries: number = 1;
+    pointsPerSeries = 1;
 
     @JsonProperty("points-per-game-on-tie", Number)
-    pointsPerGameOnTie: number = 0.5;
+    pointsPerGameOnTie = 0.5;
 
     @JsonProperty("points-per-series-on-tie", Number)
-    pointsPerSeriesOnTie: number = 0.5;
+    pointsPerSeriesOnTie = 0.5;
 
     @JsonProperty("vacant-opponent-allowed", Boolean)
-    vacantOpponentAllowed: boolean = false;
+    vacantOpponentAllowed = false;
 
     @JsonProperty("absent-opponent-allowed", Boolean)
-    absentOpponentAllowed: boolean = false;
+    absentOpponentAllowed = false;
 }
 
 @JsonObject("LeaguePointScoring")
@@ -163,32 +163,32 @@ export class LeaguePointScoring {
 export class LeagueBlindPenalty {
 
     @JsonProperty("blinds-allowed", Boolean)
-    allowed: boolean = false;
+    allowed = false;
 
     @JsonProperty("default-penalty", Number)
-    defaultPenalty: number = 0;
+    defaultPenalty = 0;
 
     @JsonProperty("missed-matchups-penalty", Number)
-    missedMatchupsPenalty: number = 0;
+    missedMatchupsPenalty = 0;
 
     @JsonProperty("missed-matchups-threshold", Number)
-    missedMatchupsThreshold: number = 0;
+    missedMatchupsThreshold = 0;
 }
 
 @JsonObject("LeagueScoringRules")
 export class LeagueScoringRules {
 
     @JsonProperty("legal-min-lineup", Number)
-    legalMinLineup: number = 0;
+    legalMinLineup = 0;
 
     @JsonProperty("lineup", Number)
-    lineup: number = 0;
+    lineup = 0;
 
     @JsonProperty("roster", Number)
-    roster: number = 0;
+    roster = 0;
 
     @JsonProperty("substitutes-allowed", Boolean)
-    subsAllowed: boolean = false;
+    subsAllowed = false;
 
     @JsonProperty("hdcp", LeagueHandicap)
     handicap: LeagueHandicap | undefined = undefined;

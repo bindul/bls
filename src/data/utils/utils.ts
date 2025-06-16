@@ -27,6 +27,6 @@ export function compareMoments (a?: Moment, b?: Moment): number {
     return b.diff(a);
 }
 
-export function isNonEmptyString(value?: string | undefined): boolean {
-    return value !== undefined && value !== null && value.length > 0;
+export function isNonEmptyString(value?: string): boolean {
+    return value !== undefined && value.length > 0;
 }

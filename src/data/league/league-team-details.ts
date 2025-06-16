@@ -19,20 +19,20 @@ import {PlayerStats} from "../player/player-stats";
 import type {LeagueAccolade} from "./league-details";
 
 export class LeaguePlayerStats extends PlayerStats {
-    handicap: number = 0;
-    averageBoosterSeries: number = 0;
+    handicap = 0;
+    averageBoosterSeries = 0;
     bestGameOverAverage?: LeagueAccolade;
     bestSeriesOverAverage?: LeagueAccolade;
 }
 
 export class TeamStats {
-    scratchPins: number = 0;
-    average: number = 0;
-    handicap: number = 0;
-    highGame: number = 0;
-    highSeries: number =0;
-    lowGame: number = 0;
-    lowSeries: number =0;
+    scratchPins = 0;
+    average = 0;
+    handicap = 0;
+    highGame = 0;
+    highSeries =0;
+    lowGame = 0;
+    lowSeries =0;
 }
 
 @JsonObject("LeagueTeam")
@@ -41,7 +41,7 @@ export abstract class LeagueTeam {
     id: string | undefined = undefined;
 
     @JsonProperty("number", Number)
-    number: number = 0;
+    number = 0;
 
     @JsonProperty("division", String)
     division: string | undefined = undefined;
@@ -85,7 +85,7 @@ export class LeaguePlayer {
     status: LeaguePlayerStatus | undefined = undefined;
 
     @JsonProperty("parking-lot-threshold", Number)
-    parkingLotThreshold: number = 100;
+    parkingLotThreshold = 100;
 
     @JsonProperty("carry-over-league-stats", LeaguePlayerCarryOverStats)
     carryOverStats?: LeaguePlayerCarryOverStats = undefined;
@@ -97,7 +97,7 @@ export class LeaguePlayer {
 export class TrackedLeagueTeam extends LeagueTeam {
 
     @JsonProperty("current-rank", String)
-    currentRank: string = "";
+    currentRank = "";
 
     @JsonProperty("roster", [LeaguePlayer])
     roster: LeaguePlayer[] = [];
