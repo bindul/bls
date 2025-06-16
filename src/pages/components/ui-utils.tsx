@@ -21,6 +21,7 @@ export interface Breakpoint {
     name: string;
 }
 
+// These numbers could possibly be moved to .env files, but first it is not worth it, second don't want anyone messing with them
 export const BS_BP_XS : Breakpoint = {order: 1, minWidth: 0, maxWidth: 575, name: 'xs'};
 export const BS_BP_SM : Breakpoint = {order: 2, minWidth: 576, maxWidth: 767, name: 'sm'};
 export const BS_BP_MD : Breakpoint = {order: 3, minWidth: 768, maxWidth: 991, name: 'md'};

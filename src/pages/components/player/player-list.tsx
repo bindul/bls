@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-import {HourglassSplit} from "react-bootstrap-icons";
-import Card from "react-bootstrap/Card";
-import {CardBody, CardFooter, CardHeader, CardText, CardTitle} from "react-bootstrap";
+import type {FC} from "react";
 
-import Loader from "../loader";
+import {HourglassSplit} from "react-bootstrap-icons";
+import {Card, CardBody, CardFooter, CardHeader, CardText, CardTitle} from "react-bootstrap";
+
 import type {Players} from "../../../data/player/player-info";
 import {PLAYER_LIST_CACHE_CATEGORY, playerListFetcher} from "../../../data/player/player-api";
-import {useCachedFetcher} from "../cache/data-loader.tsx";
+import Loader from "../loader";
+import {useCachedFetcher} from "../cache/data-loader";
 import ErrorDisplay from "../error-display";
 
-function PlayerList() {
+const PlayerList :FC = ()=> {
     const { data, isLoading, error } = useCachedFetcher<Players>(playerListFetcher, PLAYER_LIST_CACHE_CATEGORY);
 
     return (

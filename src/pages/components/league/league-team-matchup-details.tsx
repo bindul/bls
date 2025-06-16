@@ -14,22 +14,21 @@
  *  limitations under the License.
  */
 
-import type {LeagueDetails} from "../../../data/league/league-details.ts";
-import {Frame, type FrameAttributes, type LeagueMatchup, type ScoreLabel} from "../../../data/league/league-matchup.ts";
-import {TrackedLeagueTeam} from "../../../data/league/league-team-details.ts";
-import {type Breakpoint, BS_BP_SM, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils.tsx";
 import {type FC, type ReactElement, type ReactNode, useEffect, useMemo, useState} from "react";
-import {Row, Col, Badge, Table, CardBody, OverlayTrigger, Tooltip, CardFooter, Stack} from "react-bootstrap";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import ListGroupItem from "react-bootstrap/ListGroupItem";
+
+import {Row, Col, Badge, Table, Card, CardBody, OverlayTrigger, Tooltip, CardFooter, Stack, ListGroup, ListGroupItem} from "react-bootstrap";
 import * as icons from 'react-bootstrap-icons';
-import {CollapsibleContainer} from "../collapsible-container.tsx";
+
+import type {LeagueDetails} from "../../../data/league/league-details";
+import {Frame, type FrameAttributes, type LeagueMatchup, type ScoreLabel} from "../../../data/league/league-matchup";
+import {TrackedLeagueTeam} from "../../../data/league/league-team-details";
+import {type Breakpoint, BS_BP_SM, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils";
+import {CollapsibleContainer} from "../collapsible-container";
 
 interface IconProps extends icons.IconProps {
     iconName: keyof typeof icons;
 }
-export const Icon = ({iconName, ...props}: IconProps) => {
+export const Icon :FC<IconProps> = ({iconName, ...props}: IconProps) => {
     const BootstrapIcon = icons[iconName];
     return <BootstrapIcon {...props}/>;
 }
@@ -80,20 +79,21 @@ interface OverlaywithTooltipProps {
     children: ReactElement;
     tooltip: ReactNode;
 }
-const OverlayWithTooltip = ({children, tooltip}: OverlaywithTooltipProps) =>
+const OverlayWithTooltip :FC<OverlaywithTooltipProps> = ({children, tooltip}: OverlaywithTooltipProps) =>
     (<OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>{tooltip}</Tooltip>}>{children}</OverlayTrigger>);
 
 interface FrameAttributeIconProps {
     attribute: FrameAttributes;
 }
-const FrameAttributeIcon = ({attribute}: FrameAttributeIconProps) => {
+const FrameAttributeIcon :FC<FrameAttributeIconProps> = ({attribute}: FrameAttributeIconProps) => {
     // "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Clean-Game" | "Gutter-Spare" | "Split-Picked-Up" | "Parking-Lot"
     const iconInfo = FrameAttributeIcons.get(attribute);
     return (<>
         {iconInfo && <OverlayWithTooltip tooltip={iconInfo.description}><Icon iconName={iconInfo.iconName} color={iconInfo.iconColor}/></OverlayWithTooltip>}
     </>);
 }
-const FrameAttributeIconLegend = () => {
+
+const FrameAttributeIconLegend :FC = () => {
     const iconNum = FrameAttributeIcons.size;
     return (<>
         {Array.from(FrameAttributeIcons.values()).map((icn: FrameAttributeIconInfo, idx: number) =>
@@ -107,14 +107,16 @@ const FrameAttributeIconLegend = () => {
 interface TeamIndSeriesGameFramesProps extends MatchupDetailsDisplayProps {
     gameIdx: number;
 }
-const TeamIndSeriesGameFramesV2 = ({matchup, teamDetails, currentBreakpoint, gameIdx}: TeamIndSeriesGameFramesProps) => {
+const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, teamDetails, currentBreakpoint, gameIdx}: TeamIndSeriesGameFramesProps) => {
 
     const [smallScreen, setSmallScreen] = useState(false);
+
     const playerNames: string[] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps => findPlayer(teamDetails, ps.player)), [matchup, teamDetails]);
     const frames: Frame[][] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps => ps.games[gameIdx].frames), [matchup, gameIdx]);
     const hasAttributes: boolean[] | undefined = useMemo(() => matchup.scores?.playerScores.map(ps =>
             !ps.games[gameIdx].frames.find(f => f.attributes  && f.attributes.length > 0)),
         [matchup, gameIdx]);
+
     useEffect(() => {
         setSmallScreen(isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ?? false);
     }, [currentBreakpoint]);
@@ -176,7 +178,7 @@ const TeamIndSeriesGameFramesV2 = ({matchup, teamDetails, currentBreakpoint, gam
     </>)
 }
 
-const TeamIndSeriesGameScoresSummary = ({matchup, teamDetails, currentBreakpoint}: MatchupDetailsDisplayProps) => {
+const TeamIndSeriesGameScoresSummary :FC<MatchupDetailsDisplayProps> = ({matchup, teamDetails, currentBreakpoint}: MatchupDetailsDisplayProps) => {
     return (<>
         <Table size="sm" bordered striped responsive={true} className={`p-0 lh-1 my-1 text-end ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ? "fs-xs" : ""}`}>
             <thead>
@@ -198,8 +200,8 @@ const TeamIndSeriesGameScoresSummary = ({matchup, teamDetails, currentBreakpoint
                     {ps.games.map(g =>
                         <td className="text-end">{g.blind ? <Badge bg="dark" className="float-start">B</Badge> : ""}{g.effectiveScratchScore}</td>
                     )}
-                    <td className="text-body-emphasis  text-end">{ps.series.effectiveScratchScore}</td>
-                    <td className="text-body-emphasis  text-end">{ps.series.hdcpScore}</td>
+                    <td className="text-body-emphasis text-end">{ps.series.effectiveScratchScore}</td>
+                    <td className="text-body-emphasis text-end">{ps.series.hdcpScore}</td>
                 </tr>
                 )}
                 <tr>

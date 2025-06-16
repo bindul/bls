@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-import {PlayerInfo, Players} from "./player-info";
-import {APP_URL_BASE} from "../utils/constants";
-import {createJsonConverter} from "../utils/json-utils";
 import moment from "moment";
-import {compareMoments} from "../utils/utils.ts";
+
+import {PlayerInfo, Players} from "./player-info";
+import {createJsonConverter} from "../utils/json-utils";
+import {compareMoments} from "../utils/utils";
 
 export const PLAYER_LIST_CACHE_CATEGORY = "player-list";
-const PLAYER_INDEX_RESOURCE = "players.json";
+const APP_URL_BASE = import.meta.env.VITE_DATA_URL_BASE;
+const PLAYER_INDEX_RESOURCE = import.meta.env.VITE_DATA_PLAYERS_INDEX_RESOURCE;
 
 function postProcessLoadedPlayers(players : Players) : Players {
     if (players != null) {
@@ -33,7 +34,7 @@ function postProcessLoadedPlayers(players : Players) : Players {
         })
         // Sort by last bowled and then by initials
         players.players?.sort((a:PlayerInfo, b:PlayerInfo) => {
-            let lbd = compareMoments(a.lastBowled, b.lastBowled);
+            const lbd = compareMoments(a.lastBowled, b.lastBowled);
             return lbd != 0 ? lbd : a.id.localeCompare(b.id);
         });
     }

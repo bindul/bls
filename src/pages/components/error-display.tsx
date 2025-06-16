@@ -37,10 +37,10 @@ interface ErrorDisplayProps {
 
 function ErrorDetails({error} :ErrorDisplayProps) {
 
-    const MAX_MSG_LENGTH = 1000;
     const truncateMessage = (message: string) => {
-        if (message && message.length > MAX_MSG_LENGTH) {
-            return message.substring(0, MAX_MSG_LENGTH) + '...';
+        const maxMsgLen = import.meta.env.VITE_ERROR_MAX_DETAILS_TEXT_LEN;
+        if (message && message.length > maxMsgLen) {
+            return message.substring(0, maxMsgLen) + '...';
         }
         return message;
     }
@@ -58,7 +58,6 @@ function ErrorDetails({error} :ErrorDisplayProps) {
 }
 
 const Error: FC<ErrorDisplayProps> = (props :ErrorDisplayProps) => {
-
     const [maxWidth, setMaxWidth] = useState<string>("20rem");
 
     useEffect(() => {
@@ -85,7 +84,4 @@ const Error: FC<ErrorDisplayProps> = (props :ErrorDisplayProps) => {
     );
 }
 
-/*
-        <div className="alert-top">
- */
 export default Error;

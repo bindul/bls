@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import type {FC} from "react";
 import Spinner from 'react-bootstrap/Spinner';
-import * as React from "react";
 
-const Loader:React.FC = () => {
+const Loader:FC = () => {
     return (
         <>
             <div className="container-fluid d-flex justify-content-center text-center">

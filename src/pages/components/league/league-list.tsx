@@ -13,59 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {type FC, type ReactNode, useCallback} from "react";
+import {Link, type To} from "react-router-dom";
+
+import {Badge, Card, CardBody, CardFooter, CardHeader, CardTitle, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {ArrowRightShort, PlayCircleFill} from "react-bootstrap-icons";
+
 import {AvailableLeagues, LeagueInfo} from "../../../data/league/league-info";
-import Loader from "../loader";
-import ErrorDisplay from "../error-display";
 import {
     LEAGUE_LIST_CACHE_CATEGORY,
     leagueInfoListFetcher
 } from "../../../data/league/league-api";
-import {useCachedFetcher} from "../cache/data-loader.tsx";
-
-import Card from "react-bootstrap/Card"
-import ListGroup from "react-bootstrap/ListGroup"
-import ListGroupItem from "react-bootstrap/ListGroupItem";
-import {Badge, CardBody, CardFooter, CardHeader, CardTitle} from 'react-bootstrap';
-import {ArrowRightShort, PlayCircleFill} from "react-bootstrap-icons";
-import {Link, type To} from "react-router-dom";
-import * as React from "react";
-import {useCallback} from "react";
+import Loader from "../loader";
+import ErrorDisplay from "../error-display";
+import {useCachedFetcher} from "../cache/data-loader";
 
 interface LeagueLinkProps {
-    condition :boolean;
+    hasData :boolean;
     teamId? :string;
     to? :To;
-    children? :React.ReactNode;
+    children? :ReactNode;
 }
-// TODO Change it from class component to Functional Component
-class LeagueLink extends React.Component<LeagueLinkProps, {}> {
-    render() {
-        if (this.props.condition && this.props.to != undefined) {
-            return (
-                <Link to={this.props.to} key={this.props.teamId} className="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
-                    {this.props.children}
-                </Link>
-            );
-        } else {
-            return (<ListGroupItem eventKey={this.props.teamId} className="bg-dark-subtle disabled">{this.props.children}</ListGroupItem>);
-        }
+const LeagueLink :FC<LeagueLinkProps> = ({hasData, teamId, to, children}) => {
+    if (hasData && to != undefined) {
+        return (
+            <Link to={to} key={teamId} className="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                {children}
+            </Link>
+        );
+    } else {
+        return (<ListGroupItem eventKey={teamId} className="bg-dark-subtle disabled">{children}</ListGroupItem>);
     }
 }
 
-/**
- * Javascript / Typescript STUPIDITY!!: That we have to define this interface, or it passes an object to JSX
- */
 interface LeagueProps {
     league: LeagueInfo;
 }
-function League({league} :LeagueProps) {
-    // TODO: See if there is a better way to render the link from react router Link
+const League :FC<LeagueProps> = ({league} :LeagueProps)=> {
     // TODO: Relook at this style if we end up with more than one team in a league
-    // ListGroupItem complains about the to attribute, but works fine with it
-    // @ts-ignore
     return (<>
         {league.teams?.map(team => (
-            <LeagueLink condition={league.hasData()} teamId={team.id} to={`/league/${league.id}/${team.id}`} key={team.id}>
+            <LeagueLink hasData={league.hasData()} teamId={team.id} to={`/league/${league.id}/${team.id}`} key={team.id}>
                 <div>
                     <span className="fw-light text-muted">{league.name} <ArrowRightShort /> </span>
                     <span {...league.hasData() ? {className: "card-link"} : {}}>{team.name}</span>
@@ -76,7 +64,7 @@ function League({league} :LeagueProps) {
     </>);
 }
 
-function LeagueList() {
+const LeagueList :FC = ()=> {
     const fetcher = useCallback(leagueInfoListFetcher, []);
     const { data, isLoading, error } = useCachedFetcher<AvailableLeagues>(fetcher, LEAGUE_LIST_CACHE_CATEGORY);
 

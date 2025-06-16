@@ -14,12 +14,12 @@
  *  limitations under the License.
  */
 
-import {APP_URL_BASE} from "../utils/constants";
 import {createJsonConverter} from "../utils/json-utils";
 import {News} from "./news-items";
 
 export const NEWS_CACHE_CATEGORY = "news";
-const NEWS_RESOURCE = "news.json";
+const APP_URL_BASE = import.meta.env.VITE_DATA_URL_BASE;
+const NEWS_RESOURCE = import.meta.env.VITE_DATA_NEWS_INDEX_RESOURCE;
 
 export const newsFetcher = async() =>
     fetch(APP_URL_BASE + NEWS_RESOURCE)

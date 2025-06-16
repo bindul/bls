@@ -22,9 +22,9 @@ import ErrorDisplay from "./components/error-display";
 import {
     LEAGUE_LIST_CACHE_CATEGORY,
     leagueInfoListFetcher
-} from "../data/league/league-api.ts";
+} from "../data/league/league-api";
 import {AvailableLeagues} from "../data/league/league-info";
-import {useCachedFetcher} from "./components/cache/data-loader.tsx";
+import {useCachedFetcher} from "./components/cache/data-loader";
 import LeagueList from "./components/league/league-list";
 import LeagueDisplay from "./components/league/league-display";
 

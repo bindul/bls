@@ -14,27 +14,29 @@
  * limitations under the License.
  */
 
+import * as React from "react";
 import {type FC, useCallback, useEffect, useState} from "react";
+
+import {Container, Nav} from "react-bootstrap";
+
+import ErrorDisplay from "../error-display";
+import {type Breakpoint, BS_BP_XXL, getBreakpoint} from "../ui-utils";
+
 import {LEAGUE_DETAILS_CACHE_CATEGORY, leagueTeamDetailsFetcher} from "../../../data/league/league-api";
-import {useCachedFetcher} from "../cache/data-loader.tsx";
 import type {LeagueDetails} from "../../../data/league/league-details";
 import type {LeagueInfo} from "../../../data/league/league-info";
+import {useCachedFetcher} from "../cache/data-loader";
 import LeagueSummary from "./league-summary";
-import LeagueTeamDetails from "./league-team-details.tsx";
-import ErrorDisplay from "../error-display";
-import * as React from "react";
-import {Container, Nav} from "react-bootstrap";
+import LeagueTeamDetails from "./league-team-details";
 import OtherTeams from "./league-other-teams";
-import {type Breakpoint, BS_BP_XXL, getBreakpoint} from "../ui-utils.tsx";
+
+export type CurrentLeagueDetailsDisplay = "TEAM" | "OTHER_TEAMS";
 
 interface LeagueDisplayProps {
     leagueInfo: LeagueInfo;
     teamId?: string;
     children?: React.ReactNode;
 }
-
-export type CurrentLeagueDetailsDisplay = "TEAM" | "OTHER_TEAMS";
-
 const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisplayProps) => {
     const fetcher = useCallback((dataLoc: string | undefined) => leagueTeamDetailsFetcher(dataLoc), []);
     const {data: leagueDetails, isLoading: leagueDetailsLoading, error: leagueDetailsLoadError } = useCachedFetcher<LeagueDetails>(fetcher.bind(null, leagueInfo.dataLoc), LEAGUE_DETAILS_CACHE_CATEGORY, leagueInfo.id);
@@ -43,6 +45,7 @@ const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisp
     const [currentDisplay, setCurrentDisplay] = useState<CurrentLeagueDetailsDisplay>("TEAM");
     const [showInvalidTeamIdError, setShowInvalidTeamIdError] = useState(false);
     const [currentBreakpoint, setBreakpoint] = useState<Breakpoint>(BS_BP_XXL);
+
     useEffect(() => {
         const handleResize = () => {
             setBreakpoint(getBreakpoint());
@@ -71,7 +74,7 @@ const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisp
                 }
             }
         }
-    }, [leagueDetails]);
+    }, [currentDisplay, leagueDetails, teamId]);
 
     if (leagueDetailsLoadError) {
         // Keeping error display here, so we don't end up with multiple alerts from each child component
@@ -103,7 +106,6 @@ const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisp
             {currentDisplay == "OTHER_TEAMS" && <OtherTeams leagueDetails={leagueDetails} leagueDetailsLoading={leagueDetailsLoading}/>}
         </>
     );
-    
 }
 
 export default LeagueDisplay;

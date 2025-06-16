@@ -14,20 +14,18 @@
  *  limitations under the License.
  */
 
+import type {FC, ReactNode} from "react";
+import {Card, CardBody, CardFooter, CardHeader, Col, Container, Row, Table} from "react-bootstrap";
+
 import type {LeagueDetails} from "../../../data/league/league-details";
 import Loader from "../loader";
-import * as React from "react";
-import Card from "react-bootstrap/Card";
-import {CardBody, CardFooter, CardHeader, Col, Container, Row, Table} from "react-bootstrap";
 
 interface OtherTeamsProps {
     leagueDetails: LeagueDetails | null;
     leagueDetailsLoading: boolean;
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
-
-const OtherTeams: React.FC<OtherTeamsProps> = ({leagueDetails, leagueDetailsLoading, children}) => {
-    // TODO - Add a wrapper container
+const OtherTeams: FC<OtherTeamsProps> = ({leagueDetails, leagueDetailsLoading, children}) => {
     return (
         <>
             <Card border="primary" className="mt-2 mb-2 mx-0 px-0">

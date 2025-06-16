@@ -22,7 +22,6 @@ export interface CachedFetcherReturn<T> {
     isLoading: boolean;
     error: Error | null;
 }
-
 export function useCachedFetcher<T>(fetcher :() => Promise<T>, category: string, key?:string): CachedFetcherReturn<T> {
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setLoading] = useState<boolean>(true);
@@ -30,7 +29,6 @@ export function useCachedFetcher<T>(fetcher :() => Promise<T>, category: string,
     const contextCache = useContextCache();
 
     useEffect(() => {
-
         // Check cache
         if (contextCache != null) {
             const value = contextCache.get<T>(category, key);

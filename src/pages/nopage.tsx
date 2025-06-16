@@ -34,7 +34,7 @@ const NoPage :FC = () => {
                     <CardBody>
                         <div className="text-danger text-center">
                             We seem to have reached a page / link that either never existed or no longer exists.
-                            <br /><br />
+                            <br /><br className="d-none block"/>
                             Shout at the person who sent you this link (perhaps update your bookmarks?) and start over
                             from the <Link to="/">home page</Link> of the site.
                         </div>

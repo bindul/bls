@@ -17,14 +17,15 @@
 import {type FC, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import moment from "moment";
-import {Badge, CardBody, CardHeader, Col, Row, Stack, Table} from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+
+import {Badge, Card, CardBody, CardHeader, Col, Row, Stack, Table} from "react-bootstrap";
 import {
     ArrowsCollapse,
     ArrowsExpand,
     BoxArrowDown,
     BoxArrowUp
 } from "react-bootstrap-icons";
+
 import {isNonEmptyString} from "../../../data/utils/utils";
 import type {LeagueDetails} from "../../../data/league/league-details";
 import {TrackedLeagueTeam} from "../../../data/league/league-team-details";
@@ -49,7 +50,7 @@ interface TeamNameInfoProps {
     name?: string;
     enteringPosition?: string;
 }
-const TeamNameInfo = ({teamNumber, name, enteringPosition}: TeamNameInfoProps) => {
+const TeamNameInfo :FC<TeamNameInfoProps> = ({teamNumber, name, enteringPosition}: TeamNameInfoProps) => {
     return (<>
         <span>#{teamNumber} {name}&nbsp;
             {isNonEmptyString(enteringPosition) && <small> [ {enteringPosition} ]</small>}
@@ -62,7 +63,7 @@ interface GameSummaryAndPointsProps {
     teamScore?: TeamScore;
     currentBreakpoint?: Breakpoint;
 }
-const GameSummaryAndPoints = ({teamNumber, teamScore, currentBreakpoint}: GameSummaryAndPointsProps) => {
+const GameSummaryAndPoints :FC<GameSummaryAndPointsProps> = ({teamNumber, teamScore, currentBreakpoint}: GameSummaryAndPointsProps) => {
     return (<>
     {teamScore && teamScore.games && teamScore.series &&
         <Table bordered size="sm" className={`p-0 lh-1 my-1 text-end ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ? "fs-xs" : ""}`}>
@@ -92,7 +93,7 @@ interface MatchupDisplayProps {
     teamDetails: TrackedLeagueTeam;
     currentBreakpoint?: Breakpoint;
 }
-const MatchupDisplay = ({leagueDetails, matchup, teamDetails, currentBreakpoint}: MatchupDisplayProps) => {
+const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDetails, currentBreakpoint}: MatchupDisplayProps) => {
 
     const[matchupDetailsExpanded, setMatchupDetailsExpanded] = useState<MatchupDetailsExplandedProps[]>([]);
     const[showMatchupDetails, setShowMatchupDetails] = useState<boolean>(true);

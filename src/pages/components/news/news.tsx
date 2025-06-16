@@ -14,16 +14,14 @@
  *  limitations under the License.
  */
 import {type FC, useCallback} from "react";
-
-import Card from "react-bootstrap/Card";
-import {CardBody, CardHeader, CardText, CardTitle, Stack} from "react-bootstrap";
-
 import moment from "moment";
+
+import {Card, CardBody, CardHeader, CardText, CardTitle, Stack} from "react-bootstrap";
+
 import {compareMoments} from "../../../data/utils/utils";
 import {NEWS_CACHE_CATEGORY, newsFetcher} from "../../../data/news/news-api";
 import type {News} from "../../../data/news/news-items";
-import {useCachedFetcher} from "../cache/data-loader.tsx";
-
+import {useCachedFetcher} from "../cache/data-loader";
 import Loader from "../loader";
 import ErrorDisplay from "../error-display";
 
@@ -31,8 +29,7 @@ const NewsHighlights : FC = () => {
     const fetcher = useCallback(newsFetcher, []);
     const { data, isLoading, error } = useCachedFetcher<News>(fetcher, NEWS_CACHE_CATEGORY);
 
-    // TODO Move the number of days to a config
-    const twoWeeksBack = moment().subtract(14, 'd');
+    const twoWeeksBack = moment().subtract(import.meta.env.VITE_NEWS_EXPIRED_AFTER_DAYS, 'd');
 
     return (<>
         <Card border="success" className="mb-3">

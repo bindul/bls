@@ -14,11 +14,10 @@
  *  limitations under the License.
  */
 
-import {createContext, useContext} from "react";
-import * as React from "react";
+import {createContext, type FC, type ReactNode, useContext} from "react";
 
-const DEFAULT_TTL = 1000 * 60 * 15; // 15 minutes
-const DEFAULT_MAX_CACHE_PER_CATEGORY = 2;
+const DEFAULT_TTL = import.meta.env.VITE_CACHE_DEFAULT_TTL;
+const DEFAULT_MAX_CACHE_PER_CATEGORY = import.meta.env.VITE_CACHE_MAX_ENTRY_PER_CATEGORY;
 export const SINGLE_ENTRY_CATEGORY_KEY = "SINGLE_DEFAULT";
 
 export type CacheEntry = {
@@ -88,7 +87,7 @@ export class Cache {
     private removeOldestEntry (categoryCache: Map<string, CacheEntry>) {
         let oldestKey = null;
         let oldestEntryTime: number = Number.MAX_SAFE_INTEGER;
-        for (let [key, value] of categoryCache) {
+        for (const [key, value] of categoryCache) {
             if (oldestKey == null) {
                 oldestKey = key;
                 oldestEntryTime = value.lastFetched;
@@ -106,9 +105,9 @@ export class Cache {
 const ContextCache = createContext<Cache | undefined>(undefined);
 
 interface ContextCacheProviderParams {
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
-export const ContextCacheProvider: React.FC<ContextCacheProviderParams> = ({children} :ContextCacheProviderParams) => {
+export const ContextCacheProvider: FC<ContextCacheProviderParams> = ({children} :ContextCacheProviderParams) => {
     const cache = new Cache();
     return  (
         <ContextCache.Provider value={cache}>

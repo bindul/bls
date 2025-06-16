@@ -25,7 +25,8 @@ import type {Moment} from "moment";
 import moment from "moment";
 
 export function createJsonConverter() {
-    let jsonConvert = new JsonConvert();
+    const jsonConvert = new JsonConvert();
+    // TODO: Have to see if we can move this to config, does not seem easy as it is defined constants
     jsonConvert.operationMode = OperationMode.ENABLE; // OperationMode.LOGGING
     jsonConvert.propertyConvertingMode = PropertyConvertingMode.IGNORE_NULLABLE;
     return jsonConvert;

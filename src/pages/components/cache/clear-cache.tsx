@@ -17,14 +17,14 @@
 import {type ForwardedRef, forwardRef, useImperativeHandle, useState} from "react";
 import {Toast, ToastContainer} from "react-bootstrap";
 import {DatabaseX} from "react-bootstrap-icons";
-import Loader from "../loader.tsx";
-import {useContextCache} from "./context-cache.tsx";
+import Loader from "../loader";
+import {useContextCache} from "./context-cache";
 
 export interface ClearCacheRef {
     clearCache: () => void;
 }
 
-const ClearCache = forwardRef<ClearCacheRef>((_: unknown, ref : ForwardedRef<ClearCacheRef>) => {
+const ClearCache = forwardRef<ClearCacheRef>((_props: unknown, ref : ForwardedRef<ClearCacheRef>) => {
     const [toastVisible, setToastVisible] = useState<boolean>(false);
     const [cacheCleared, setCacheCleared] = useState<boolean>(false);
     const cache = useContextCache();

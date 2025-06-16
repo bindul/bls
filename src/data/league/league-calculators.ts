@@ -24,9 +24,9 @@ import {
     TeamPlayerGameScore, TeamScore
 } from "./league-matchup";
 import {LeagueBowlingDays, LeagueScoringRules} from "./league-setup-config";
-import {isNumeric} from "../utils/utils.ts";
-import {LeaguePlayer, LeaguePlayerStats, TeamStats, type TrackedLeagueTeam} from "./league-team-details.ts";
-import {calculatePlayerStats} from "../player/player-stats-calculator.ts";
+import {isNumeric} from "../utils/utils";
+import {LeaguePlayer, LeaguePlayerStats, TeamStats, type TrackedLeagueTeam} from "./league-team-details";
+import {calculatePlayerStats} from "../player/player-stats-calculator";
 
 
 // ---------------------------------------------------------------------------------------------------------------------

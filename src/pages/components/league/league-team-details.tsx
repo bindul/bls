@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import * as React from "react";
+import type {FC, ReactNode} from "react";
 import {lazy, Suspense, useEffect, useState} from "react";
 import moment from "moment";
 
-import {CardBody, CardHeader, Col, Container, Row} from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import {Card, CardBody, CardHeader, Col, Container, Row} from "react-bootstrap";
 import {
     CaretDownFill, CaretLeft, CaretRight, CaretUpFill
 } from "react-bootstrap-icons";
@@ -42,10 +41,10 @@ export interface TeamPositionScoreData {
     scratchSeries: number;
 }
 function buildTeamPositionScoreData (teamDetails: TrackedLeagueTeam): TeamPositionScoreData[] {
-
     const today = moment();
     const currentRank = isNumeric(teamDetails.currentRank) ? Number.parseInt(teamDetails.currentRank) : 0;
-    const filteredMatchups = teamDetails.matchups.filter(matchup => matchup.bowlDate && matchup.bowlDate.isBefore(today) && matchup.scores && matchup.scores.series);
+    const filteredMatchups = teamDetails.matchups.filter(matchup =>
+        matchup.bowlDate && matchup.bowlDate.isBefore(today) && matchup.scores && matchup.scores.series);
 
     return filteredMatchups.map((matchup, idx) => {
             let nextRank = currentRank;
@@ -64,12 +63,12 @@ function buildTeamPositionScoreData (teamDetails: TrackedLeagueTeam): TeamPositi
 }
 
 type DataColRowStyle = "Default" | "Success";
-interface DataRowProps {
-    defn: React.ReactNode;
-    value: React.ReactNode;
+interface DataColRowProps {
+    defn: ReactNode;
+    value: ReactNode;
     style?: DataColRowStyle;
 }
-function WriteDataColRow ({defn, value, style = "Default"} : DataRowProps) {
+const DataColRow :FC<DataColRowProps> = ({defn, value, style = "Default"} : DataColRowProps)=> {
     const rowBorder = style === "Success" ? "border-success-subtle" : "border-secondary";
     const colDefnBackground = style === "Success" ? "bg-success-subtle" : "bg-secondary";
     return (
@@ -86,8 +85,7 @@ interface LeagueTeamProps {
     teamDetails: TrackedLeagueTeam;
     leagueDetails: LeagueDetails | null;
 }
-function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProps) {
-
+const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetails} : LeagueTeamProps)=> {
     const [teamPositionScoreData, setTeamPositionScoreData] = useState<TeamPositionScoreData[]>([]);
     useEffect(() => {
         setTeamPositionScoreData(buildTeamPositionScoreData(teamDetails));
@@ -145,19 +143,19 @@ function LeagueTeamDetailsSummary ({teamDetails, leagueDetails} : LeagueTeamProp
             <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                 <CardBody className="pt-1 pt-sm-2">
                     <Row className="gx-5 gy-1 mb-1">
-                        <WriteDataColRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
-                        <WriteDataColRow defn="Points" value={`${teamDetails.pointsWonLost[0]} - ${teamDetails.pointsWonLost[1]}`}/>
-                        <WriteDataColRow defn="Starting Average" value={teamDetails.teamStats?.average}/>
-                        <WriteDataColRow defn="Starting Handicap" value={teamDetails.teamStats?.handicap}/>
-                        <WriteDataColRow defn="Low Game" value={teamDetails.teamStats?.lowGame}/>
-                        <WriteDataColRow defn="High Game" value={teamDetails.teamStats?.highGame}/>
-                        <WriteDataColRow defn="Low Series" value={teamDetails.teamStats?.lowSeries}/>
-                        <WriteDataColRow defn="High Series" value={teamDetails.teamStats?.highSeries}/>
-                        <WriteDataColRow defn="Scratch Pins" value={teamDetails.teamStats?.scratchPins}/>
+                        <DataColRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
+                        <DataColRow defn="Points" value={`${teamDetails.pointsWonLost[0]} - ${teamDetails.pointsWonLost[1]}`}/>
+                        <DataColRow defn="Starting Average" value={teamDetails.teamStats?.average}/>
+                        <DataColRow defn="Starting Handicap" value={teamDetails.teamStats?.handicap}/>
+                        <DataColRow defn="Low Game" value={teamDetails.teamStats?.lowGame}/>
+                        <DataColRow defn="High Game" value={teamDetails.teamStats?.highGame}/>
+                        <DataColRow defn="Low Series" value={teamDetails.teamStats?.lowSeries}/>
+                        <DataColRow defn="High Series" value={teamDetails.teamStats?.highSeries}/>
+                        <DataColRow defn="Scratch Pins" value={teamDetails.teamStats?.scratchPins}/>
                     </Row>
                     <Row className="gx-5 gy-1">
-                        <WriteDataColRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()} style="Success"/>
-                        <WriteDataColRow defn="Next Opponent" value={formatNextMatchupOpponent()} style="Success"/>
+                        <DataColRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()} style="Success"/>
+                        <DataColRow defn="Next Opponent" value={formatNextMatchupOpponent()} style="Success"/>
                     </Row>
                 </CardBody>
                 <CardBody className="pb-1 pb-sm-2">
@@ -175,9 +173,9 @@ interface LeagueTeamDetailsProps {
     leagueDetailsLoading: boolean;
     currentBreakpoint: Breakpoint;
     teamId?: string;
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
-const LeagueTeamDetails : React.FC<LeagueTeamDetailsProps> = ({leagueDetails, leagueDetailsLoading, currentBreakpoint, teamId}: LeagueTeamDetailsProps) => {
+const LeagueTeamDetails : FC<LeagueTeamDetailsProps> = ({leagueDetails, leagueDetailsLoading, currentBreakpoint, teamId}: LeagueTeamDetailsProps) => {
     const [teamDetails, setTeamDetails] = useState<TrackedLeagueTeam | null>(null);
 
     useEffect(() => {

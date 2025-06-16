@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import * as React from "react";
-import {useEffect, useState} from "react";
+import {type FC, useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 import {ArrowUpCircle} from "react-bootstrap-icons";
 
-const ScrollToTop: React.FC = () => {
+const ScrollToTop: FC = () => {
 
     const [isVisible, setVisible] = useState(false);
 

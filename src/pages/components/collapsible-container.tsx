@@ -15,11 +15,12 @@
  */
 
 import * as React from "react";
-import {type Breakpoint, BREAKPOINTS, isBreakpointSmallerThan} from "./ui-utils.tsx";
-import {useEffect} from "react";
-import {CardBody, Collapse} from "react-bootstrap";
+import {useEffect, useMemo} from "react";
 import {Link} from "react-router-dom";
+import {CardBody, Collapse} from "react-bootstrap";
 import {ChevronDown, ChevronLeft} from "react-bootstrap-icons";
+
+import {type Breakpoint, BREAKPOINTS, isBreakpointSmallerThan} from "./ui-utils";
 
 export interface CollapsibleContainerProps {
     children: React.ReactNode;
@@ -38,15 +39,19 @@ export function CollapsibleContainer({ children, headerTitle, divId, currentBrea
     }, [currentBreakpoint, hideBelowBreakpoint]);
 
     // Create toggle bar visibility classes: https://getbootstrap.com/docs/5.3/utilities/display/#hiding-elements
-    let tbvc = "";
-    if (hideBelowBreakpoint) {
-        tbvc += "d-block";
-        for (let i = 0; i < BREAKPOINTS.length; i++) {
-            if (hideBelowBreakpoint.order == BREAKPOINTS[i].order && (i + 1) < BREAKPOINTS.length) {
-                tbvc = tbvc + " d-" + BREAKPOINTS[i + 1].name + "-none";
+    const tbvc = useMemo(() => {
+        let tbvc = "";
+        if (hideBelowBreakpoint) {
+            tbvc += "d-block";
+            for (let i = 0; i < BREAKPOINTS.length; i++) {
+                if (hideBelowBreakpoint.order == BREAKPOINTS[i].order && (i + 1) < BREAKPOINTS.length) {
+                    tbvc = tbvc + " d-" + BREAKPOINTS[i + 1].name + "-none";
+                }
             }
         }
-    }
+        return tbvc;
+    }, [hideBelowBreakpoint])
+
 
     return (
         <>

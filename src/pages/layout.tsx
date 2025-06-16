@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {type FC, useRef} from "react";
 import { Outlet, Link } from "react-router-dom";
 import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
-import ScrollToTop from "./components/scroll-to-top.tsx";
-import {type FC, useRef} from "react";
 
 import ImgBowlingLogo from "./../assets/bowling-svgrepo-com.svg";
-import ClearCache, {type ClearCacheRef} from "./components/cache/clear-cache.tsx";
+import ScrollToTop from "./components/scroll-to-top";
+import ClearCache, {type ClearCacheRef} from "./components/cache/clear-cache";
 
 const Layout :FC = () => {
     const clearCacheRef = useRef<ClearCacheRef>(null);

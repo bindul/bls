@@ -16,7 +16,7 @@
 
 import {JsonObject, JsonProperty} from "json2typescript";
 import type {Moment} from "moment";
-import {DateConverter} from "../utils/json-utils.ts";
+import {DateConverter} from "../utils/json-utils";
 
 @JsonObject("GameScore")
 export class GameScore {

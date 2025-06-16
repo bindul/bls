@@ -14,12 +14,10 @@
  *  limitations under the License.
  */
 
-import * as React from "react";
-import {type FC, lazy, Suspense, useEffect, useState} from "react";
+import {type FC, lazy, type ReactNode, Suspense, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
-import {CardBody, CardFooter, CardHeader, Col, Container, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import {Card, CardBody, CardFooter, CardHeader, Col, Container, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
 import {DashSquare, Icon9Square, PersonFillAdd, PersonFillLock, XCircle} from "react-bootstrap-icons";
 
 import Loader from "../loader";
@@ -120,14 +118,14 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                 <Col md={displayColMd} lg={displayColLg}>
                     <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                         <CardBody className="py-1 py-sm-2">
-                            <WriteStatRow defn="Games" value={playerStats.gameStats.count}/>
-                            <WriteStatRow defn="Games - Avg" value={numberFormat.format(playerStats.gameStats.average)}/>
-                            <WriteStatRow defn="Games - Min" value={playerStats.gameStats.min}/>
-                            <WriteStatRow defn="Games - Max" value={playerStats.gameStats.max}/>
-                            <WriteStatRow defn="Games - SD" value={numberFormat.format(playerStats.gameStats.sd)}/>
-                            <WriteStatRow defn="300 Games" value={playerStats.games300}/>
+                            <StatRow defn="Games" value={playerStats.gameStats.count}/>
+                            <StatRow defn="Games - Avg" value={numberFormat.format(playerStats.gameStats.average)}/>
+                            <StatRow defn="Games - Min" value={playerStats.gameStats.min}/>
+                            <StatRow defn="Games - Max" value={playerStats.gameStats.max}/>
+                            <StatRow defn="Games - SD" value={numberFormat.format(playerStats.gameStats.sd)}/>
+                            <StatRow defn="300 Games" value={playerStats.games300}/>
                             {playerStats.gameAverages.map((ga, idx) =>
-                                <WriteStatRow defn={`Games ${idx + 1} Avg`} value={numberFormat.format(ga)}/>
+                                <StatRow defn={`Games ${idx + 1} Avg`} value={numberFormat.format(ga)}/>
                             )}
                         </CardBody>
                     </Card>
@@ -135,23 +133,23 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                 <Col md={displayColMd} lg={displayColLg}>
                     <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                         <CardBody className="py-1 py-sm-2">
-                            <WriteStatRow defn="Series" value={playerStats.seriesStats.count}/>
-                            <WriteStatRow defn="Series - Avg" value={numberFormat.format(playerStats.seriesStats.average)}/>
-                            <WriteStatRow defn="Series - Min" value={playerStats.seriesStats.min}/>
-                            <WriteStatRow defn="Series - Max" value={playerStats.seriesStats.max}/>
-                            <WriteStatRow defn="Series - SD" value={numberFormat.format(playerStats.seriesStats.sd)}/>
-                            <WriteStatRow defn="800 Series" value={playerStats.series800}/>
+                            <StatRow defn="Series" value={playerStats.seriesStats.count}/>
+                            <StatRow defn="Series - Avg" value={numberFormat.format(playerStats.seriesStats.average)}/>
+                            <StatRow defn="Series - Min" value={playerStats.seriesStats.min}/>
+                            <StatRow defn="Series - Max" value={playerStats.seriesStats.max}/>
+                            <StatRow defn="Series - SD" value={numberFormat.format(playerStats.seriesStats.sd)}/>
+                            <StatRow defn="800 Series" value={playerStats.series800}/>
                         </CardBody>
                     </Card>
                 </Col>
                 <Col md={displayColMd} lg={displayColLg}>
                     <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                         <CardBody className="py-1 py-sm-2">
-                            <WriteStatRow defn="Total Pinfall" value={playerStats.pinfall}/>
-                            <WriteStatRow defn="Handicap" value={playerStats.handicap}/>
-                            <WriteStatRow defn="Best Game over Avg" value={writeAccolade(playerStats.bestGameOverAverage)}/>
-                            <WriteStatRow defn="Best Series over Avg" value={writeAccolade(playerStats.bestSeriesOverAverage)}/>
-                            <WriteStatRow defn="Average Booster" value={playerStats.averageBoosterSeries}
+                            <StatRow defn="Total Pinfall" value={playerStats.pinfall}/>
+                            <StatRow defn="Handicap" value={playerStats.handicap}/>
+                            <StatRow defn="Best Game over Avg" value={writeAccolade(playerStats.bestGameOverAverage)}/>
+                            <StatRow defn="Best Series over Avg" value={writeAccolade(playerStats.bestSeriesOverAverage)}/>
+                            <StatRow defn="Average Booster" value={playerStats.averageBoosterSeries}
                                           toolTipText={`Bowl a ${playerStats.averageBoosterSeries} series to increase average by 1 pin.`}/>
                         </CardBody>
                     </Card>
@@ -159,18 +157,18 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                 <Col md={displayColMd} lg={displayColLg}>
                     <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                         <CardBody className="py-1 py-sm-2">
-                            <WriteStatRow defn="First Ball Average" value={numberFormat.format(playerStats.firstBallAverage)}/>
-                            <WriteStatRow defn="Clean Games" value={playerStats.cleanGames}/>
-                            <WriteStatRow defn="Strikes" value={writeRatioGroup(playerStats.strikes)}/>
-                            <WriteStatRow defn="Spares" value={writeRatioGroup(playerStats.spares)}/>
-                            <WriteStatRow defn="Single Pin Spares" value={writeRatioGroup(playerStats.singlePinSpares)}/>
-                            <WriteStatRow defn="Picked up Splits" value={writeRatioGroup(playerStats.splits)}/>
-                            <WriteStatRow defn="Opens" value={writeRatioGroup(playerStats.opens)}/>
-                            <WriteStatRow defn="Consecutive Strikes" value={<>
-                                {playerStats.strikesInARow.map(s => <WriteStatRow defn={s[0]} value={s[1]}/>)}
+                            <StatRow defn="First Ball Average" value={numberFormat.format(playerStats.firstBallAverage)}/>
+                            <StatRow defn="Clean Games" value={playerStats.cleanGames}/>
+                            <StatRow defn="Strikes" value={writeRatioGroup(playerStats.strikes)}/>
+                            <StatRow defn="Spares" value={writeRatioGroup(playerStats.spares)}/>
+                            <StatRow defn="Single Pin Spares" value={writeRatioGroup(playerStats.singlePinSpares)}/>
+                            <StatRow defn="Picked up Splits" value={writeRatioGroup(playerStats.splits)}/>
+                            <StatRow defn="Opens" value={writeRatioGroup(playerStats.opens)}/>
+                            <StatRow defn="Consecutive Strikes" value={<>
+                                {playerStats.strikesInARow.map(s => <StatRow defn={s[0]} value={s[1]}/>)}
                             </>}/>
-                            <WriteStatRow defn="Strike Spare Ratio" value={writeRatioGroup(playerStats.strikesToSpares)}/>
-                            <WriteStatRow defn={<><Icon9Square/><DashSquare/> Picked Up Avg</>}
+                            <StatRow defn="Strike Spare Ratio" value={writeRatioGroup(playerStats.strikesToSpares)}/>
+                            <StatRow defn={<><Icon9Square/><DashSquare/> Picked Up Avg</>}
                                           value={numberFormat.format(playerStats.allSinglePinsPickedUpAverage)}
                                           toolTipText="Potential Average if all single pin spares were picked up."/>
                         </CardBody>
@@ -185,11 +183,11 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
 }
 
 interface StatRowProps {
-    defn: React.ReactNode;
-    value: React.ReactNode;
+    defn: ReactNode;
+    value: ReactNode;
     toolTipText?: string;
 }
-function WriteStatRow ({defn, value, toolTipText} : StatRowProps) {
+const StatRow :FC<StatRowProps> = ({defn, value, toolTipText} : StatRowProps)=> {
     return (
         <Row className="border rounded-1 border-secondary">
             <Col className="text-body-emphasis bg-secondary px-1">
@@ -209,8 +207,8 @@ interface PlayerGamesTableProps {
     playerGameData : PlayerDayData[];
     currentBreakPoint : Breakpoint;
 }
-function PlayerGamesTable ({playerGameData, currentBreakPoint}: PlayerGamesTableProps) {
-    const [transpose, setTranspose] = React.useState(false);
+const PlayerGamesTable :FC<PlayerGamesTableProps> = ({playerGameData, currentBreakPoint}: PlayerGamesTableProps) => {
+    const [transpose, setTranspose] = useState(false);
 
     useEffect(() => {
         let hideBelowBreakpoint: Breakpoint | null = null;
@@ -308,7 +306,7 @@ interface PlayerDetailsProps {
     closePlayerDetails: () => void;
     currentBreakpoint: Breakpoint;
 }
-function ShowPlayerDetails ({playerDetailsDisplay, teamDetails, closePlayerDetails, currentBreakpoint} : PlayerDetailsProps) {
+const PlayerDetails :FC<PlayerDetailsProps> = ({playerDetailsDisplay, teamDetails, closePlayerDetails, currentBreakpoint} : PlayerDetailsProps) => {
 
     const [playerGameData, setPlayerGameData] = useState<PlayerDayData[]>([]);
 
@@ -395,7 +393,7 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
                     <CardFooter><small>Click on player names to see more stats</small></CardFooter>
                 </Card>
                 {playerDetailsDisplay &&
-                    <ShowPlayerDetails playerDetailsDisplay={playerDetailsDisplay} teamDetails={teamDetails}
+                    <PlayerDetails playerDetailsDisplay={playerDetailsDisplay} teamDetails={teamDetails}
                                        closePlayerDetails={closePlayerDetails} currentBreakpoint={currentBreakpoint}/>
                 }
             </CardBody>

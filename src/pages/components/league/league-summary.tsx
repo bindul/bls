@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import * as React from "react";
-import {Badge, CardBody, CardFooter, CardHeader, CardTitle, Col, Container, Row} from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import type {FC, ReactNode} from "react";
+import {Badge, Card, CardBody, CardFooter, CardHeader, CardTitle, Col, Container, Row} from "react-bootstrap";
+import {PlayCircleFill} from "react-bootstrap-icons";
+
 import type {LeagueAccoladeType, LeagueDetails} from "../../../data/league/league-details";
 import Loader from "../loader";
-import {PlayCircleFill} from "react-bootstrap-icons";
 import {type Breakpoint, BS_BP_XS} from "../ui-utils";
 import {VacantOrAbsentOpponentScoring} from "../../../data/league/league-setup-config";
 import {CollapsibleContainer} from "../collapsible-container";
@@ -38,14 +38,13 @@ const durationWeekLabels: CodeMaps[] = [
 
 interface PropValueLineProps {
     prop: string;
-    value: React.ReactNode;
+    value: ReactNode;
 }
-function PropValueLine({ prop, value }: PropValueLineProps) {
-    // return <div><span className="text-primary-emphasis">{prop} : </span><span>{value}</span></div>;
+const PropValueLine :FC<PropValueLineProps> = ({ prop, value }: PropValueLineProps)=> {
     return <Row><Col className="text-primary-emphasis">{prop}</Col><Col>: {value}</Col></Row>
 }
 
-function LeagueSummaryInfo({leagueDetails}: LeagueSummaryDataFunctionProps) {
+const LeagueSummaryInfo :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSummaryDataProps)=> {
     const mapDurationUnits = (code: string | undefined) => {
         return durationWeekLabels.find(dl => dl.code === code)?.label ?? "";
     }
@@ -91,7 +90,7 @@ function LeagueSummaryInfo({leagueDetails}: LeagueSummaryDataFunctionProps) {
         </>);
 }
 
-function LeagueRules({leagueDetails}: LeagueSummaryDataFunctionProps) {
+const LeagueRules :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSummaryDataProps)=> {
     const scoringRules = leagueDetails.scoringRules;
     if (scoringRules == undefined) {
         return <></>;
@@ -156,7 +155,7 @@ function LeagueRules({leagueDetails}: LeagueSummaryDataFunctionProps) {
     </>);
 }
 
-function LeagueHonorRoll({leagueDetails} : LeagueSummaryDataFunctionProps) {
+const LeagueHonorRoll :FC<LeagueSummaryDataProps> = ({leagueDetails} : LeagueSummaryDataProps)=> {
     const findPlayer = (playerId: string) => {
         let playerName: string = "UNKNOWN";
         leagueDetails.teams.forEach((team) => {
@@ -200,15 +199,11 @@ function LeagueHonorRoll({leagueDetails} : LeagueSummaryDataFunctionProps) {
     </>);
 }
 
-interface LeagueSummaryDataFunctionProps {
-    leagueDetails: LeagueDetails;
-}
 interface LeagueSummaryDataProps {
     leagueDetails: LeagueDetails;
-    currentBreakpoint: Breakpoint;
+    currentBreakpoint?: Breakpoint;
 }
-function LeagueSummaryData({leagueDetails, currentBreakpoint}: LeagueSummaryDataProps) {
-
+const LeagueSummaryData :FC<LeagueSummaryDataProps> = ({leagueDetails, currentBreakpoint}: LeagueSummaryDataProps) => {
     return (
     <>
         <Container fluid="true">
@@ -250,10 +245,9 @@ export interface LeagueSummaryParams {
     leagueDetails: LeagueDetails | null;
     leagueDetailsLoading: boolean;
     currentBreakpoint: Breakpoint;
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
-
-const LeagueSummary: React.FC<LeagueSummaryParams> = ({leagueDetails, leagueDetailsLoading, currentBreakpoint, children}) => {
+const LeagueSummary: FC<LeagueSummaryParams> = ({leagueDetails, leagueDetailsLoading, currentBreakpoint, children}) => {
     return (
         <>
             <Card border="primary" className="mb-2 mx-0 px-0">

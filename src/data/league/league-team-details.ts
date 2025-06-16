@@ -15,8 +15,8 @@
  */
 import {JsonObject, JsonProperty} from "json2typescript";
 import {LeagueMatchup} from "./league-matchup";
-import {PlayerStats} from "../player/player-stats.ts";
-import type {LeagueAccolade} from "./league-details.ts";
+import {PlayerStats} from "../player/player-stats";
+import type {LeagueAccolade} from "./league-details";
 
 export class LeaguePlayerStats extends PlayerStats {
     handicap: number = 0;
@@ -108,4 +108,3 @@ export class TrackedLeagueTeam extends LeagueTeam {
     pointsWonLost: [number, number] = [0, 0];
     teamStats?: TeamStats = undefined;
 }
-

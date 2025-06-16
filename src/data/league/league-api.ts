@@ -16,13 +16,14 @@
 
 import {LeagueDetails} from "./league-details";
 import {AvailableLeagues} from "./league-info";
-import {APP_URL_BASE} from "../utils/constants";
 import {createJsonConverter} from "../utils/json-utils";
 import {decorateLeagueDetails} from "./league-calculators";
 
 export const LEAGUE_LIST_CACHE_CATEGORY = "league-list";
 export const LEAGUE_DETAILS_CACHE_CATEGORY = "league-details";
-const LEAGUE_INDEX_RESOURCE = "leagues.json";
+
+const APP_URL_BASE = import.meta.env.VITE_DATA_URL_BASE;
+const LEAGUE_INDEX_RESOURCE = import.meta.env.VITE_DATA_LEAGUES_INDEX_RESOURCE;
 
 export const leagueInfoListFetcher = async() =>
     fetch(APP_URL_BASE + LEAGUE_INDEX_RESOURCE)

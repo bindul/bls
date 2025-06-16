@@ -65,7 +65,7 @@ export class AvailableLeagues {
     findLeague(leagueId: string) {
         for (let i = 0; i < this.seasons.length; i++) {
             if (this.seasons[i].leagues != null) {
-                let league :LeagueInfo | undefined = this.seasons[i].leagues.find((league :LeagueInfo) => league.id === leagueId);
+                const league :LeagueInfo | undefined = this.seasons[i].leagues.find((league :LeagueInfo) => league.id === leagueId);
                 if (league != undefined) {
                     return league;
                 }
