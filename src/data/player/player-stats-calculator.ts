@@ -241,7 +241,7 @@ export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: Pla
     }
 
     gameScoresByGame.forEach((gameXScore) => {
-        stats.gameAverages.push(ss.mean(gameXScore));
+        stats.gameAverages.push((gameXScore.length > 0) ? ss.mean(gameXScore) : 0);
     })
 
     stats.gameStats.count = allGameScores.length;
@@ -269,5 +269,7 @@ export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: Pla
     })
     stats.strikesInARow.sort((a, b) => a[0] - b[0]);
 
-    stats.allSinglePinsPickedUpAverage = ss.mean(frameStatsCalculator.singlePinsPickedUpGameScores);
+    if (frameStatsCalculator.singlePinsPickedUpGameScores.length > 0) {
+        stats.allSinglePinsPickedUpAverage = ss.mean(frameStatsCalculator.singlePinsPickedUpGameScores);
+    }
 }
