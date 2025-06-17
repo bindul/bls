@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "PENDING",
+      "current-rank": "12",
       "roster": [
         {
           "id": "ne1",
@@ -99,6 +99,18 @@
           "name": "Luke",
           "status": "REGULAR",
           "parking-lot-threshold": 120
+        },
+        {
+          "id": "jb1",
+          "name": "Joey",
+          "status": "SUBSTITUTE",
+          "parking-lot-threshold": 100
+        },
+        {
+          "id": "r?1",
+          "name": "Robert",
+          "status": "SUBSTITUTE",
+          "parking-lot-threshold": 100
         }
       ],
       "matchups": [
@@ -635,7 +647,6 @@
           "entering-rank": "11",
           "lanes": [13, 14],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-          "notes": [""],
           "scores": {
             "player-scores": [
               {
@@ -739,13 +750,13 @@
           "scheduled-date": "2025-06-19",
           "bowl-date": "2025-06-19",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": "PENDING",
+          "entering-rank": "12",
           "lanes": [23, 24],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-35",
-            "entering-rank": "PENDING",
-            "hdcp": 147,
+            "entering-rank": "11",
+            "hdcp": 155,
             "vacant": false,
             "absent": false
           }
@@ -755,13 +766,13 @@
           "scheduled-date": "2025-06-26",
           "bowl-date": "2025-06-26",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": "PENDING",
+          "entering-rank": "12",
           "lanes": [1, 2],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-34",
-            "entering-rank": "PENDING",
-            "hdcp": 204,
+            "entering-rank": "10",
+            "hdcp": 206,
             "vacant": false,
             "absent": false
           }
