@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "12",
+      "current-rank": "13",
       "roster": [
         {
           "id": "ne1",
@@ -753,12 +753,100 @@
           "entering-rank": "12",
           "lanes": [23, 24],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+		  "notes": ["Luke had a 600 series", "League weeks's top scores: Luke - #3 Handicap Game, #2 Handicap Series, #3 Game Over Average, #2 Series Over Average"],
+		  "scores": {
+            "player-scores": [
+              {
+                "player": "jb1",
+                "entering-average": 0,
+				"hdcp-setting-day": true,
+                "games": [
+                  {
+                    "frames": [["X"], ["8", "/"], ["9", "-"], ["8", "/"], ["6S", "2"], ["-", "7"], ["7", "/"], ["8", "/"], ["6", "3"], ["9", "-"]]
+                  },
+                  {
+                    "frames": [["X"], ["2", "/"], ["5", "3"], ["3", "6"], ["9", "/"], ["6", "/"], ["8S", "-"], ["7", "2"], ["7", "/"], ["6", "/", "X"]]
+                  },
+                  {
+                    "frames": [["7", "/"], ["7", "/"], ["9", "-"], ["X"], ["7S", "-"], ["5", "3"], ["7", "/"], ["9", "/"], ["9", "/"], ["7", "2"]]
+                  }
+                ]
+              },
+              {
+                "player": "bb1",
+                "entering-average": 157,
+                "games": [
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["7", "/"], ["6", "2"], ["7S", "2"], ["9", "/"], ["9", "/"], ["8S", "1"], ["9", "/"], ["7S", "1"], ["X"], ["9", "-"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["1", "/"], ["8S", "1"], ["6S", "-"], ["8", "-"], ["8", "/"], ["9", "-"], ["8S", "1"], ["8S", "-"], ["8", "1"], ["6", "-"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["X"], ["X"], ["8S", "-"], ["6S", "2"], ["8S", "1"], ["6", "/"], ["8S", "1"], ["6", "-"], ["8", "1"], ["X", "8", "1"]]
+                  }
+                ]
+              },
+              {
+                "player": "je1",
+                "entering-average": 153,
+                "games": [
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["X"], ["8", "-"], ["7", "/"], ["9", "-"], ["7", "1"], ["8", "1"], ["9", "-"], ["7", "2"], ["X"], ["X", "9", "/"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["7", "1"], ["7", "/"], ["X"], ["9", "/"], ["X"], ["7", "/"], ["8", "-"], ["8S", "1"], ["X"], ["8", "1"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["7", "2"], ["-", "7"], ["9", "-"], ["7", "2"], ["X"], ["8", "/"], ["7", "-"], ["5", "2"], ["9", "-"], ["9", "/", "X"]]
+                  }
+                ]
+              },
+              {
+                "player": "lw1",
+                "entering-average": 165,
+                "games": [
+                  {
+                    "arsenal": ["lw1-hupp"],
+                    "frames": [["X"], ["X"], ["X"], ["6", "/"], ["7", "/"], ["9", "/"], ["9", "-"], ["9", "/"], ["X"], ["X", "X", "9"]]
+                  },
+                  {
+                    "arsenal": ["lw1-hupp"],
+                    "frames": [["X"], ["X"], ["X"], ["X"], ["9", "/"], ["8", "-"], ["8", "/"], ["9", "-"], ["X"], ["X", "9", "-"]]
+                  },
+                  {
+                    "arsenal": ["lw1-hupp"],
+                    "frames": [["9", "-"], ["X"], ["8", "-"], ["X"], ["X"], ["9", "-"], ["X"], ["9", "/"], ["X"], ["X", "7", "/"]]
+                  }
+                ]
+              }
+            ]
+          },
           "opponent": {
             "team-id": "2425-summer-beer-35",
             "entering-rank": "11",
             "hdcp": 155,
             "vacant": false,
             "absent": false
+			"scores": {
+              "games": [
+                {
+                  "scratch-score": 660
+                },
+                {
+                  "scratch-score": 663
+                },
+                {
+                  "scratch-score": 676
+                }
+              ]
+            }
           }
         },
         {
@@ -766,13 +854,29 @@
           "scheduled-date": "2025-06-26",
           "bowl-date": "2025-06-26",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": "12",
+          "entering-rank": "13",
           "lanes": [1, 2],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-34",
-            "entering-rank": "10",
-            "hdcp": 206,
+            "entering-rank": "5",
+            "hdcp": 202,
+            "vacant": false,
+            "absent": false
+          }
+        },
+        {
+          "week": 9,
+          "scheduled-date": "2025-07-03",
+          "bowl-date": "2025-07-03",
+          "matchup-type": "REGULAR-DIVISION",
+          "entering-rank": "13",
+          "lanes": [31, 32],
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "opponent": {
+            "team-id": "2425-summer-beer-22",
+            "entering-rank": "9",
+            "hdcp": 158,
             "vacant": false,
             "absent": false
           }
@@ -836,6 +940,13 @@
       "division": "2",
       "name": "turt lefags",
       "players": ["Pete F", "JR L", "Mitch S", "Steven K", "Junior K"]
+    },
+    {
+      "id": "2425-summer-beer-22",
+      "number": 22,
+      "division": "2",
+      "name": "Scratch This",
+      "players": ["Patrick C", "Casey F", "John E", "Scott G"]
     }
   ]
 }
