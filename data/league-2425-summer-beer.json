@@ -107,7 +107,7 @@
           "parking-lot-threshold": 100
         },
         {
-          "id": "r?1",
+          "id": "rw1",
           "name": "Robert",
           "status": "SUBSTITUTE",
           "parking-lot-threshold": 100
@@ -856,13 +856,87 @@
           "matchup-type": "REGULAR-DIVISION",
           "entering-rank": "13",
           "lanes": [1, 2],
-          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "oil-pattern": "HOUSE-SHOT-FRESH",
+          "scores": {
+            "player-scores": [
+              {
+                "player": "ne1",
+                "entering-average": 185,
+                "games": [
+                  {
+                    "arsenal": ["ne1-humo"],
+                    "frames": [["X"], ["X"], ["X"], ["5", "/"], ["6", "3"], ["8S", "/"], ["7", "-"], ["6", "3"], ["9", "/"], ["X", "7", "2"]]
+                  },
+                  {
+                    "arsenal": ["ne1-humo"],
+                    "frames": [["9", "/"], ["X"], ["9", "/"], ["X"], ["X"], ["9", "/"], ["7", "/"], ["8", "/"], ["X"], ["X", "X", "X"]]
+                  },
+                  {
+                    "arsenal": ["ne1-humo"],
+                    "frames": [["9", "-"], ["8S", "-"], ["X"], ["7", "/"], ["7S", "2"], ["X"], ["8", "-"], ["8", "-"], ["X"], ["6", "/", "X"]]
+                  }
+                ]
+              },
+              {
+                "player": "bb1",
+                "entering-average": 151,
+                "games": [
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["X"], ["X"], ["6", "3"], ["8S", "1"], ["X"], ["8S", "1"], ["X"], ["7S", "-"], ["9", "/"], ["9", "/", "X"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["X"], ["8S", "-"], ["7", "/"], ["8", "/"], ["9", "/"], ["9", "/"], ["X"], ["X"], ["8", "-"], ["9", "/", "8"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["6", "/"], ["9", "/"], ["X"], ["X"], ["9", "/"], ["X"], ["7", "/"], ["7", "/"], ["8S", "-"], ["8", "/", "4"]]
+                  }
+                ]
+              },
+              {
+                "player": "je1",
+                "entering-average": 150,
+                "games": [
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["X"], ["8", "1"], ["7S", "1"], ["9", "-"], ["X"], ["4", "/"], ["X"], ["X"], ["X"], ["9", "-"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["X"], ["9", "/"], ["7", "/"], ["X"], ["7", "1"], ["7", "1"], ["6", "2"], ["8", "/"], ["X"], ["5", "3"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["8", "1"], ["7", "/"], ["6", "1"], ["8S", "1"], ["6", "3"], ["1", "8"], ["X"], ["3", "4"], ["7", "2"], ["7", "1"]]
+                  }
+                ]
+              },
+              {
+                "player": "rw1",
+                "entering-average": 0,
+                "hdcp-setting-day": true,
+                "games": [
+                  {
+                    "frames": [["X"], ["8S", "1"], ["X"], ["X"], ["9", "/"], ["8", "/"], ["X"], ["X"], ["X"], ["8", "1"]]
+                  },
+                  {
+                    "frames": [["X"], ["9", "/"], ["X"], ["9", "-"], ["X"], ["X"], ["8", "/"], ["X"], ["X"], ["8", "/", "9"]]
+                  },
+                  {
+                    "frames": [["8", "/"], ["9", "/"], ["X"], ["9", "/"], ["X"], ["9", "/"], ["X"], ["9", "/"], ["X"], ["8", "1"]]
+                  }
+                ]
+              }
+            ]
+          },
           "opponent": {
             "team-id": "2425-summer-beer-34",
             "entering-rank": "5",
             "hdcp": 202,
             "vacant": false,
-            "absent": false
+            "absent": true
           }
         },
         {
@@ -875,8 +949,24 @@
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-22",
-            "entering-rank": "9",
-            "hdcp": 158,
+            "entering-rank": "12",
+            "hdcp": 154,
+            "vacant": false,
+            "absent": false
+          }
+        },
+        {
+          "week": 10,
+          "scheduled-date": "2025-07-10",
+          "bowl-date": "2025-07-10",
+          "matchup-type": "REGULAR-DIVISION",
+          "entering-rank": "13",
+          "lanes": [19, 20],
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "opponent": {
+            "team-id": "2425-summer-beer-28",
+            "entering-rank": "4",
+            "hdcp": 140,
             "vacant": false,
             "absent": false
           }
@@ -947,6 +1037,13 @@
       "division": "2",
       "name": "Scratch This",
       "players": ["Patrick C", "Casey F", "John E", "Scott G"]
+    },
+    {
+      "id": "2425-summer-beer-28",
+      "number": 28,
+      "division": "2",
+      "name": "Great Balls of Freedom",
+      "players": ["Kyle R", "Matt K", "Nathan B", "Sean R"]
     }
   ]
 }
