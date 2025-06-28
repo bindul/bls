@@ -18,7 +18,7 @@ import {type FC, type ReactNode, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 import {Card, CardBody, CardFooter, CardHeader, Col, Container, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
-import {DashSquare, Icon9Square, PersonFillAdd, PersonFillLock, XCircle} from "react-bootstrap-icons";
+import {DashSquare, Icon9Square, PersonAdd, PersonFillLock, XCircle} from "react-bootstrap-icons";
 
 import Loader from "../loader";
 import {type Breakpoint, BS_BP_SM, BS_BP_XS} from "../ui-utils";
@@ -373,7 +373,7 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
                             {teamDetails.roster.map(p => (
                                 <tr key={p.id}>
                                     <td>
-                                        {p.status === "REGULAR" ? <PersonFillLock/> : <PersonFillAdd/>}
+                                        {p.status === "REGULAR" ? <PersonFillLock/> : <PersonAdd/>}
                                         <Link to="#" onClick={() => { setPlayerDetailsDisplay(p.id); }}>{p.name}</Link>
                                     </td>
                                     <td>{p.playerStats?.gameStats.count}</td>

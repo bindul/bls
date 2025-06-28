@@ -23,16 +23,17 @@ import {
     ArrowsCollapse,
     ArrowsExpand,
     BoxArrowDown,
-    BoxArrowUp
+    BoxArrowUp, PersonX
 } from "react-bootstrap-icons";
 
 import {isNonEmptyString} from "../../../data/utils/utils";
 import type {LeagueDetails} from "../../../data/league/league-details";
-import {TrackedLeagueTeam} from "../../../data/league/league-team-details";
+import {OtherLeagueTeam, TrackedLeagueTeam} from "../../../data/league/league-team-details";
 import {type Breakpoint, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils";
 import Loader from "../loader";
 import {type LeagueMatchup, type MatchupType, SeriesScore, TeamScore} from "../../../data/league/league-matchup";
 import MatchupDetailsDisplay from "./league-team-matchup-details";
+import type {LeagueBowlingDurationUnit} from "../../../data/league/league-setup-config";
 
 const MatchupTypeConversion  = new Map<MatchupType, string>([
     ["REGULAR-DIVISION", "Division"],
@@ -61,29 +62,60 @@ const TeamNameInfo :FC<TeamNameInfoProps> = ({teamNumber, name, enteringPosition
 interface GameSummaryAndPointsProps {
     teamNumber?: number;
     teamScore?: TeamScore;
+    isBlindOrAbsent?: boolean;
+    matchupGames?: number;
     currentBreakpoint?: Breakpoint;
 }
-const GameSummaryAndPoints :FC<GameSummaryAndPointsProps> = ({teamNumber, teamScore, currentBreakpoint}: GameSummaryAndPointsProps) => {
+const GameSummaryAndPoints :FC<GameSummaryAndPointsProps> = ({teamNumber, teamScore, isBlindOrAbsent, matchupGames = 3, currentBreakpoint}: GameSummaryAndPointsProps) => {
+    const[showBlindAbsent, setShowBlindAbsent] = useState<boolean>(false);
     const keyPrefix = Math.random().toString();
+    const gameLoopArray :number[] = new Array<number>(matchupGames).fill(0);
+
+    useEffect(() => {
+        if (isBlindOrAbsent) {
+            setShowBlindAbsent(true);
+        }
+    }, [isBlindOrAbsent]);
+
     return (<>
-    {teamScore?.games &&
         <Table bordered size="sm" className={`p-0 lh-1 my-1 text-end ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ? "fs-xs" : ""}`}>
             <tbody>
                 <tr>
-                    {teamNumber && teamNumber > 0 && <td rowSpan={2} className="align-middle text-center fw-semibold">#{teamNumber}</td>}
-                    {teamScore.games.map((g, i) =>
-                        <td className="p-1" key={"scratch-" + keyPrefix + "-" + i.toString()}>{g.effectiveScratchScore}</td>
-                    )}
-                    <td className="p-1">{teamScore.series.effectiveScratchScore}</td>
+                    {teamNumber && teamNumber > 0 &&
+                        <td rowSpan={2} className="align-middle text-center fw-semibold">
+                            #{teamNumber}
+                            {showBlindAbsent && <PersonX/>}
+                        </td>
+                    }
+                    {!showBlindAbsent && <>
+                        {teamScore?.games.map((g, i) =>
+                            <td className="p-1" key={"scratch-" + keyPrefix + "-" + i.toString()}>{g.effectiveScratchScore}</td>
+                        )}
+                        <td className="p-1">{teamScore?.series.effectiveScratchScore}</td>
+                    </>}
+                    {showBlindAbsent && <>
+                        {gameLoopArray.map((_g, i) =>
+                            <td className="p-1 text-decoration-line-through" key={"scratch-" + keyPrefix + "-" + i.toString()}>0</td>)
+                        }
+                        <td className="p-1 text-decoration-line-through">0</td>
+                    </>}
                 </tr>
                 <tr>
-                    {teamScore.games.map((g, i) =>
-                        <td className={`p-1 ${g.pointsWon > 0 ? "bg-success-subtle" : ""}`} key={"hdcp-" + keyPrefix + "-" + i.toString()}>{g.hdcpScore}</td>
-                    )}
-                    <td className={`p-1 ${teamScore.series.pointsWon > 0 ? "bg-success-subtle" : ""}`}>{teamScore.series.hdcpScore}</td>
+                    {!showBlindAbsent && <>
+                        {teamScore?.games.map((g, i) =>
+                            <td className={`p-1 ${g.pointsWon > 0 ? "bg-success-subtle" : ""}`} key={"hdcp-" + keyPrefix + "-" + i.toString()}>{g.hdcpScore}</td>
+                        )}
+                        <td className={`p-1 ${(teamScore?.series.pointsWon ?? 0) > 0 ? "bg-success-subtle" : ""}`}>{teamScore?.series.hdcpScore}</td>
+                    </>}
+                    {showBlindAbsent && <>
+                        {gameLoopArray.map((_g, i) =>
+                            <td className="p-1 text-decoration-line-through" key={"hdcp-" + keyPrefix + "-" + i.toString()}>0</td>
+                        )}
+                        <td className="p-1 text-decoration-line-through">0</td>
+                    </>}
                 </tr>
             </tbody>
-        </Table>}
+        </Table>
     </>);
 }
 
@@ -102,6 +134,11 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
 
     const[matchupDetailsExpanded, setMatchupDetailsExpanded] = useState<MatchupDetailsExplandedProps[]>([]);
     const[showMatchupDetails, setShowMatchupDetails] = useState<boolean>(true);
+    const[isOpponentVacantOrAbsent, setOpponentVacantOrAbsent] = useState<boolean>(false);
+    const[opponentTeamId, setOpponentTeamId] = useState<string | undefined>(undefined);
+    const[opponent, setOpponent] = useState<OtherLeagueTeam | undefined>(undefined);
+    const[weekPrefix, setWeekPrefix] = useState<LeagueBowlingDurationUnit>("WK");
+    const[gamesPerMatchup, setGamesPerMatchup] = useState<number>(3);
 
     useEffect(() => {
         const today = moment();
@@ -109,7 +146,24 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
             // We don't have data for this matchup
             setShowMatchupDetails(false);
         }
-    }, [matchup]);
+
+        if (matchup.opponent) {
+            if (matchup.opponent.absent || matchup.opponent.vacant) {
+                setOpponentVacantOrAbsent(true);
+            }
+
+            setOpponentTeamId(matchup.opponent.teamId);
+            if (leagueDetails) {
+                setOpponent(leagueDetails.otherTeams.find(ot => ot.id === opponentTeamId));
+            }
+        }
+
+        if(leagueDetails?.bowlingDays) {
+            setWeekPrefix(leagueDetails.bowlingDays.durationUnit);
+            setGamesPerMatchup(leagueDetails.bowlingDays.gamesPerWeek);
+        }
+
+    }, [matchup, leagueDetails, opponentTeamId]);
 
     const isVisible = (week: number) => {
         const cd = matchupDetailsExpanded.find(mde => mde.week === week);
@@ -136,7 +190,7 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
         }
     }
 
-    const calculateTeamHdcp = (seriesScore? : SeriesScore, preCalcHdcp?: number)=> {
+    const calculateTeamHdcp = (seriesScore?: SeriesScore, preCalcHdcp?: number)=> {
         let hdcp = "UNKNOWN";
         if (seriesScore?.hdcp && seriesScore.games) {
             hdcp = String(seriesScore.hdcp / seriesScore.games);
@@ -147,9 +201,6 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
     }
 
     const twoDigitNumberFormat = Intl.NumberFormat("en-US", {style: "decimal", minimumIntegerDigits: 2});
-    const opponentTeamId = matchup.opponent?.teamId;
-    const opponent = leagueDetails?.otherTeams.find(ot => ot.id === opponentTeamId);
-    const weekPrefix = leagueDetails?.bowlingDays?.durationUnit ?? "WK";
 
     return (<>
         <Col>
@@ -198,11 +249,20 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
                         <div className="ms-auto">
                             <Stack direction="vertical" className="mx-auto">
                                 <div className="text-end align-middle">
-                                    <TeamNameInfo division={opponent?.division} teamNumber={opponent?.number} name={opponent?.name} enteringPosition={matchup.opponent?.enteringRank}/>
-                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.opponent?.scores?.series, matchup.opponent?.teamHdcp)}</span>
+                                    <TeamNameInfo division={opponent?.division} teamNumber={opponent?.number} name={opponent?.name} enteringPosition={matchup.opponent?.enteringRank}/><br/>
+                                    {isOpponentVacantOrAbsent && <><PersonX/>&nbsp;</>}
+                                    <span className="fs-sm">
+                                        hdcp:
+                                        <span className={isOpponentVacantOrAbsent ? "text-decoration-line-through" : ""}>
+                                            {calculateTeamHdcp(matchup.opponent?.scores?.series, matchup.opponent?.teamHdcp)}
+                                        </span>
+                                    </span>
                                 </div>
                                 <div className="d-none d-sm-block">
-                                    {showMatchupDetails && <GameSummaryAndPoints teamScore={matchup.opponent?.scores} currentBreakpoint={currentBreakpoint}/>}
+                                    {showMatchupDetails && <GameSummaryAndPoints teamScore={matchup.opponent?.scores}
+                                                                                 matchupGames={gamesPerMatchup}
+                                                                                 isBlindOrAbsent={isOpponentVacantOrAbsent}
+                                                                                 currentBreakpoint={currentBreakpoint}/>}
                                 </div>
                             </Stack>
                         </div>
@@ -212,7 +272,9 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
                             {showMatchupDetails && <GameSummaryAndPoints teamNumber={teamDetails.number} teamScore={matchup.scores} currentBreakpoint={currentBreakpoint}/>}
                         </div>
                         <div>
-                            {showMatchupDetails && <GameSummaryAndPoints teamNumber={opponent?.number} teamScore={matchup.opponent?.scores} currentBreakpoint={currentBreakpoint}/>}
+                            {showMatchupDetails && <GameSummaryAndPoints teamNumber={opponent?.number} teamScore={matchup.opponent?.scores}
+                                                                         matchupGames={gamesPerMatchup} isBlindOrAbsent={isOpponentVacantOrAbsent}
+                                                                         currentBreakpoint={currentBreakpoint}/>}
                         </div>
                         {/* Expand / Collapse for small screens */}
                         {showMatchupDetails && <div className="border border-primary-subtle bg-secondary my-1">

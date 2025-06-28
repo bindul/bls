@@ -23,7 +23,7 @@ import {
     MatchupGameScore, SeriesScore,
     TeamPlayerGameScore, TeamScore
 } from "./league-matchup";
-import {LeagueBowlingDays, LeagueScoringRules} from "./league-setup-config";
+import {LeagueBowlingDays, LeagueScoringRules, VacantOrAbsentOpponentScoring} from "./league-setup-config";
 import {isNumeric} from "../utils/utils";
 import {LeaguePlayer, LeaguePlayerStats, TeamStats, type TrackedLeagueTeam} from "./league-team-details";
 import {calculatePlayerStats} from "../player/player-stats-calculator";
@@ -35,7 +35,6 @@ import {calculatePlayerStats} from "../player/player-stats-calculator";
 
 interface HandicapCalculator {
     calculateAverge(games: GameScore[], carryOverPins?: number, carryOverGames?: number): number;
-
     calculateHandicap(average: number): number;
 }
 
@@ -73,6 +72,7 @@ class PercentAverageToTargetHandicapCapculator extends ZeroHandicapCalculator im
 
 interface PointsCalculator {
     assignPoints(teamScoreA: TeamScore, teamScoreB: TeamScore): void;
+    assignVacantOrAbsentOpponentPoints(teamScoreA: TeamScore, playerScores: LeagueTeamPlayerScore[], isVacantTeam: boolean, isAbsentTeam: boolean): void;
 }
 
 class PpgPpsPointsCalculator implements PointsCalculator {
@@ -80,12 +80,61 @@ class PpgPpsPointsCalculator implements PointsCalculator {
     pointsOnSeriesWin: number;
     pointsOnGameTie: number;
     pointsOnSeriesTie: number;
+    vacantOpponentScoring?: VacantOrAbsentOpponentScoring;
+    absentOpponentScoring?: VacantOrAbsentOpponentScoring;
+    zeroHandicapCalculator: HandicapCalculator = new ZeroHandicapCalculator();
 
-    constructor(pointsOnGameWin: number, pointsOnGameTie: number, pointsOnSeriesWin: number, pointsOnSeriesTie: number) {
+    constructor(pointsOnGameWin: number, pointsOnGameTie: number, pointsOnSeriesWin: number, pointsOnSeriesTie: number,
+                vacantOpponentScoring?: VacantOrAbsentOpponentScoring, absentOpponentScoring?: VacantOrAbsentOpponentScoring) {
         this.pointsOnGameWin = pointsOnGameWin;
         this.pointsOnGameTie = pointsOnGameTie;
         this.pointsOnSeriesWin = pointsOnSeriesWin;
         this.pointsOnSeriesTie = pointsOnSeriesTie;
+        this.vacantOpponentScoring = vacantOpponentScoring;
+        this.absentOpponentScoring = absentOpponentScoring;
+    }
+
+    assignVacantOrAbsentOpponentPoints(teamScoreA: TeamScore, playerScores: LeagueTeamPlayerScore[],
+                                       isVacantTeam: boolean, isAbsentTeam: boolean): void {
+        if (isAbsentTeam) {
+            this.assignVacantOrAbsentOpporentPoints(teamScoreA, playerScores, this.absentOpponentScoring);
+        } else if (isVacantTeam) {
+            this.assignVacantOrAbsentOpporentPoints(teamScoreA, playerScores, this.absentOpponentScoring);
+        }
+    }
+
+    private assignVacantOrAbsentOpporentPoints(teamScoreA: TeamScore, playerScores: LeagueTeamPlayerScore[], scoringRules?: VacantOrAbsentOpponentScoring) {
+        if (scoringRules?.allowed) {
+            if (scoringRules.scoringType === "FORFEIT") {
+                // Team gets all the points
+                teamScoreA.games.forEach(ga => ga.pointsWon = this.pointsOnGameWin);
+                teamScoreA.series.pointsWon = this.pointsOnSeriesWin;
+            } else if (scoringRules.scoringType === "POINTS_WITHIN_AVG" && scoringRules.pointsWithinAverageConfig) {
+                let targetScore = 0;
+                playerScores.forEach((ps) => {
+                    targetScore += ps.enteringHdcp;
+                    if (ps.hdcpSettingDay) {
+                        // TODO Refactor this to remove handicap calculator dependency when this gets moved to the backend
+                        targetScore += this.zeroHandicapCalculator.calculateAverge(ps.games);
+                    } else {
+                        targetScore += ps.enteringAverage;
+                    }
+                })
+                targetScore -= scoringRules.pointsWithinAverageConfig.pointsWithinTeamAverage;
+                teamScoreA.games.forEach(ga => {
+                    if (ga.hdcpScore >= targetScore) {
+                        ga.pointsWon = this.pointsOnGameWin;
+                    }
+                });
+                if (teamScoreA.series.hdcpScore >= (targetScore * teamScoreA.games.length)) {
+                    teamScoreA.series.pointsWon = this.pointsOnSeriesWin;
+                }
+            } else {
+                console.error("Unable to assign points for team against absent or vacant ooponent due to invalid or missing config: ", scoringRules);
+                throw new Error("Unable to assign points for team against absent or vacant ooponent due to invalid or missing config.");
+            }
+        }
+        // If scoring is not allowed team will get 0 points
     }
 
     assignPoints(teamScoreA: TeamScore, teamScoreB: TeamScore) {
@@ -135,11 +184,12 @@ function selectPointsCalculator(leagueScoringRules: LeagueScoringRules | undefin
     if (type) {
         if (type === "PPG_PPS" && leagueScoringRules.pointScoring?.ppgPpsMatchupPointScoringConfig) {
             const config = leagueScoringRules.pointScoring.ppgPpsMatchupPointScoringConfig;
-            return new PpgPpsPointsCalculator(config.pointsPerGame, config.pointsPerGameOnTie, config.pointsPerSeries, config.pointsPerSeriesOnTie);
+            return new PpgPpsPointsCalculator(config.pointsPerGame, config.pointsPerGameOnTie, config.pointsPerSeries, config.pointsPerSeriesOnTie,
+                leagueScoringRules.pointScoring.vacantOpponentScoring, leagueScoringRules.pointScoring.absentOpponentScoring);
         }
     }
     console.debug("Missing or incorrect League Points Calculator, returning O points assignment", leagueScoringRules?.pointScoring);
-    return new PpgPpsPointsCalculator(0, 0, 0, 0);
+    return new PpgPpsPointsCalculator(0, 0, 0, 0, undefined, undefined);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -418,7 +468,7 @@ export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: Leag
         const opponent = matchup.opponent;
         if (opponent.absent || opponent.vacant) {
             // TODO Implement absent or vacant scoring
-            throw Error("Absent or Vacant Scoring not yet impmented!")
+            pointsCalculator.assignVacantOrAbsentOpponentPoints(matchup.scores, matchup.scores.playerScores, opponent.vacant, opponent.absent);
         } else if (opponent.scores) {
             pointsCalculator.assignPoints(matchup.scores, opponent.scores);
         }
