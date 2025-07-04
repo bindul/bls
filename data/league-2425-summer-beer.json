@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "13",
+      "current-rank": "PENDING",
       "roster": [
         {
           "id": "ne1",
@@ -947,12 +947,99 @@
           "entering-rank": "13",
           "lanes": [31, 32],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "notes": ["Luke has a new personal high score of 278", "Luke's strike in frame 2 of game 2 was 9 pins, and he may have gotten a spare, but the pin moved enough to fool the machine"],
+          "scores": {
+            "player-scores": [
+              {
+                "player": "ne1",
+                "entering-average": 184,
+                "games": [
+                  {
+                    "frames": [["6", "-"], ["X"], ["9", "/"], ["X"], ["X"], ["7", "/"], ["X"], ["7", "/"], ["X"], ["8S", "-"]]
+                  },
+                  {
+                    "frames": [["7", "/"], ["9", "/"], ["9", "/"], ["9", "-"], ["X"], ["7", "2"], ["9", "/"], ["X"], ["7", "-"], ["X", "9", "/"]]
+                  },
+                  {
+                    "frames": [["X"], ["9", "-"], ["X"], ["X"], ["3", "6"], ["X"], ["X"], ["9", "/"], ["9", "-"], ["-", "/", "8"]]
+                  }
+                ]
+              },
+              {
+                "player": "bb1",
+                "entering-average": 154,
+                "games": [
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["7", "/"], ["5", "/"], ["7", "2"], ["9", "-"], ["8S", "/"], ["5", "4"], ["9", "/"], ["X"], ["X"], ["X", "X", "X"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["6", "2"], ["8S", "1"], ["9", "/"], ["9", "/"], ["8", "/"], ["7", "2"], ["X"], ["8", "/"], ["X"], ["9", "/", "X"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["7", "1"], ["3", "6"], ["X"], ["9", "/"], ["6", "-"], ["9", "/"], ["6", "2"], ["X"], ["5", "/"], ["8S", "/", "9"]]
+                  }
+                ]
+              },
+              {
+                "player": "je1",
+                "entering-average": 149,
+                "games": [
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["8", "/"], ["9", "/"], ["8", "/"], ["3", "/"], ["X"], ["8S", "1"], ["8S", "1"], ["X"], ["8S", "1"], ["X", "3", "5"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["6S", "2"], ["9", "/"], ["X"], ["7", "1"], ["9", "/"], ["7", "2"], ["9", "/"], ["7", "1"], ["X"], ["8", "/", "6"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["9", "/"], ["8", "-"], ["9", "-"], ["6", "/"], ["X"], ["X"], ["9", "/"], ["X"], ["8", "1"], ["8", "-"]]
+                  }
+                ]
+              },
+              {
+                "player": "lw1",
+                "entering-average": 170,
+                "games": [
+                  {
+				    "arsenal": ["lw1-hupp"],
+                    "frames": [["6", "/"], ["X"], ["X"], ["X"], ["X"], ["X"], ["X"], ["X"], ["X"], ["X", "9", "-"]]
+                  },
+                  {
+                    "arsenal": ["lw1-hupp"],
+                    "frames": [["X"], ["X"], ["X"], ["X"], ["X"], ["9", "/"], ["X"], ["7", "2"], ["X"], ["7", "2"]]
+                  },
+                  {
+                    "arsenal": ["lw1-hupp"],
+                    "frames": [["X"], ["X"], ["X"], ["X"], ["8", "/"], ["7", "/"], ["9", "/"], ["X"], ["8", "1"], ["7", "-"]]
+                  }
+                ]
+              }
+            ]
+          },
           "opponent": {
             "team-id": "2425-summer-beer-22",
             "entering-rank": "12",
             "hdcp": 154,
             "vacant": false,
-            "absent": false
+            "absent": false,
+			"scores": {
+              "games": [
+                {
+                  "scratch-score": 629
+                },
+                {
+                  "scratch-score": 643
+                },
+                {
+                  "scratch-score": 695
+                }
+              ]
+            }
           }
         },
         {
@@ -960,12 +1047,12 @@
           "scheduled-date": "2025-07-10",
           "bowl-date": "2025-07-10",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": "13",
+          "entering-rank": "PENDING",
           "lanes": [19, 20],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-28",
-            "entering-rank": "4",
+            "entering-rank": "PENDING",
             "hdcp": 140,
             "vacant": false,
             "absent": false
