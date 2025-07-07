@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "PENDING",
+      "current-rank": "9",
       "roster": [
         {
           "id": "ne1",
@@ -1047,13 +1047,29 @@
           "scheduled-date": "2025-07-10",
           "bowl-date": "2025-07-10",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": "PENDING",
+          "entering-rank": "9",
           "lanes": [19, 20],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-28",
-            "entering-rank": "PENDING",
-            "hdcp": 140,
+            "entering-rank": "8",
+            "hdcp": 139,
+            "vacant": false,
+            "absent": false
+          }
+        },
+        {
+          "week": 11,
+          "scheduled-date": "2025-07-17",
+          "bowl-date": "2025-07-17",
+          "matchup-type": "REGULAR-DIVISION",
+          "entering-rank": "9",
+          "lanes": [37, 38],
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "opponent": {
+            "team-id": "2425-summer-beer-39",
+            "entering-rank": "16",
+            "hdcp": 217,
             "vacant": false,
             "absent": false
           }
@@ -1131,6 +1147,13 @@
       "division": "2",
       "name": "Great Balls of Freedom",
       "players": ["Kyle R", "Matt K", "Nathan B", "Sean R"]
+    },
+    {
+      "id": "2425-summer-beer-39",
+      "number": 39,
+      "division": "2",
+      "name": "Gutter Butter",
+      "players": ["Jack G", "Casey S", "Gavin F", "Drew H"]
     }
   ]
 }
