@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "9",
+      "current-rank": "12",
       "roster": [
         {
           "id": "ne1",
@@ -1050,12 +1050,92 @@
           "entering-rank": "9",
           "lanes": [19, 20],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+		  "scores": {
+            "player-scores": [
+              {
+                "player": "ne1",
+                "entering-average": 182,
+                "games": [
+                  {
+                    "frames": [["6", "2"], ["7", "/"], ["X"], ["8S", "1"], ["9", "/"], ["9", "/"], ["X"], ["5", "/"], ["X"], ["9", "/", "X"]]
+                  },
+                  {
+                    "frames": [["8", "/"], ["8S", "1"], ["X"], ["5S", "2"], ["X"], ["X"], ["X"], ["7", "/"], ["X"], ["9", "-"]]
+                  },
+                  {
+                    "frames": [["8", "/"], ["X"], ["6", "/"], ["7", "1"], ["7", "/"], ["X"], ["9", "/"], ["8S", "1"], ["X"], ["8S", "-"]]
+                  }
+                ]
+              },
+              {
+                "player": "bb1",
+                "entering-average": 154,
+                "games": [
+                  {
+                    "blind": true
+                  },
+                  {
+                    "blind": true
+                  },
+                  {
+                    "blind": true
+                  }
+                ]
+              },
+              {
+                "player": "je1",
+                "entering-average": 149,
+                "games": [
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["8S", "-"], ["7", "2"], ["7", "2"], ["X"], ["8", "-"], ["X"], ["X"], ["9", "/"], ["9", "/"], ["X", "X", "8"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["8", "1"], ["6", "1"], ["8", "-"], ["X"], ["3", "4"], ["-", "/"], ["X"], ["X"], ["6", "2"], ["1", "/", "X"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["7", "2"], ["8S", "1"], ["9", "/"], ["7", "/"], ["X"], ["6", "3"], ["X"], ["X"], ["8", "1"], ["X", "6", "1"]]
+                  }
+                ]
+              },
+              {
+                "player": "lw1",
+                "entering-average": 178,
+                "games": [
+                  {
+                    "frames": [["9", "-"], ["X"], ["X"], ["X"], ["X"], ["8", "1"], ["6", "1"], ["X"], ["8", "1"], ["9", "/", "X"]]
+                  },
+                  {
+                    "frames": [["7", "/"], ["X"], ["9", "/"], ["9", "-"], ["X"], ["9", "/"], ["7", "2"], ["X"], ["X"], ["9", "-"]]
+                  },
+                  {
+                    "frames": [["X"], ["9", "/"], ["X"], ["X"], ["9", "/"], ["X"], ["X"], ["X"], ["8S", "-"], ["8", "/", "6"]]
+                  }
+                ]
+              }
+            ]
+          },
           "opponent": {
             "team-id": "2425-summer-beer-28",
             "entering-rank": "8",
             "hdcp": 139,
             "vacant": false,
-            "absent": false
+            "absent": false,
+			"scores": {
+              "games": [
+                {
+                  "scratch-score": 711
+                },
+                {
+                  "scratch-score": 713
+                },
+                {
+                  "scratch-score": 701
+                }
+              ]
+            }
           }
         },
         {
@@ -1063,13 +1143,29 @@
           "scheduled-date": "2025-07-17",
           "bowl-date": "2025-07-17",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": "9",
+          "entering-rank": "12",
           "lanes": [37, 38],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-39",
-            "entering-rank": "16",
-            "hdcp": 217,
+            "entering-rank": "14",
+            "hdcp": 218,
+            "vacant": false,
+            "absent": false
+          }
+        },
+        {
+          "week": 12,
+          "scheduled-date": "2025-07-24",
+          "bowl-date": "2025-07-24",
+          "matchup-type": "REGULAR-DIVISION",
+          "entering-rank": "12",
+          "lanes": [5, 6],
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "opponent": {
+            "team-id": "2425-summer-beer-25",
+            "entering-rank": "3",
+            "hdcp": 96,
             "vacant": false,
             "absent": false
           }
@@ -1154,6 +1250,13 @@
       "division": "2",
       "name": "Gutter Butter",
       "players": ["Jack G", "Casey S", "Gavin F", "Drew H"]
+    },
+    {
+      "id": "2425-summer-beer-25",
+      "number": 25,
+      "division": "2",
+      "name": "What",
+      "players": ["Nick S", "Charlie G", "Robert W", "John D"]
     }
   ]
 }
