@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "10",
+      "current-rank": "13",
       "roster": [
         {
           "id": "ne1",
@@ -1248,17 +1248,101 @@
         {
           "week": 12,
           "scheduled-date": "2025-07-24",
-          "bowl-date": "2025-07-24",
+          "bowl-date": "2025-07-26",
           "matchup-type": "REGULAR-DIVISION",
           "entering-rank": "10",
           "lanes": [5, 6],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+		  "notes": ["Post-bowled on 26 Jul on lanes 21-22, scheduled to bowl on 24 Jul on 5-6"],
+		  "scores": {
+            "player-scores": [
+              {
+                "player": "ne1",
+                "entering-average": 180,
+                "games": [
+                  {
+                    "frames": [["X"], ["8", "/"], ["X"], ["8S", "1"], ["7", "2"], ["7", "1"], ["8", "/"], ["X"], ["X"], ["X", "8S", "/"]]
+                  },
+                  {
+                    "frames": [["X"], ["9", "/"], ["3", "6"], ["X"], ["8S", "-"], ["9", "/"], ["6S", "2"], ["X"], ["X"], ["X", "X", "X"]]
+                  },
+                  {
+                    "frames": [["X"], ["X"], ["9", "-"], ["9", "-"], ["8", "/"], ["X"], ["X"], ["6", "3"], ["X"], ["9", "/", "X"]]
+                  }
+                ]
+              },
+              {
+                "player": "bb1",
+                "entering-average": 152,
+                "games": [
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["9", "/"], ["X"], ["7", "2"], ["7", "-"], ["X"], ["8", "/"], ["X"], ["9", "-"], ["7", "/"], ["3", "6"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["7", "/"], ["-", "7"], ["8", "/"], ["7", "/"], ["9", "/"], ["7S", "1"], ["9", "/"], ["7", "/"], ["X"], ["7", "/", "X"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["9", "-"], ["9", "-"], ["7", "/"], ["7", "2"], ["5", "/"], ["7", "/"], ["9", "/"], ["7", "2"], ["X"], ["4", "4"]]
+                  }
+                ]
+              },
+              {
+                "player": "je1",
+                "entering-average": 150,
+                "games": [
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["6", "-"], ["7", "2"], ["9", "/"], ["X"], ["9", "-"], ["7", "/"], ["X"], ["X"], ["7", "/"], ["6", "-"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["6", "3"], ["9", "-"], ["6", "/"], ["9", "-"], ["3", "6"], ["X"], ["X"], ["9", "-"], ["8", "-"], ["7", "/", "1"]]
+                  },
+                  {
+                    "arsenal": ["je1-mfve"],
+                    "frames": [["3", "5"], ["X"], ["X"], ["X"], ["8", "/"], ["9", "-"], ["7", "1"], ["9", "/"], ["7", "2"], ["9", "/", "-"]]
+                  }
+                ]
+              },
+              {
+                "player": "lw1",
+                "entering-average": 178,
+                "games": [
+                  {
+                    "frames": [["X"], ["X"], ["8", "/"], ["X"], ["9", "-"], ["7S", "1"], ["X"], ["X"], ["X"], ["9", "/", "8"]]
+                  },
+                  {
+                    "frames": [["X"], ["X"], ["9", "/"], ["X"], ["X"], ["X"], ["7", "/"], ["X"], ["8", "-"], ["8", "-"]]
+                  },
+                  {
+                    "frames": [["9", "/"], ["9", "/"], ["7", "/"], ["8", "/"], ["8S", "1"], ["6", "2"], ["7", "2"], ["X"], ["7S", "-"], ["9", "-"]]
+                  }
+                ]
+              }
+            ]
+          },
           "opponent": {
             "team-id": "2425-summer-beer-25",
             "entering-rank": "2",
             "hdcp": 95,
             "vacant": false,
-            "absent": false
+            "absent": false,
+			"scores": {
+              "games": [
+                {
+                  "scratch-score": 776
+                },
+                {
+                  "scratch-score": 716
+                },
+                {
+                  "scratch-score": 699
+                }
+              ]
+            }
           }
         },
         {
@@ -1266,13 +1350,29 @@
           "scheduled-date": "2025-07-31",
           "bowl-date": "2025-07-31",
           "matchup-type": "REGULAR-DIVISION",
-          "entering-rank": "10",
+          "entering-rank": "13",
           "lanes": [29, 30],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
           "opponent": {
             "team-id": "2425-summer-beer-23",
-            "entering-rank": "19",
-            "hdcp": 322,
+            "entering-rank": "20",
+            "hdcp": 323,
+            "vacant": false,
+            "absent": false
+          }
+        },
+        {
+          "week": 14,
+          "scheduled-date": "2025-08-07",
+          "bowl-date": "2025-08-07",
+          "matchup-type": "REGULAR-DIVISION",
+          "entering-rank": "13",
+          "lanes": [37, 38],
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "opponent": {
+            "team-id": "2425-summer-beer-37",
+            "entering-rank": "14",
+            "hdcp": 312,
             "vacant": false,
             "absent": false
           }
@@ -1285,7 +1385,7 @@
       "id": "2425-summer-beer-37",
       "number": 37,
       "division": "2",
-      "name": "Team 37",
+      "name": "Irritable Bowl Syndrome",
       "players": ["Ethan M", "Eric M", "Hillary H", "Tim H"]
     },
     {
