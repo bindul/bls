@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "15",
+      "current-rank": "PENDING",
       "roster": [
         {
           "id": "ne1",
@@ -109,6 +109,12 @@
         {
           "id": "rw1",
           "name": "Robert",
+          "status": "SUBSTITUTE",
+          "parking-lot-threshold": 100
+        },
+        {
+          "id": "zw1",
+          "name": "Zach",
           "status": "SUBSTITUTE",
           "parking-lot-threshold": 100
         },
@@ -1453,12 +1459,97 @@
           "entering-rank": "15",
           "lanes": [13, 14],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+		  "notes": ["Luke on IR with shoulder injury, Josh on IR after thinking he is 30 years old"],
+		  "scores": {
+            "player-scores": [
+              {
+                "player": "ne1",
+                "entering-average": 180,
+                "games": [
+                  {
+                    "frames": [["X"], ["9", "/"], ["9", "/"], ["9", "/"], ["X"], ["8S", "1"], ["8", "/"], ["9", "/"], ["X"], ["9", "/", "X"]]
+                  },
+                  {
+                    "frames": [["X"], ["X"], ["9", "/"], ["8", "/"], ["9", "/"], ["8", "/"], ["7S", "2"], ["8", "/"], ["X"], ["8", "/", "8"]]
+                  },
+                  {
+                    "frames": [["8", "/"], ["X"], ["8", "1"], ["X"], ["7", "2"], ["X"], ["X"], ["X"], ["X"], ["X", "X", "X"]]
+                  }
+                ]
+              },
+              {
+                "player": "bb1",
+                "entering-average": 150,
+                "games": [
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["8", "-"], ["6", "1"], ["X"], ["8", "1"], ["7", "-"], ["3", "6"], ["5", "1"], ["9", "/"], ["8S", "1"], ["-", "9"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["X"], ["5", "/"], ["8", "-"], ["7", "/"], ["8", "/"], ["X"], ["9", "/"], ["9", "/"], ["8", "/"], ["X", "-", "7"]]
+                  },
+                  {
+                    "arsenal": ["bb1-bw30"],
+                    "frames": [["9", "/"], ["6S", "/"], ["8", "1"], ["8", "-"], ["X"], ["X"], ["9", "/"], ["X"], ["9", "/"], ["9", "-"]]
+                  }
+                ]
+              },
+              {
+                "player": "zw1",
+                "entering-average": 0,
+				"hdcp-setting-day": true,
+                "games": [
+                  {
+                    "arsenal": ["zw1-hrbl"],
+                    "frames": [["6", "/"], ["8", "-"], ["9", "-"], ["7", "2"], ["3", "/"], ["6", "1"], ["X"], ["9", "/"], ["7", "1"], ["7", "/", "8"]]
+                  },
+                  {
+                    "arsenal": ["zw1-hrbl"],
+                    "frames": [["X"], ["X"], ["X"], ["9", "-"], ["7", "2"], ["3", "/"], ["X"], ["3", "5"], ["8S", "1"], ["X", "8", "/"]]
+                  },
+                  {
+                    "arsenal": ["zw1-hrbl"],
+                    "frames": [["X"], ["8S", "1"], ["X"], ["9", "/"], ["8S", "1"], ["9", "-"], ["7", "/"], ["7", "/"], ["7S", "2"], ["3", "/", "X"]]
+                  }
+                ]
+              },
+              {
+                "player": "jb1",
+                "entering-average": 126,
+                "games": [
+                  {
+                    "frames": [["X"], ["6S", "1"], ["9", "-"], ["8S", "-"], ["8S", "1"], ["6S", "2"], ["X"], ["-", "3"], ["8", "/"], ["8S", "-"]]
+                  },
+                  {
+                    "frames": [["X"], ["X"], ["9", "/"], ["8", "/"], ["8S", "1"], ["9", "-"], ["5", "-"], ["X"], ["9", "/"], ["8", "/", "X"]]
+                  },
+                  {
+                    "frames": [["8", "/"], ["9", "-"], ["8", "1"], ["7S", "2"], ["9", "-"], ["-", "/"], ["X"], ["6", "-"], ["9", "-"], ["9", "-"]]
+                  }
+                ]
+              }
+            ]
+          },
           "opponent": {
             "team-id": "2425-summer-beer-32",
             "entering-rank": "6",
             "hdcp": 105,
             "vacant": false,
-            "absent": false
+            "absent": false,
+			"scores": {
+              "games": [
+                {
+                  "scratch-score": 634
+                },
+                {
+                  "scratch-score": 706
+                },
+                {
+                  "scratch-score": 763
+                }
+              ]
+            }
           }
         }
       ]
