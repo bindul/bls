@@ -16,8 +16,8 @@
 
 import type {Moment} from "moment";
 
-export function isNumeric(value: string): boolean {
-    return !isNaN(parseFloat(value)) && isFinite(Number(value));
+export function isNumeric(value: string | undefined): boolean {
+    return (value != undefined) && !isNaN(parseFloat(value)) && isFinite(Number(value));
 }
 
 export function compareMoments (a?: Moment, b?: Moment): number {

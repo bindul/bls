@@ -86,27 +86,30 @@ interface LeagueTeamProps {
 }
 const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetails} : LeagueTeamProps)=> {
     const [teamPositionScoreData, setTeamPositionScoreData] = useState<TeamPositionScoreData[]>([]);
+    const [lastMatchup, setLastMatchup] = useState<LeagueMatchup | null>(null);
+    const [nextMatchup, setNextMatchup] = useState<LeagueMatchup | null>(null);
+
     useEffect(() => {
         setTeamPositionScoreData(buildTeamPositionScoreData(teamDetails));
-    }, [teamDetails]);
 
-    let lastMatchup: LeagueMatchup;
-    let nextMatchup: LeagueMatchup;
-    for (let i = 0; i < teamDetails.matchups.length; i++) {
-        const matchup = teamDetails.matchups[i];
-        if (!matchup.scores?.playerScores || matchup.scores.playerScores.length === 0) {
-            nextMatchup = matchup;
-            if (i > 0) {
-                lastMatchup = teamDetails.matchups[i - 1];
+        for (let i = 0; i < teamDetails.matchups.length; i++) {
+            const matchup = teamDetails.matchups[i];
+            if (!matchup.scores?.playerScores || matchup.scores.playerScores.length === 0) {
+                // We have hit the first matchup without scores
+                setNextMatchup(matchup);
+                if (i > 0) {
+                    setLastMatchup(teamDetails.matchups[i - 1]);
+                }
+                break;
             }
-            break;
         }
-    }
+
+    }, [teamDetails]);
 
     const rankComparison = () => {
         let retVal = <></>
-        if (isNumeric(teamDetails.currentRank) && isNumeric(lastMatchup.enteringRank)) {
-            const lastMatchupRank = parseInt(lastMatchup.enteringRank);
+        if (isNumeric(teamDetails.currentRank) && isNumeric(lastMatchup?.enteringRank)) {
+            const lastMatchupRank = parseInt(lastMatchup?.enteringRank ?? "");
             const currentRank = parseInt(teamDetails.currentRank);
             if (lastMatchupRank > currentRank) {
                 retVal = <span className="text-success"><CaretUpFill/></span>
@@ -120,15 +123,16 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
     }
 
     const formatNextMatchupLanes = () => {
-        return String(nextMatchup.lanes[0]) + " - " + String(nextMatchup.lanes[1]);
+        return String(nextMatchup?.lanes[0] ?? "") + " - " + String(nextMatchup?.lanes[1] ?? "");
     }
     const formatNextMatchupOpponent = () => {
-        if (nextMatchup.opponent?.teamId) {
-            const otherTeam = leagueDetails?.otherTeams.find(ot => ot.id === nextMatchup.opponent?.teamId);
+        const nextOpponent = nextMatchup?.opponent;
+        if (nextOpponent != undefined) {
+            const otherTeam = leagueDetails?.otherTeams.find(ot => ot.id === nextOpponent.teamId);
             if (otherTeam) {
                 let retVal = "#" + otherTeam.number.toString() + " " + String(otherTeam.name);
-                if (nextMatchup.opponent.enteringRank.length > 0) {
-                    retVal = retVal + " [" + nextMatchup.opponent.enteringRank + "]";
+                if (nextOpponent.enteringRank.length > 0) {
+                    retVal = retVal + " [" + nextOpponent.enteringRank + "]";
                 }
                 return retVal;
             }
@@ -150,10 +154,12 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
                         <DataColRow defn="High Series" value={teamDetails.teamStats?.highSeries}/>
                         <DataColRow defn="Scratch Pins" value={teamDetails.teamStats?.scratchPins}/>
                     </Row>
-                    <Row className="gx-5 gy-1">
-                        <DataColRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()} style="Success"/>
-                        <DataColRow defn="Next Opponent" value={formatNextMatchupOpponent()} style="Success"/>
-                    </Row>
+                    {nextMatchup &&
+                        <Row className="gx-5 gy-1">
+                            <DataColRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()} style="Success"/>
+                            <DataColRow defn="Next Opponent" value={formatNextMatchupOpponent()} style="Success"/>
+                        </Row>
+                    }
                 </CardBody>
                 <CardBody className="pb-1 pb-sm-2">
                     <TeamStatGraph teamPosScores={teamPositionScoreData}/>
