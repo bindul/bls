@@ -74,7 +74,7 @@
       "name": "Pins Go Boom!",
       "number": 38,
       "division": "2",
-      "current-rank": "PENDING",
+      "current-rank": "16",
       "roster": [
         {
           "id": "ne1",
@@ -1459,7 +1459,7 @@
           "entering-rank": "15",
           "lanes": [13, 14],
           "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-		  "notes": ["Luke on IR with shoulder injury, Josh on IR after thinking he is 30 years old"],
+		  "notes": ["Luke on IR with shoulder injury", "Josh on IR after thinking he is 30 years old"],
 		  "scores": {
             "player-scores": [
               {
@@ -1550,6 +1550,22 @@
                 }
               ]
             }
+          }
+        },
+        {
+          "week": 15,
+          "scheduled-date": "2025-08-14",
+          "bowl-date": "2025-08-14",
+          "matchup-type": "POSITION-INTRA-DIVISION",
+          "entering-rank": "16",
+          "lanes": [13, 14],
+          "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+          "opponent": {
+            "team-id": "2425-summer-beer-22",
+            "entering-rank": "15",
+            "hdcp": 171,
+            "vacant": false,
+            "absent": false
           }
         }
       ]
