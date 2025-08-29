@@ -6,7 +6,7 @@
         {
           "id": "2425-summer-beer",
           "name": "Summer Thursday Beer League",
-          "ongoing": true,
+          "ongoing": false,
           "data-loc": "league-2425-summer-beer.json",
           "teams": [
             {
