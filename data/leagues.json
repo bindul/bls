@@ -1,5 +1,22 @@
 {
   "seasons-leagues": [
+      {
+      "season": "2025 - 26",
+      "leagues": [
+        {
+          "id": "2526-fall-beer",
+          "name": "Fall Thursday Beer League",
+          "ongoing": true,
+          "data-loc": "league-2526-fall-beer.json",
+          "teams": [
+            {
+              "id": "2526-fall-beer-23",
+              "name": "Pins Go Boom!"
+            }
+          ]
+        }
+      ]
+    },
     {
       "season": "2024 - 25",
       "leagues": [
