@@ -20,16 +20,16 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        importers: [ new NodePackageImporter() ],
-        // includePaths: ['./node_modules/'],
-        // See https://github.com/twbs/bootstrap/issues/40962
-        silenceDeprecations: [
-          'import',
-          'mixed-decls',
-          'color-functions',
-          'global-builtin',
-        ],
-        api: "modern",
+          // includePaths: ['./node_modules/'],
+          // See https://github.com/twbs/bootstrap/issues/40962
+          importers: [new NodePackageImporter()],
+          loadPaths: ['./node_modules/'],
+          silenceDeprecations: [
+              'import',
+              'mixed-decls',
+              'color-functions',
+              'global-builtin',
+          ],
       },
     },
   },
