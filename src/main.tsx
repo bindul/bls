@@ -29,6 +29,7 @@ import Layout from "./pages/layout";
 import Home from "./pages/home";
 import League from "./pages/league";
 import NoPage from "./pages/nopage";
+import ScoreUtils from "./pages/score-utils";
 
 export default function App() {
     return (
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="/" element={<Layout/>}>
                 <Route index element={<Home/>}/>
                 <Route path="/league/:leagueId?/:teamId?" element={<League/>}/>
+                <Route path="/score-utils" element={<ScoreUtils/>}/>
                 <Route path="*" element={<NoPage/>}/>
             </Route>
         </Routes>

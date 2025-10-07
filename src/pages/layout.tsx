@@ -56,6 +56,7 @@ const Layout :FC = () => {
                                                           onClick={() => clearCacheRef.current?.clearCache()}>
                                             Clear Cache
                                         </NavDropdown.Item>
+                                        <NavDropdown.Item eventKey="score-converter" as={Link} to="/score-utils">Score Utilities</NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav>
                             </Navbar.Collapse>
