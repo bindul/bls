@@ -48,7 +48,7 @@ export class MatchupGameScore extends GameScore {
 }
 
 // TODO Refactor part or most of this or create interface
-export type ScoreLabel = "X" | "/" | "S" | "F" | "-";
+export type ScoreLabel = "X" | "/" | "S" | "F" | "-" | "A";
 export type FrameAttributes = "Hung" | "Star" | "Turkey" | "Perfect-Game" | "Clean-Game" | "Gutter-Spare" | "Split-Picked-Up" | "Parking-Lot";
 export class Frame {
     number = 0;
@@ -63,6 +63,9 @@ export class TeamPlayerGameScore extends GameScore {
 
     @JsonProperty("blind", Boolean)
     blind = false;
+
+    @JsonProperty("vacant", Boolean)
+    vacant = false;
 
     @JsonProperty("arsenal", [String])
     arsenal: string[] = [];

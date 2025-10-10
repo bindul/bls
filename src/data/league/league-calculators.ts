@@ -386,25 +386,31 @@ function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculato
     let seriesScratch = 0;
     let seriesEffectiveScratch = 0;
     let hdcpSeries = 0;
+    let seriesHdcp = 0;
     playerScore.games.forEach(game => {
         game.hdcp = hdcp;
         if (game.blind) {
             // We don't have scratch score
             // TODO Deal with Handicap Penalty after missed games
             game.effectiveScratchScore = playerScore.enteringAverage - (scoringRules.blindPenalty?.defaultPenalty ?? 0);
+        } else if (game.vacant && scoringRules.vacancyScore?.allowed) {
+            // Vacant position update handicap and score
+            game.hdcp = scoringRules.vacancyScore.handicap ?? 0;
+            game.effectiveScratchScore = scoringRules.vacancyScore.scratchScore ?? 0;
         } else {
             game.effectiveScratchScore = game.scratchScore;
         }
-        game.hdcpScore = game.effectiveScratchScore + hdcp;
+        game.hdcpScore = game.effectiveScratchScore + game.hdcp;
         seriesScratch += game.scratchScore;
         seriesEffectiveScratch += game.effectiveScratchScore;
-        hdcpSeries += game.hdcpScore
+        hdcpSeries += game.hdcpScore;
+        seriesHdcp += game.hdcp;
     })
 
     // Update Series
     playerScore.series.scratchScore = seriesScratch;
     playerScore.series.effectiveScratchScore = seriesEffectiveScratch;
-    playerScore.series.hdcp = hdcp * playerScore.games.length;
+    playerScore.series.hdcp = seriesHdcp;
     playerScore.series.hdcpScore = hdcpSeries;
     playerScore.series.average = seriesScratch / playerScore.games.length;
     playerScore.series.games = playerScore.games.length;
@@ -617,7 +623,7 @@ function gatherLeagueStatsAndLeaders(league: LeagueDetails) {
                             indScratchGame.when = bowlDate;
                             indScratchGame.howMuch = game.scratchScore;
                         }
-                        if (!hdcpSettingDay && !game.blind && (game.scratchScore - enteringAverage) > indGameOverAverage.howMuch) {
+                        if (!hdcpSettingDay && !game.blind && !game.vacant && (game.scratchScore - enteringAverage) > indGameOverAverage.howMuch) {
                             indGameOverAverage.who = player;
                             indGameOverAverage.when = bowlDate;
                             indGameOverAverage.howMuch = game.scratchScore - enteringAverage;

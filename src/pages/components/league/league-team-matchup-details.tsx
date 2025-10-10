@@ -33,7 +33,13 @@ import {
 import * as icons from 'react-bootstrap-icons';
 
 import type {LeagueDetails} from "../../../data/league/league-details";
-import {Frame, type FrameAttributes, type LeagueMatchup, type ScoreLabel} from "../../../data/league/league-matchup";
+import {
+    Frame,
+    type FrameAttributes,
+    type LeagueMatchup,
+    type ScoreLabel,
+    TeamPlayerGameScore
+} from "../../../data/league/league-matchup";
 import {TrackedLeagueTeam} from "../../../data/league/league-team-details";
 import {type Breakpoint, BS_BP_SM, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils";
 import {CollapsibleContainer} from "../collapsible-container";
@@ -82,6 +88,7 @@ const FrameScoreLabels  = new Map<string, FrameScoreLabelInfo>([
     ["9S", {label: "9S", altText: "9 Split", iconName: "Icon9Circle"}],
     ["-", {label: "-", altText: "Gutter", iconName: "Dash"}],
     ["F", {label: "F", altText: "Fault", iconName: "ExclamationTriangle"}],
+    ["A", {label: "A", altText: "Absent", iconName: "DashCircleDotted"}]
 ])
 
 const findPlayer = (teamDetails: TrackedLeagueTeam, playerId: string | undefined) => {
@@ -117,7 +124,18 @@ const FrameAttributeIconLegend :FC = () => {
             </span>)}
     </>);
 }
-
+const EmptyFrames: Frame[] = [
+    { number: 1, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 2, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 3, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 4, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 5, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 6, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 7, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 8, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 9, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+    { number: 10, ballScores: [[0, "A"]], cumulativeScore: 0, attributes: []},
+];
 interface TeamIndSeriesGameFramesProps extends MatchupDetailsDisplayProps {
     gameIdx: number;
 }
@@ -195,6 +213,24 @@ const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, t
                                 </Stack>
                             </div>
                         ))}
+                        {frames[pi].length == 0 && EmptyFrames.map(frame => (
+                            <div className="border rounded-1 border-dark-subtle border-opacity-10 h-100"
+                                 style={{width: frameDivW(frame), maxWidth: "45px"}}
+                                 key={keyPrefix + "pn-nss-" + pi.toString() + "-f-" + frame.number.toString()}>
+                                <Stack direction="vertical">
+                                    <Stack direction="horizontal" className="fs-xs justify-content-evenly">
+                                        {writeScoreLabelRow(frame)}
+                                    </Stack>
+                                    <div className="text-center border fs-sm p-0 bg-secondary">{frame.cumulativeScore}</div>
+                                    <div className="fs-xxs text-center">
+                                        {frame.attributes.map((a, i) =>
+                                            <FrameAttributeIcon attribute={a} key={keyPrefix + "pn-nss-" + pi.toString() + "-f-" + frame.number.toString() + "-att-" + i.toString()}/>
+                                        )}
+                                        {(!hasAttributes[pi] && frame.attributes.length == 0) && <>&nbsp;</>}
+                                    </div>
+                                </Stack>
+                            </div>
+                        ))}
                     </Stack>
                 </Col>
             </Row>
@@ -205,6 +241,16 @@ const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, t
 
 const TeamIndSeriesGameScoresSummary :FC<MatchupDetailsDisplayProps> = ({matchup, teamDetails, currentBreakpoint}: MatchupDetailsDisplayProps) => {
     const keyPrefix = Math.random().toString();
+    const blindOrVacant = (g :TeamPlayerGameScore) => {
+        if (g.blind || g.vacant) {
+            return <>
+                <Badge bg="dark" className="float-start">
+                    {g.blind ? "B" : "V"}
+                </Badge>
+            </>
+        }
+        return <></>;
+    }
     return (<>
         <Table size="sm" bordered striped responsive={true} className={`p-0 lh-1 my-1 text-end ${isBreakpointSmallerThan(currentBreakpoint, BS_BP_XS) ? "fs-xs" : ""}`}>
             <thead>
@@ -225,7 +271,7 @@ const TeamIndSeriesGameScoresSummary :FC<MatchupDetailsDisplayProps> = ({matchup
                     <td className="text-body-tertiary text-end">{ps.enteringAverage}</td>
                     {ps.games.map((g, i) =>
                         <td className="text-end" key={"scratch-" + String(ps.player) + "-" + keyPrefix + "-" + i.toString()}>
-                            {g.blind ? <Badge bg="dark" className="float-start">B</Badge> : ""}{g.effectiveScratchScore}
+                            {blindOrVacant(g)}{g.effectiveScratchScore}
                         </td>
                     )}
                     <td className="text-body-emphasis text-end">{ps.series.effectiveScratchScore}</td>
@@ -264,7 +310,7 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
 
     useEffect(() => {
         matchup.scores?.playerScores.forEach(ps => { ps.games.forEach(psg => {
-            if (!psg.blind && psg.frames.length == 0) {
+            if (!psg.blind && !psg.vacant && psg.frames.length == 0) {
                 setHasFrameData(false); // We are missing frame data for this matchup
             }
         });

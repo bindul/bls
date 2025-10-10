@@ -175,6 +175,19 @@ export class LeagueBlindPenalty {
     missedMatchupsThreshold = 0;
 }
 
+@JsonObject("LeagueVacancyScore")
+export class LeagueVacancyScore {
+
+    @JsonProperty("vacancy-allowed", Boolean)
+    allowed = false;
+
+    @JsonProperty("scratch-score", Number)
+    scratchScore = 0;
+
+    @JsonProperty("hdcp", Number)
+    handicap = 0;
+}
+
 @JsonObject("LeagueScoringRules")
 export class LeagueScoringRules {
 
@@ -195,6 +208,9 @@ export class LeagueScoringRules {
 
     @JsonProperty("blind-penalty", LeagueBlindPenalty)
     blindPenalty: LeagueBlindPenalty | undefined = undefined;
+
+    @JsonProperty("vacancy-score", LeagueVacancyScore)
+    vacancyScore: LeagueVacancyScore | undefined = undefined;
 
     @JsonProperty("point-scoring", LeaguePointScoring)
     pointScoring: LeaguePointScoring | undefined = undefined;

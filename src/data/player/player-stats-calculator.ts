@@ -207,7 +207,7 @@ export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: Pla
         let hasBlind = false;
         for (let i = 0; i < gamesCount; i++) {
             const gameScore = serie[i];
-            if (!gameScore.blind) {
+            if (!gameScore.blind && !gameScore.vacant) {
                 gameScoresByGame[i].push(gameScore.scratchScore);
                 allGameScores.push(gameScore.scratchScore);
                 seriesAccum += gameScore.scratchScore;

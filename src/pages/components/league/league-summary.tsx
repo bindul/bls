@@ -133,6 +133,13 @@ const LeagueRules :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSummaryD
                 <span className="text-info-emphasis">{scoringRules.blindPenalty.missedMatchupsThreshold}</span> days
             </>}/>
         }
+        <PropValueLine prop="Vacancy Score Allowed" value={scoringRules.vacancyScore?.allowed ? "Yes" : "No"}/>
+        {scoringRules.vacancyScore?.allowed &&
+            <PropValueLine prop="Vacancy Score" value={<>
+                <span className="text-info-emphasis">{scoringRules.vacancyScore?.scratchScore}</span> pins +&nbsp;
+                <span className="text-info-emphasis">{scoringRules.vacancyScore?.handicap}</span> hdcp
+            </>}/>
+        }
         {scoringRules.pointScoring?.matchupPointScoringRule &&
             scoringRules.pointScoring.matchupPointScoringRule === "PPG_PPS" &&
             scoringRules.pointScoring.ppgPpsMatchupPointScoringConfig && <>
