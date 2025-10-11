@@ -177,6 +177,10 @@ const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, t
         return f.number == 10 ? "13%" : "9%";
     }
 
+    const pickFrames = (frames: Frame[])=> {
+        return frames.length > 0 ? frames : EmptyFrames;
+    }
+
     const keyPrefix = "fd-wk-" + matchup.week.toString() + "-" + gameIdx.toString() + "-";
     return (<>
         {playerNames && frames && hasAttributes && playerNames.map((pn, pi) => <div key={keyPrefix + pi.toString()}>
@@ -195,25 +199,7 @@ const TeamIndSeriesGameFramesV2 :FC<TeamIndSeriesGameFramesProps> = ({matchup, t
                 }
                 <Col className="col-md-10">
                     <Stack direction="horizontal" gap={1}>
-                        {frames[pi].map(frame => (
-                            <div className="border rounded-1 border-dark-subtle border-opacity-10 h-100"
-                                 style={{width: frameDivW(frame), maxWidth: "45px"}}
-                                 key={keyPrefix + "pn-nss-" + pi.toString() + "-f-" + frame.number.toString()}>
-                                <Stack direction="vertical">
-                                    <Stack direction="horizontal" className="fs-xs justify-content-evenly">
-                                        {writeScoreLabelRow(frame)}
-                                    </Stack>
-                                    <div className="text-center border fs-sm p-0 bg-secondary">{frame.cumulativeScore}</div>
-                                    <div className="fs-xxs text-center">
-                                        {frame.attributes.map((a, i) =>
-                                            <FrameAttributeIcon attribute={a} key={keyPrefix + "pn-nss-" + pi.toString() + "-f-" + frame.number.toString() + "-att-" + i.toString()}/>
-                                        )}
-                                        {(!hasAttributes[pi] && frame.attributes.length == 0) && <>&nbsp;</>}
-                                    </div>
-                                </Stack>
-                            </div>
-                        ))}
-                        {frames[pi].length == 0 && EmptyFrames.map(frame => (
+                        {pickFrames(frames[pi]).map(frame => (
                             <div className="border rounded-1 border-dark-subtle border-opacity-10 h-100"
                                  style={{width: frameDivW(frame), maxWidth: "45px"}}
                                  key={keyPrefix + "pn-nss-" + pi.toString() + "-f-" + frame.number.toString()}>
