@@ -230,17 +230,13 @@ export function accumulateFrameScores (frames: Frame[]) {
     return scoreAccum;
 }
 
-function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePlayer) {
-
-    // if (!playerGame.frames) {
-    //     playerGame.frames = [];
-    // }
-    // Build the Frame Objects
-    for (let f = 0; f < playerGame.inFrames.length; f++) {
+export function buildFrames(inFrames: string[][]) {
+    const frames: Frame[] = [];
+    for (let f = 0; f < inFrames.length; f++) {
         // We assume Frame objects are not set, we set them
         const frame = new Frame();
         frame.number = f + 1;
-        const inFrame = playerGame.inFrames[f];
+        const inFrame = inFrames[f];
 
         for (let b = 0; b < inFrame.length; b++) {
             const lbl = inFrame[b];
@@ -256,8 +252,15 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePl
                 frame.ballScores[b] = [Number.parseInt(lbl)];
             }
         }
-        playerGame.frames.push(frame);
+        frames.push(frame);
     }
+    return frames;
+}
+
+function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePlayer) {
+
+    // Build the Frame Objects
+    playerGame.frames = buildFrames(playerGame.inFrames);
 
     // Calculate cumulative scores
     const scoreAccum = accumulateFrameScores(playerGame.frames); // Also sets the cumulative scores

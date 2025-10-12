@@ -26,7 +26,7 @@ export default defineConfig({
           loadPaths: ['./node_modules/'],
           silenceDeprecations: [
               'import',
-              'mixed-decls',
+              //'mixed-decls',
               'color-functions',
               'global-builtin',
           ],
