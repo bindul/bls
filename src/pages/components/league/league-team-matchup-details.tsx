@@ -92,7 +92,8 @@ const FrameScoreLabels  = new Map<string, FrameScoreLabelInfo>([
 ])
 
 const findPlayer = (teamDetails: TrackedLeagueTeam, playerId: string | undefined) => {
-    return teamDetails.roster.find(player => player.id === playerId)?.name ?? "UNKNOWN";
+    const playerName = teamDetails.roster.find(player => player.id === playerId)?.name ?? playerId;
+    return playerName ? playerName : "UNKNOWN";
 }
 
 interface OverlaywithTooltipProps {
@@ -295,11 +296,13 @@ const MatchupDetailsDisplay: FC<MatchupDetailsDisplayProps> = ({leagueDetails, m
     const [hasFrameData, setHasFrameData] = useState(true);
 
     useEffect(() => {
-        matchup.scores?.playerScores.forEach(ps => { ps.games.forEach(psg => {
-            if (!psg.blind && !psg.vacant && psg.frames.length == 0) {
-                setHasFrameData(false); // We are missing frame data for this matchup
-            }
-        });
+        setHasFrameData(true); // Start with positive assumption
+        matchup.scores?.playerScores.forEach(ps => {
+            ps.games.forEach(psg => {
+                if (!psg.blind && !psg.vacant && psg.frames.length == 0) {
+                    setHasFrameData(false); // We are missing frame data for this matchup
+                }
+            });
         })
     }, [matchup]);
 

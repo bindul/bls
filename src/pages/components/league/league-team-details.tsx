@@ -65,16 +65,18 @@ type DataColRowStyle = "Default" | "Success";
 interface DataColRowProps {
     defn: ReactNode;
     value: ReactNode;
+    doubleWidth?: boolean;
     style?: DataColRowStyle;
 }
-const DataColRow :FC<DataColRowProps> = ({defn, value, style = "Default"} : DataColRowProps)=> {
+const DataColRow :FC<DataColRowProps> = ({defn, value, doubleWidth = false, style = "Default"} : DataColRowProps)=> {
     const rowBorder = style === "Success" ? "border-success-subtle" : "border-secondary";
     const colDefnBackground = style === "Success" ? "bg-success-subtle" : "bg-secondary";
+    const mdColCount = doubleWidth ? 6 : 3;
     return (
-        <Col xs={12} md={3}>
+        <Col xs={12} md={mdColCount}>
             <Row className={`border rounded-1 ${rowBorder}`}>
-                <Col className={`text-body-emphasis ${colDefnBackground} px-1`}>{defn}<span className="float-end">:</span></Col>
-                <Col className="px-1">{value}</Col>
+                <Col className={`text-body-emphasis ${colDefnBackground} px-1 ${doubleWidth ? 'col-auto' : ''}`}>{defn}<span className="float-end">:</span></Col>
+                <Col className={`px-1 ${doubleWidth ? 'col-auto' : ''}`}>{value}</Col>
             </Row>
         </Col>
     );
@@ -90,17 +92,20 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
     const [nextMatchup, setNextMatchup] = useState<LeagueMatchup | null>(null);
 
     useEffect(() => {
-        setTeamPositionScoreData(buildTeamPositionScoreData(teamDetails));
 
-        for (let i = 0; i < teamDetails.matchups.length; i++) {
-            const matchup = teamDetails.matchups[i];
-            if (!matchup.scores?.playerScores || matchup.scores.playerScores.length === 0) {
-                // We have hit the first matchup without scores
-                setNextMatchup(matchup);
-                if (i > 0) {
-                    setLastMatchup(teamDetails.matchups[i - 1]);
+        if (teamDetails != null) {
+            setTeamPositionScoreData(buildTeamPositionScoreData(teamDetails));
+
+            for (let i = 0; i < teamDetails.matchups.length; i++) {
+                const matchup = teamDetails.matchups[i];
+                if (!matchup.scores?.playerScores || matchup.scores.playerScores.length === 0) {
+                    // We have hit the first matchup without scores
+                    setNextMatchup(matchup);
+                    if (i > 0) {
+                        setLastMatchup(teamDetails.matchups[i - 1]);
+                    }
+                    break;
                 }
-                break;
             }
         }
 
@@ -108,7 +113,7 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
 
     const rankComparison = () => {
         let retVal = <></>
-        if (isNumeric(teamDetails.currentRank) && isNumeric(lastMatchup?.enteringRank)) {
+        if (teamDetails && isNumeric(teamDetails.currentRank) && isNumeric(lastMatchup?.enteringRank)) {
             const lastMatchupRank = parseInt(lastMatchup?.enteringRank ?? "");
             const currentRank = parseInt(teamDetails.currentRank);
             if (lastMatchupRank > currentRank) {
@@ -140,32 +145,36 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
     }
 
     return (
-        <Container fluid="true">
-            <Card className="text-start mx-0 mb-0 h-100" border="secondary">
-                <CardBody className="pt-1 pt-sm-2">
-                    <Row className="gx-5 gy-1 mb-1">
-                        <DataColRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
-                        <DataColRow defn="Points" value={`${String(teamDetails.pointsWonLost[0])} - ${String(teamDetails.pointsWonLost[1])}`}/>
-                        <DataColRow defn="Starting Average" value={teamDetails.teamStats?.average}/>
-                        <DataColRow defn="Starting Handicap" value={teamDetails.teamStats?.handicap}/>
-                        <DataColRow defn="Low Game" value={teamDetails.teamStats?.lowGame}/>
-                        <DataColRow defn="High Game" value={teamDetails.teamStats?.highGame}/>
-                        <DataColRow defn="Low Series" value={teamDetails.teamStats?.lowSeries}/>
-                        <DataColRow defn="High Series" value={teamDetails.teamStats?.highSeries}/>
-                        <DataColRow defn="Scratch Pins" value={teamDetails.teamStats?.scratchPins}/>
-                    </Row>
-                    {nextMatchup &&
-                        <Row className="gx-5 gy-1">
-                            <DataColRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()} style="Success"/>
-                            <DataColRow defn="Next Opponent" value={formatNextMatchupOpponent()} style="Success"/>
+        <>
+            <Container fluid="true">
+                <Card className="text-start mx-0 mb-0 h-100" border="secondary">
+                    <CardBody className="pt-1 pt-sm-2">
+                        <Row className="gx-5 gy-1 mb-1">
+                            <DataColRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
+                            <DataColRow defn="Points"
+                                        value={`${String(teamDetails.pointsWonLost[0])} - ${String(teamDetails.pointsWonLost[1])}`}/>
+                            <DataColRow defn="Starting Average" value={teamDetails.teamStats?.average}/>
+                            <DataColRow defn="Starting Handicap" value={teamDetails.teamStats?.handicap}/>
+                            <DataColRow defn="Low Game" value={teamDetails.teamStats?.lowGame}/>
+                            <DataColRow defn="High Game" value={teamDetails.teamStats?.highGame}/>
+                            <DataColRow defn="Low Series" value={teamDetails.teamStats?.lowSeries}/>
+                            <DataColRow defn="High Series" value={teamDetails.teamStats?.highSeries}/>
+                            <DataColRow defn="Scratch Pins" value={teamDetails.teamStats?.scratchPins}/>
                         </Row>
-                    }
-                </CardBody>
-                <CardBody className="pb-1 pb-sm-2">
-                    <TeamStatGraph teamPosScores={teamPositionScoreData}/>
-                </CardBody>
-            </Card>
-        </Container>
+                        {nextMatchup &&
+                            <Row className="gx-5 gy-1">
+                                <DataColRow defn="Next Matchup Lanes" value={formatNextMatchupLanes()} style="Success"/>
+                                <DataColRow defn="Next Opponent" value={formatNextMatchupOpponent()} style="Success"
+                                            doubleWidth={true}/>
+                            </Row>
+                        }
+                    </CardBody>
+                    <CardBody className="pb-1 pb-sm-2">
+                        <TeamStatGraph teamPosScores={teamPositionScoreData}/>
+                    </CardBody>
+                </Card>
+            </Container>
+        </>
     );
 }
 

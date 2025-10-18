@@ -165,6 +165,13 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
 
     }, [matchup, leagueDetails, opponentTeamId]);
 
+    useEffect(() => {
+        // Reset expanded state for all matchups
+        const matchupDetailsExpNew = [...matchupDetailsExpanded];
+        matchupDetailsExpNew.forEach(me => me.expanded = false);
+        setMatchupDetailsExpanded(matchupDetailsExpNew);
+    }, [teamDetails]);
+
     const isVisible = (week: number) => {
         const cd = matchupDetailsExpanded.find(mde => mde.week === week);
         if (cd) {
@@ -303,24 +310,33 @@ interface LeagueTeamMatchupsProps {
     leagueDetailsLoading: boolean;
 }
 const LeagueTeamMatchup : FC<LeagueTeamMatchupsProps> = ({leagueDetails, teamDetails, leagueDetailsLoading, currentBreakpoint}) => {
+
+    const [teamDtls, setTeamDtls] = useState<TrackedLeagueTeam> (teamDetails);
+
+    useEffect(() => {
+        setTeamDtls(teamDetails);
+    }, [leagueDetails, teamDetails]);
+
     return (<>
         {leagueDetailsLoading && <div className="card-body"><Loader/></div>}
-        <CardBody className="px-0 py-1 border border-secondary-subtle">
-            <Card className="mx-1">
-                <CardHeader className="text-white bg-dark text-center fw-bolder py-1">Matchups</CardHeader>
-                <CardBody className="mx-0 px-1 px-sm-2 py-2">
-                    <Row className="row-cols-1 row-cols-lg-2 g-2">
-                        {teamDetails.matchups.map(matchup =>
-                            <MatchupDisplay leagueDetails={leagueDetails}
-                                            matchup={matchup}
-                                            teamDetails={teamDetails}
-                                            currentBreakpoint={currentBreakpoint}
-                                            key={"league-matchup-" + matchup.week.toString()}/>
-                        )}
-                    </Row>
-                </CardBody>
-            </Card>
-        </CardBody>
+        {teamDtls &&
+            <CardBody className="px-0 py-1 border border-secondary-subtle">
+                <Card className="mx-1">
+                    <CardHeader className="text-white bg-dark text-center fw-bolder py-1">Matchups</CardHeader>
+                    <CardBody className="mx-0 px-1 px-sm-2 py-2">
+                        <Row className="row-cols-1 row-cols-lg-2 g-2">
+                            {teamDtls.matchups.map(matchup =>
+                                <MatchupDisplay leagueDetails={leagueDetails}
+                                                matchup={matchup}
+                                                teamDetails={teamDtls}
+                                                currentBreakpoint={currentBreakpoint}
+                                                key={"league-matchup-" + matchup.week.toString()}/>
+                            )}
+                        </Row>
+                    </CardBody>
+                </Card>
+            </CardBody>
+        }
     </>);
 }
 

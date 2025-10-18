@@ -22,15 +22,18 @@ import {Container, Nav} from "react-bootstrap";
 import ErrorDisplay from "../error-display";
 import {type Breakpoint, BS_BP_XXL, getBreakpoint} from "../ui-utils";
 
-import {LEAGUE_DETAILS_CACHE_CATEGORY, leagueTeamDetailsFetcher} from "../../../data/league/league-api";
+import {LEAGUE_DETAILS_CACHE_CATEGORY, leagueDetailsFetcher} from "../../../data/league/league-api";
 import type {LeagueDetails} from "../../../data/league/league-details";
 import type {LeagueInfo} from "../../../data/league/league-info";
 import {useCachedFetcher} from "../cache/data-loader";
 import LeagueSummary from "./league-summary";
 import LeagueTeamDetails from "./league-team-details";
 import OtherTeams from "./league-other-teams";
+import {useNavigate} from "react-router";
 
 export type CurrentLeagueDetailsDisplay = "TEAM" | "OTHER_TEAMS";
+
+const OTHER_TEAMS: string = "other-teams";
 
 interface LeagueDisplayProps {
     leagueInfo: LeagueInfo;
@@ -38,7 +41,7 @@ interface LeagueDisplayProps {
     children?: React.ReactNode;
 }
 const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisplayProps) => {
-    const fetcher = useCallback((dataLoc: string) => leagueTeamDetailsFetcher(dataLoc), []);
+    const fetcher = useCallback((dataLoc: string) => leagueDetailsFetcher(dataLoc), []);
     const {data: leagueDetails, isLoading: leagueDetailsLoading, error: leagueDetailsLoadError } = useCachedFetcher<LeagueDetails>(
         fetcher.bind(null, leagueInfo.dataLoc ?? "will-fail.json"), LEAGUE_DETAILS_CACHE_CATEGORY, leagueInfo.id);
 
@@ -46,6 +49,8 @@ const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisp
     const [currentDisplay, setCurrentDisplay] = useState<CurrentLeagueDetailsDisplay>("TEAM");
     const [showInvalidTeamIdError, setShowInvalidTeamIdError] = useState(false);
     const [currentBreakpoint, setBreakpoint] = useState<Breakpoint>(BS_BP_XXL);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -60,13 +65,15 @@ const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisp
 
     useEffect(() => {
         // Validate and set the right team id to display
-        if (leagueDetails && currentDisplay == "TEAM") {
+        if (leagueDetails) {
             const firstTeamId = leagueDetails.teams[0].id ?? "";
             // Validate that the team selected is one that can be displayed
             if (teamId) {
-                const requestedTeam = leagueDetails.teams.find((team) => team.id === teamId);
-                if (requestedTeam) {
+                if (teamId.toLowerCase() === OTHER_TEAMS) {
+                    setCurrentDisplay("OTHER_TEAMS");
+                } else if (leagueDetails.teams.find((team) => team.id === teamId)) {
                     // Valid Team and we can display it
+                    setCurrentDisplay("TEAM");
                     setDisplayedTeam(teamId);
                 } else {
                     // Invalid team
@@ -91,12 +98,19 @@ const LeagueDisplay : FC<LeagueDisplayProps> = ({leagueInfo, teamId}: LeagueDisp
                 {leagueDetails.teams.map(team => (
                     <Nav.Item key={team.id}>
                         <Nav.Link eventKey={team.id} active={currentDisplay == "TEAM" && displayedTeam === team.id}
-                                  onClick={() => {setCurrentDisplay("TEAM"); setDisplayedTeam(team.id ?? "");}}>{team.name}</Nav.Link>
+                                  onClick={() => {
+                                      setCurrentDisplay("TEAM");
+                                      setDisplayedTeam(team.id ?? "");
+                                      navigate(`/league/${String(leagueInfo.id)}/${String(team.id)}`);
+                                  }}>{team.name}</Nav.Link>
                     </Nav.Item>
                     ))}
                 {leagueDetails.otherTeams.length > 0 && <Nav.Item>
                     <Nav.Link eventKey="OTHER_TEAMS" active={currentDisplay == "OTHER_TEAMS"}
-                              onClick={() => { setCurrentDisplay("OTHER_TEAMS"); }}>
+                              onClick={() => {
+                                  setCurrentDisplay("OTHER_TEAMS");
+                                  navigate(`/league/${String(leagueInfo.id)}/${OTHER_TEAMS}`);
+                              }}>
                         Other Teams
                     </Nav.Link>
                 </Nav.Item>

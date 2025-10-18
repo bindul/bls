@@ -16,6 +16,7 @@
 
 import {LeagueDetails} from "./league-details";
 import {AvailableLeagues} from "./league-info";
+import {TrackedLeagueTeam} from "./league-team-details";
 import {createJsonConverter} from "../utils/json-utils";
 import {decorateLeagueDetails} from "./league-calculators";
 
@@ -33,5 +34,26 @@ export const leagueInfoListFetcher = async() =>
 export const leagueTeamDetailsFetcher = async(dataLoc: string) =>
     fetch(APP_URL_BASE + dataLoc, {headers: {'Accept-Encoding': 'gzip'}})
         .then(res => res.json())
-        .then((json :object) => createJsonConverter().deserialize<LeagueDetails>(json, LeagueDetails) as unknown as LeagueDetails)
-        .then(leagueDetails => decorateLeagueDetails(leagueDetails));
+        .then((json :object) => createJsonConverter().deserialize<TrackedLeagueTeam>(json, TrackedLeagueTeam) as unknown as TrackedLeagueTeam);
+
+export const leagueDetailsFetcher = async(dataLoc: string) => {
+    const leagueDetails: LeagueDetails = await fetch(APP_URL_BASE + dataLoc, {headers: {'Accept-Encoding': 'gzip'}})
+        .then(res => res.json())
+        .then((json: object) => createJsonConverter().deserialize<LeagueDetails>(json, LeagueDetails) as unknown as LeagueDetails);
+
+    // Add team details
+    const teams: TrackedLeagueTeam[] = [];
+    for (let i = 0; i < leagueDetails.teams.length; i++) {
+        const team = leagueDetails.teams[i];
+        if (team.dataLoc && team.dataLoc.length > 0) {
+            const teamDetails = await leagueTeamDetailsFetcher(team.dataLoc);
+            teams.push(teamDetails);
+        } else {
+            teams.push(team);
+        }
+    }
+    leagueDetails.teams = teams;
+
+    decorateLeagueDetails(leagueDetails)
+    return leagueDetails;
+}

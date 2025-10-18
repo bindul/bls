@@ -347,6 +347,11 @@ interface LeagueTeamRosterProps {
 const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakpoint, leagueDetailsLoading}: LeagueTeamRosterProps) => {
     const [playerDetailsDisplay, setPlayerDetailsDisplay] = useState<string | undefined>(undefined);
 
+    useEffect(() => {
+        // Team details changed, switch out displayed player
+        setPlayerDetailsDisplay(undefined);
+    }, [teamDetails]);
+
     const closePlayerDetails = () => {
         setPlayerDetailsDisplay(undefined);
     }

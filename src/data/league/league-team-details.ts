@@ -96,6 +96,9 @@ export class LeaguePlayer {
 @JsonObject("TrackedLeagueTeam")
 export class TrackedLeagueTeam extends LeagueTeam {
 
+    @JsonProperty("data-loc", String)
+    dataLoc = "";
+
     @JsonProperty("current-rank", String)
     currentRank = "";
 
