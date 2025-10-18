@@ -255,6 +255,19 @@ const ScoreConverter : FC = () => {
         setError("");
     }
 
+    const handleClear = () => {
+        handleChange();
+
+        setPlayerId('');
+        setHdcpSettingDay(false);
+        setEnteringAvg(0);
+        setGameScores([
+            createGameScoreForm({game: 1}),
+            createGameScoreForm({game: 2}),
+            createGameScoreForm({game: 3})
+        ]);
+    }
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -370,9 +383,17 @@ const ScoreConverter : FC = () => {
                     </CardBody>
                 ))}
                 <CardBody className="border border-secondary py-1 my-1">
-                    <Button variant="primary" type="submit">Convert for BLS</Button>
-                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Row>
+                        <Col><Button variant="primary" type="submit">Convert for BLS</Button></Col>
+                        <Col><div className="me-auto"/></Col>
+                        <Col><Button variant="secondary" type="reset" onClick={() => handleClear()}>Clear</Button></Col>
+                    </Row>
                 </CardBody>
+                {error &&
+                    <CardBody className="border border-secondary py-1 my-1">
+                        <Alert variant="danger">{error}</Alert>
+                    </CardBody>
+                }
             </Form>
         </Card>
         {formattedScore &&
