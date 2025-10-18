@@ -1,0 +1,820 @@
+{
+  "id": "2526-fall-beer-7",
+  "name": "Hookers & Bowl",
+  "number": 7,
+  "division": "1",
+  "current-rank": "6",
+  "roster": [
+    {
+      "id": "pb1",
+      "name": "Patrick",
+      "status": "REGULAR",
+      "parking-lot-threshold": 100
+    },
+    {
+      "id": "ms1",
+      "name": "Mark",
+      "status": "REGULAR",
+      "parking-lot-threshold": 100
+    },
+    {
+      "id": "tg1",
+      "name": "Ty",
+      "status": "REGULAR",
+      "parking-lot-threshold": 100
+    },
+    {
+      "id": "gz1",
+      "name": "Greg Z",
+      "status": "REGULAR",
+      "parking-lot-threshold": 100
+    },
+    {
+      "id": "gw1",
+      "name": "Greg W",
+      "status": "SUBSTITUTE",
+      "parking-lot-threshold": 100
+    },
+    {
+      "id": "vr1",
+      "name": "Victor",
+      "status": "SUBSTITUTE",
+      "parking-lot-threshold": 100
+    }
+  ],
+  "matchups": [
+    {
+      "week": 1,
+      "scheduled-date": "2025-09-04",
+      "bowl-date": "2025-09-04",
+      "matchup-type": "REGULAR-DIVISION",
+      "lanes": [7, 8],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Start of League"],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {
+                "scratch-score": 105
+              },
+              {
+                "scratch-score": 110
+              },
+              {
+                "scratch-score": 161
+              }
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {
+                "scratch-score": 130
+              },
+              {
+                "scratch-score": 133
+              },
+              {
+                "scratch-score": 140
+              }
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {
+                "scratch-score": 216
+              },
+              {
+                "scratch-score": 145
+              },
+              {
+                "scratch-score": 158
+              }
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {
+                "scratch-score": 158
+              },
+              {
+                "scratch-score": 200
+              },
+              {
+                "scratch-score": 169
+              }
+            ]
+          }
+        ]
+      },
+      "opponent": {
+        "team-id": "2526-fall-beer-8",
+        "hdcp": 289,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            {
+              "scratch-score": 540
+            },
+            {
+              "scratch-score": 489
+            },
+            {
+              "scratch-score": 523
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 2,
+      "scheduled-date": "2025-09-11",
+      "bowl-date": "2025-09-11",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "8",
+      "lanes": [37, 38],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 125,
+            "games": [
+              {
+                "scratch-score": 139
+              },
+              {
+                "scratch-score": 161
+              },
+              {
+                "scratch-score": 116
+              }
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 134,
+            "games": [
+              {
+                "scratch-score": 197
+              },
+              {
+                "scratch-score": 146
+              },
+              {
+                "scratch-score": 160
+              }
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 173,
+            "games": [
+              {
+                "scratch-score": 176
+              },
+              {
+                "scratch-score": 208
+              },
+              {
+                "scratch-score": 164
+              }
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 175,
+            "games": [
+              {
+                "scratch-score": 162
+              },
+              {
+                "scratch-score": 177
+              },
+              {
+                "scratch-score": 170
+              }
+            ]
+          }
+        ]
+      },
+      "opponent": {
+        "team-id": "2526-fall-beer-6",
+        "entering-rank": "11",
+        "hdcp": 304,
+        "vacant": false,
+        "absent": false,
+        "scores": {
+          "games": [
+            {
+              "scratch-score": 523
+            },
+            {
+              "scratch-score": 439
+            },
+            {
+              "scratch-score": 516
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 3,
+      "scheduled-date": "2025-09-18",
+      "bowl-date": "2025-09-18",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "2",
+      "lanes": [5, 6],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 132,
+            "games": [
+              {
+                "scratch-score": 138
+              },
+              {
+                "scratch-score": 101
+              },
+              {
+                "scratch-score": 141
+              }
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 151,
+            "games": [
+              {
+                "scratch-score": 143
+              },
+              {
+                "scratch-score": 146
+              },
+              {
+                "scratch-score": 146
+              }
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 177,
+            "games": [
+              {
+                "scratch-score": 126
+              },
+              {
+                "scratch-score": 177
+              },
+              {
+                "scratch-score": 149
+              }
+            ]
+          },
+          {
+            "player": "gw1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {
+                "scratch-score": 103
+              },
+              {
+                "scratch-score": 72
+              },
+              {
+                "scratch-score": 107
+              }
+            ]
+          }
+        ]
+      },
+      "opponent": {
+        "team-id": "2526-fall-beer-15",
+        "entering-rank": "14",
+        "hdcp": 298,
+        "vacant": false,
+        "absent": false,
+        "scores": {
+          "games": [
+            {
+              "scratch-score": 510
+            },
+            {
+              "scratch-score": 470
+            },
+            {
+              "scratch-score": 496
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 4,
+      "scheduled-date": "2025-09-25",
+      "bowl-date": "2025-09-25",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "8",
+      "lanes": [29, 30],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 130,
+            "games": [
+              {
+                "scratch-score": 155
+              },
+              {
+                "scratch-score": 180
+              },
+              {
+                "scratch-score": 143
+              }
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 149,
+            "games": [
+              {
+                "scratch-score": 152
+              },
+              {
+                "scratch-score": 155
+              },
+              {
+                "scratch-score": 133
+              }
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 168,
+            "games": [
+              {
+                "scratch-score": 143
+              },
+              {
+                "scratch-score": 157
+              },
+              {
+                "scratch-score": 107
+              }
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 172,
+            "games": [
+              {
+                "scratch-score": 172
+              },
+              {
+                "scratch-score": 179
+              },
+              {
+                "scratch-score": 183
+              }
+            ]
+          }
+        ]
+      },
+      "opponent": {
+        "team-id": "2526-fall-beer-14",
+        "entering-rank": "12",
+        "hdcp": 205,
+        "vacant": false,
+        "absent": false,
+        "scores": {
+          "games": [
+            {
+              "scratch-score": 633
+            },
+            {
+              "scratch-score": 589
+            },
+            {
+              "scratch-score": 617
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 5,
+      "scheduled-date": "2025-10-02",
+      "bowl-date": "2025-10-02",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "12",
+      "lanes": [15, 16],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 137,
+            "games": [
+              {
+                "scratch-score": 177
+              },
+              {
+                "scratch-score": 129
+              },
+              {
+                "scratch-score": 160
+              }
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 148,
+            "games": [
+              {
+                "scratch-score": 111
+              },
+              {
+                "scratch-score": 161
+              },
+              {
+                "scratch-score": 133
+              }
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 160,
+            "games": [
+              {
+                "scratch-score": 171
+              },
+              {
+                "scratch-score": 161
+              },
+              {
+                "scratch-score": 138
+              }
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 174,
+            "games": [
+              {
+                "scratch-score": 162
+              },
+              {
+                "scratch-score": 139
+              },
+              {
+                "scratch-score": 158
+              }
+            ]
+          }
+        ]
+      },
+      "opponent": {
+        "team-id": "2526-fall-beer-2",
+        "entering-rank": "13",
+        "hdcp": 162,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": true,
+        "scores": {
+          "games": [
+            {
+              "scratch-score": 629
+            },
+            {
+              "scratch-score": 658
+            },
+            {
+              "scratch-score": 590
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 6,
+      "scheduled-date": "2025-10-09",
+      "bowl-date": "2025-10-09",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "8",
+      "lanes": [39, 40],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 141,
+            "games": [
+              {
+                "scratch-score": 127
+              },
+              {
+                "scratch-score": 141
+              },
+              {
+                "scratch-score": 125
+              }
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 145,
+            "games": [
+              {
+                "scratch-score": 129
+              },
+              {
+                "scratch-score": 119
+              },
+              {
+                "scratch-score": 176
+              }
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 159,
+            "games": [
+              {
+                "scratch-score": 175
+              },
+              {
+                "scratch-score": 179
+              },
+              {
+                "scratch-score": 161
+              }
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 169,
+            "games": [
+              {
+                "scratch-score": 208
+              },
+              {
+                "scratch-score": 210
+              },
+              {
+                "scratch-score": 232
+              }
+            ]
+          }
+        ]
+      },
+      "opponent": {
+        "team-id": "2526-fall-beer-17",
+        "entering-rank": "17",
+        "hdcp": 275,
+        "vacant": false,
+        "absent": false,
+        "scores": {
+          "games": [
+            {
+              "scratch-score": 518
+            },
+            {
+              "scratch-score": 599
+            },
+            {
+              "scratch-score": 498
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 7,
+      "scheduled-date": "2025-10-16",
+      "bowl-date": "2025-10-16",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "6",
+      "lanes": [13, 14],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Hookers, welcome to the BLS!"],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 139,
+            "games": [
+              {
+                "scratch-score": 140
+              },
+              {
+                "scratch-score": 157
+              },
+              {
+                "scratch-score": 162
+              }
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 145,
+            "games": [
+              {
+                "scratch-score": 154
+              },
+              {
+                "scratch-score": 143
+              },
+              {
+                "scratch-score": 145
+              }
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 178,
+            "games": [
+              {
+                "scratch-score": 166
+              },
+              {
+                "scratch-score": 212
+              },
+              {
+                "scratch-score": 225
+              }
+            ]
+          },
+          {
+            "player": "vr1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {
+                "scratch-score": 240
+              },
+              {
+                "scratch-score": 180
+              },
+              {
+                "scratch-score": 246
+              }
+            ]
+          }
+        ]
+      },
+      "opponent": {
+        "team-id": "2526-fall-beer-9",
+        "entering-rank": "2",
+        "hdcp": 251,
+        "vacant": false,
+        "absent": false,
+        "scores": {
+          "games": [
+            {
+              "scratch-score": 602
+            },
+            {
+              "scratch-score": 547
+            },
+            {
+              "scratch-score": 526
+            }
+          ]
+        }
+      }
+    },
+    {
+      "week": 8,
+      "scheduled-date": "2025-10-23",
+      "bowl-date": "2025-10-23",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "6",
+      "lanes": [23, 24],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-20",
+        "entering-rank": "16",
+        "hdcp": 282,
+        "vacant": false,
+        "absent": false
+      }
+    },
+    {
+      "week": 9,
+      "scheduled-date": "2025-10-30",
+      "bowl-date": "2025-10-30",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [1, 2],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-4",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false
+      }
+    },
+    {
+      "week": 10,
+      "scheduled-date": "2025-11-06",
+      "bowl-date": "2025-11-06",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [31, 32],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-11",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false
+      }
+    },
+    {
+      "week": 11,
+      "scheduled-date": "2025-11-13",
+      "bowl-date": "2025-11-13",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [3, 4],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-3",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false
+      }
+    },
+    {
+      "week": 12,
+      "scheduled-date": "2025-11-20",
+      "bowl-date": "2025-11-20",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [27, 28],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-12",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false
+      }
+    },
+    {
+      "week": 13,
+      "scheduled-date": "2025-12-04",
+      "bowl-date": "2025-12-04",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [5, 6],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-1",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false
+      }
+    },
+    {
+      "week": 14,
+      "scheduled-date": "2025-12-11",
+      "bowl-date": "2025-12-11",
+      "matchup-type": "POSITION-INTRA-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [0, 0],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE"
+    },
+    {
+      "week": 15,
+      "scheduled-date": "2025-12-18",
+      "bowl-date": "2025-12-18",
+      "matchup-type": "POSITION-INTER-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [0, 0],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE"
+    }
+  ]
+}
