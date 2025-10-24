@@ -780,14 +780,14 @@
       "scheduled-date": "2025-10-30",
       "bowl-date": "2025-10-30",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "8",
       "lanes": [1, 2],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "opponent": {
         "team-id": "2526-fall-beer-4",
-        "entering-rank": "PENDING",
+        "entering-rank": "20",
         "hdcp": 0,
-        "vacant": false,
+        "vacant": true,
         "absent": false
       }
     },
