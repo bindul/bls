@@ -162,11 +162,14 @@ const LeagueRules :FC<LeagueSummaryDataProps> = ({leagueDetails}: LeagueSummaryD
 
 const LeagueHonorRoll :FC<LeagueSummaryDataProps> = ({leagueDetails} : LeagueSummaryDataProps)=> {
     const findPlayer = (playerId: string) => {
-        let playerName = "UNKNOWN";
-        leagueDetails.teams.forEach((team) => {
-            playerName = team.roster.find(player => player.id === playerId)?.name ?? "UNKNOWN";
-        })
-        return playerName;
+        for (const team of leagueDetails.teams) {
+            for (const player of team.roster) {
+                if (player.id === playerId) {
+                    return player.name;
+                }
+            }
+        }
+        return "UNKNOWN";
     }
     const findTeam = (teamId: string) => {
         return leagueDetails.teams.filter(team => team.id === teamId).map(team => team.name);
