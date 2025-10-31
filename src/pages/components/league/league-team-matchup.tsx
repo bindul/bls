@@ -72,9 +72,7 @@ const GameSummaryAndPoints :FC<GameSummaryAndPointsProps> = ({teamNumber, teamSc
     const gameLoopArray :number[] = new Array<number>(matchupGames).fill(0);
 
     useEffect(() => {
-        if (isBlindOrAbsent) {
-            setShowBlindAbsent(true);
-        }
+        setShowBlindAbsent(isBlindOrAbsent ? isBlindOrAbsent : false);
     }, [isBlindOrAbsent]);
 
     return (<>
@@ -148,9 +146,7 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
         }
 
         if (matchup.opponent) {
-            if (matchup.opponent.absent || matchup.opponent.vacant) {
-                setOpponentVacantOrAbsent(true);
-            }
+            setOpponentVacantOrAbsent((matchup.opponent.absent || matchup.opponent.vacant));
 
             setOpponentTeamId(matchup.opponent.teamId);
             if (leagueDetails) {
