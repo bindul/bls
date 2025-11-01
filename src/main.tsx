@@ -18,12 +18,13 @@
 import 'bootswatch/dist/lumen/bootstrap.min.css';
 import './sass/bls.scss';
 
-import {ContextCacheProvider} from "./pages/components/cache/context-cache.tsx";
-
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import {Route, Routes} from "react-router-dom";
 import {HashRouter} from "react-router";
+
+import {ContextCacheProvider} from "./pages/components/cache/context-cache";
+import G4Provider from "./pages/components/analytics/ga4-provider";
 
 import Layout from "./pages/layout";
 import Home from "./pages/home";
@@ -41,7 +42,6 @@ export default function App() {
                 <Route path="*" element={<NoPage/>}/>
             </Route>
         </Routes>
-
     )
 }
 
@@ -51,7 +51,9 @@ createRoot(document.getElementById('root')!)
     <StrictMode>
         <HashRouter>
             <ContextCacheProvider>
-                <App/>
+                <G4Provider>
+                    <App/>
+                </G4Provider>
             </ContextCacheProvider>
         </HashRouter>
     </StrictMode>
