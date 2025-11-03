@@ -16,7 +16,7 @@ interface ImportMetaEnv {
     readonly VITE_DATA_PLAYERS_INDEX_RESOURCE: string,
     readonly VITE_DATA_NEWS_INDEX_RESOURCE: string,
     readonly VITE_GA4_TRACKING_ID: string,
-    readonly VITE_GA4_TESTMODE: boolean,
+    readonly VITE_GA4_TESTMODE: string,
     // more env variables...
 }
 

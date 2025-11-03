@@ -18,7 +18,7 @@ import {type ReactNode, type FC, useEffect} from "react";
 import {useLocation} from "react-router";
 import ReactGA from "react-ga4";
 
-const ANALYTICS_TEST_MODE :boolean = import.meta.env.VITE_GA4_TESTMODE;
+const ANALYTICS_TEST_MODE :string = import.meta.env.VITE_GA4_TESTMODE; // Stupid JS / TS crap - can't read boolean config values, they come as string
 const DEFAULT_GA4_TRACKING_ID :string = import.meta.env.VITE_GA4_TRACKING_ID;
 
 interface G4ProviderParams {
@@ -30,10 +30,12 @@ const G4Provider: FC<G4ProviderParams> = ({trackingId = DEFAULT_GA4_TRACKING_ID,
     const location = useLocation(); // Get current location for pageview tracking
 
     useEffect(() => {
-        if (ANALYTICS_TEST_MODE) {
+        if (ANALYTICS_TEST_MODE === 'true') {
             ReactGA.initialize(trackingId, {testMode: true});
+            // console.log("Initialized GA4 in TEST MODE with tracking ID: ", trackingId)
         } else {
             ReactGA.initialize(trackingId);
+            // console.log("Initialized GA4 with tracking ID: ", trackingId)
         }
     }, [trackingId])
 
