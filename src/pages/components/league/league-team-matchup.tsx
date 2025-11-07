@@ -143,6 +143,8 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
         if (!matchup.bowlDate || matchup.bowlDate.isAfter(today) || !matchup.scores?.games || matchup.scores.games.length == 0) {
             // We don't have data for this matchup
             setShowMatchupDetails(false);
+        } else {
+            setShowMatchupDetails(true);
         }
 
         if (matchup.opponent) {
