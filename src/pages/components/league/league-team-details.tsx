@@ -150,6 +150,7 @@ const LeagueTeamDetailsSummary :FC<LeagueTeamProps> = ({teamDetails, leagueDetai
                 <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                     <CardBody className="pt-1 pt-sm-2">
                         <Row className="gx-5 gy-1 mb-1">
+                            <DataColRow defn="Division" value={teamDetails.division}/>
                             <DataColRow defn="Current Rank" value={<>{teamDetails.currentRank} {rankComparison()}</>}/>
                             <DataColRow defn="Points"
                                         value={`${String(teamDetails.pointsWonLost[0])} - ${String(teamDetails.pointsWonLost[1])}`}/>
