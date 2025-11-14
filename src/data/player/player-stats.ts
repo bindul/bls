@@ -50,7 +50,9 @@ export class PlayerStats {
     splits: RatioGroup = new RatioGroup();
     strikesToSpares: RatioGroup = new RatioGroup();
     cleanGames = 0;
+    games200: number = 0;
     games300 = 0;
+    series600: number = 0;
     series800 = 0;
     strikesInARow: StrikesInARow[] = [];
     allSinglePinsPickedUpAverage = 0;

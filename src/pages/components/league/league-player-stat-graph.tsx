@@ -31,16 +31,54 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
     const chartOptions : ApexOptions = {
         chart: {
             id: 'Player-Averages',
-            type: 'line',
         },
         series: [
             {
                 name: 'Weekly Average',
-                data: playerData.map(p => [p.bowlDate.getTime(), p.average]),
+                type: 'line',
+                data: playerData.map(p => {
+                    return {
+                        x: p.bowlDate.getTime(),
+                        y: p.average
+                    }
+                })
             },
             {
                 name: 'Running Average',
-                data: playerData.map(p => [p.bowlDate.getTime(), p.runningAverageAfter]),
+                type: 'line',
+                data: playerData.map(p => {
+                    return {
+                        x: p.bowlDate.getTime(),
+                        y: p.runningAverageAfter
+                    };
+                }),
+            },
+            {
+                name: '200 Games',
+                type: 'bar',
+                data: playerData.map(p => {
+                    let count = 0;
+                    if (p.game1 >= 200) {
+                        count ++;
+                    }
+                    if (p.game2 >= 200) {
+                        count ++;
+                    }
+                    if (p.game3 >= 200) {
+                        count ++;
+                    }
+                    if (count == 0) {
+                        return {
+                            x: p.bowlDate.getTime(),
+                            y: null
+                        };
+                    } else {
+                        return {
+                            x: p.bowlDate.getTime(),
+                            y: count
+                        };
+                    }
+                }),
             }
         ],
         xaxis: {
@@ -49,8 +87,29 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
                 format: 'dd-MMM'
             }
         },
-        yaxis: {
-            decimalsInFloat: 0
+        yaxis: [
+            {
+                seriesName: ['Weekly Average', 'Running Average'],
+                title: {
+                    text: "Scratch Pins"
+                },
+                decimalsInFloat: 0
+            },
+            {
+                title: {
+                    text: "Games"
+                },
+                opposite: true,
+                decimalsInFloat: 0
+            },
+        ],
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '10%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+            },
         },
         title: {
             text: "Player Averages"
@@ -96,8 +155,6 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
                     <Chart
                         options={chartOptions}
                         series={chartOptions.series}
-                        type="line"
-
                     />
                 </Col>
             </Row>

@@ -122,6 +122,7 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                             <StatRow defn="Games - Min" value={playerStats.gameStats.min}/>
                             <StatRow defn="Games - Max" value={playerStats.gameStats.max}/>
                             <StatRow defn="Games - SD" value={numberFormat.format(playerStats.gameStats.sd)}/>
+                            <StatRow defn="200 Games" value={playerStats.games200}/>
                             <StatRow defn="300 Games" value={playerStats.games300}/>
                             {playerStats.gameAverages.map((ga, idx) =>
                                 <StatRow defn={`Games ${String(idx + 1)} Avg`} value={numberFormat.format(ga)} key={"game-avg-" + idx.toString() + "-" + ga.toString()}/>
@@ -137,6 +138,7 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                             <StatRow defn="Series - Min" value={playerStats.seriesStats.min}/>
                             <StatRow defn="Series - Max" value={playerStats.seriesStats.max}/>
                             <StatRow defn="Series - SD" value={numberFormat.format(playerStats.seriesStats.sd)}/>
+                            <StatRow defn="600 Series" value={playerStats.series600}/>
                             <StatRow defn="800 Series" value={playerStats.series800}/>
                         </CardBody>
                     </Card>

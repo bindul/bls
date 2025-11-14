@@ -211,8 +211,11 @@ export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: Pla
                 gameScoresByGame[i].push(gameScore.scratchScore);
                 allGameScores.push(gameScore.scratchScore);
                 seriesAccum += gameScore.scratchScore;
-                if (gameScore.scratchScore == 300) {
-                    stats.games300 += 1;
+                if (gameScore.scratchScore >= 200) {
+                    stats.games200 += 1;
+                    if (gameScore.scratchScore == 300) {
+                        stats.games300 += 1;
+                    }
                 }
                 if (gameScore.frames.length > 0) {
                     frameStatsCalculator.addGame(gameScore);
@@ -225,8 +228,11 @@ export function calculatePlayerStats(series: TeamPlayerGameScore[][], stats: Pla
         }
         if (!hasBlind) {
             seriesScores.push(seriesAccum);
-            if (seriesAccum > 800) {
-                stats.series800 += 1;
+            if (seriesAccum >= 600) {
+                stats.series600 += 1;
+                if (seriesAccum > 800) {
+                    stats.series800 += 1;
+                }
             }
         }
     });
