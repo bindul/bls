@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 7,
   "division": "1",
-  "current-rank": "PENDING",
+  "current-rank": "7",
   "roster": [
     {
       "id": "pb1",
@@ -1011,13 +1011,13 @@
       "scheduled-date": "2025-12-04",
       "bowl-date": "2025-12-04",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "7",
       "lanes": [5, 6],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "opponent": {
         "team-id": "2526-fall-beer-1",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "5",
+        "hdcp": 121,
         "vacant": false,
         "absent": false
       }
