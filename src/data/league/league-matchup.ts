@@ -110,6 +110,9 @@ export class LeagueTeamScore extends TeamScore {
 
     @JsonProperty("player-scores", [LeagueTeamPlayerScore])
     playerScores: LeagueTeamPlayerScore[] = [];
+
+    absentVacantHdcpGameTarget :number = 0;
+    absentVacantHdcpSeriesTarget :number = 0;
 }
 
 @JsonObject("OpponentTeamScore")

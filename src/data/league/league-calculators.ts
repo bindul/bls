@@ -19,7 +19,7 @@ import {
     Frame,
     type GameScore,
     LeagueMatchup,
-    LeagueTeamPlayerScore,
+    LeagueTeamPlayerScore, LeagueTeamScore,
     MatchupGameScore, SeriesScore,
     TeamPlayerGameScore, TeamScore
 } from "./league-matchup";
@@ -71,8 +71,8 @@ class PercentAverageToTargetHandicapCapculator extends ZeroHandicapCalculator im
 }
 
 interface PointsCalculator {
-    assignPoints(teamScoreA: TeamScore, teamScoreB: TeamScore): void;
-    assignVacantOrAbsentOpponentPoints(teamScoreA: TeamScore, playerScores: LeagueTeamPlayerScore[], isVacantTeam: boolean, isAbsentTeam: boolean): void;
+    assignPoints(teamScoreA: LeagueTeamScore, teamScoreB: TeamScore): void;
+    assignVacantOrAbsentOpponentPoints(teamScoreA: LeagueTeamScore, isVacantTeam: boolean, isAbsentTeam: boolean): void;
 }
 
 class PpgPpsPointsCalculator implements PointsCalculator {
@@ -94,16 +94,15 @@ class PpgPpsPointsCalculator implements PointsCalculator {
         this.absentOpponentScoring = absentOpponentScoring;
     }
 
-    assignVacantOrAbsentOpponentPoints(teamScoreA: TeamScore, playerScores: LeagueTeamPlayerScore[],
-                                       isVacantTeam: boolean, isAbsentTeam: boolean): void {
+    assignVacantOrAbsentOpponentPoints(teamScoreA: LeagueTeamScore, isVacantTeam: boolean, isAbsentTeam: boolean): void {
         if (isAbsentTeam) {
-            this.assignVacantOrAbsentOpporentPoints(teamScoreA, playerScores, this.absentOpponentScoring);
+            this.assignVacantOrAbsentOpporentPoints(teamScoreA, this.absentOpponentScoring);
         } else if (isVacantTeam) {
-            this.assignVacantOrAbsentOpporentPoints(teamScoreA, playerScores, this.absentOpponentScoring);
+            this.assignVacantOrAbsentOpporentPoints(teamScoreA, this.absentOpponentScoring);
         }
     }
 
-    private assignVacantOrAbsentOpporentPoints(teamScoreA: TeamScore, playerScores: LeagueTeamPlayerScore[], scoringRules?: VacantOrAbsentOpponentScoring) {
+    private assignVacantOrAbsentOpporentPoints(teamScoreA: LeagueTeamScore, scoringRules?: VacantOrAbsentOpponentScoring) {
         if (scoringRules?.allowed) {
             if (scoringRules.scoringType === "FORFEIT") {
                 // Team gets all the points
@@ -111,7 +110,7 @@ class PpgPpsPointsCalculator implements PointsCalculator {
                 teamScoreA.series.pointsWon = this.pointsOnSeriesWin;
             } else if (scoringRules.scoringType === "POINTS_WITHIN_AVG" && scoringRules.pointsWithinAverageConfig) {
                 let targetScore = 0;
-                playerScores.forEach((ps) => {
+                teamScoreA.playerScores.forEach((ps) => {
                     targetScore += ps.enteringHdcp;
                     if (ps.hdcpSettingDay) {
                         // TODO Refactor this to remove handicap calculator dependency when this gets moved to the backend
@@ -121,6 +120,10 @@ class PpgPpsPointsCalculator implements PointsCalculator {
                     }
                 })
                 targetScore -= scoringRules.pointsWithinAverageConfig.pointsWithinTeamAverage;
+
+                teamScoreA.absentVacantHdcpGameTarget = targetScore;
+                teamScoreA.absentVacantHdcpSeriesTarget = targetScore * teamScoreA.games.length;
+
                 teamScoreA.games.forEach(ga => {
                     if (ga.hdcpScore >= targetScore) {
                         ga.pointsWon = this.pointsOnGameWin;
@@ -476,8 +479,7 @@ export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: Leag
     if (matchup.scores && matchup.opponent) {
         const opponent = matchup.opponent;
         if (opponent.absent || opponent.vacant) {
-            // TODO Implement absent or vacant scoring
-            pointsCalculator.assignVacantOrAbsentOpponentPoints(matchup.scores, matchup.scores.playerScores, opponent.vacant, opponent.absent);
+            pointsCalculator.assignVacantOrAbsentOpponentPoints(matchup.scores, opponent.vacant, opponent.absent);
         } else if (opponent.scores) {
             pointsCalculator.assignPoints(matchup.scores, opponent.scores);
         }

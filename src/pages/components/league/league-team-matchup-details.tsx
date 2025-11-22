@@ -281,6 +281,16 @@ const TeamIndSeriesGameScoresSummary :FC<MatchupDetailsDisplayProps> = ({matchup
                     <td className="text-primary-emphasis text-end">{matchup.scores?.series.hdcpScore}</td>
                     <td></td>
                 </tr>
+                {((matchup.opponent?.vacant || matchup.opponent?.absent) && (matchup.scores?.absentVacantHdcpGameTarget ?? 0) > 0) &&
+                    <tr>
+                        <th scope="row" colSpan={2}>Target</th>
+                        {matchup.scores?.games.map((_, i) =>
+                            <td className="text-secondary text-end" key={"tgt-" + keyPrefix + "-" + i.toString()}>{matchup.scores?.absentVacantHdcpGameTarget}</td>
+                        )}
+                        <td className="text-secondary text-end">{matchup.scores?.absentVacantHdcpSeriesTarget}</td>
+                        <td></td>
+                    </tr>
+                }
             </tbody>
         </Table>
     </>);
