@@ -55,7 +55,7 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
             },
             {
                 name: '200 Games',
-                type: 'bar',
+                type: 'line',
                 data: playerData.map(p => {
                     let count = 0;
                     if (p.game1 >= 200) {
@@ -103,13 +103,12 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
                 decimalsInFloat: 0
             },
         ],
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '10%',
-                borderRadius: 5,
-                borderRadiusApplication: 'end'
-            },
+        stroke: {
+            curve: ["smooth", "smooth", "smooth"],
+            width: [2, 3, 0]
+        },
+        markers: {
+            size: [0, 0, 5]
         },
         title: {
             text: "Player Averages"
