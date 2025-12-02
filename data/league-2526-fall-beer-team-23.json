@@ -1211,7 +1211,20 @@
         "entering-rank": "17",
         "hdcp": 163,
         "vacant": false,
-        "absent": true
+        "absent": false,
+        "scores": {
+          "games": [
+            {
+              "scratch-score": 665
+            },
+            {
+              "scratch-score": 630
+            },
+            {
+              "scratch-score": 752
+            }
+          ]
+        }
       }
     },
     {

@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 7,
   "division": "1",
-  "current-rank": "7",
+  "current-rank": "10",
   "roster": [
     {
       "id": "pb1",
@@ -1011,7 +1011,7 @@
       "scheduled-date": "2025-12-04",
       "bowl-date": "2025-12-04",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "7",
+      "entering-rank": "10",
       "lanes": [5, 6],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "opponent": {
