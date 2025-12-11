@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 7,
   "division": "1",
-  "current-rank": "PENDING",
+  "current-rank": "10",
   "roster": [
     {
       "id": "pb1",
@@ -1059,7 +1059,14 @@
         "entering-rank": "5",
         "hdcp": 121,
         "vacant": false,
-        "absent": false
+        "absent": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 683 },
+            { "scratch-score": 761 },
+            { "scratch-score": 633 }
+          ]
+        }
       }
     },
     {
@@ -1067,9 +1074,16 @@
       "scheduled-date": "2025-12-11",
       "bowl-date": "2025-12-11",
       "matchup-type": "POSITION-INTRA-DIVISION",
-      "entering-rank": "PENDING",
-      "lanes": [0, 0],
-      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE"
+      "entering-rank": "10",
+      "lanes": [9, 10],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-1",
+        "entering-rank": "9",
+        "hdcp": 121,
+        "vacant": false,
+        "absent": false
+      }
     },
     {
       "week": 15,
