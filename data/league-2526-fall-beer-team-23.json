@@ -1305,12 +1305,77 @@
       "entering-rank": "2",
       "lanes": [21, 22],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [
+        "Weekly team accolades (division): Scratch Game #1, Scratch Series #2, Handicap Game #2, Handicap Series #3"
+      ],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "ne1",
+            "entering-average": 180,
+            "games": [
+              {"frames": [["X"], ["X"], ["X"], ["7", "1"], ["X"], ["X"], ["7", "/"], ["X"], ["X"], ["X", "X", "9"]]},
+              {"frames": [["9", "/"], ["9", "/"], ["7", "2"], ["X"], ["9", "/"], ["7", "/"], ["9", "/"], ["7", "1"], ["8S", "1"], ["X", "X", "8"]]},
+              {"frames": [["9", "/"], ["7", "/"], ["X"], ["6", "3"], ["5", "-"], ["7", "/"], ["9", "/"], ["X"], ["3", "-"], ["X", "X", "X"]]}
+            ]
+          },
+          {
+            "player": "bb1",
+            "entering-average": 150,
+            "games": [
+              {
+                "arsenal": ["bb1-bw30"],
+                "frames": [["7S", "1"], ["-", "8"], ["X"], ["8", "1"], ["1", "/"], ["X"], ["X"], ["9", "/"], ["X"], ["X", "8", "/"]]
+              },
+              {
+                "arsenal": ["bb1-bw30"],
+                "frames": [["8", "/"], ["9", "/"], ["9", "/"], ["7", "/"], ["9", "-"], ["X"], ["8", "/"], ["X"], ["9", "/"], ["9", "-"]]
+              },
+              {
+                "arsenal": ["bb1-bw30"],
+                "frames": [["7", "2"], ["8", "1"], ["9", "/"], ["8", "1"], ["6", "3"], ["-", "7"], ["9", "/"], ["9", "-"], ["7S", "1"], ["9", "/", "6"]]
+              }
+            ]
+          },
+          {
+            "player": "lw1",
+            "entering-average": 161,
+            "games": [
+              {
+                "arsenal": ["lw1-hupp"],
+                "frames": [["8", "1"], ["X"], ["9", "/"], ["7", "/"], ["7", "/"], ["X"], ["6", "2"], ["8S", "-"], ["9", "/"], ["X", "X", "X"]]
+              },
+              {
+                "arsenal": ["lw1-hupp"],
+                "frames": [["X"], ["7", "/"], ["X"], ["X"], ["9", "/"], ["9", "-"], ["X"], ["X"], ["9", "/"], ["X", "8", "/"]]
+              },
+              {"frames": [["X"], ["9", "/"], ["8", "/"], ["X"], ["X"], ["7S", "2"], ["8", "/"], ["8", "-"], ["7", "-"], ["X", "8", "-"]]}
+            ]
+          },
+          {
+            "player": "bg1",
+            "entering-average": 192,
+            "games": [
+              {"frames": [["X"], ["9", "/"], ["8", "/"], ["9", "/"], ["9", "/"], ["X"], ["X"], ["8S", "1"], ["9", "-"], ["9", "/", "9"]]},
+              {"frames": [["X"], ["X"], ["X"], ["X"], ["8S", "/"], ["8", "-"], ["X"], ["X"], ["8S", "-"], ["X", "8", "-"]]},
+              {"frames": [["X"], ["9", "/"], ["8", "/"], ["8", "1"], ["X"], ["8", "/"], ["X"], ["X"], ["X"], ["9", "/", "8"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2526-fall-beer-33",
         "entering-rank": "1",
         "hdcp": 175,
         "vacant": false,
-        "absent": false
+        "absent": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 719 },
+            { "scratch-score": 664 },
+            { "scratch-score": 761 }
+          ]
+        }
       }
     },
     {
@@ -1318,9 +1383,16 @@
       "scheduled-date": "2025-12-18",
       "bowl-date": "2025-12-18",
       "matchup-type": "POSITION-INTER-DIVISION",
-      "entering-rank": "PENDING",
-      "lanes": [0, 0],
-      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE"
+      "entering-rank": "2",
+      "lanes": [3, 4],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-10",
+        "entering-rank": "2",
+        "hdcp": 59,
+        "vacant": false,
+        "absent": false
+      }
     }
   ]
 }

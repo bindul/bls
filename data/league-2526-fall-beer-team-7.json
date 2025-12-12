@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 7,
   "division": "1",
-  "current-rank": "10",
+  "current-rank": "11",
   "roster": [
     {
       "id": "pb1",
@@ -1077,12 +1077,51 @@
       "entering-rank": "10",
       "lanes": [9, 10],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 140,
+            "games": [
+              {"frames": [["7", "2"], ["8", "/"], ["9", "-"], ["X"], ["X"], ["9", "-"], ["X"], ["X"], ["9", "/"], ["3", "3"]]},
+              {"frames": [["7", "-"], ["3", "4"], ["6", "1"], ["X"], ["9", "-"], ["8", "1"], ["7S", "1"], ["3", "4"], ["X"], ["8", "-"]]},
+              {"frames": [["6", "/"], ["5", "3"], ["7", "/"], ["9", "/"], ["6", "3"], ["X"], ["X"], ["8", "/"], ["6", "1"], ["X", "4", "4"]]}
+            ]
+          },
+          {
+            "player": "gw1",
+            "entering-average": 100,
+            "games": [
+              {"frames": [["8", "-"], ["X"], ["3", "4"], ["X"], ["7", "2"], ["5", "-"], ["X"], ["7", "-"], ["4", "4"], ["5", "-"]]},
+              {"frames": [["4", "-"], ["1", "4"], ["7S", "-"], ["4", "3"], ["X"], ["6", "3"], ["5", "4"], ["6", "3"], ["6", "-"], ["-", "9"]]},
+              {"frames": [["5", "2"], ["9", "-"], ["6", "-"], ["7", "-"], ["7", "/"], ["8", "-"], ["3", "/"], ["-", "-"], ["8", "-"], ["-", "6"]]}
+            ]
+          },
+          {"player": "tg1", "entering-average": 160, "games": [{"blind": true}, {"blind": true}, {"blind": true}]},
+          {
+            "player": "gz1",
+            "entering-average": 177,
+            "games": [
+              {"frames": [["8S", "-"], ["X"], ["9", "/"], ["8", "-"], ["9", "/"], ["9", "-"], ["8S", "/"], ["7", "/"], ["9", "-"], ["9", "/", "X"]]},
+              {"frames": [["9", "/"], ["X"], ["X"], ["X"], ["9", "-"], ["X"], ["X"], ["X"], ["X"], ["9", "-"]]},
+              {"frames": [["X"], ["7", "2"], ["8", "/"], ["9", "/"], ["9", "-"], ["9", "/"], ["9", "-"], ["9", "/"], ["X"], ["X", "8S", "1"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2526-fall-beer-1",
         "entering-rank": "9",
         "hdcp": 121,
         "vacant": false,
-        "absent": false
+        "absent": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 775 },
+            { "scratch-score": 692 },
+            { "scratch-score": 698 }
+          ]
+        }
       }
     },
     {
@@ -1090,9 +1129,16 @@
       "scheduled-date": "2025-12-18",
       "bowl-date": "2025-12-18",
       "matchup-type": "POSITION-INTER-DIVISION",
-      "entering-rank": "PENDING",
-      "lanes": [0, 0],
-      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE"
+      "entering-rank": "11",
+      "lanes": [21, 22],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-fall-beer-24",
+        "entering-rank": "11",
+        "hdcp": 181,
+        "vacant": false,
+        "absent": false
+      }
     }
   ]
 }
