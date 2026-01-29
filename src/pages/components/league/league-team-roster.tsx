@@ -24,7 +24,12 @@ import Loader from "../loader";
 import {type Breakpoint, BS_BP_SM, BS_BP_XS} from "../ui-utils";
 
 import type {LeagueAccolade} from "../../../data/league/league-details";
-import {LeaguePlayer, LeaguePlayerStats, TrackedLeagueTeam} from "../../../data/league/league-team-details";
+import {
+    LeaguePlayer,
+    LeaguePlayerCarryOverStats,
+    LeaguePlayerStats,
+    TrackedLeagueTeam
+} from "../../../data/league/league-team-details";
 import {RatioGroup} from "../../../data/player/player-stats";
 import {type LeagueMatchup, LeagueTeamPlayerScore} from "../../../data/league/league-matchup";
 import TeamPlayerStatGraph from "./league-player-stat-graph";
@@ -87,8 +92,9 @@ function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
 
 interface PlayerStatsDisplayProps {
     playerStats: LeaguePlayerStats;
+    carryOverStats?: LeaguePlayerCarryOverStats;
 }
-function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
+function PlayerStatsDisplay ({playerStats, carryOverStats}: PlayerStatsDisplayProps) {
     const writeAccolade = (accolade?: LeagueAccolade)=> {
         let retStr = "";
         if (accolade) {
@@ -118,6 +124,7 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                     <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                         <CardBody className="py-1 py-sm-2">
                             <StatRow defn="Games" value={playerStats.gameStats.count}/>
+                            <StatRow defn="Pinfall" value={playerStats.pinfall}/>
                             <StatRow defn="Games - Avg" value={numberFormat.format(playerStats.gameStats.average)}/>
                             <StatRow defn="Games - Min" value={playerStats.gameStats.min}/>
                             <StatRow defn="Games - Max" value={playerStats.gameStats.max}/>
@@ -146,12 +153,19 @@ function PlayerStatsDisplay ({playerStats}: PlayerStatsDisplayProps) {
                 <Col md={displayColMd} lg={displayColLg}>
                     <Card className="text-start mx-0 mb-0 h-100" border="secondary">
                         <CardBody className="py-1 py-sm-2">
-                            <StatRow defn="Total Pinfall" value={playerStats.pinfall}/>
-                            <StatRow defn="Handicap" value={playerStats.handicap}/>
+                            {carryOverStats && <>
+                                <StatRow defn="Carry-Over Pinfall" value={carryOverStats.pins}/>
+                                <StatRow defn="Carry-Over Games" value={carryOverStats.games}/>
+                                <StatRow defn="Entering Handicap" value={carryOverStats.enteringHdcp}/>
+                            </>}
+                            <StatRow defn="League Games" value={playerStats.leagueGames} toolTipText={`Includes carry-over games`}/>
+                            <StatRow defn="League Pinfall" value={playerStats.leaguePinfall} toolTipText={`Includes carry-over games`}/>
+                            <StatRow defn="League Average" value={numberFormat.format(playerStats.leagueAverage)} toolTipText={`Includes carry-over games`}/>
+                            <StatRow defn="League Handicap" value={numberFormat.format(playerStats.leagueHandicap)} toolTipText={`Includes carry-over games`}/>
+                            <StatRow defn="Average Booster" value={playerStats.averageBoosterSeries}
+                                     toolTipText={`Bowl a series of at least this number to increase average by 1 pin.`}/>
                             <StatRow defn="Best Game over Avg" value={writeAccolade(playerStats.bestGameOverAverage)}/>
                             <StatRow defn="Best Series over Avg" value={writeAccolade(playerStats.bestSeriesOverAverage)}/>
-                            <StatRow defn="Average Booster" value={playerStats.averageBoosterSeries}
-                                          toolTipText={`Bowl a series of at least this number to increase average by 1 pin.`}/>
                         </CardBody>
                     </Card>
                 </Col>
@@ -328,7 +342,7 @@ const PlayerDetails :FC<PlayerDetailsProps> = ({playerDetailsDisplay, teamDetail
             </CardHeader>
             {playerStats && (<>
                 <CardBody className="px-2 py-2">
-                    <PlayerStatsDisplay playerStats={playerStats}/>
+                    <PlayerStatsDisplay playerStats={playerStats} carryOverStats={player?.carryOverStats}/>
                 </CardBody>
                 <CardBody className={"px-2 py-2"}>
                     <PlayerGamesTable playerGameData={playerGameData} currentBreakPoint={currentBreakpoint}/>
@@ -372,7 +386,16 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
                                 <th>Games</th>
                                 <th className="d-none d-md-block">Scratch Pins</th>
                                 <th>Average</th>
-                                <th>Handicap</th>
+                                <th className="d-none d-md-block">
+                                    <OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>League Average includes games from first half of split season leagues</Tooltip>}>
+                                        <a href="#" onClick={(e) => { e.preventDefault(); }}>League Average</a>
+                                    </OverlayTrigger>
+                                </th>
+                                <th>
+                                    <OverlayTrigger overlay={<Tooltip id={Math.random().toString()}>Handicap includes games from first half of split season leagues</Tooltip>}>
+                                        <a href="#" onClick={(e) => { e.preventDefault(); }}>Handicap</a>
+                                    </OverlayTrigger>
+                                </th>
                                 <th className="d-none d-md-block">Series Avg</th>
                             </tr>
                             </thead>
@@ -386,7 +409,10 @@ const LeagueTeamRoster: FC<LeagueTeamRosterProps> = ({teamDetails, currentBreakp
                                     <td>{p.playerStats?.gameStats.count}</td>
                                     <td className="d-none d-md-block">{p.playerStats?.pinfall}</td>
                                     <td>{p.playerStats?.gameStats.average.toFixed(2)}</td>
-                                    <td>{p.playerStats?.handicap}</td>
+                                    <td className="d-none d-md-block">
+                                        {p.playerStats?.leagueAverage.toFixed(2)}
+                                    </td>
+                                    <td>{p.playerStats?.leagueHandicap}</td>
                                     <td className="d-none d-md-block">
                                         {p.playerStats?.seriesStats.average.toFixed(2)}
                                     </td>

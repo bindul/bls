@@ -553,9 +553,26 @@ function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator: Han
 
       // Compute League Player Stats
       if (playerStats.gameStats.average > 0) {
-          playerStats.handicap = hdcpCalculator.calculateHandicap(playerStats.gameStats.average);
+          playerStats.leaguePinfall = playerStats.pinfall;
+          playerStats.leagueGames = playerStats.gameStats.count;
+          playerStats.leagueAverage = playerStats.gameStats.average;
+
+          // Handle carry over stats from previous half league season
+          if (player.carryOverStats) {
+              playerStats.leaguePinfall += player.carryOverStats.pins ?? 0;
+              playerStats.leagueGames += player.carryOverStats.games ?? 0;
+
+              playerStats.leagueAverage = playerStats.leaguePinfall / playerStats.leagueGames;
+
+              if (player.carryOverStats.enteringHdcp && player.carryOverStats.enteringHdcp > 0) {
+                  playerStats.leagueHandicap = player.carryOverStats.enteringHdcp;
+              }
+          }
+      }
+      if (playerStats.leagueAverage > 0) {
+          playerStats.leagueHandicap = hdcpCalculator.calculateHandicap(playerStats.leagueAverage);
           const gamesPerSeries = bowlingDays?.gamesPerWeek ?? 3; // Default 3
-          playerStats.averageBoosterSeries = Math.ceil(((Math.floor(playerStats.gameStats.average) + 1) * (playerStats.gameStats.count + gamesPerSeries)) - playerStats.pinfall);
+          playerStats.averageBoosterSeries = Math.ceil(((Math.floor(playerStats.leagueAverage) + 1) * (playerStats.leagueGames + gamesPerSeries)) - playerStats.leaguePinfall);
       }
 
       const indGameOverAverage : LeagueAccolade = {type: "IND-GAME-OVER-AVERAGE", who: player.id ?? "UNKNOWN", when: undefined, howMuch: 0, description: ""};
@@ -683,7 +700,7 @@ export function decorateLeagueDetails (league : LeagueDetails) :LeagueDetails {
                 if (pc < 4 && p.status == "REGULAR" && p.playerStats) {
                     const playerStats = p.playerStats;
                     teamStats.average += Math.floor(playerStats.gameStats.average);
-                    teamStats.handicap += Math.floor(playerStats.handicap);
+                    teamStats.handicap += Math.floor(playerStats.leagueHandicap);
                     pc++;
                 }
             });

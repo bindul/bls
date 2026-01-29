@@ -19,7 +19,11 @@ import {PlayerStats} from "../player/player-stats";
 import type {LeagueAccolade} from "./league-details";
 
 export class LeaguePlayerStats extends PlayerStats {
-    handicap = 0;
+    leaguePinfall = 0;
+    leagueGames = 0;
+    leagueAverage = 0;
+    leagueHandicap = 0;
+
     averageBoosterSeries = 0;
     bestGameOverAverage?: LeagueAccolade;
     bestSeriesOverAverage?: LeagueAccolade;
