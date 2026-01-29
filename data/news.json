@@ -19,6 +19,11 @@
       "date": "2025-10-17",
       "title": "New Team on BLS!!",
       "text": "O.G. Hookers! Welcome to the Bowling League Stas (a.k.a. Bindul Report)!!!"
+    },
+    {
+      "date": "2026-01-28",
+      "title": "Incorrect Player Stats for Winter Beer League",
+      "text": "The site does not calculate average and handicap correctly with carryover stats from the Fall Beer league. This is a known issue being worked on."
     }
   ]
 }
