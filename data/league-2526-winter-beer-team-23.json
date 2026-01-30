@@ -2,7 +2,7 @@
   "id": "2526-winter-beer-23",
   "name": "Hookers & Bowl",
   "number": 23,
-  "division": "2",
+  "division": "1",
   "current-rank": "PENDING",
   "roster": [
     {
@@ -69,6 +69,17 @@
         "entering-hdcp": 0,
         "pins": 666,
         "games": 3
+      }
+    },
+    {
+      "id": "ds1",
+      "name": "Dimitri",
+      "status": "SUBSTITUTE",
+      "parking-lot-threshold": 100,
+      "carry-over-league-stats": {
+        "entering-hdcp": 37,
+        "pins": 4041,
+        "games": 24
       }
     }
   ],
@@ -274,13 +285,60 @@
       "entering-rank": "16",
       "lanes": [7, 8],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": [
+          {
+            "player": "ms1",
+            "entering-average": 147,
+            "games": [
+              {"frames": [["7", "-"], ["3", "6"], ["7", "-"], ["5", "4"], ["8", "/"], ["5", "/"], ["X"], ["X"], ["8S", "1"], ["X", "9", "/"]]},
+              {"frames": [["5", "/"], ["8", "/"], ["7", "-"], ["8", "-"], ["7", "/"], ["9", "/"], ["8S", "1"], ["X"], ["7", "/"], ["8S", "1"]]},
+              {"frames": [["7", "2"], ["5", "3"], ["X"], ["7", "2"], ["7", "/"], ["X"], ["6", "2"], ["X"], ["6", "1"], ["8", "/", "8"]]}
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 152,
+            "games": [
+              {"frames": [["9", "/"], ["9", "/"], ["7", "-"], ["X"], ["6", "/"], ["9", "/"], ["9", "/"], ["X"], ["8", "/"], ["7", "-"]]},
+              {"frames": [["7", "/"], ["X"], ["9", "/"], ["X"], ["8S", "-"], ["3", "5"], ["X"], ["9", "/"], ["9", "-"], ["6", "3"]]},
+              {"frames": [["9", "-"], ["7", "/"], ["6S", "/"], ["5", "4"], ["8S", "-"], ["9", "/"], ["X"], ["8S", "-"], ["8S", "1"], ["9", "/", "5"]]}
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 178,
+            "games": [
+              {"frames": [["X"], ["X"], ["8S", "1"], ["5", "/"], ["8S", "1"], ["X"], ["X"], ["9", "/"], ["9", "/"], ["X", "9", "/"]]},
+              {"frames": [["X"], ["9", "/"], ["X"], ["9", "-"], ["X"], ["X"], ["8", "/"], ["7S", "2"], ["7", "/"], ["X", "X", "X"]]},
+              {"frames": [["8S", "1"], ["X"], ["9", "-"], ["8S", "-"], ["8S", "1"], ["5", "4"], ["9", "/"], ["9", "-"], ["9", "/"], ["9", "/", "X"]]}
+            ]
+          },
+          {
+            "player": "ds1",
+            "entering-average": 168,
+            "games": [
+              {"frames": [["7", "2"], ["9", "-"], ["8", "/"], ["9", "/"], ["8S", "1"], ["9", "-"], ["X"], ["X"], ["X"], ["8S", "-"]]},
+              {"frames": [["9", "/"], ["9", "/"], ["X"], ["X"], ["9", "/"], ["9", "/"], ["X"], ["7", "1"], ["X"], ["7", "/", "9"]]},
+              {"frames": [["8", "/"], ["X"], ["9", "/"], ["7", "2"], ["7", "/"], ["9", "-"], ["X"], ["X"], ["6", "2"], ["X", "X", "7"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2526-winter-beer-29",
         "entering-rank": "5",
         "hdcp": 88,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 770 },
+            { "scratch-score": 833 },
+            { "scratch-score": 740 }
+          ]
+        }
       }
     },
     {
@@ -288,13 +346,13 @@
       "scheduled-date": "2026-02-05",
       "bowl-date": "2026-02-05",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "UNKNOWN",
+      "entering-rank": "PENDING",
       "lanes": [37, 38],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "opponent": {
         "team-id": "2526-winter-beer-40",
-        "entering-rank": "UNKNOWN",
-        "hdcp": 0,
+        "entering-rank": "PENDING",
+        "hdcp": 199,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false
