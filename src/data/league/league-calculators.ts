@@ -28,7 +28,6 @@ import {isNumeric} from "../utils/utils";
 import {LeaguePlayer, LeaguePlayerStats, TeamStats, type TrackedLeagueTeam} from "./league-team-details";
 import {calculatePlayerStats} from "../player/player-stats-calculator";
 
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Interfaces and Implementations
 // ---------------------------------------------------------------------------------------------------------------------
@@ -552,7 +551,7 @@ function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator: Han
       calculatePlayerStats(playerGames, playerStats);
 
       // Compute League Player Stats
-      if (playerStats.gameStats.average > 0) {
+      if (playerStats.gameStats.average > 0 || player.carryOverStats) {
           playerStats.leaguePinfall = playerStats.pinfall;
           playerStats.leagueGames = playerStats.gameStats.count;
           playerStats.leagueAverage = playerStats.gameStats.average;
@@ -562,7 +561,9 @@ function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator: Han
               playerStats.leaguePinfall += player.carryOverStats.pins ?? 0;
               playerStats.leagueGames += player.carryOverStats.games ?? 0;
 
-              playerStats.leagueAverage = playerStats.leaguePinfall / playerStats.leagueGames;
+              if (playerStats.leagueGames > 0) {
+                  playerStats.leagueAverage = playerStats.leaguePinfall / playerStats.leagueGames;
+              }
 
               if (player.carryOverStats.enteringHdcp && player.carryOverStats.enteringHdcp > 0) {
                   playerStats.leagueHandicap = player.carryOverStats.enteringHdcp;
