@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 11,
   "division": "1",
-  "current-rank": "7",
+  "current-rank": "10",
   "roster": [
     {
       "id": "ne1",
@@ -92,6 +92,12 @@
         "pins": 399,
         "games": 3
       }
+    },
+    {
+      "id": "rg1",
+      "name": "Reema",
+      "status": "SUBSTITUTE",
+      "parking-lot-threshold": 80
     }
   ],
   "matchups": [
@@ -702,13 +708,67 @@
       "entering-rank": "7",
       "lanes": [31, 32],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores":[
+          {
+            "player": "bb1",
+            "entering-average": 154,
+            "games": [
+              {
+                "arsenal": ["bb1-bw30"],
+                "frames": [["8", "/"], ["9", "/"], ["9", "/"], ["7", "/"], ["9", "-"], ["X"], ["9", "/"], ["7", "2"], ["8", "-"], ["9", "-"]]
+              },
+              {
+                "arsenal": ["bb1-bw30"],
+                "frames": [["X"], ["7", "2"], ["-", "8"], ["6S", "-"], ["7S", "2"], ["9", "/"], ["9", "-"], ["X"], ["X"], ["X", "9", "-"]]
+              },
+              {"arsenal": ["bb1-bw30"], "frames": [["9", "-"], ["8", "1"], ["X"], ["9", "-"], ["X"], ["8S", "1"], ["9", "-"], ["9", "/"], ["X"], ["8S", "1"]]}
+            ]
+          },
+          {
+            "player": "rg1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {"frames": [["-", "8"], ["-", "2"], ["8S", "1"], ["9", "-"], ["X"], ["7", "-"], ["9", "-"], ["7", "-"], ["-", "7"], ["8", "-"]]},
+              {"frames": [["8S", "-"], ["7", "/"], ["8", "-"], ["9", "/"], ["7", "-"], ["8", "/"], ["9", "-"], ["-", "4"], ["X"], ["7", "2"]]},
+              {"frames": [["6", "/"], ["7", "-"], ["8", "1"], ["X"], ["6", "3"], ["-", "9"], ["5", "2"], ["7", "-"], ["-", "1"], ["7", "-"]]}
+            ]
+          },
+          {
+            "player": "lw1",
+            "entering-average": 169,
+            "games": [
+              {"frames": [["8S", "-"], ["9", "/"], ["8", "1"], ["9", "-"], ["X"], ["9", "/"], ["7", "/"], ["6", "1"], ["X"], ["X", "X", "X"]]},
+              {"frames": [["X"], ["X"], ["X"], ["6", "/"], ["X"], ["7S", "1"], ["X"], ["X"], ["X"], ["7", "1"]]},
+              {"frames": [["9", "/"], ["X"], ["X"], ["9", "-"], ["X"], ["8S", "/"], ["8", "/"], ["9", "/"], ["9", "/"], ["7", "/", "X"]]}
+            ]
+          },
+          {
+            "player": "bg1",
+            "entering-average": 200,
+            "games": [
+              {"frames": [["X"], ["7S", "1"], ["7S", "2"], ["X"], ["8S", "1"], ["8", "/"], ["X"], ["X"], ["9", "-"], ["8S", "-"]]},
+              {"frames": [["9", "-"], ["9", "/"], ["X"], ["9", "/"], ["8S", "1"], ["9", "/"], ["7S", "-"], ["9", "/"], ["9", "/"], ["6", "3"]]},
+              {"frames": [["X"], ["X"], ["X"], ["X"], ["9", "/"], ["9", "-"], ["9", "/"], ["X"], ["X"], ["7S", "2"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2526-winter-beer-7",
         "entering-rank": "6",
         "hdcp": 57,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 807 },
+            { "scratch-score": 799 },
+            { "scratch-score": 803 }
+          ]
+        }
       }
     },
     {
@@ -716,13 +776,13 @@
       "scheduled-date": "2026-03-19",
       "bowl-date": "2026-03-19",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "UNKNOWN",
+      "entering-rank": "10",
       "lanes": [5, 6],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "opponent": {
         "team-id": "2526-winter-beer-2",
-        "entering-rank": "UNKNOWN",
-        "hdcp": 0,
+        "entering-rank": "2",
+        "hdcp": 103,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false
