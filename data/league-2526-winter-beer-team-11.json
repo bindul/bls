@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 11,
   "division": "1",
-  "current-rank": "10",
+  "current-rank": "12",
   "roster": [
     {
       "id": "ne1",
@@ -774,18 +774,26 @@
     {
       "week": 11,
       "scheduled-date": "2026-03-19",
-      "bowl-date": "2026-03-19",
+      "bowl-date": "2026-03-28",
       "matchup-type": "REGULAR-DIVISION",
       "entering-rank": "10",
       "lanes": [5, 6],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Team averages: Nick: 180, Bindul: 153, Luke: 169, Brian: 198"],
       "opponent": {
         "team-id": "2526-winter-beer-2",
         "entering-rank": "2",
         "hdcp": 103,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 761 },
+            { "scratch-score": 733 },
+            { "scratch-score": 766 }
+          ]
+        }
       }
     },
     {
@@ -793,13 +801,13 @@
       "scheduled-date": "2026-03-26",
       "bowl-date": "2026-03-26",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "UNKNOWN",
+      "entering-rank": "12",
       "lanes": [29, 30],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "opponent": {
         "team-id": "2526-winter-beer-6",
-        "entering-rank": "UNKNOWN",
-        "hdcp": 0,
+        "entering-rank": "10",
+        "hdcp": 190,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false
