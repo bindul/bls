@@ -920,13 +920,60 @@
       "entering-rank": "13",
       "lanes": [19, 20],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": [
+          {
+            "player": "ne1",
+            "entering-average": 179,
+            "games": [
+              {"frames": [["X"], ["9", "-"], ["X"], ["9", "/"], ["X"], ["X"], ["X"], ["X"], ["9", "-"], ["X", "9", "/"]]},
+              {"frames": [["9", "/"], ["X"], ["X"], ["8S", "-"], ["9", "-"], ["X"], ["X"], ["9", "/"], ["X"], ["7S", "2"]]},
+              {"frames": [["X"], ["X"], ["X"], ["7S", "1"], ["X"], ["X"], ["7", "/"], ["7S", "-"], ["8S", "-"], ["X", "X", "9"]]}
+            ]
+          },
+          {
+            "player": "bb1",
+            "entering-average": 153,
+            "games": [
+              {"frames": [["8", "/"], ["9", "/"], ["X"], ["6", "2"], ["X"], ["X"], ["7S", "1"], ["9", "-"], ["8S", "1"], ["8", "-"]]},
+              {"frames": [["9", "/"], ["X"], ["8S", "/"], ["9", "-"], ["X"], ["X"], ["8", "/"], ["9", "-"], ["X"], ["8", "1"]]},
+              {"frames": [["7S", "1"], ["8S", "1"], ["X"], ["9", "/"], ["9", "-"], ["9", "/"], ["8S", "/"], ["9", "/"], ["8", "/"], ["7", "2"]]}
+            ]
+          },
+          {
+            "player": "lw1",
+            "entering-average": 168,
+            "games": [
+              {"frames": [["X"], ["8", "-"], ["8S", "1"], ["X"], ["X"], ["X"], ["X"], ["7", "-"], ["X"], ["X", "9", "/"]]},
+              {"frames": [["8", "/"], ["X"], ["8", "/"], ["9", "/"], ["X"], ["3", "3"], ["7", "2"], ["8", "/"], ["9", "/"], ["8S", "-"]]},
+              {"frames": [["8", "/"], ["X"], ["X"], ["X"], ["8", "/"], ["9", "-"], ["9", "-"], ["7", "/"], ["8", "/"], ["X", "X", "9"]]}
+            ]
+          },
+          {
+            "player": "bg1",
+            "entering-average": 198,
+            "games": [
+              {"frames": [["X"], ["9", "/"], ["X"], ["8", "-"], ["9", "/"], ["X"], ["9", "/"], ["X"], ["X"], ["9", "/", "7"]]},
+              {"frames": [["8S", "-"], ["9", "/"], ["9", "/"], ["X"], ["9", "-"], ["9", "-"], ["6", "-"], ["X"], ["9", "/"], ["X", "X", "9"]]},
+              {"frames": [["X"], ["X"], ["9", "/"], ["9", "-"], ["X"], ["X"], ["7S", "-"], ["9", "-"], ["X"], ["9", "/", "6"]]}
+            ]
+          }
+        ]
+      },  
       "opponent": {
         "team-id": "2526-winter-beer-9",
         "entering-rank": "4",
         "hdcp": 75,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 821 },
+            { "scratch-score": 845 },
+            { "scratch-score": 755 }
+          ]
+        }
       }
     },
     {
@@ -934,13 +981,13 @@
       "scheduled-date": "2026-04-09",
       "bowl-date": "2026-04-09",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "UNKNOWN",
+      "entering-rank": "13",
       "lanes": [27, 28],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "opponent": {
         "team-id": "2526-winter-beer-8",
-        "entering-rank": "UNKNOWN",
-        "hdcp": 0,
+        "entering-rank": "20",
+        "hdcp": 276,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false
