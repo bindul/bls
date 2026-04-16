@@ -189,6 +189,13 @@
       "players": ["Tyler B", "Matt B", "Shaun J", "Erik F", "Kurtis F"]
     },
     {
+      "id": "2526-winter-beer-20",
+      "number": 20,
+      "division": "1",
+      "name": "Great Balls of Fire",
+      "players": ["Kyle R", "Matt K", "Kyle B", "Sean R"]
+    },
+    {
       "id": "2526-winter-beer-22",
       "number": 22,
       "division": "2",
@@ -243,6 +250,13 @@
       "division": "2",
       "name": "Turkey Club",
       "players": ["Jordan H", "Leo B", "David P", "Paul D"]
+    },
+    {
+      "id": "2526-winter-beer-32",
+      "number": 32,
+      "division": "2",
+      "name": "2 Fingers Sometimes 3",
+      "players": ["Mark R", "Aimee R", "Matt A", "Bruce S"]
     },
     {
       "id": "2526-winter-beer-34",

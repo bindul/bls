@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 12,
   "division": "2",
-  "current-rank": "PENDING",
+  "current-rank": "14",
   "roster": [
     {
       "id": "pb1",
@@ -988,7 +988,14 @@
         "hdcp": 231,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 580 },
+            { "scratch-score": 593 },
+            { "scratch-score": 598 }
+          ]
+        }
       }
     },
     {
@@ -996,9 +1003,17 @@
       "scheduled-date": "2026-04-16",
       "bowl-date": "2026-04-16",
       "matchup-type": "POSITION-INTRA-DIVISION",
-      "entering-rank": "PENDING",
-      "lanes": [0, 0],
-      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE"
+      "entering-rank": "14",
+      "lanes": [33, 34],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-winter-beer-32",
+        "entering-rank": "13",
+        "hdcp": 156,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false
+      }
     },
     {
       "week": 16,
