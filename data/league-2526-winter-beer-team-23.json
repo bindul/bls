@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 12,
   "division": "2",
-  "current-rank": "14",
+  "current-rank": "15",
   "roster": [
     {
       "id": "pb1",
@@ -1006,13 +1006,61 @@
       "entering-rank": "14",
       "lanes": [33, 34],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Weekly team accolades (division): Handicap Game #2, Handicap Series #2"],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 140,
+            "games": [
+              {"frames": [["X"], ["3", "5"], ["9", "/"], ["7", "/"], ["3", "6"], ["9", "-"], ["7", "/"], ["X"], ["6", "1"], ["X", "8S", "-"]]},
+              {"frames": [["5", "/"], ["9", "/"], ["9", "/"], ["X"], ["9", "/"], ["X"], ["6", "3"], ["8S", "1"], ["8S", "1"], ["9", "-"]]},
+              {"frames": [["9", "/"], ["X"], ["X"], ["9", "-"], ["X"], ["7", "2"], ["8", "/"], ["X"], ["9", "/"], ["7", "/", "3"]]}
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 145,
+            "games": [
+              {"frames": [["X"], ["9", "/"], ["9", "-"], ["9", "-"], ["7", "2"], ["7", "/"], ["8", "/"], ["6", "/"], ["8", "-"], ["8", "/", "7"]]},
+              {"frames": [["3", "1"], ["8S", "1"], ["9", "/"], ["7", "1"], ["7", "/"], ["9", "-"], ["9", "/"], ["X"], ["6", "3"], ["7", "1"]]},
+              {"frames": [["5", "/"], ["9", "/"], ["X"], ["9", "-"], ["X"], ["9", "-"], ["9", "/"], ["7", "/"], ["8", "/"], ["9", "/", "7"]]}
+            ]
+          },
+          {
+            "player": "bs1",
+            "entering-average": 120,
+            "games": [
+              {"frames": [["7", "1"], ["8", "/"], ["7S", "2"], ["9", "/"], ["3", "-"], ["X"], ["X"], ["7", "/"], ["X"], ["X", "7", "/"]]},
+              {"frames": [["8", "1"], ["7", "2"], ["9", "/"], ["7S", "1"], ["X"], ["X"], ["9", "/"], ["7", "/"], ["7", "2"], ["7", "1"]]},
+              {"frames": [["7", "1"], ["7", "/"], ["9", "/"], ["X"], ["6", "1"], ["7", "-"], ["6", "/"], ["8", "/"], ["9", "-"], ["3", "/", "X"]]}
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 181,
+            "games": [
+              {"frames": [["X"], ["X"], ["X"], ["9", "/"], ["9", "-"], ["7", "2"], ["9", "/"], ["9", "/"], ["X"], ["X", "5", "4"]]},
+              {"frames": [["X"], ["X"], ["-", "/"], ["8", "/"], ["9", "/"], ["9", "/"], ["X"], ["X"], ["9", "-"], ["X", "X", "X"]]},
+              {"frames": [["X"], ["X"], ["8", "/"], ["9", "/"], ["X"], ["7", "/"], ["X"], ["7S", "2"], ["9", "/"], ["X", "X", "X"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2526-winter-beer-32",
         "entering-rank": "13",
         "hdcp": 156,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 771 },
+            { "scratch-score": 701 },
+            { "scratch-score": 737 }
+          ]
+        }
       }
     },
     {
@@ -1020,9 +1068,17 @@
       "scheduled-date": "2026-04-23",
       "bowl-date": "2026-04-23",
       "matchup-type": "POSITION-INTER-DIVISION",
-      "entering-rank": "UNKNOWN",
-      "lanes": [0, 0],
-      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE"
+      "entering-rank": "15",
+      "lanes": [29, 30],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "opponent": {
+        "team-id": "2526-winter-beer-15",
+        "entering-rank": "15",
+        "hdcp": 281,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false
+      }
     }
   ]
 }
