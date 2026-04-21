@@ -7,11 +7,19 @@ export default defineConfig({
   plugins: [react()],
   build: {
     minify: true,
-    rollupOptions: {
+    rolldownOptions : {
       output: {
-        manualChunks: {
-          'react-bootstrap-icons': ['react-bootstrap-icons'],
-          'react-apexcharts': ['react-apexcharts', 'apexcharts'],
+        codeSplitting: {
+          groups: [
+            {
+              name: 'react-bootstrap-icons',
+              test: /node_modules\/react-bootstrap-icons/
+            },
+            {
+              name: 'apexcharts',
+              test: /node_modules\/(react-apexcharts|apexcharts)/
+            }
+          ]
         }
       }
     },
