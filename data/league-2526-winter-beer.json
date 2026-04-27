@@ -14,7 +14,7 @@
       }
     }],
   "usbc-sanctioned": false,
-  "completed": false,
+  "completed": true,
   "bowling-days": {
     "games-per-week": 3,
     "bowls-on": "Thursday",
