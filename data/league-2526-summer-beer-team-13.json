@@ -39,7 +39,12 @@
       "entering-rank": "UNKNOWN",
       "lanes": [13, 14],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": ["Start of League", "Bindul keeps up tradition and is out of town for first day!"],
+      "notes": [
+        "Start of League",
+        "Bindul keeps up tradition and is out of town for first day!",
+        "Season team accolades (division): Scratch Series #1",
+        "Season individual accolades (division): Luke - Handicap Game #2",
+        "Weekly team accolades (division): Scratch Game #3, Scratch Series #2, Handicap Game #3, Handicap Series #2"],
       "scores": {
         "player-scores": [
           {
