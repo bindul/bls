@@ -18,7 +18,7 @@
   "bowling-days": {
     "games-per-week": 3,
     "bowls-on": "Thursday",
-    "start-time": "19:00",
+    "start-time": "20:00",
     "start-date": "2026-01-08",
     "duration": 16,
     "duration-unit": "WK",

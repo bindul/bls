@@ -1,0 +1,418 @@
+{
+  "id": "2526-summer-beer-13",
+  "name": "Pins Go Boom!",
+  "number": 13,
+  "division": "1",
+  "current-rank": "2",
+  "roster": [
+    {
+      "id": "ne1",
+      "name": "Nick",
+      "status": "REGULAR",
+      "parking-lot-threshold": 120
+    },
+    {
+      "id": "bb1",
+      "name": "Bindul",
+      "status": "REGULAR",
+      "parking-lot-threshold": 120
+    },
+    {
+      "id": "lw1",
+      "name": "Luke",
+      "status": "REGULAR",
+      "parking-lot-threshold": 120
+    },
+    {
+      "id": "bg1",
+      "name": "Brian",
+      "status": "REGULAR",
+      "parking-lot-threshold": 120
+    }
+  ],
+  "matchups": [
+    {
+      "week": 1,
+      "scheduled-date": "2026-05-07",
+      "bowl-date": "2026-05-07",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [13, 14],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Start of League", "Bindul keeps up tradition and is out of town for first day!"],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "ne1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {"frames": [["7S", "1"], ["7", "2"], ["7", "/"], ["X"], ["X"], ["9", "/"], ["X"], ["X"], ["X"], ["X", "9", "-"]]},
+              {"frames": [["9", "/"], ["8", "/"], ["7", "/"], ["9", "/"], ["9", "-"], ["8", "/"], ["X"], ["8", "/"], ["9", "-"], ["X", "X", "6"]]},
+              {"frames": [["8S", "-"], ["9", "/"], ["X"], ["8", "/"], ["X"], ["9", "/"], ["7S", "2"], ["X"], ["X"], ["8", "1"]]}
+            ]
+          },
+          {"player": "bb1", "entering-average": 0, "hdcp-setting-day": true, "games": [{"vacant": true}, {"vacant": true}, {"vacant": true}]},
+          {
+            "player": "lw1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {"frames": [["6S", "-"], ["X"], ["9", "-"], ["X"], ["9", "/"], ["X"], ["9", "-"], ["9", "/"], ["9", "-"], ["8", "-"]]},
+              {"frames": [["X"], ["X"], ["8", "/"], ["X"], ["X"], ["X"], ["X"], ["9", "/"], ["X"], ["X", "7", "-"]]},
+              {"frames": [["8", "-"], ["7", "2"], ["X"], ["9", "/"], ["7", "-"], ["7", "/"], ["9", "/"], ["9", "-"], ["X"], ["X", "X", "8"]]}
+            ]
+          },
+          {
+            "player": "bg1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {"frames": [["X"], ["9", "-"], ["X"], ["X"], ["9", "/"], ["9", "/"], ["8S", "1"], ["8S", "1"], ["9", "-"], ["7S", "1"]]},
+              {"frames": [["-", "/"], ["X"], ["6", "3"], ["7", "/"], ["8", "/"], ["9", "/"], ["X"], ["X"], ["X"], ["X", "X", "X"]]},
+              {"frames": [["8S", "-"], ["9", "/"], ["X"], ["9", "/"], ["9", "/"], ["X"], ["5S", "3"], ["X"], ["X"], ["X", "X", "X"]]}
+            ]
+          }
+        ]
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-14",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 190,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 669 },
+            { "scratch-score": 611 },
+            { "scratch-score": 602 }
+          ]
+        }
+      }
+    },
+    {
+      "week": 2,
+      "scheduled-date": "2026-05-21",
+      "bowl-date": "2026-05-21",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "2",
+      "lanes": [23, 24],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-2",
+        "entering-rank": "7",
+        "hdcp": 214,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 3,
+      "scheduled-date": "2026-05-28",
+      "bowl-date": "2026-05-28",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [1, 2],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-8",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 4,
+      "scheduled-date": "2026-06-04",
+      "bowl-date": "2026-06-04",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [31, 32],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-6",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 5,
+      "scheduled-date": "2026-06-11",
+      "bowl-date": "2026-06-11",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [7, 8],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-15",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 6,
+      "scheduled-date": "2026-06-18",
+      "bowl-date": "2026-06-18",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [37, 38],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-4",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 7,
+      "scheduled-date": "2026-06-25",
+      "bowl-date": "2026-06-25",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [5, 6],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-11",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 8,
+      "scheduled-date": "2026-07-02",
+      "bowl-date": "2026-07-02",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [29, 30],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-17",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 9,
+      "scheduled-date": "2026-07-09",
+      "bowl-date": "2026-07-09",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [15, 16],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-9",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 10,
+      "scheduled-date": "2026-07-16",
+      "bowl-date": "2026-07-16",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [27, 28],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-20",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 11,
+      "scheduled-date": "2026-07-23",
+      "bowl-date": "2026-07-23",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [19, 20],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-12",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 12,
+      "scheduled-date": "2026-07-30",
+      "bowl-date": "2026-07-30",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [33, 34],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-19",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 13,
+      "scheduled-date": "2026-08-06",
+      "bowl-date": "2026-08-06",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [17, 18],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-5",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 14,
+      "scheduled-date": "2026-08-13",
+      "bowl-date": "2026-08-13",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [23, 24],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-1",
+        "entering-rank": "UNKNOWN",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": []
+        }
+      }
+    },
+    {
+      "week": 15,
+      "scheduled-date": "2026-08-20",
+      "bowl-date": "2026-08-20",
+      "matchup-type": "POSITION-INTRA-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      }
+    },
+    {
+      "week": 16,
+      "scheduled-date": "2026-08-27",
+      "bowl-date": "2026-08-27",
+      "matchup-type": "POSITION-INTER-DIVISION",
+      "entering-rank": "UNKNOWN",
+      "lanes": [],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "scores": {
+        "player-scores": []
+      }
+    }
+  ]
+}

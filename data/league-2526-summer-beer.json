@@ -1,0 +1,185 @@
+{
+  "id": "2526-summer-beer",
+  "season": "2025-26",
+  "center": "Arapahoe Bowling Center",
+  "name": "Summer Thursday Beer League",
+  "online-scoring": [
+    {
+      "platform": "LeagueSecretary",
+      "league-secretary": {
+        "center-id": 12099,
+        "center-dashboard-url": "https://www.leaguesecretary.com/bowling-centers/arapahoe-bowling-center/dashboard/12099",
+        "league-id": 133016,
+        "league-dashboard-url": "https://www.leaguesecretary.com/bowling-centers/arapahoe-bowling-center/bowling-leagues/beer-winter-2026/dashboard/133016"
+      }
+    }],
+  "usbc-sanctioned": false,
+  "completed": true,
+  "bowling-days": {
+    "games-per-week": 3,
+    "bowls-on": "Thursday",
+    "start-time": "19:00",
+    "start-date": "2026-05-07",
+    "duration": 16,
+    "duration-unit": "WK",
+    "position-rounds": ["WK15", "WK16"]
+  },
+  "scoring-rules": {
+    "legal-min-lineup": 2,
+    "lineup": 4,
+    "roster": 7,
+    "substitutes-allowed": true,
+    "hdcp": {
+      "type": "PCT_AVG_TO_TGT",
+      "pct-avg-to-tgt-config": {
+        "target": 210,
+        "pct-to-target": 90.0
+      }
+    },
+    "blind-penalty": {
+      "blinds-allowed": true,
+      "default-penalty": 0,
+      "missed-matchups-penalty": 10,
+      "missed-matchups-threshold": 3
+    },
+    "vacancy-score": {
+      "vacancy-allowed": true,
+      "scratch-score": 120,
+      "hdcp": 81
+    },
+    "point-scoring": {
+      "matchup-point-scoring-rule": "PPG_PPS",
+      "ppg-pps-matchup-point-scoring-config": {
+        "points-per-game": 1,
+        "points-per-series": 1,
+        "points-per-game-on-tie": 0.5,
+        "points-per-series-on-tie": 0.5,
+        "vacant-opponent-allowed": true,
+        "absent-opponent-allowed": true
+      },
+      "vacant-opponent-scoring": {
+        "allowed": true,
+        "type": "POINTS_WITHIN_AVG",
+        "points-within-avg-config": {
+          "points-within-team-avg": 40
+        }
+      },
+      "absent-opponent-scoring": {
+        "allowed": true,
+        "type": "POINTS_WITHIN_AVG",
+        "points-within-avg-config": {
+          "points-within-team-avg": 40
+        }
+      }
+    }
+  },
+  "teams": [
+    {
+      "id": "2526-winter-beer-13",
+      "name": "Pins Go Boom!",
+      "number": 13,
+      "division": "1",
+      "data-loc": "league-2526-summer-beer-team-13.json"
+    }
+  ],
+  "other-teams": [
+    {
+      "id": "2526-winter-beer-1",
+      "number": 1,
+      "division": "1",
+      "name": "Irritable Bowl Syndrome",
+      "players": ["Tim H", "Eric M", "Hillary H", "Ethan M"]
+    },
+    {
+      "id": "2526-winter-beer-2",
+      "number": 2,
+      "division": "1",
+      "name": "Pin n' Juice",
+      "players": ["Marisa M", "Otilla G", "Courtney W", "Kyle M"]
+    },
+    {
+      "id": "2526-winter-beer-4",
+      "number": 4,
+      "division": "1",
+      "name": "Turkey Goblins",
+      "players": ["Mario T", "Colby A", "Kyle O", "Sean M", "Nick B"]
+    },
+    {
+      "id": "2526-winter-beer-5",
+      "number": 5,
+      "division": "1",
+      "name": "Gutter Butter",
+      "players": ["Jack G", "Mark G", "Gavin F", "Drew H"]
+    },
+    {
+      "id": "2526-winter-beer-6",
+      "number": 6,
+      "division": "1",
+      "name": "Nine Nine",
+      "players": ["Ty C", "ShirleeJae I", "Harrison W", "Gabriel M"]
+    },
+    {
+      "id": "2526-winter-beer-8",
+      "number": 8,
+      "division": "1",
+      "name": "Bowl & a Blintz",
+      "players": ["Zach F", "Tyler B", "Greg F", "Chris L"]
+    },
+    {
+      "id": "2526-winter-beer-9",
+      "number": 9,
+      "division": "1",
+      "name": "Diamond Dogs",
+      "players": ["Paul F", "David W", "JD R", "Stefan H"]
+    },
+    {
+      "id": "2526-winter-beer-11",
+      "number": 11,
+      "division": "1",
+      "name": "Brian's Split Roast",
+      "players": ["Brian K", "Kimberley K", "Brian S", "Sarah S", "Ian S"]
+    },
+    {
+      "id": "2526-winter-beer-12",
+      "number": 12,
+      "division": "1",
+      "name": "Brutal Poodle",
+      "players": ["Darci D", "Stephanie R", "Lachelle T", "David L"]
+    },
+    {
+      "id": "2526-winter-beer-14",
+      "number": 14,
+      "division": "1",
+      "name": "Dammit Fiser",
+      "players": ["Leslie H", "Bas H", "Jake E", "Johno B", "Vincent H"]
+    },
+    {
+      "id": "2526-winter-beer-15",
+      "number": 15,
+      "division": "1",
+      "name": "STRIKE JUICE",
+      "players": ["Ered N", "Tim W", "David B", "Marilyn W"]
+    },
+    {
+      "id": "2526-winter-beer-17",
+      "number": 17,
+      "division": "1",
+      "name": "Keep it 100",
+      "players": ["Luke J", "Jesus C", "Kyle R", "David D"]
+    },
+    {
+      "id": "2526-winter-beer-19",
+      "number": 19,
+      "division": "1",
+      "name": "Bada Bing!!!!",
+      "players": ["BJ M", "Tim S", "Greg M", "Ted R"]
+    },
+    {
+      "id": "2526-winter-beer-20",
+      "number": 20,
+      "division": "1",
+      "name": "BTA",
+      "players": ["Nick M", "Daniel M", "Jason G", "Jeremiah M"]
+    }
+  ]
+}
