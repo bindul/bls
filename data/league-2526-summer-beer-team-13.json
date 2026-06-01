@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 13,
   "division": "1",
-  "current-rank": "PENDING",
+  "current-rank": "7",
   "roster": [
     {
       "id": "ne1",
@@ -245,7 +245,7 @@
       "scheduled-date": "2026-06-04",
       "bowl-date": "2026-06-04",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "7",
       "lanes": [31, 32],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "scores": {
@@ -253,14 +253,11 @@
       },
       "opponent": {
         "team-id": "2526-winter-beer-6",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "1",
+        "hdcp": 189,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -280,10 +277,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -303,10 +297,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -326,10 +317,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -349,10 +337,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -372,10 +357,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -395,10 +377,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -418,10 +397,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -441,10 +417,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -464,10 +437,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
@@ -487,10 +457,7 @@
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false,
-        "scores": {
-          "games": []
-        }
+        "pre-post-bowl": false
       }
     },
     {
