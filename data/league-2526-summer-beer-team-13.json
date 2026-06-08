@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 13,
   "division": "1",
-  "current-rank": "6",
+  "current-rank": "9",
   "roster": [
     {
       "id": "ne1",
@@ -310,8 +310,15 @@
         "entering-rank": "1",
         "hdcp": 189,
         "vacant": false,
-        "absent": true,
-        "pre-post-bowl": false
+        "absent": false,
+        "pre-post-bowl": true,
+        "scores": {
+          "games": [
+            { "scratch-score": 623 },
+            { "scratch-score": 565 },
+            { "scratch-score": 600 }
+          ]
+        }
       }
     },
     {
@@ -319,7 +326,7 @@
       "scheduled-date": "2026-06-11",
       "bowl-date": "2026-06-11",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "6",
+      "entering-rank": "9",
       "lanes": [7, 8],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "scores": {
