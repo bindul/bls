@@ -286,7 +286,8 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePl
 
         // Frame Attributes
         const lastBallLabel = currFrame.ballScores[currFrame.ballScores.length - 1][1];
-        if (lastBallLabel == undefined || (lastBallLabel !== "X" && lastBallLabel !== "/")) {
+        if (currFrame.number < 10 && (lastBallLabel == undefined || (lastBallLabel !== "X" && lastBallLabel !== "/"))) {
+            // 10th frame is handled below as the last ball may not decide clean game
             potentialCleanGame = false;
         }
         if (currFrame.ballScores.length > 1) {
@@ -308,7 +309,9 @@ function calculateFrameScores(playerGame: TeamPlayerGameScore, player?: LeaguePl
             }
         }
         if (currFrame.number == 10) {
-            if(potentialCleanGame) {
+            if(potentialCleanGame &&
+                (currFrame.ballScores[0][1] == "X" || (currFrame.ballScores.length > 1 && currFrame.ballScores[1][1] === "/"))) {
+                // Still a clean game if first ball is strike or second is spare
                 currFrame.attributes.push("Clean-Game");
             }
             const parkingLotMin = player?.parkingLotThreshold ?? 100; // Default 100
