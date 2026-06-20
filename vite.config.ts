@@ -30,6 +30,7 @@ export default defineConfig({
       scss: {
           // includePaths: ['./node_modules/'],
           // See https://github.com/twbs/bootstrap/issues/40962
+          // See https://github.com/twbs/bootstrap/issues/41915
           importers: [new NodePackageImporter()],
           loadPaths: ['./node_modules/'],
           silenceDeprecations: [
@@ -37,6 +38,7 @@ export default defineConfig({
               //'mixed-decls',
               'color-functions',
               'global-builtin',
+              'if-function',
           ],
       },
     },
