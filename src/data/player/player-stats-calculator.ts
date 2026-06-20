@@ -97,13 +97,25 @@ class FrameStatCalculator {
                     // Still a clean game if first ball is strike or second is spare
                     potentialCleanGame = false;
                 }
-                if (frameNum < 10 || (frameNum == 10 && frame.ballScores.length == 2)) {
-                    this.openFramesAccum++; // According to PinPal, if you make it to the 3rd ball in 10th frame, it's not an open
-                }
             }
 
-            if (ball1Score == 10 || ball2Score == 10 || ball3Score == 10) {
+            // Open Frames Calculator
+            if (first2BallScores < 10 || (frameNum == 10 && ball1Score == 10 && (ball2Score + ball3Score) < 10)) {
+                // 10th Frame - XXX Not Open | XXn Not Open | Xn/ Not Open | Xnn Open | n/n Not Open | nn Open (covered above)
+                this.openFramesAccum++;
+            }
+
+            // Count Strikes
+            if (ball1Score == 10) {
                 this.strikeCountAccum++;
+            }
+            if (frameNum == 10) {
+                if (ball2Score == 10) {
+                    this.strikeCountAccum++;
+                }
+                if (ball3Score == 10) {
+                    this.strikeCountAccum++;
+                }
             }
 
             // Strikes in a row counter
