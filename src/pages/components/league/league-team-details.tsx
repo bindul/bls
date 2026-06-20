@@ -54,7 +54,7 @@ function buildTeamPositionScoreData (teamDetails: TrackedLeagueTeam): TeamPositi
                 }
             }
             return {
-                bowlDate: matchup.bowlDate?.toDate() ?? new Date(), // Should not happen
+                bowlDate: matchup.scheduledDate?.toDate() ?? new Date(), // Using scheduled date here or the graph gets wonky with pre-bowls and post-bowls
                 position: nextRank,
                 scratchSeries: matchup.scores?.series.effectiveScratchScore ?? 0
             };

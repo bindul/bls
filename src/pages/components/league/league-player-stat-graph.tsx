@@ -93,6 +93,7 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
                 title: {
                     text: "Scratch Pins"
                 },
+                min: playerData.reduce((minVal, p) => Math.min(minVal, p.average), 300,) * 0.9,
                 decimalsInFloat: 0
             },
             {
@@ -100,6 +101,8 @@ const TeamPlayerStatGraph: FC<TeamPlayerStatGraphProps> = ({playerData}) => {
                     text: "Games"
                 },
                 opposite: true,
+                max: 3,
+                min: 0,
                 decimalsInFloat: 0
             },
         ],

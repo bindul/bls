@@ -77,7 +77,7 @@ function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
         }
         return {
             week: mps.matchup.week,
-            bowlDate: mps.matchup.bowlDate?.toDate() ?? new Date(), // This should never happen, but just in case
+            bowlDate: mps.matchup.scheduledDate?.toDate() ?? new Date(), // Using scheduled date here or the graph gets wonky with pre-bowls and post-bowls
             enteringAvg: mps.playerScore.hdcpSettingDay ? 0 : mps.playerScore.enteringAverage,
             game1: mps.playerScore.games[0].scratchScore,
             game2: mps.playerScore.games[1].scratchScore,

@@ -60,6 +60,10 @@ const TeamStatGraph : FC<TeamStatGraphProps> = ({teamPosScores} : TeamStatGraphP
                 stepSize: 5
             }
         ],
+        stroke: {
+            curve: ["monotoneCubic", "stepline"],
+            width: [3, 3]
+        },
         title: {
             text: "Team Scores and Rank"
         },
