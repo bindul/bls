@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 13,
   "division": "1",
-  "current-rank": "PENDING",
+  "current-rank": "4",
   "roster": [
     {
       "id": "ne1",
@@ -727,6 +727,12 @@
       "entering-rank": "4",
       "lanes": [27, 28],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [
+        "Season team accolades (division): Handicap Series #1 (2727)",
+        "Season individual accolades (division): Brian - Handicap Game #3 (284), Nick - Scratch Game #1 (279)",
+        "Weekly team accolades (division): Scratch Game #3 (768), Scratch Series #3 (2174)",
+        "Weekly individual accolades (division): Brian - Scratch Game #2 (265), Brian - Scratch Series #3 (653), Brian - Handicap Game #3 (282), Brian - Handicap Series #2 (704), Brian - Game over Average #3 (265 - 191 = 74), Brian - Series over Average #3 (653 - 573 = 80)"
+      ],
       "scores": {
         "player-scores": [
           {
@@ -791,7 +797,7 @@
       "scheduled-date": "2026-07-23",
       "bowl-date": "2026-07-23",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "4",
       "lanes": [19, 20],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "scores": {
@@ -799,8 +805,8 @@
       },
       "opponent": {
         "team-id": "2526-winter-beer-12",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "15",
+        "hdcp": 261,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false
