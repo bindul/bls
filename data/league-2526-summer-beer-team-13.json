@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 13,
   "division": "1",
-  "current-rank": "4",
+  "current-rank": "PENDING",
   "roster": [
     {
       "id": "ne1",
@@ -728,7 +728,47 @@
       "lanes": [27, 28],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "scores": {
-        "player-scores": []
+        "player-scores": [
+          {
+            "player": "ne1",
+            "entering-average": 193,
+            "games": [
+              {"frames": [["X"], ["8", "/"], ["8", "/"], ["9", "-"], ["X"], ["6S", "3"], ["X"], ["X"], ["X"], ["9", "/", "X"]]},
+              {"frames": [["X"], ["5S", "3"], ["9", "/"], ["9", "/"], ["X"], ["8S", "1"], ["X"], ["X"], ["9", "/"], ["9", "/", "8"]]},
+              {"frames": [["X"], ["7S", "-"], ["9", "/"], ["9", "-"], ["X"], ["X"], ["7S", "2"], ["9", "/"], ["8", "-"], ["9", "/", "9"]]}
+            ]
+          },
+          {
+            "player": "bb1",
+            "entering-average": 151,
+            "games": [
+              {"arsenal": ["bb1-bw30"], "frames": [["X"], ["9", "-"], ["X"], ["8", "/"], ["7S", "-"], ["9", "-"], ["3", "4"], ["X"], ["9", "-"], ["8", "1"]]},
+              {
+                "arsenal": ["bb1-bw30"],
+                "frames": [["8", "-"], ["9", "/"], ["9", "/"], ["9", "-"], ["9", "-"], ["X"], ["X"], ["8S", "1"], ["X"], ["9", "/", "6"]]
+              },
+              {"arsenal": ["bb1-bw30"], "frames": [["X"], ["X"], ["8", "/"], ["X"], ["8", "1"], ["6", "-"], ["7", "/"], ["6S", "1"], ["X"], ["9", "-"]]}
+            ]
+          },
+          {
+            "player": "lw1",
+            "entering-average": 176,
+            "games": [
+              {"frames": [["X"], ["X"], ["X"], ["9", "/"], ["X"], ["6", "3"], ["8", "-"], ["9", "/"], ["8", "-"], ["7S", "2"]]},
+              {"frames": [["X"], ["X"], ["X"], ["9", "/"], ["9", "-"], ["X"], ["X"], ["X"], ["8S", "-"], ["X", "X", "7"]]},
+              {"frames": [["9", "/"], ["7", "/"], ["9", "/"], ["9", "-"], ["X"], ["8", "-"], ["X"], ["9", "-"], ["X"], ["X", "X", "7"]]}
+            ]
+          },
+          {
+            "player": "bg1",
+            "entering-average": 191,
+            "games": [
+              {"frames": [["X"], ["X"], ["X"], ["X"], ["8", "/"], ["X"], ["X"], ["X"], ["X"], ["X", "7", "/"]]},
+              {"frames": [["9", "/"], ["9", "/"], ["8", "/"], ["9", "/"], ["X"], ["9", "/"], ["X"], ["X"], ["X"], ["9", "/", "X"]]},
+              {"frames": [["X"], ["8S", "1"], ["9", "/"], ["9", "-"], ["6S", "2"], ["9", "/"], ["X"], ["8", "/"], ["X"], ["X", "9", "/"]]}
+            ]
+          }
+        ]
       },
       "opponent": {
         "team-id": "2526-winter-beer-20",
@@ -736,7 +776,14 @@
         "hdcp": 67,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 768 },
+            { "scratch-score": 762 },
+            { "scratch-score": 774 }
+          ]
+        }
       }
     },
     {
@@ -744,7 +791,7 @@
       "scheduled-date": "2026-07-23",
       "bowl-date": "2026-07-23",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "UNKNOWN",
+      "entering-rank": "PENDING",
       "lanes": [19, 20],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "scores": {
@@ -752,7 +799,7 @@
       },
       "opponent": {
         "team-id": "2526-winter-beer-12",
-        "entering-rank": "UNKNOWN",
+        "entering-rank": "PENDING",
         "hdcp": 0,
         "vacant": false,
         "absent": false,
