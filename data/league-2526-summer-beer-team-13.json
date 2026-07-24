@@ -851,7 +851,14 @@
         "hdcp": 261,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 591 },
+            { "scratch-score": 613 },
+            { "scratch-score": 579 }
+          ]
+        }
       }
     },
     {
