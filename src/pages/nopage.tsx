@@ -17,7 +17,7 @@
 import type {FC} from "react";
 import Card from "react-bootstrap/Card";
 import {CardBody, CardHeader, Container} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 import {ExclamationTriangle} from "react-bootstrap-icons";
 
 const NoPage :FC = () => {

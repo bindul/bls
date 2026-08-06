@@ -15,7 +15,7 @@
  */
 
 import {type FC, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 import moment from "moment";
 
 import {Badge, Card, CardBody, CardHeader, Col, Row, Stack, Table} from "react-bootstrap";

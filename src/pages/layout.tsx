@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import {type FC, useRef} from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link } from "react-router";
 import {Navbar, Nav, Container, NavDropdown} from "react-bootstrap";
 
 import ImgBowlingLogo from "./../assets/bowling-svgrepo-com.svg";

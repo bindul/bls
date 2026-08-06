@@ -40,7 +40,7 @@ export default tseslint.config(
         'error',
         {
           'allowNumber': true,
-          'allowNullable': true,
+          'allowNullish': true,
           'allowBoolean': true
         }
       ],

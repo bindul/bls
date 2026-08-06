@@ -15,7 +15,7 @@
  */
 
 import {type FC} from "react";
-import {useParams} from "react-router-dom";
+import {useParams} from "react-router";
 
 import Loader from "./components/loader";
 import ErrorDisplay from "./components/error-display";

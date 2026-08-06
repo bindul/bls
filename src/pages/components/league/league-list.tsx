@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import {type FC, type ReactNode, useCallback} from "react";
-import {Link, type To} from "react-router-dom";
+import {Link, type To} from "react-router";
 
 import {Badge, Card, CardBody, CardFooter, CardHeader, CardTitle, ListGroup, ListGroupItem} from 'react-bootstrap';
 import {ArrowRightShort, PlayCircleFill} from "react-bootstrap-icons";

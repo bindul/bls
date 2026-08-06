@@ -15,7 +15,7 @@
  */
 
 import {type FC, type ReactNode, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 
 import {Card, CardBody, CardFooter, CardHeader, Col, Container, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
 import {DashSquare, Icon9Square, PersonAdd, PersonFillLock, XCircle} from "react-bootstrap-icons";

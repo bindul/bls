@@ -20,8 +20,7 @@ import './sass/bls.scss';
 
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
-import {Route, Routes} from "react-router-dom";
-import {HashRouter} from "react-router";
+import {Route, Routes, HashRouter} from "react-router";
 
 import {ContextCacheProvider} from "./pages/components/cache/context-cache";
 import G4Provider from "./pages/components/analytics/ga4-provider";

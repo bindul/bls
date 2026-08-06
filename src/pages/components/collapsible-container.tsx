@@ -16,7 +16,7 @@
 
 import * as React from "react";
 import {useEffect, useMemo} from "react";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 import {CardBody, Collapse} from "react-bootstrap";
 import {ChevronDown, ChevronLeft} from "react-bootstrap-icons";
 
