@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 13,
   "division": "1",
-  "current-rank": "PENDING",
+  "current-rank": "5",
   "roster": [
     {
       "id": "ne1",
@@ -1088,11 +1088,19 @@
       "scheduled-date": "2026-08-20",
       "bowl-date": "2026-08-20",
       "matchup-type": "POSITION-INTRA-DIVISION",
-      "entering-rank": "PENDING",
-      "lanes": [],
+      "entering-rank": "5",
+      "lanes": [5,6],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "scores": {
         "player-scores": []
+      },
+      "opponent": {
+        "team-id": "2526-winter-beer-19",
+        "entering-rank": "6",
+        "hdcp": 160,
+        "vacant": false,
+        "absent": true,
+        "pre-post-bowl": false
       }
     },
     {
