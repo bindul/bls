@@ -180,6 +180,13 @@
       "division": "1",
       "name": "BTA",
       "players": ["Nick M", "Daniel M", "Jason G", "Jeremiah M"]
+    },
+    {
+      "id": "2526-winter-beer-25",
+      "number": 25,
+      "division": "2",
+      "name": "Natives",
+      "players": ["Ben O", "Gerg M", "Jillian O", "Brison O", "Vicki O"]
     }
   ]
 }
