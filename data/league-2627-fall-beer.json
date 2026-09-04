@@ -1,0 +1,108 @@
+{
+  "id": "2627-summer-beer",
+  "season": "2026-27",
+  "center": "Arapahoe Bowling Center",
+  "name": "Fall Thursday Beer League",
+  "online-scoring": [
+    {
+      "platform": "LeagueSecretary",
+      "league-secretary": {
+        "center-id": 12099,
+        "center-dashboard-url": "https://leaguesecretary.com/bowling-centers/arapahoe-bowling-center/dashboard/12099",
+        "league-id": 133016,
+        "league-dashboard-url": "https://leaguesecretary.com/bowling-centers/arapahoe-bowling-center/bowling-leagues/beer-summer-2025/dashboard/133016"
+      }
+    }],
+  "usbc-sanctioned": false,
+  "completed": true,
+  "bowling-days": {
+    "games-per-week": 3,
+    "bowls-on": "Thursday",
+    "start-time": "20:00",
+    "start-date": "2025-09-03",
+    "duration": 15,
+    "duration-unit": "WK",
+    "position-rounds": ["WK14", "WK15"]
+  },
+  "scoring-rules": {
+    "legal-min-lineup": 2,
+    "lineup": 4,
+    "roster": 7,
+    "substitutes-allowed": true,
+    "hdcp": {
+      "type": "PCT_AVG_TO_TGT",
+      "pct-avg-to-tgt-config": {
+        "target": 210,
+        "pct-to-target": 90.0
+      }
+    },
+    "blind-penalty": {
+      "blinds-allowed": true,
+      "default-penalty": 0,
+      "missed-matchups-penalty": 10,
+      "missed-matchups-threshold": 3
+    },
+    "vacancy-score": {
+      "vacancy-allowed": true,
+      "scratch-score": 120,
+      "hdcp": 81
+    },
+    "point-scoring": {
+      "matchup-point-scoring-rule": "PPG_PPS",
+      "ppg-pps-matchup-point-scoring-config": {
+        "points-per-game": 1,
+        "points-per-series": 1,
+        "points-per-game-on-tie": 0.5,
+        "points-per-series-on-tie": 0.5,
+        "vacant-opponent-allowed": true,
+        "absent-opponent-allowed": true
+      },
+      "vacant-opponent-scoring": {
+        "allowed": true,
+        "type": "POINTS_WITHIN_AVG",
+        "points-within-avg-config": {
+          "points-within-team-avg": 40
+        }
+      },
+      "absent-opponent-scoring": {
+        "allowed": true,
+        "type": "POINTS_WITHIN_AVG",
+        "points-within-avg-config": {
+          "points-within-team-avg": 40
+        }
+      }
+    }
+  },
+  "teams": [
+    {
+      "id": "2627-fall-beer-18",
+      "name": "Pins Go Boom!",
+      "number": 18,
+      "division": "1",
+      "data-loc": "league-2627-fall-beer-18.json"
+    },
+    {
+      "id": "2627-fall-beer-23",
+      "name": "Hookers & Bowl",
+      "number": 23,
+      "division": "1",
+      "data-loc": "league-2627-fall-beer-23.json"
+    }
+  ],
+  "other-teams": [
+    {
+      "id": "2627-fall-beer-17",
+      "number": 17,
+      "division": "1",
+      "name": "Bourbon Achiever",
+      "players": ["Drew L", "Colton S", "Tom T", "Jeff R", "Dan O"]
+    },
+    {
+      "id": "2627-fall-beer-24",
+      "number": 24,
+      "division": "2",
+      "name": "Team #24",
+      "players": []
+    }
+  ]
+}
