@@ -106,7 +106,6 @@
       "scheduled-date": "2026-01-08",
       "bowl-date": "2026-01-08",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "UNKNOWN",
       "lanes": [11, 12],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": ["Start of League - 2nd Half"],
@@ -144,7 +143,6 @@
       },
       "opponent": {
         "team-id": "2526-winter-beer-12",
-        "entering-rank": "UNKNOWN",
         "hdcp": 180,
         "vacant": false,
         "absent": false,

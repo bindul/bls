@@ -42,7 +42,6 @@
       "scheduled-date": "2026-09-03",
       "bowl-date": "2026-09-03",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "UNKNOWN",
       "lanes": [17, 18],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [
@@ -115,7 +114,6 @@
       },
       "opponent": {
         "team-id": "2627-fall-beer-17",
-        "entering-rank": "UNKNOWN",
         "hdcp": 119,
         "vacant": false,
         "absent": false,
