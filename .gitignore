@@ -1,0 +1,22 @@
+# Eclipse
+.project
+.classpath
+.settings/
+.factorypath
+
+#IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# PDF Working Files
+data/temp/

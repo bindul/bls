@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 18,
   "division": "1",
-  "current-rank": "PENDING",
+  "current-rank": "16",
   "roster": [
     {
       "id": "ne1",
@@ -45,7 +45,10 @@
       "lanes": [17, 18],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [
-        "Start of League"
+        "Start of League",
+        "Season team accolades (division): Handicap Game #2 (893)",
+        "Season individual accolades (division): Nick - Scratch Game #3 (221)",
+        "Weekly team accolades (division): Handicap Game #3 (893)"
       ],
       "scores": {
         "player-scores": [
@@ -125,6 +128,286 @@
             { "scratch-score": 640 }
           ]
         }
+      }
+    },
+    {
+      "week": 2,
+      "scheduled-date": "2026-09-10",
+      "bowl-date": "2026-09-10",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "16",
+      "lanes": [25, 26],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-9",
+        "entering-rank": "10",
+        "hdcp": 194,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 3,
+      "scheduled-date": "2026-09-17",
+      "bowl-date": "2026-09-17",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [9, 10],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-20",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 4,
+      "scheduled-date": "2026-09-24",
+      "bowl-date": "2026-09-24",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [35, 36],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-4",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 5,
+      "scheduled-date": "2026-10-01",
+      "bowl-date": "2026-10-01",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [19, 20],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-11",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 6,
+      "scheduled-date": "2026-10-08",
+      "bowl-date": "2026-10-08",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [33, 34],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-6",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 7,
+      "scheduled-date": "2026-10-15",
+      "bowl-date": "2026-10-15",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [3, 4],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-15",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 8,
+      "scheduled-date": "2026-10-22",
+      "bowl-date": "2026-10-22",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [21, 22],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-14",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 9,
+      "scheduled-date": "2026-10-29",
+      "bowl-date": "2026-10-29",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [11, 12],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-2",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 10,
+      "scheduled-date": "2026-11-05",
+      "bowl-date": "2026-11-05",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [39, 40],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-8",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 11,
+      "scheduled-date": "2026-11-12",
+      "bowl-date": "2026-11-12",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [17, 18],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-19",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 12,
+      "scheduled-date": "2026-11-19",
+      "bowl-date": "2026-11-19",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [25, 26],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-5",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 13,
+      "scheduled-date": "2026-12-03",
+      "bowl-date": "2026-12-03",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [9, 10],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-3",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 14,
+      "scheduled-date": "2026-12-10",
+      "bowl-date": "2026-12-10",
+      "matchup-type": "POSITION-INTRA-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [0, 0],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Divisional position round placeholder"],
+      "scores": {},
+      "opponent": {
+        "team-id": "PENDING",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 15,
+      "scheduled-date": "2026-12-17",
+      "bowl-date": "2026-12-17",
+      "matchup-type": "POSITION-INTER-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [0, 0],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Position round placeholder"],
+      "scores": {},
+      "opponent": {
+        "team-id": "PENDING",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
       }
     }
   ]

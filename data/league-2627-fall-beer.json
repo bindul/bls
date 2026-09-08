@@ -10,7 +10,7 @@
         "center-id": 12099,
         "center-dashboard-url": "https://leaguesecretary.com/bowling-centers/arapahoe-bowling-center/dashboard/12099",
         "league-id": 133016,
-        "league-dashboard-url": "https://leaguesecretary.com/bowling-centers/arapahoe-bowling-center/bowling-leagues/beer-summer-2025/dashboard/133016"
+        "league-dashboard-url": "https://www.leaguesecretary.com/bowling-centers/arapahoe-bowling-center/bowling-leagues/beer-fall-2026/dashboard/133016"
       }
     }],
   "usbc-sanctioned": false,
@@ -91,18 +91,270 @@
   ],
   "other-teams": [
     {
+      "id": "2627-fall-beer-1",
+      "number": 1,
+      "division": "1",
+      "name": "Enye Menie Myne Bowl",
+      "players": ["James B", "Tim L", "Dawn G", "Dan S"]
+    },
+    {
+      "id": "2627-fall-beer-2",
+      "number": 2,
+      "division": "1",
+      "name": "Lads of Leisure",
+      "players": ["Maxwell W", "Marc G", "Devon A", "Isaiah W", "Luke V", "Alex P"]
+    },
+    {
+      "id": "2627-fall-beer-3",
+      "number": 3,
+      "division": "1",
+      "name": "Pintourage",
+      "players": ["JR L", "Steven K", "Pete F", "Mitch S", "Jordan A", "Junior K"]
+    },
+    {
+      "id": "2627-fall-beer-4",
+      "number": 4,
+      "division": "1",
+      "name": "Strykettes",
+      "players": ["Jeremy G", "Nicole L", "Augi F", "Paul R"]
+    },
+    {
+      "id": "2627-fall-beer-5",
+      "number": 5,
+      "division": "1",
+      "name": "Shit A Brick",
+      "players": ["Kathy N", "Ryan G", "Spencer E", "Tanner N", "Andy M", "Josh D", "Armando D"]
+    },
+    {
+      "id": "2627-fall-beer-6",
+      "number": 6,
+      "division": "1",
+      "name": "Gutter Butter",
+      "players": ["Jack G", "Gavin F", "Mark G", "Drew H"]
+    },
+    {
+      "id": "2627-fall-beer-7",
+      "number": 7,
+      "division": "1",
+      "name": "Keep It 100",
+      "players": ["Jesus C", "Kyle R", "Paul B", "David D"]
+    },
+    {
+      "id": "2627-fall-beer-8",
+      "number": 8,
+      "division": "1",
+      "name": "Pork Missiles",
+      "players": ["Chris G", "Brett F", "Jonathan L", "Johan O"]
+    },
+    {
+      "id": "2627-fall-beer-9",
+      "number": 9,
+      "division": "1",
+      "name": "Just Split On It",
+      "players": ["Tyler B", "Matt B", "Shaun J", "Erik F", "Kurtis F"]
+    },
+    {
+      "id": "2627-fall-beer-10",
+      "number": 10,
+      "division": "1",
+      "name": "Diamond Dogs",
+      "players": ["Paul F", "David W", "JD R", "Stefan H"]
+    },
+    {
+      "id": "2627-fall-beer-11",
+      "number": 11,
+      "division": "1",
+      "name": "Turkey Club",
+      "players": ["Jordan H", "Leo B", "Paul D", "David P"]
+    },
+    {
+      "id": "2627-fall-beer-12",
+      "number": 12,
+      "division": "1",
+      "name": "Great Balls of Fire",
+      "players": ["Kyle R", "Matt K", "Kyle B", "Sean R"]
+    },
+    {
+      "id": "2627-fall-beer-13",
+      "number": 13,
+      "division": "1",
+      "name": "Itchy",
+      "players": ["Ted M", "Julie B", "William B", "Ed D", "Chris W", "Pete C"]
+    },
+    {
+      "id": "2627-fall-beer-14",
+      "number": 14,
+      "division": "1",
+      "name": "Trash Pandas",
+      "players": ["Jadon M", "Ashley H", "Heather K", "Gabe M"]
+    },
+    {
+      "id": "2627-fall-beer-15",
+      "number": 15,
+      "division": "1",
+      "name": "The Alley Cats",
+      "players": ["Jim L", "Eric S", "Danielle F", "Nick R"]
+    },
+    {
+      "id": "2627-fall-beer-16",
+      "number": 16,
+      "division": "1",
+      "name": "Inconsistently Consistent",
+      "players": ["Chris V", "Andy V", "DJ V", "Nick V"]
+    },
+    {
       "id": "2627-fall-beer-17",
       "number": 17,
       "division": "1",
       "name": "Bourbon Achiever",
-      "players": ["Drew L", "Colton S", "Tom T", "Jeff R", "Dan O"]
+      "players": ["Drew L", "Don O", "Tom T", "Jeff R"]
+    },
+    {
+      "id": "2627-fall-beer-19",
+      "number": 19,
+      "division": "1",
+      "name": "Nine-Nine",
+      "players": ["Ty C", "Shirlee I", "Harrison W", "Micheal G"]
+    },
+    {
+      "id": "2627-fall-beer-20",
+      "number": 20,
+      "division": "1",
+      "name": "2 Fingers Sometimes 3",
+      "players": ["Megan S", "Aimee R", "Matt A", "Bruce S", "Mark R"]
+    },
+    {
+      "id": "2627-fall-beer-21",
+      "number": 21,
+      "division": "2",
+      "name": "Dammit Fiser",
+      "players": ["Leslle H", "Bas H", "Jake E", "Johno B"]
+    },
+    {
+      "id": "2627-fall-beer-22",
+      "number": 22,
+      "division": "2",
+      "name": "Captive Spare",
+      "players": ["Tom O", "Ben P", "Bob M", "Collin P", "Dave L", "Brian F"]
     },
     {
       "id": "2627-fall-beer-24",
       "number": 24,
       "division": "2",
-      "name": "Team #24",
-      "players": []
+      "name": "Pin N Juice",
+      "players": ["Gabriel G", "Otillia G", "Courtney W", "Kyle M", "Marisa M"]
+    },
+    {
+      "id": "2627-fall-beer-25",
+      "number": 25,
+      "division": "2",
+      "name": "Pin er Down",
+      "players": ["Zeb B", "Christopher D", "Jeff C", "Jake D", "Austen L"]
+    },
+    {
+      "id": "2627-fall-beer-26",
+      "number": 26,
+      "division": "2",
+      "name": "Bowl & a Blintz",
+      "players": ["Zach F", "Tyler B", "Sean H", "Chris L", "Greg F"]
+    },
+    {
+      "id": "2627-fall-beer-27",
+      "number": 27,
+      "division": "2",
+      "name": "Irritable Bowl Syndrome",
+      "players": ["Tim H", "Eric M", "Hillary H", "Ethan M"]
+    },
+    {
+      "id": "2627-fall-beer-28",
+      "number": 28,
+      "division": "2",
+      "name": "STRIKE JUICE",
+      "players": ["Ered N", "Tim W", "Ben S", "David B", "Marilyn W"]
+    },
+    {
+      "id": "2627-fall-beer-29",
+      "number": 29,
+      "division": "2",
+      "name": "CONTh",
+      "players": ["Rachael R", "Jena D", "Jon R", "Dustin D"]
+    },
+    {
+      "id": "2627-fall-beer-30",
+      "number": 30,
+      "division": "2",
+      "name": "Salty Gutter Balls",
+      "players": ["Eric V", "Brian K", "Matt F", "Greg M"]
+    },
+    {
+      "id": "2627-fall-beer-31",
+      "number": 31,
+      "division": "2",
+      "name": "Bada Bing!!!",
+      "players": ["BJ M", "Tim S", "Greg M", "Ted R"]
+    },
+    {
+      "id": "2627-fall-beer-32",
+      "number": 32,
+      "division": "2",
+      "name": "Split On My Ball",
+      "players": ["Devin R", "Laura R", "Melody T", "Shea T"]
+    },
+    {
+      "id": "2627-fall-beer-33",
+      "number": 33,
+      "division": "2",
+      "name": "Brutal Poodle",
+      "players": ["Darci D", "Stephanie R", "Lachelle T", "Reema G"]
+    },
+    {
+      "id": "2627-fall-beer-34",
+      "number": 34,
+      "division": "2",
+      "name": "Team 34",
+      "players": ["Shaun M", "Brian P", "Ryan G", "Wes K"]
+    },
+    {
+      "id": "2627-fall-beer-35",
+      "number": 35,
+      "division": "2",
+      "name": "Gremory House",
+      "players": ["Buddy M", "Sid F", "Zaine D", "Greg S"]
+    },
+    {
+      "id": "2627-fall-beer-36",
+      "number": 36,
+      "division": "2",
+      "name": "Team 36",
+      "players": ["Shawn C", "Ben P", "Brian R", "Hugo H", "Matt M", "Andy T", "Jordan S"]
+    },
+    {
+      "id": "2627-fall-beer-37",
+      "number": 37,
+      "division": "2",
+      "name": "The Vintage Strikers",
+      "players": ["Nick S", "Brandon W", "John E", "Robert W"]
+    },
+    {
+      "id": "2627-fall-beer-38",
+      "number": 38,
+      "division": "2",
+      "name": "Turkey Goblins",
+      "players": ["Mario T", "Colby A", "Kyle O", "Sean M"]
+    },
+    {
+      "id": "2627-fall-beer-39",
+      "number": 39,
+      "division": "2",
+      "name": "Balls Deep",
+      "players": ["Dustin S", "Michelle D", "Matt P", "Julie L", "Amanda M", "Mandy D", "Delancy B"]
+    },
+    {
+      "id": "2627-fall-beer-40",
+      "number": 40,
+      "division": "2",
+      "name": "Whiskey Tango Foxtrot",
+      "players": ["Taylor K", "Natalie L", "DC H", "Michael B"]
     }
   ]
 }

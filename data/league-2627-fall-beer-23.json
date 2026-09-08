@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 23,
   "division": "2",
-  "current-rank": "PENDING",
+  "current-rank": "8",
   "roster": [
     {
       "id": "pb1",
@@ -38,7 +38,11 @@
       "matchup-type": "REGULAR-DIVISION",
       "lanes": [23, 24],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": ["Start of League"],
+      "notes": [
+        "Start of League",
+        "Season team accolades (division): Scratch Game #1 (722)",
+        "Season individual accolades (division): Patrick - Scratch Game #3 (211)"
+      ],
       "scores": {
         "player-scores": [
           {
@@ -85,10 +89,297 @@
       },
       "opponent": {
         "team-id": "2627-fall-beer-24",
+        "hdcp": 239,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {
+          "games": [
+            { "scratch-score": 561 },
+            { "scratch-score": 576 },
+            { "scratch-score": 577 }
+          ]
+        }
+      }
+    },
+    {
+      "week": 2,
+      "scheduled-date": "2026-09-10",
+      "bowl-date": "2026-09-10",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "8",
+      "lanes": [1, 2],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-31",
+        "entering-rank": "1",
+        "hdcp": 128,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 3,
+      "scheduled-date": "2026-09-17",
+      "bowl-date": "2026-09-17",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [31, 32],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-37",
+        "entering-rank": "PENDING",
         "hdcp": 0,
         "vacant": false,
         "absent": false,
-        "pre-post-bowl": false
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 4,
+      "scheduled-date": "2026-09-24",
+      "bowl-date": "2026-09-24",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [7, 8],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-29",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 5,
+      "scheduled-date": "2026-10-01",
+      "bowl-date": "2026-10-01",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [37, 38],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-40",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 6,
+      "scheduled-date": "2026-10-08",
+      "bowl-date": "2026-10-08",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [5, 6],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-22",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 7,
+      "scheduled-date": "2026-10-15",
+      "bowl-date": "2026-10-15",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [29, 30],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-28",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 8,
+      "scheduled-date": "2026-10-22",
+      "bowl-date": "2026-10-22",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [15, 16],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-26",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 9,
+      "scheduled-date": "2026-10-29",
+      "bowl-date": "2026-10-29",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [39, 40],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-35",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 10,
+      "scheduled-date": "2026-11-05",
+      "bowl-date": "2026-11-05",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [17, 18],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-34",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 11,
+      "scheduled-date": "2026-11-12",
+      "bowl-date": "2026-11-12",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [23, 24],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-27",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 12,
+      "scheduled-date": "2026-11-19",
+      "bowl-date": "2026-11-19",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [19, 20],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-30",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 13,
+      "scheduled-date": "2026-12-03",
+      "bowl-date": "2026-12-03",
+      "matchup-type": "REGULAR-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [29, 30],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": [],
+      "scores": {},
+      "opponent": {
+        "team-id": "2627-fall-beer-38",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 14,
+      "scheduled-date": "2026-12-10",
+      "bowl-date": "2026-12-10",
+      "matchup-type": "POSITION-INTRA-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [0, 0],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Divisional position round placeholder"],
+      "scores": {},
+      "opponent": {
+        "team-id": "PENDING",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
+      }
+    },
+    {
+      "week": 15,
+      "scheduled-date": "2026-12-17",
+      "bowl-date": "2026-12-17",
+      "matchup-type": "POSITION-INTER-DIVISION",
+      "entering-rank": "PENDING",
+      "lanes": [0, 0],
+      "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
+      "notes": ["Position round placeholder"],
+      "scores": {},
+      "opponent": {
+        "team-id": "PENDING",
+        "entering-rank": "PENDING",
+        "hdcp": 0,
+        "vacant": false,
+        "absent": false,
+        "pre-post-bowl": false,
+        "scores": {}
       }
     }
   ]
