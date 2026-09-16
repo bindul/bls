@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 18,
   "division": "1",
-  "current-rank": "16",
+  "current-rank": "5",
   "roster": [
     {
       "id": "ne1",
@@ -30,10 +30,10 @@
       "parking-lot-threshold": 120
     },
     {
-      "id": "je1",
-      "name": "Josh",
+      "id": "jd1",
+      "name": "Jillian",
       "status": "SUBSTITUTE",
-      "parking-lot-threshold": 120
+      "parking-lot-threshold": 100
     }
   ],
   "matchups": [
@@ -138,8 +138,53 @@
       "entering-rank": "16",
       "lanes": [25, 26],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
-      "scores": {},
+      "notes": [
+        "Season team accolades (division): Handicap Series #1 (2845)",
+        "Season individual accolades (division / gender): Brian - Handicap Series #1 (807), Luke - Handicap Series #3 (740)",
+        "Weekly team accolades (division): Scratch Game #2 (796), Scratch Series #1 (2242), Handicap Game #1 (997), Handicap Series #1 (2845)",
+        "Weekly individual accolades (division / gender): Jillian - Scratch Game #3 (165), Jillian - Handicap Game #1 (236), Brian - Handicap Series #1 (807), Jillian - Handicap Series #3 (608), Jillian - Game Over Average #3 (133 - 105 = 28), Brian - Series Over Average #1 (618 - 417 = 201), Jillian - Series Over Average #3 (395 - 393 = 2)"
+      ],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "ne1",
+            "entering-average": 182,
+            "games": [
+              {"frames": [["9", "/"], ["X"], ["X"], ["X"], ["8S", "-"], ["X"], ["9", "/"], ["6S", "3"], ["X"], ["X", "X", "7"]]},
+              {"frames": [["X"], ["X"], ["7", "1"], ["X"], ["X"], ["X"], ["X"], ["9", "/"], ["9", "-"], ["X", "X", "X"]]},
+              {"frames": [["X"], ["9", "-"], ["8", "/"], ["7", "/"], ["X"], ["8", "/"], ["9", "-"], ["X"], ["X"], ["X", "7", "2"]]}
+            ]
+          },
+          {
+            "player": "jd1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {"vacant": true},
+              {"frames": [["3", "/"], ["-", "7"], ["3", "5"], ["-", "/"], ["X"], ["6", "2"], ["X"], ["8", "-"], ["8", "-"], ["5", "-"]]},
+              {"frames": [["-", "5"], ["3", "5"], ["X"], ["X"], ["X"], ["X"], ["9", "-"], ["7", "2"], ["X"], ["8S", "-"]]}
+            ]
+          },
+          {
+            "player": "lw1",
+            "entering-average": 163,
+            "games": [
+              {"frames": [["X"], ["8", "/"], ["X"], ["X"], ["6", "/"], ["7", "/"], ["X"], ["X"], ["9", "/"], ["-", "7"]]},
+              {"frames": [["X"], ["X"], ["X"], ["6", "3"], ["X"], ["7S", "/"], ["X"], ["X"], ["X"], ["X", "X", "7"]]},
+              {"frames": [["X"], ["X"], ["8S", "1"], ["X"], ["8", "-"], ["X"], ["X"], ["8S", "1"], ["X"], ["X", "7", "2"]]}
+            ]
+          },
+          {
+            "player": "bg1",
+            "entering-average": 139,
+            "games": [
+              {"frames": [["X"], ["X"], ["9", "-"], ["X"], ["8", "/"], ["9", "/"], ["X"], ["7S", "2"], ["9", "/"], ["X", "8", "/"]]},
+              {"frames": [["9", "/"], ["9", "/"], ["X"], ["X"], ["X"], ["9", "/"], ["9", "/"], ["9", "/"], ["9", "/"], ["X", "X", "X"]]},
+              {"frames": [["8", "/"], ["X"], ["X"], ["8", "/"], ["6", "/"], ["X"], ["8", "/"], ["9", "/"], ["X"], ["X", "8", "-"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2627-fall-beer-9",
         "entering-rank": "10",
@@ -147,7 +192,13 @@
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
-        "scores": {}
+        "scores": {
+          "games": [
+            { "scratch-score": 628 },
+            { "scratch-score": 721 },
+            { "scratch-score": 644 }
+          ]
+        }
       }
     },
     {
@@ -155,15 +206,15 @@
       "scheduled-date": "2026-09-17",
       "bowl-date": "2026-09-17",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "5",
       "lanes": [9, 10],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-20",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "19",
+        "hdcp": 189,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
