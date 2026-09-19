@@ -222,7 +222,7 @@
         "entering-rank": "18",
         "hdcp": 118,
         "vacant": false,
-        "absent": false,
+        "absent": true,
         "pre-post-bowl": false,
         "scores": {}
       }
