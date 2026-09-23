@@ -8,20 +8,21 @@ export default defineConfig({
   plugins: [react()],
   build: {
     minify: true,
+    chunkSizeWarningLimit: 512000,
     rolldownOptions : {
-      output: {
-        codeSplitting: {
-          groups: [
-            {
-              name: 'libs',
-              test: /node_modules/,
-              minSize: 250000,
-              maxSize: 500000,
-              priority: 10,
+        output: {
+            strictExecutionOrder: true,
+            codeSplitting: {
+                minSize: 200000,
+                maxSize: 500000,
+                groups: [
+                    {
+                        name: 'libs',
+                        test: /node_modules/,
+                    },
+                ],
             },
-          ]
-        }
-      }
+        },
     },
   },
   // Silence Sass deprecation warnings. See note below.
