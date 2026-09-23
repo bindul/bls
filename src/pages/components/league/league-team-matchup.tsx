@@ -17,6 +17,7 @@
 import {type FC, useEffect, useState} from "react";
 import {Link} from "react-router";
 import moment from "moment";
+import * as ss from "simple-statistics";
 
 import {Badge, Card, CardBody, CardHeader, Col, Row, Stack, Table} from "react-bootstrap";
 import {
@@ -195,9 +196,17 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
         }
     }
 
-    const calculateTeamHdcp = (seriesScore?: SeriesScore, preCalcHdcp?: number)=> {
+    const calculateTeamHdcp = (gameScores?: GameScore[], seriesScore?: SeriesScore, preCalcHdcp?: number)=> {
         let hdcp = "UNKNOWN";
-        if (seriesScore?.hdcp && seriesScore.games) {
+        if (gameScores?.length) {
+            const hdcps: number[] = gameScores.map(g => g.hdcp);
+            const hdcpi = ss.average(hdcps);
+            if (hdcpi == hdcps[0]) {
+                hdcp = String (hdcpi);
+            } else {
+                hdcp = "~" + hdcpi.toFixed(0) + " [" + hdcps.join(", ") + "]";
+            }
+        } else if (seriesScore?.hdcp && seriesScore.games) {
             hdcp = String(seriesScore.hdcp / seriesScore.games);
         } else if (preCalcHdcp && preCalcHdcp > 0) {
             hdcp = preCalcHdcp.toString();
@@ -227,7 +236,7 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
                             <Stack direction="vertical" className="mx-auto">
                                 <div className="align-middle">
                                     <TeamNameInfo division={teamDetails.division} teamNumber={teamDetails.number} name={teamDetails.name} enteringPosition={matchup.enteringRank}/>
-                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.scores?.series, teamDetails.teamStats?.handicap)}</span>
+                                    <br/><span className="fs-sm">hdcp: {calculateTeamHdcp(matchup.scores?.games, matchup.scores?.series, teamDetails.teamStats?.handicap)}</span>
                                 </div>
                                 <div className="d-none d-sm-block">
                                     {showMatchupDetails && <GameSummaryAndPoints teamScore={matchup.scores} currentBreakpoint={currentBreakpoint}/>}
@@ -257,9 +266,9 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
                                     <TeamNameInfo division={opponent?.division} teamNumber={opponent?.number} name={opponent?.name} enteringPosition={matchup.opponent?.enteringRank}/><br/>
                                     {isOpponentVacantOrAbsent && <><PersonX/>&nbsp;</>}
                                     <span className="fs-sm">
-                                        hdcp:
+                                        hdcp:&nbsp;
                                         <span className={isOpponentVacantOrAbsent ? "text-decoration-line-through" : ""}>
-                                            {calculateTeamHdcp(matchup.opponent?.scores?.series, matchup.opponent?.teamHdcp)}
+                                            {calculateTeamHdcp(matchup.opponent?.scores?.games, matchup.opponent?.scores?.series, matchup.opponent?.teamHdcp)}
                                         </span>
                                     </span>
                                 </div>

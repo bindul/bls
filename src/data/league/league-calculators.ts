@@ -97,7 +97,7 @@ class PpgPpsPointsCalculator implements PointsCalculator {
         if (isAbsentTeam) {
             this.assignVacantOrAbsentOpporentPoints(teamScoreA, this.absentOpponentScoring);
         } else if (isVacantTeam) {
-            this.assignVacantOrAbsentOpporentPoints(teamScoreA, this.absentOpponentScoring);
+            this.assignVacantOrAbsentOpporentPoints(teamScoreA, this.vacantOpponentScoring);
         }
     }
 
@@ -427,13 +427,15 @@ function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculato
 export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: LeagueScoringRules, hdcpCalculator: HandicapCalculator, pointsCalculator: PointsCalculator, teamRoster: LeaguePlayer[]): void {
     const teamScores = matchup.scores;
     const addGamesToSeries = (seriesScore: SeriesScore, matchupGames: MatchupGameScore[]) => {
-        matchupGames.forEach(game => {
-            seriesScore.scratchScore += game.scratchScore;
-            seriesScore.effectiveScratchScore += game.effectiveScratchScore;
-            seriesScore.hdcpScore += game.hdcpScore;
-            seriesScore.hdcp += game.hdcp;
-            seriesScore.games++;
-        })
+        if (matchupGames.length) {
+            matchupGames.forEach(game => {
+                seriesScore.scratchScore += game.scratchScore;
+                seriesScore.effectiveScratchScore += game.effectiveScratchScore;
+                seriesScore.hdcpScore += game.hdcpScore;
+                seriesScore.hdcp += game.hdcp;
+                seriesScore.games++;
+            })
+        }
     }
     if (teamScores) {
         const getWithSetGameScores = (game: number) => {
@@ -466,10 +468,12 @@ export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: Leag
         addGamesToSeries(teamScores.series, teamScores.games);
     }
 
-    if (matchup.opponent?.scores) {
+    if (matchup.opponent?.scores?.games.length) {
         // Set Handicap and Calculate totals
         matchup.opponent.scores.games.forEach((game) => {
-            game.hdcp = matchup.opponent?.teamHdcp ?? 0;
+            if (!game.hdcp || game.hdcp == 0) {
+                game.hdcp = matchup.opponent?.teamHdcp ?? 0;
+            }
             game.effectiveScratchScore = game.scratchScore;
             game.hdcpScore = game.effectiveScratchScore + game.hdcp;
         })
@@ -482,7 +486,7 @@ export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: Leag
         const opponent = matchup.opponent;
         if (opponent.absent || opponent.vacant) {
             pointsCalculator.assignVacantOrAbsentOpponentPoints(matchup.scores, opponent.vacant, opponent.absent);
-        } else if (opponent.scores) {
+        } else if (opponent.scores?.games.length) {
             pointsCalculator.assignPoints(matchup.scores, opponent.scores);
         }
 
