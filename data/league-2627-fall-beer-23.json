@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 23,
   "division": "2",
-  "current-rank": "PENDING",
+  "current-rank": "18",
   "roster": [
     {
       "id": "pb1",
@@ -184,7 +184,9 @@
       "entering-rank": "12",
       "lanes": [31, 32],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
+      "notes": [
+        "Season team accolades (division): Scratch Game #2 (722)"
+      ],
       "scores": {
         "player-scores": [
           {
@@ -222,9 +224,15 @@
         "entering-rank": "18",
         "hdcp": 118,
         "vacant": false,
-        "absent": true,
+        "absent": false,
         "pre-post-bowl": false,
-        "scores": {}
+        "scores": {
+          "games": [
+            { "scratch-score": 606 },
+            { "scratch-score": 722 },
+            { "scratch-score": 703 }
+          ]
+        }
       }
     },
     {
@@ -232,15 +240,15 @@
       "scheduled-date": "2026-09-24",
       "bowl-date": "2026-09-24",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "18",
       "lanes": [7, 8],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-29",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "7",
+        "hdcp": 255,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,

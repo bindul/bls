@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 18,
   "division": "1",
-  "current-rank": "PENDING",
+  "current-rank": "3",
   "roster": [
     {
       "id": "ne1",
@@ -209,7 +209,12 @@
       "entering-rank": "5",
       "lanes": [9, 10],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
+      "notes": [
+        "Opponents swapped blind player (Megan) for sub (Eric) from Game 2",
+        "Season team accolades (division): Handicap Series #1 (2845)",
+        "Season individual accolades (division / gender): Brian - Handicap Series #2 (807)",
+        "Weekly individual accolades (division / gender): Brian - Handicap Series #3 (762)"
+      ],
       "scores": {
         "player-scores": [
           {
@@ -265,9 +270,18 @@
         "pre-post-bowl": false,
         "scores": {
           "games": [
-            { "scratch-score": 661 },
-            { "scratch-score": 682 },
-            { "scratch-score": 683 }
+            { 
+              "scratch-score": 661,
+              "hdcp": 189
+            },
+            { 
+              "scratch-score": 672,
+              "hdcp": 146
+            },
+            { 
+              "scratch-score": 683,
+              "hdcp": 146
+            }
           ]
         }
       }
@@ -277,15 +291,15 @@
       "scheduled-date": "2026-09-24",
       "bowl-date": "2026-09-24",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "3",
       "lanes": [35, 36],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-4",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "9",
+        "hdcp": 145,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
