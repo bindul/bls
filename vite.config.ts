@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import {NodePackageImporter} from "sass-embedded";
 
 // https://vite.dev/config/
+// https://rolldown.rs/reference/OutputOptions.codeSplitting
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -12,13 +13,12 @@ export default defineConfig({
         codeSplitting: {
           groups: [
             {
-              name: 'react-bootstrap-icons',
-              test: /node_modules\/react-bootstrap-icons/
+              name: 'libs',
+              test: /node_modules/,
+              minSize: 250000,
+              maxSize: 500000,
+              priority: 10,
             },
-            {
-              name: 'apexcharts',
-              test: /node_modules\/(react-apexcharts|apexcharts)/
-            }
           ]
         }
       }
