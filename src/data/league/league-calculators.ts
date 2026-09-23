@@ -27,6 +27,7 @@ import {LeagueBowlingDays, LeagueScoringRules, VacantOrAbsentOpponentScoring} fr
 import {isNumeric} from "../utils/utils";
 import {LeaguePlayer, LeaguePlayerStats, TeamStats, type TrackedLeagueTeam} from "./league-team-details";
 import {calculatePlayerStats} from "../player/player-stats-calculator";
+import * as ss from "simple-statistics";
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Interfaces and Implementations
@@ -44,8 +45,15 @@ class ZeroHandicapCalculator implements HandicapCalculator {
     }
 
     calculateAverge(games: GameScore[], carryOverPins?: number, carryOverGames?: number): number {
-        let pinFall = games.reduce((accum, g) => accum + g.scratchScore, 0);
-        let gameCount = games.length;
+
+        // Assume no one is bad enough to throw 20 gutters in a row
+        const scratchScores = games.map(g => g.scratchScore > 0 ? g.scratchScore : g.effectiveScratchScore)
+            .filter(ss => ss > 0);
+
+        // This may need to be looked at later, handling vacant games now as effectiveScratchScore
+        let pinFall = scratchScores.reduce((accum, ss) => accum + ss, 0);
+        let gameCount = scratchScores.length;
+
         if (carryOverPins && carryOverGames) {
             pinFall += carryOverPins;
             gameCount += carryOverGames;
@@ -378,12 +386,31 @@ function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculato
         }
     }
 
+    // Set effective scratch score before calculating handicap, as that is used to calculate handicap
+    playerScore.games.forEach(game => {
+        if (game.blind) {
+            // We don't have scratch score
+            // TODO Deal with Handicap Penalty after missed games
+            game.effectiveScratchScore = playerScore.enteringAverage - (scoringRules.blindPenalty?.defaultPenalty ?? 0);
+        } else if (game.vacant && scoringRules.vacancyScore?.allowed) {
+            // Vacant position update handicap and score
+            game.effectiveScratchScore = scoringRules.vacancyScore.scratchScore ?? 0;
+        } else {
+            game.effectiveScratchScore = game.scratchScore;
+        }
+    });
+    const vacants = playerScore.games.map(g => g.vacant);
+    const isAllVacant = vacants.includes(true) && !vacants.includes(false);
+
     let hdcp = playerScore.enteringHdcp;
     if (hdcp == 0) {
         // Check if it is handicap setting day
         if (playerScore.hdcpSettingDay) {
-            // TODO Handle Carry Over Pins
-            hdcp = hdcpCalculator.calculateHandicap(hdcpCalculator.calculateAverge(playerScore.games));
+            if (isAllVacant && scoringRules.vacancyScore?.allowed) {
+                hdcp = scoringRules.vacancyScore?.handicap ?? 0;
+            } else {
+                hdcp = hdcpCalculator.calculateHandicap(hdcpCalculator.calculateAverge(playerScore.games));
+            }
         } else {
             hdcp = hdcpCalculator.calculateHandicap(playerScore.enteringAverage);
         }
@@ -395,24 +422,16 @@ function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculato
     let seriesEffectiveScratch = 0;
     let hdcpSeries = 0;
     let seriesHdcp = 0;
+    let gamesCount = 0;
+
     playerScore.games.forEach(game => {
         game.hdcp = hdcp;
-        if (game.blind) {
-            // We don't have scratch score
-            // TODO Deal with Handicap Penalty after missed games
-            game.effectiveScratchScore = playerScore.enteringAverage - (scoringRules.blindPenalty?.defaultPenalty ?? 0);
-        } else if (game.vacant && scoringRules.vacancyScore?.allowed) {
-            // Vacant position update handicap and score
-            game.hdcp = scoringRules.vacancyScore.handicap ?? 0;
-            game.effectiveScratchScore = scoringRules.vacancyScore.scratchScore ?? 0;
-        } else {
-            game.effectiveScratchScore = game.scratchScore;
-        }
         game.hdcpScore = game.effectiveScratchScore + game.hdcp;
         seriesScratch += game.scratchScore;
         seriesEffectiveScratch += game.effectiveScratchScore;
         hdcpSeries += game.hdcpScore;
         seriesHdcp += game.hdcp;
+        gamesCount += (game.scratchScore > 0) ? 1 : 0;
     })
 
     // Update Series
@@ -420,8 +439,8 @@ function calculatePlayerScores(playerScore: LeagueTeamPlayerScore, hdcpCalculato
     playerScore.series.effectiveScratchScore = seriesEffectiveScratch;
     playerScore.series.hdcp = seriesHdcp;
     playerScore.series.hdcpScore = hdcpSeries;
-    playerScore.series.average = seriesScratch / playerScore.games.length;
-    playerScore.series.games = playerScore.games.length;
+    playerScore.series.average = seriesScratch / gamesCount;
+    playerScore.series.games = gamesCount;
 }
 
 export function assignScoresAndPoints(matchup: LeagueMatchup, scoringRules: LeagueScoringRules, hdcpCalculator: HandicapCalculator, pointsCalculator: PointsCalculator, teamRoster: LeaguePlayer[]): void {
@@ -559,9 +578,8 @@ function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator: Han
 
       // Compute League Player Stats
       if (playerStats.gameStats.average > 0 || player.carryOverStats) {
-          playerStats.leaguePinfall = playerStats.pinfall;
-          playerStats.leagueGames = playerStats.gameStats.count;
-          playerStats.leagueAverage = playerStats.gameStats.average;
+          // League stats may be different than player stats
+          calcualtePlayerPinsGamesAvg(playerGames, playerStats);
 
           // Handle carry over stats from previous half league season
           if (player.carryOverStats) {
@@ -613,6 +631,25 @@ function calculateLeaguePlayerStats(team: TrackedLeagueTeam, hdcpCalculator: Han
 
       player.playerStats = playerStats;
   })
+}
+
+function calcualtePlayerPinsGamesAvg(series: TeamPlayerGameScore[][], stats: LeaguePlayerStats, gamesCount = 3) {
+
+    const effectiveGameScores : number[] = [];
+
+    series.forEach(serie => {
+        for (let i = 0; i < gamesCount; i++) {
+            const gameScore = serie[i];
+            if (!gameScore.blind) {
+                // TODO Externalize this rule later - in Arapahoe vacant counts for league stats but blind does not
+                effectiveGameScores.push(gameScore.effectiveScratchScore);
+            }
+        }
+    });
+
+    stats.leagueGames = effectiveGameScores.length;
+    stats.leagueAverage = ss.average(effectiveGameScores);
+    stats.leaguePinfall = ss.sum(effectiveGameScores);
 }
 
 function gatherLeagueStatsAndLeaders(league: LeagueDetails) {

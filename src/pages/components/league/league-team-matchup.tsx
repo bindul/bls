@@ -32,7 +32,13 @@ import type {LeagueDetails} from "../../../data/league/league-details";
 import {OtherLeagueTeam, TrackedLeagueTeam} from "../../../data/league/league-team-details";
 import {type Breakpoint, BS_BP_XS, isBreakpointSmallerThan} from "../ui-utils";
 import Loader from "../loader";
-import {type LeagueMatchup, type MatchupType, SeriesScore, TeamScore} from "../../../data/league/league-matchup";
+import {
+    GameScore,
+    type LeagueMatchup,
+    type MatchupType,
+    SeriesScore,
+    TeamScore
+} from "../../../data/league/league-matchup";
 import MatchupDetailsDisplay from "./league-team-matchup-details";
 import type {LeagueBowlingDurationUnit} from "../../../data/league/league-setup-config";
 
@@ -199,7 +205,7 @@ const MatchupDisplay :FC<MatchupDisplayProps> = ({leagueDetails, matchup, teamDe
     const calculateTeamHdcp = (gameScores?: GameScore[], seriesScore?: SeriesScore, preCalcHdcp?: number)=> {
         let hdcp = "UNKNOWN";
         if (gameScores?.length) {
-            const hdcps: number[] = gameScores.map(g => g.hdcp);
+            const hdcps: number[] = gameScores.map(g => g.hdcp) as number[];
             const hdcpi = ss.average(hdcps);
             if (hdcpi == hdcps[0]) {
                 hdcp = String (hdcpi);

@@ -48,6 +48,10 @@ export interface PlayerDayData {
 }
 function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
 
+    const hasNonBlindGames = (playerScore: LeagueTeamPlayerScore) => {
+        return playerScore.games.map(g => g.blind).includes(false);
+    }
+
     interface MatchupPlayerScore {
         matchup: LeagueMatchup;
         playerScore: LeagueTeamPlayerScore;
@@ -57,9 +61,10 @@ function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
     // We do this in 2 steps since we are grabbing average from the next matchup
     // TODO This is an ugly temporary solution until we move calculations to the backend and its hopefully calculated there
     const matchupPlayerScores : MatchupPlayerScore[] = [];
+
     teamDetails.matchups.forEach(matchup => {
         const playerScore = matchup.scores?.playerScores.find(ps => ps.player === playerId);
-        if (playerScore && !playerScore.games[0].blind) { // Assuming one game blind is all games blind
+        if (playerScore && hasNonBlindGames(playerScore)) {
             matchupPlayerScores.push({
                 matchup: matchup,
                 playerScore: playerScore
