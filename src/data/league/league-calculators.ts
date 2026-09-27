@@ -534,7 +534,9 @@ function rollupTeamScoresAndPoints(team: TrackedLeagueTeam) {
     team.matchups.forEach((matchup) => {
         pointsWon += matchup.pointsWonLost[0];
         pointsLost += matchup.pointsWonLost[1];
-        if (matchup.scores) {
+
+        // Ignore matchups which have not been bowled, just having the scores object is not enough
+        if (matchup.scores?.games.length || matchup.scores?.playerScores.length) {
             const scores = matchup.scores;
             teamScratch += scores.series.effectiveScratchScore;
             if (scores.series.effectiveScratchScore > highSeries) {
