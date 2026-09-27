@@ -52,6 +52,10 @@ function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
         return playerScore.games.map(g => g.blind).includes(false);
     }
 
+    const hasNonVacantGame = (playerScore: LeagueTeamPlayerScore) => {
+        return playerScore.games.map(g => g.vacant).includes(false);
+    }
+
     interface MatchupPlayerScore {
         matchup: LeagueMatchup;
         playerScore: LeagueTeamPlayerScore;
@@ -64,7 +68,7 @@ function createGameTableData(teamDetails: TrackedLeagueTeam, playerId: string) {
 
     teamDetails.matchups.forEach(matchup => {
         const playerScore = matchup.scores?.playerScores.find(ps => ps.player === playerId);
-        if (playerScore && hasNonBlindGames(playerScore)) {
+        if (playerScore && hasNonBlindGames(playerScore) && hasNonVacantGame(playerScore)) {
             matchupPlayerScores.push({
                 matchup: matchup,
                 playerScore: playerScore
