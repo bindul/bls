@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 23,
   "division": "2",
-  "current-rank": "PENDING",
+  "current-rank": "13",
   "roster": [
     {
       "id": "pb1",
@@ -310,7 +310,10 @@
       "entering-rank": "12",
       "lanes": [37, 38],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
+      "notes": [
+        "Season team accolades (division): Scratch Game #3 (722)",
+        "Weekly individual accolades (division / gender): Greg - Scratch Game #3 (244), Greg - Scratch Series #3 (591)"
+      ],
       "scores": {
         "player-scores": [
           {
@@ -358,7 +361,13 @@
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
-        "scores": {}
+        "scores": {
+          "games": [
+            { "scratch-score": 708 },
+            { "scratch-score": 599 },
+            { "scratch-score": 743 }
+          ]
+        }
       }
     },
     {
@@ -366,15 +375,15 @@
       "scheduled-date": "2026-10-08",
       "bowl-date": "2026-10-08",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "13",
       "lanes": [5, 6],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-22",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "15",
+        "hdcp": 186,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
