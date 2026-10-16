@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 23,
   "division": "2",
-  "current-rank": "7",
+  "current-rank": "11",
   "roster": [
     {
       "id": "pb1",
@@ -32,6 +32,12 @@
     {
       "id": "mr1",
       "name": "Martie",
+      "status": "SUBSTITUTE",
+      "parking-lot-threshold": 100
+    },
+    {
+      "id": "cm1",
+      "name": "Chris",
       "status": "SUBSTITUTE",
       "parking-lot-threshold": 100
     }
@@ -445,8 +451,50 @@
       "entering-rank": "7",
       "lanes": [29, 30],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
-      "scores": {},
+      "notes": [
+        "Season team accolades (division): Scratch Game #3 (722)"
+      ],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 153,
+            "games": [
+              {"frames": [["7S", "-"], ["7S", "2"], ["7", "/"], ["6", "-"], ["9", "/"], ["8S", "-"], ["9", "-"], ["7", "/"], ["8S", "1"], ["X", "6", "/"]]},
+              {"frames": [["-", "/"], ["X"], ["9", "/"], ["9", "/"], ["3", "/"], ["X"], ["9", "-"], ["4", "3"], ["X"], ["9", "/", "X"]]},
+              {"frames": [["7", "2"], ["6", "/"], ["7", "1"], ["6", "/"], ["5", "2"], ["7", "-"], ["3", "2"], ["7", "2"], ["X"], ["9", "-"]]}
+            ]
+          },
+          {
+            "player": "cm1",
+            "entering-average": 0,
+            "hdcp-setting-day": true,
+            "games": [
+              {"frames": [["X"], ["X"], ["X"], ["9", "-"], ["9", "/"], ["X"], ["5", "1"], ["X"], ["9", "-"], ["9", "/", "X"]]},
+              {"frames": [["X"], ["8S", "1"], ["9", "/"], ["9", "-"], ["7", "2"], ["X"], ["-", "/"], ["9", "/"], ["7", "/"], ["3", "5"]]},
+              {"frames": [["X"], ["6", "/"], ["-", "8"], ["9", "-"], ["X"], ["9", "/"], ["X"], ["9", "/"], ["9", "/"], ["X", "8", "/"]]}
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 154,
+            "games": [
+              {"frames": [["4S", "2"], ["X"], ["7", "/"], ["X"], ["5S", "3"], ["8", "/"], ["6", "/"], ["8", "/"], ["7", "/"], ["9", "-"]]},
+              {"frames": [["X"], ["X"], ["X"], ["9", "/"], ["7", "2"], ["8", "/"], ["8S", "/"], ["6S", "2"], ["5S", "-"], ["7", "2"]]},
+              {"frames": [["X"], ["9", "/"], ["X"], ["-", "9"], ["9", "/"], ["X"], ["8", "1"], ["X"], ["7S", "-"], ["8", "/", "9"]]}
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 184,
+            "games": [
+              {"frames": [["X"], ["9", "-"], ["6", "2"], ["8S", "-"], ["X"], ["8", "/"], ["8S", "1"], ["5", "3"], ["X"], ["7", "1"]]},
+              {"frames": [["-", "7"], ["7", "/"], ["X"], ["8", "/"], ["9", "/"], ["7", "/"], ["X"], ["8S", "1"], ["9", "/"], ["X", "7", "/"]]},
+              {"frames": [["8", "/"], ["X"], ["9", "-"], ["X"], ["X"], ["8", "/"], ["X"], ["9", "-"], ["X"], ["X", "8", "/"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2627-fall-beer-28",
         "entering-rank": "4",
@@ -454,7 +502,13 @@
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
-        "scores": {}
+        "scores": {
+          "games": [
+            { "scratch-score": 557 },
+            { "scratch-score": 609 },
+            { "scratch-score": 622 }
+          ]
+        }
       }
     },
     {
@@ -462,15 +516,15 @@
       "scheduled-date": "2026-10-22",
       "bowl-date": "2026-10-22",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "11",
       "lanes": [15, 16],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-26",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "15",
+        "hdcp": 165,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
