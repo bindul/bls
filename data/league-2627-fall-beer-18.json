@@ -586,8 +586,42 @@
       "entering-rank": "2",
       "lanes": [21, 22],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
-      "scores": {},
+      "notes": [
+        "Season team accolades (division): Handicap Series #1 (2845)",
+        "Season individual accolades (division / gender): Brian - Handicap Series #2 (807)"
+      ],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "ne1",
+            "entering-average": 195,
+            "games": [
+              {"frames": [["8", "1"], ["X"], ["9", "/"], ["8S", "1"], ["9", "/"], ["X"], ["9", "/"], ["X"], ["X"], ["X", "9", "/"]]},
+              {"frames": [["9", "/"], ["X"], ["X"], ["6", "2"], ["X"], ["X"], ["8", "-"], ["X"], ["7", "/"], ["X", "X", "X"]]},
+              {"frames": [["X"], ["5", "/"], ["X"], ["X"], ["8", "-"], ["X"], ["X"], ["8", "1"], ["-", "7"], ["X", "9", "/"]]}
+            ]
+          },
+          {"player": "bb1", "entering-average": 159, "games": [{"blind": true}, {"blind": true}, {"blind": true}]},
+          {
+            "player": "lw1",
+            "entering-average": 183,
+            "games": [
+              {"frames": [["X"], ["6", "2"], ["8", "-"], ["6S", "-"], ["9", "-"], ["8", "1"], ["7", "/"], ["7", "/"], ["8S", "1"], ["X", "8S", "1"]]},
+              {"frames": [["X"], ["9", "-"], ["9", "/"], ["X"], ["8S", "-"], ["9", "/"], ["6", "/"], ["9", "/"], ["7", "2"], ["X", "9", "/"]]},
+              {"frames": [["5S", "-"], ["9", "-"], ["9", "-"], ["-", "/"], ["9", "/"], ["X"], ["X"], ["8S", "1"], ["9", "/"], ["8S", "-"]]}
+            ]
+          },
+          {
+            "player": "zw1",
+            "entering-average": 114,
+            "games": [
+              {"frames": [["6", "1"], ["7", "2"], ["X"], ["6", "/"], ["7", "/"], ["7", "2"], ["9", "/"], ["X"], ["8", "/"], ["8", "-"]]},
+              {"frames": [["8", "-"], ["7", "/"], ["8S", "-"], ["-", "8"], ["8", "-"], ["9", "-"], ["7", "-"], ["9", "-"], ["X"], ["6", "3"]]},
+              {"frames": [["7", "/"], ["7", "-"], ["X"], ["6", "-"], ["6", "2"], ["X"], ["8", "/"], ["8", "-"], ["X"], ["-", "8"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2627-fall-beer-14",
         "entering-rank": "3",
@@ -595,7 +629,13 @@
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
-        "scores": {}
+        "scores": {
+          "games": [
+            { "scratch-score": 564 },
+            { "scratch-score": 641 },
+            { "scratch-score": 639 }
+          ]
+        }
       }
     },
     {
@@ -603,15 +643,15 @@
       "scheduled-date": "2026-10-29",
       "bowl-date": "2026-10-29",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "2",
       "lanes": [11, 12],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-2",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "13",
+        "hdcp": 170,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,

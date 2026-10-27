@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 23,
   "division": "2",
-  "current-rank": "11",
+  "current-rank": "14",
   "roster": [
     {
       "id": "pb1",
@@ -519,7 +519,9 @@
       "entering-rank": "11",
       "lanes": [15, 16],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
+      "notes": [
+        "Season team accolades (division): Scratch Game #3 (722)"
+      ],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-26",
@@ -536,7 +538,7 @@
       "scheduled-date": "2026-10-29",
       "bowl-date": "2026-10-29",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "14",
       "lanes": [39, 40],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
