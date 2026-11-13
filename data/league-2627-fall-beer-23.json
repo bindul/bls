@@ -653,16 +653,64 @@
       "entering-rank": "8",
       "lanes": [17, 18],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
-      "scores": {},
+      "notes": [
+        "Season team accolades (division): Handicap Series #2 (2619)",
+        "Weekly team accolades (division): Scratch Game #1 (787)"
+      ],
+      "scores": {
+        "player-scores": [
+          {
+            "player": "pb1",
+            "entering-average": 146,
+            "games": [
+              {"frames": [["7", "1"], ["8", "/"], ["X"], ["7S", "1"], ["X"], ["9", "/"], ["9", "/"], ["7", "/"], ["X"], ["X", "X", "9"]]},
+              {"frames": [["X"], ["X"], ["9", "/"], ["9", "-"], ["5", "4"], ["X"], ["9", "/"], ["X"], ["7", "/"], ["X", "7S", "2"]]},
+              {"frames": [["8S", "1"], ["9", "-"], ["X"], ["X"], ["5", "3"], ["X"], ["8S", "1"], ["5", "4"], ["9", "-"], ["9", "/", "3"]]}
+            ]
+          },
+          {
+            "player": "ms1",
+            "entering-average": 140,
+            "games": [
+              {"frames": [["7", "2"], ["6", "3"], ["6", "1"], ["8S", "-"], ["9", "/"], ["7", "1"], ["X"], ["X"], ["8", "/"], ["3", "6"]]},
+              {"frames": [["7", "/"], ["9", "-"], ["8S", "1"], ["8S", "-"], ["9", "/"], ["9", "/"], ["X"], ["X"], ["7", "/"], ["X", "X", "X"]]},
+              {"frames": [["9", "-"], ["7", "1"], ["8S", "-"], ["X"], ["X"], ["6", "1"], ["8", "/"], ["8S", "1"], ["7", "/"], ["8S", "-"]]}
+            ]
+          },
+          {
+            "player": "tg1",
+            "entering-average": 157,
+            "games": [
+              {"frames": [["9", "/"], ["8", "/"], ["8S", "-"], ["7S", "2"], ["9", "-"], ["9", "/"], ["9", "/"], ["-", "9"], ["X"], ["X", "X", "8"]]},
+              {"frames": [["X"], ["9", "/"], ["-", "9"], ["7S", "2"], ["8S", "/"], ["8", "/"], ["X"], ["X"], ["9", "/"], ["8S", "1"]]},
+              {"frames": [["8", "/"], ["8", "/"], ["8", "/"], ["X"], ["7", "/"], ["6", "1"], ["8", "/"], ["X"], ["X"], ["8", "/", "9"]]}
+            ]
+          },
+          {
+            "player": "gz1",
+            "entering-average": 180,
+            "games": [
+              {"frames": [["X"], ["X"], ["X"], ["X"], ["X"], ["9", "-"], ["6S", "3"], ["X"], ["X"], ["X", "9", "/"]]},
+              {"frames": [["7", "/"], ["8", "/"], ["X"], ["9", "/"], ["8", "/"], ["8", "/"], ["X"], ["9", "/"], ["X"], ["9", "/", "9"]]},
+              {"frames": [["8", "/"], ["9", "/"], ["9", "/"], ["7", "2"], ["6S", "-"], ["9", "/"], ["9", "-"], ["X"], ["X"], ["9", "/", "7"]]}
+            ]
+          }
+        ]
+      },
       "opponent": {
         "team-id": "2627-fall-beer-34",
         "entering-rank": "1",
-        "hdcp": 104,
+        "hdcp": 102,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
-        "scores": {}
+        "scores": {
+          "games": [
+            { "scratch-score": 681 },
+            { "scratch-score": 819 },
+            { "scratch-score": 770 }
+          ]
+        }
       }
     },
     {
@@ -670,15 +718,15 @@
       "scheduled-date": "2026-11-12",
       "bowl-date": "2026-11-12",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "8",
       "lanes": [23, 24],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-27",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "10",
+        "hdcp": 268,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
