@@ -3,7 +3,7 @@
   "name": "Pins Go Boom!",
   "number": 18,
   "division": "1",
-  "current-rank": "PENDING",
+  "current-rank": "2",
   "roster": [
     {
       "id": "ne1",
@@ -792,7 +792,11 @@
       "entering-rank": "3",
       "lanes": [17, 18],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
+      "notes": [
+        "Season team accolades (division): Handicap Series #1 (2845)",
+        "Season individual accolades (division / gender): Brian - Handicap Series #2 (807)",
+        "Weekly team accolades (division): Scratch Game #3 (814), Scratch Series #3 (2261), Handicap Game #3 (921)"
+      ],
       "scores": {
         "player-scores": [
           {"player": "ne1", "entering-average": 192, "games": [{"blind": true}, {"blind": true}, {"blind": true}]},
@@ -852,15 +856,15 @@
       "scheduled-date": "2026-11-19",
       "bowl-date": "2026-11-19",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "2",
       "lanes": [25, 26],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-5",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "9",
+        "hdcp": 199,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,

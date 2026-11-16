@@ -3,7 +3,7 @@
   "name": "Hookers & Bowl",
   "number": 23,
   "division": "2",
-  "current-rank": "PENDING",
+  "current-rank": "6",
   "roster": [
     {
       "id": "pb1",
@@ -721,7 +721,9 @@
       "entering-rank": "8",
       "lanes": [23, 24],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
-      "notes": [],
+      "notes": [
+        "Weekly team accolades (division): Handicap Series #1 (2610)"
+      ],
       "scores": {
         "player-scores": [
           {
@@ -769,7 +771,13 @@
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
-        "scores": {}
+        "scores": {
+          "games": [
+            { "scratch-score": 543 },
+            { "scratch-score": 544 },
+            { "scratch-score": 564 }
+          ]
+        }
       }
     },
     {
@@ -777,15 +785,15 @@
       "scheduled-date": "2026-11-19",
       "bowl-date": "2026-11-19",
       "matchup-type": "REGULAR-DIVISION",
-      "entering-rank": "PENDING",
+      "entering-rank": "6",
       "lanes": [19, 20],
       "oil-pattern": "HOUSE-SHOT-2ND-LEAGUE",
       "notes": [],
       "scores": {},
       "opponent": {
         "team-id": "2627-fall-beer-30",
-        "entering-rank": "PENDING",
-        "hdcp": 0,
+        "entering-rank": "14",
+        "hdcp": 203,
         "vacant": false,
         "absent": false,
         "pre-post-bowl": false,
